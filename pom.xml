@@ -10,6 +10,7 @@
 
     <modules>
         <module>employee-spring-full-master</module>
+        <module>commons</module>
     </modules>
     <packaging>pom</packaging>
 

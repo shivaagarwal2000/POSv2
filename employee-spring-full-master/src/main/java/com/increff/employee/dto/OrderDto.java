@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.increff.employee.model.data.OrderData;
 import com.increff.employee.model.data.OrderItemData;
-import com.increff.employee.model.data.SalesReportData;
 import com.increff.employee.model.forms.OrderItemForm;
 import com.increff.employee.model.forms.SalesReportForm;
 import com.increff.employee.pojo.BrandPojo;
@@ -154,61 +153,6 @@ public class OrderDto {
 		}
 		return itemDatas;
 	}
-
-
-
-//	public List<SalesReportData> getSalesReportDatas(SalesReportForm salesReportForm) throws ApiException {
-//		String startDate = salesReportForm.getStartDate();
-//		String endDate = salesReportForm.getEndDate();
-//		String brand = salesReportForm.getBrand();
-//		String category = salesReportForm.getCategory();
-//
-//		if (startDate.isEmpty()) {
-//			startDate = "1970";
-//		}
-//		if (endDate.isEmpty()) {
-//			endDate = "3000";
-//		}
-//		List<OrderPojo> orderPojos = orderService.getBetweenDates(startDate, endDate);
-//		System.out.println(orderPojos);
-//		List<SalesReportData> salesReportDatas = new ArrayList<SalesReportData>();
-//		HashMap<String, SalesReportData> hash_map = new HashMap<String, SalesReportData>();
-//
-//		for (OrderPojo orderPojo : orderPojos) {
-//			List<OrderItemPojo> orderItemPojos = orderItemService.getItemPojos(orderPojo.getId());
-//
-//			for (OrderItemPojo orderItemPojo : orderItemPojos) {
-//				ProductPojo productPojo = productService.get(orderItemPojo.getProductId());
-//				BrandPojo brandPojo = brandService.get(productPojo.getBrand_category());
-//				if (hash_map.containsKey(brandPojo.getBrand() + brandPojo.getCategory())) {
-//					SalesReportData salesReportData = new SalesReportData();
-//					salesReportData.setBrand(brandPojo.getBrand());
-//					salesReportData.setCategory(brandPojo.getCategory());
-//					salesReportData
-//							.setQuantity(hash_map.get(brandPojo.getBrand() + brandPojo.getCategory()).getQuantity()
-//									+ orderItemPojo.getQuantity());
-//					salesReportData.setRevenue(hash_map.get(brandPojo.getBrand() + brandPojo.getCategory()).getRevenue()
-//							+ orderItemPojo.getSellingprice());
-//					hash_map.put(brandPojo.getBrand() + brandPojo.getCategory(), salesReportData);
-//				} else {
-//					SalesReportData salesReportData = new SalesReportData();
-//					salesReportData.setBrand(brandPojo.getBrand());
-//					salesReportData.setCategory(brandPojo.getCategory());
-//					salesReportData.setQuantity(orderItemPojo.getQuantity());
-//					salesReportData.setRevenue(orderItemPojo.getSellingprice());
-//					hash_map.put(brandPojo.getBrand() + brandPojo.getCategory(), salesReportData);
-//				}
-//			}
-//
-//		}
-//
-//		for (String key : hash_map.keySet()) {
-//			salesReportDatas.add(hash_map.get(key));
-//		}
-//
-//		return salesReportDatas;
-//
-//	}
 
 	public List<CommonSalesReportData> getSalesReportDatas(SalesReportForm salesReportForm) throws ApiException {
 		String startDate = salesReportForm.getStartDate();
