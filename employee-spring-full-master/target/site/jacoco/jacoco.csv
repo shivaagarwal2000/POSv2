@@ -38,7 +38,6 @@ employee-spring,com.increff.employee.controller,LoginController,86,3,6,0,19,1,6,
 employee-spring,com.increff.employee.controller,EmployeeApiController,88,3,2,0,25,1,8,1,7,1
 employee-spring,com.increff.employee.controller,AppRestControllerAdvice,27,3,0,0,6,1,2,1,2,1
 employee-spring,com.increff.employee.controller,BrandApiController,25,3,0,0,8,1,5,1,5,1
-employee-spring,com.increff.employee.pojo,TestDateTime,24,0,0,0,6,0,2,0,2,0
 employee-spring,com.increff.employee.pojo,EmployeePojo,14,10,0,0,6,4,4,3,4,3
 employee-spring,com.increff.employee.pojo,OrderItemPojo,35,3,0,0,15,1,10,1,10,1
 employee-spring,com.increff.employee.pojo,BrandPojo,21,3,0,0,4,1,6,1,6,1
@@ -63,7 +62,7 @@ employee-spring,com.increff.employee.model,UserForm,24,0,0,0,10,0,7,0,7,0
 employee-spring,com.increff.employee.model,AboutAppData,17,0,0,0,7,0,5,0,5,0
 employee-spring,com.increff.employee.model,InfoData,23,0,0,0,10,0,5,0,5,0
 employee-spring,com.increff.employee.model,LoginForm,17,0,0,0,7,0,5,0,5,0
-employee-spring,com.increff.employee.dto,BrandDto,99,3,12,0,26,1,13,1,7,1
+employee-spring,com.increff.employee.dto,BrandDto,125,3,20,0,28,1,16,1,6,1
 employee-spring,com.increff.employee.dto,ProductDto,131,3,8,0,31,1,9,1,5,1
 employee-spring,com.increff.employee.dto,InventoryDto,216,3,16,0,46,1,15,1,7,1
 employee-spring,com.increff.employee.dto,OrderDto,548,3,32,0,116,1,22,1,6,1

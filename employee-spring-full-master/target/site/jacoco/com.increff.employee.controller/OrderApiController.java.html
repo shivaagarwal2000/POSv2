@@ -3,7 +3,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import org.example.CommonSalesReportData;
+import com.increff.employee.model.data.SalesReportData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -71,10 +71,10 @@ import io.swagger.annotations.ApiOperation;
 
 	@ApiOperation(value = &quot;get order report&quot;)
 	@RequestMapping(path = &quot;/api/order/report&quot;, method = RequestMethod.POST)
-	public List&lt;CommonSalesReportData&gt; getSalesReport(@RequestBody SalesReportForm salesReportForm) throws ApiException {
+	public List&lt;SalesReportData&gt; getSalesReport(@RequestBody SalesReportForm salesReportForm) throws ApiException {
 <span class="nc" id="L75">		salesReportForm.setStartDate(salesReportForm.getStartDate().replace('-', '/'));</span>
 <span class="nc" id="L76">		salesReportForm.setEndDate(salesReportForm.getEndDate().replace('-', '/'));</span>
-<span class="nc" id="L77">		List&lt;CommonSalesReportData&gt; salesReportDatas = orderDto.getSalesReportDatas(salesReportForm);</span>
+<span class="nc" id="L77">		List&lt;SalesReportData&gt; salesReportDatas = orderDto.getSalesReportDatas(salesReportForm);</span>
 <span class="nc" id="L78">		return salesReportDatas;</span>
 	}
 

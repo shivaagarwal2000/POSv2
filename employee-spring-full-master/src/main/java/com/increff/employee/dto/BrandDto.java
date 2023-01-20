@@ -24,6 +24,9 @@ public class BrandDto {
 			throw new ApiException("Error: either of brand/category can not be empty");
 		}
 		BrandDtoHelper.normalise(form);
+		if (form.getBrand().length() > 50 || form.getCategory().length() > 50){
+			throw new ApiException("Error: length of brand, category exceeds maximum limit");
+		}
 		BrandPojo brandPojo = validate(form);
 		if (brandPojo != null) {
 			throw new ApiException("Error: given brand, category combination already exists");
@@ -41,15 +44,14 @@ public class BrandDto {
 		return BrandDtoHelper.getAll(list);
 	}
 
-	public void printMessage(){
-		System.out.println("Test msg commit");
-	}
-
 	public void update(int id, BrandForm form) throws ApiException {
 		if (StringUtil.isEmpty(form.getBrand()) || StringUtil.isEmpty(form.getCategory())) {
 			throw new ApiException("brand/category can not be empty");
 		}
 		BrandDtoHelper.normalise(form);
+		if (form.getBrand().length() > 50 || form.getCategory().length() > 50){
+			throw new ApiException("Error: length of brand/category exceeds maximum limit");
+		}
 		BrandPojo oldBrandPojo = validate(form);
 		if (oldBrandPojo != null) {
 			throw new ApiException("Error: given brand, category combination already exists");

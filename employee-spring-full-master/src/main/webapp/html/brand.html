@@ -21,15 +21,15 @@
                     <div class="form-group">
                         <label for="inputBrand" class="col-sm-2 col-form-label">Brand</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="brand"
-                                   id="inputBrand" placeholder="enter brand">
+                            <input type="text" required class="form-control" name="brand"
+                                   id="inputBrand" placeholder="enter brand" maxlength="50">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputCategory" class="col-sm-2 col-form-label">Category</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="category"
-                                   id="inputCategory" placeholder="enter category">
+                                   id="inputCategory" placeholder="enter category" maxlength="50">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary" id="add-brand">Add</button>
@@ -83,17 +83,17 @@
                     <div class="modal-body">
                         <form class="form-inline" id="brand-edit-form">
                             <div class="form-group">
-                                <label for="inputBrand" class="col-sm-2 col-form-label">Brand</label>
+                                <label for="inputEditBrand" class="col-sm-2 col-form-label">Brand</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" name="brand"
-                                           id="inputBrand" placeholder="enter brand">
+                                           id="inputEditBrand" placeholder="enter brand">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputCategory" class="col-sm-2 col-form-label">Category</label>
+                                <label for="inputEditCategory" class="col-sm-2 col-form-label">Category</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" name="category"
-                                           id="inputCategory" placeholder="enter category">
+                                           id="inputEditCategory" placeholder="enter category">
                                 </div>
                             </div>
                             <input type="hidden" name="id">
@@ -154,7 +154,7 @@
 
 <footer th:replace="snippets.html :: name_footer"></footer>
 
-<script th:src="@{/static/brand.js}"/>
+<script th:src="@{/static/brand.js}">
 </script>
 
 </body>
