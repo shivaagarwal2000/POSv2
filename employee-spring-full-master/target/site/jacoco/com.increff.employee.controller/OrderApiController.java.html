@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderApiController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">employee-spring</a> &gt; <a href="index.source.html" class="el_package">com.increff.employee.controller</a> &gt; <span class="el_source">OrderApiController.java</span></div><h1>OrderApiController.java</h1><pre class="source lang-java linenums">package com.increff.employee.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.example.CommonSalesReportData;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.increff.employee.dto.OrderDto;
+import com.increff.employee.model.data.OrderData;
+import com.increff.employee.model.data.OrderItemData;
+import com.increff.employee.model.forms.OrderItemForm;
+import com.increff.employee.model.forms.SalesReportForm;
+import com.increff.employee.service.ApiException;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api
+@RestController
+<span class="fc" id="L26">public class OrderApiController {</span>
+
+	@Autowired
+	private OrderDto orderDto;
+
+	@ApiOperation(value = &quot;Gets all order items&quot;)
+	@RequestMapping(path = &quot;/api/order&quot;, method = RequestMethod.GET)
+	public List&lt;OrderData&gt; getAllOrders() throws ApiException {
+<span class="nc" id="L34">		return orderDto.getAll();</span>
+	}
+
+	@ApiOperation(value = &quot;places an order&quot;)
+	@RequestMapping(path = &quot;/api/placeOrder&quot;, method = RequestMethod.POST)
+	public void placeOrder(@RequestBody List&lt;OrderItemForm&gt; forms) throws ApiException {
+
+<span class="nc" id="L41">		orderDto.add(forms);</span>
+<span class="nc" id="L42">	}</span>
+
+	@ApiOperation(value = &quot;Gets all order items&quot;)
+	@RequestMapping(path = &quot;/api/placeOrder&quot;, method = RequestMethod.GET)
+	public List&lt;OrderItemData&gt; getAllOrderItems() throws ApiException {
+<span class="nc" id="L47">		return orderDto.getAllOrderItems();</span>
+	}
+
+	@ApiOperation(value = &quot;gets a order&quot;)
+	@RequestMapping(path = &quot;/api/order/{id}&quot;, method = RequestMethod.GET)
+	public List&lt;OrderItemData&gt; get(@PathVariable int id) throws ApiException {
+<span class="nc" id="L53">		return orderDto.getItemDatas(id);</span>
+
+	}
+
+	@ApiOperation(value = &quot;delete a order&quot;)
+	@RequestMapping(path = &quot;/api/order/{id}&quot;, method = RequestMethod.DELETE)
+	public void delete(@PathVariable int id) throws ApiException {
+<span class="nc" id="L60">		orderDto.deleteOrder(id);</span>
+<span class="nc" id="L61">	}</span>
+
+//	@ApiOperation(value = &quot;get order report&quot;)
+//	@RequestMapping(path = &quot;/api/order/report&quot;, method = RequestMethod.POST)
+//	public List&lt;SalesReportData&gt; getSalesReport(@RequestBody SalesReportForm salesReportForm) throws ApiException {
+//		salesReportForm.setStartDate(salesReportForm.getStartDate().replace('-', '/'));
+//		salesReportForm.setEndDate(salesReportForm.getEndDate().replace('-', '/'));
+//		List&lt;SalesReportData&gt; salesReportDatas = orderDto.getSalesReportDatas(salesReportForm);
+//		return salesReportDatas;
+//	}
+
+	@ApiOperation(value = &quot;get order report&quot;)
+	@RequestMapping(path = &quot;/api/order/report&quot;, method = RequestMethod.POST)
+	public List&lt;CommonSalesReportData&gt; getSalesReport(@RequestBody SalesReportForm salesReportForm) throws ApiException {
+<span class="nc" id="L75">		salesReportForm.setStartDate(salesReportForm.getStartDate().replace('-', '/'));</span>
+<span class="nc" id="L76">		salesReportForm.setEndDate(salesReportForm.getEndDate().replace('-', '/'));</span>
+<span class="nc" id="L77">		List&lt;CommonSalesReportData&gt; salesReportDatas = orderDto.getSalesReportDatas(salesReportForm);</span>
+<span class="nc" id="L78">		return salesReportDatas;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

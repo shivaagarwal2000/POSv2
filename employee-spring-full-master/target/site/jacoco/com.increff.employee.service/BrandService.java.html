@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BrandService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">employee-spring</a> &gt; <a href="index.source.html" class="el_package">com.increff.employee.service</a> &gt; <span class="el_source">BrandService.java</span></div><h1>BrandService.java</h1><pre class="source lang-java linenums">package com.increff.employee.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.increff.employee.dao.BrandDao;
+import com.increff.employee.pojo.BrandPojo;
+
+@Service
+<span class="fc" id="L13">public class BrandService {</span>
+
+	@Autowired
+	private BrandDao brandDao;
+
+	@Transactional(rollbackFor = ApiException.class)
+	public void add(BrandPojo brandPojo) throws ApiException {
+<span class="nc" id="L20">		brandDao.insert(brandPojo);</span>
+<span class="nc" id="L21">	}</span>
+
+	@Transactional(readOnly = true)
+	public BrandPojo get(int id) throws ApiException {
+<span class="nc" id="L25">		return getCheck(id);</span>
+	}
+
+	@Transactional(readOnly = true)
+	public List&lt;BrandPojo&gt; getAll() {
+<span class="nc" id="L30">		return brandDao.selectAll();</span>
+	}
+
+	@Transactional(rollbackFor = ApiException.class)
+	public void update(int id, BrandPojo brandPojo) throws ApiException {
+<span class="nc" id="L35">		BrandPojo oldBrandPojo = getCheck(id);</span>
+<span class="nc" id="L36">		oldBrandPojo.setBrand(brandPojo.getBrand());</span>
+<span class="nc" id="L37">		oldBrandPojo.setCategory(brandPojo.getCategory());</span>
+<span class="nc" id="L38">		brandDao.update(oldBrandPojo);</span>
+<span class="nc" id="L39">	}</span>
+
+	@Transactional(rollbackFor = ApiException.class)
+	public void delete(int id) {
+<span class="nc" id="L43">		brandDao.delete(id);</span>
+<span class="nc" id="L44">	}</span>
+
+	@Transactional(readOnly = true)
+	public BrandPojo getCheck(int id) throws ApiException {
+<span class="nc" id="L48">		BrandPojo brandPojo = brandDao.select(id);</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">		if (brandPojo == null) {</span>
+<span class="nc" id="L50">			throw new ApiException(&quot;Brand with given ID does not exit, id: &quot; + id);</span>
+		}
+<span class="nc" id="L52">		return brandPojo;</span>
+	}
+
+	@Transactional(readOnly = true)
+	public BrandPojo get(String brand, String category) {
+<span class="nc" id="L57">		return brandDao.select(brand, category);</span>
+
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

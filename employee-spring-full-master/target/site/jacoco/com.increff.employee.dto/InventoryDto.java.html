@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InventoryDto.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">employee-spring</a> &gt; <a href="index.source.html" class="el_package">com.increff.employee.dto</a> &gt; <span class="el_source">InventoryDto.java</span></div><h1>InventoryDto.java</h1><pre class="source lang-java linenums">package com.increff.employee.dto;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.increff.employee.helper.InventoryDtoHelper;
+import com.increff.employee.model.data.InventoryData;
+import com.increff.employee.model.data.InventoryReportData;
+import com.increff.employee.model.forms.InventoryForm;
+import com.increff.employee.pojo.BrandPojo;
+import com.increff.employee.pojo.InventoryPojo;
+import com.increff.employee.pojo.ProductPojo;
+import com.increff.employee.service.ApiException;
+import com.increff.employee.service.BrandService;
+import com.increff.employee.service.InventoryService;
+import com.increff.employee.service.ProductService;
+import com.increff.employee.util.StringUtil;
+
+@Service
+<span class="fc" id="L24">public class InventoryDto {</span>
+
+	@Autowired
+	private InventoryService inventoryService;
+
+	@Autowired
+	private ProductService productService;
+
+	@Autowired
+	private BrandService brandService;
+
+	public void add(InventoryForm form) throws ApiException {
+<span class="nc bnc" id="L36" title="All 4 branches missed.">		if (StringUtil.isEmpty(form.getBarcode()) || StringUtil.isEmpty(String.valueOf(form.getQuantity()))) {</span>
+<span class="nc" id="L37">			throw new ApiException(&quot;Error: barcode/quantity can not be empty&quot;);</span>
+		}
+<span class="nc" id="L39">		InventoryDtoHelper.normalise(form);</span>
+<span class="nc" id="L40">		ProductPojo productPojo = validate(form.getBarcode());</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">		if (productPojo == null) {</span>
+<span class="nc" id="L42">			throw new ApiException(&quot;Error: product with given barcode does not exist&quot;);</span>
+		}
+<span class="nc" id="L44">		InventoryPojo inventoryPojo = InventoryDtoHelper.convert(form, productPojo.getId());</span>
+<span class="nc" id="L45">		inventoryService.add(inventoryPojo);</span>
+<span class="nc" id="L46">	}</span>
+
+	public InventoryData get(int id) throws ApiException {
+<span class="nc" id="L49">		InventoryPojo inventoryPojo = inventoryService.get(id);</span>
+<span class="nc" id="L50">		ProductPojo productPojo = productService.get(id);</span>
+<span class="nc" id="L51">		return InventoryDtoHelper.convert(inventoryPojo, productPojo.getBarcode());</span>
+	}
+
+	public List&lt;InventoryData&gt; getAll() throws ApiException {
+<span class="nc" id="L55">		List&lt;InventoryPojo&gt; list = inventoryService.getAll();</span>
+<span class="nc" id="L56">		List&lt;InventoryData&gt; list2 = new ArrayList&lt;InventoryData&gt;();</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">		for (InventoryPojo p : list) {</span>
+<span class="nc" id="L58">			ProductPojo productPojo = productService.get(p.getId());</span>
+<span class="nc" id="L59">			list2.add(InventoryDtoHelper.convert(p, productPojo.getBarcode()));</span>
+<span class="nc" id="L60">		}</span>
+<span class="nc" id="L61">		return list2;</span>
+	}
+
+	public List&lt;InventoryReportData&gt; getReportData() throws ApiException {
+<span class="nc" id="L65">		List&lt;InventoryData&gt; inventoryDatas = getAll();</span>
+<span class="nc" id="L66">		List&lt;InventoryReportData&gt; reportDatas = new ArrayList&lt;InventoryReportData&gt;();</span>
+
+<span class="nc" id="L68">		HashMap&lt;Integer, Integer&gt; hash_map = new HashMap&lt;Integer, Integer&gt;();</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">		for (InventoryData inventoryData : inventoryDatas) {</span>
+<span class="nc" id="L70">			ProductPojo productPojo = productService.get(inventoryData.getBarcode());</span>
+<span class="nc" id="L71">			hash_map.put(productPojo.getBrand_category(),</span>
+<span class="nc" id="L72">					hash_map.getOrDefault(productPojo.getBrand_category(), 0) + inventoryData.getQuantity());</span>
+<span class="nc" id="L73">		}</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">		for (int key : hash_map.keySet()) {</span>
+<span class="nc" id="L75">			InventoryReportData inventoryReportData = new InventoryReportData();</span>
+<span class="nc" id="L76">			BrandPojo brandPojo = brandService.get(key);</span>
+<span class="nc" id="L77">			inventoryReportData.setBrand(brandPojo.getBrand());</span>
+<span class="nc" id="L78">			inventoryReportData.setCategory(brandPojo.getCategory());</span>
+<span class="nc" id="L79">			inventoryReportData.setQuantity(hash_map.get(key));</span>
+<span class="nc" id="L80">			reportDatas.add(inventoryReportData);</span>
+<span class="nc" id="L81">		}</span>
+<span class="nc" id="L82">		return reportDatas;</span>
+	}
+
+	public void update(int id, InventoryForm form) throws ApiException {
+<span class="nc bnc" id="L86" title="All 4 branches missed.">		if (StringUtil.isEmpty(form.getBarcode()) || StringUtil.isEmpty(String.valueOf(form.getQuantity()))) {</span>
+<span class="nc" id="L87">			throw new ApiException(&quot;Error: barcode/quantity can not be empty&quot;);</span>
+		}
+<span class="nc" id="L89">		InventoryDtoHelper.normalise(form);</span>
+<span class="nc" id="L90">		InventoryPojo b = InventoryDtoHelper.convert(form, id);</span>
+<span class="nc" id="L91">		inventoryService.update(id, b);</span>
+<span class="nc" id="L92">	}</span>
+
+	public void delete(int id) throws ApiException {
+<span class="nc" id="L95">		inventoryService.delete(id);</span>
+<span class="nc" id="L96">	}</span>
+
+	public ProductPojo validate(String barcode) {
+<span class="nc" id="L99">		ProductPojo productPojo = productService.get(barcode);</span>
+<span class="nc" id="L100">		return productPojo;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

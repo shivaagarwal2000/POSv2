@@ -3,7 +3,7 @@ package com.increff.employee.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.example.CommonSalesReportData;
+import com.increff.employee.model.data.SalesReportData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -71,10 +71,10 @@ public class OrderApiController {
 
 	@ApiOperation(value = "get order report")
 	@RequestMapping(path = "/api/order/report", method = RequestMethod.POST)
-	public List<CommonSalesReportData> getSalesReport(@RequestBody SalesReportForm salesReportForm) throws ApiException {
+	public List<SalesReportData> getSalesReport(@RequestBody SalesReportForm salesReportForm) throws ApiException {
 		salesReportForm.setStartDate(salesReportForm.getStartDate().replace('-', '/'));
 		salesReportForm.setEndDate(salesReportForm.getEndDate().replace('-', '/'));
-		List<CommonSalesReportData> salesReportDatas = orderDto.getSalesReportDatas(salesReportForm);
+		List<SalesReportData> salesReportDatas = orderDto.getSalesReportDatas(salesReportForm);
 		return salesReportDatas;
 	}
 
