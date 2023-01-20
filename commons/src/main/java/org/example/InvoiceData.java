@@ -1,6 +1,6 @@
 package org.example;
 
-public class CommonSalesReportData {
+public class InvoiceData {
 
     private String brand;
     private String category;
