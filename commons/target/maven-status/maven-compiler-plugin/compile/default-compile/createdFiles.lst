@@ -1,1 +1,2 @@
-org/example/CommonSalesReportData.class
+org/example/InvoiceData.class
+org/example/CommonOrderItemData.class

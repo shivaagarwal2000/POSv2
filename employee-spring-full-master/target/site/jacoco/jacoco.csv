@@ -1,6 +1,6 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 employee-spring,com.increff.employee.model.data,SalesReportData,31,0,0,0,13,0,9,0,9,0
-employee-spring,com.increff.employee.model.data,OrderItemData,31,0,0,0,13,0,9,0,9,0
+employee-spring,com.increff.employee.model.data,CommonOrderItemData,38,0,0,0,16,0,11,0,11,0
 employee-spring,com.increff.employee.model.data,InventoryData,10,0,0,0,4,0,3,0,3,0
 employee-spring,com.increff.employee.model.data,OrderData,17,0,0,0,7,0,5,0,5,0
 employee-spring,com.increff.employee.model.data,BrandData,10,0,0,0,4,0,3,0,3,0
@@ -65,7 +65,7 @@ employee-spring,com.increff.employee.model,LoginForm,17,0,0,0,7,0,5,0,5,0
 employee-spring,com.increff.employee.dto,BrandDto,125,3,20,0,28,1,16,1,6,1
 employee-spring,com.increff.employee.dto,ProductDto,131,3,8,0,31,1,9,1,5,1
 employee-spring,com.increff.employee.dto,InventoryDto,216,3,16,0,46,1,15,1,7,1
-employee-spring,com.increff.employee.dto,OrderDto,548,3,32,0,116,1,22,1,6,1
+employee-spring,com.increff.employee.dto,OrderDto,556,3,32,0,118,1,22,1,6,1
 employee-spring,com.increff.employee.model.forms,ProductForm,38,0,0,0,16,0,11,0,11,0
 employee-spring,com.increff.employee.model.forms,InventoryForm,17,0,0,0,7,0,5,0,5,0
 employee-spring,com.increff.employee.model.forms,BrandForm,17,0,0,0,7,0,5,0,5,0

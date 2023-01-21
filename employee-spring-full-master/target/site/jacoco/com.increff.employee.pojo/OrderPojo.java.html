@@ -8,7 +8,7 @@ import javax.persistence.*;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(nullable = false)
+	@Column(nullable = false) //TODO: zone date time
 	private String orderTime;
 
 	public int getId() {

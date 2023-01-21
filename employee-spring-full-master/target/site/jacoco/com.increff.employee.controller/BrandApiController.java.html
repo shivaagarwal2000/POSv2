@@ -17,9 +17,10 @@ import com.increff.employee.service.ApiException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+//TODO: class level request mapping
 @Api
 @RestController
-<span class="fc" id="L22">public class BrandApiController {</span>
+<span class="fc" id="L23">public class BrandApiController {</span>
 
 	@Autowired
 	private BrandDto brandDto;
@@ -27,34 +28,34 @@ import io.swagger.annotations.ApiOperation;
 	@ApiOperation(value = &quot;Adds a brand&quot;)
 	@RequestMapping(path = &quot;/api/brand&quot;, method = RequestMethod.POST)
 	public void add(@RequestBody BrandForm form) throws ApiException {
-<span class="nc" id="L30">		brandDto.add(form);</span>
-<span class="nc" id="L31">	}</span>
+<span class="nc" id="L31">		brandDto.add(form);</span>
+<span class="nc" id="L32">	}</span>
 
 	@ApiOperation(value = &quot;gets a brand&quot;)
 	@RequestMapping(path = &quot;/api/brand/{id}&quot;, method = RequestMethod.GET)
 	public BrandData get(@PathVariable int id) throws ApiException {
-<span class="nc" id="L36">		return brandDto.get(id);</span>
+<span class="nc" id="L37">		return brandDto.get(id);</span>
 
 	}
 
 	@ApiOperation(value = &quot;Gets list of all brands&quot;)
 	@RequestMapping(path = &quot;/api/brand&quot;, method = RequestMethod.GET)
 	public List&lt;BrandData&gt; getAll() {
-<span class="nc" id="L43">		return brandDto.getAll();</span>
+<span class="nc" id="L44">		return brandDto.getAll();</span>
 	}
 
 //	test commit
 	@ApiOperation(value = &quot;updates a brand&quot;)
 	@RequestMapping(path = &quot;/api/brand/{id}&quot;, method = RequestMethod.PUT)
 	public void update(@PathVariable int id, @RequestBody BrandForm brandForm) throws ApiException {
-<span class="nc" id="L50">		brandDto.update(id, brandForm);</span>
-<span class="nc" id="L51">	}</span>
+<span class="nc" id="L51">		brandDto.update(id, brandForm);</span>
+<span class="nc" id="L52">	}</span>
 
 	@ApiOperation(value = &quot;delete a brand&quot;)
 	@RequestMapping(path = &quot;/api/brand/{id}&quot;, method = RequestMethod.DELETE)
 	public void delete(@PathVariable int id) throws ApiException {
-<span class="nc" id="L56">		brandDto.delete(id);</span>
-<span class="nc" id="L57">	}</span>
+<span class="nc" id="L57">		brandDto.delete(id);</span>
+<span class="nc" id="L58">	}</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
