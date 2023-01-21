@@ -127,6 +127,7 @@ public class OrderDto {
             ProductPojo productPojo = productService.get(orderItemPojo.getProductId());
             orderItemData.setBarcode(productPojo.getBarcode());
             orderItemData.setProductName(productPojo.getName());
+            orderItemData.setMrp(productPojo.getMrp());
 
             orderItemDatas.add(orderItemData);
         }
@@ -146,6 +147,7 @@ public class OrderDto {
             ProductPojo pojo = productService.get(orderItemPojo.getProductId());
             orderItemData.setBarcode(pojo.getBarcode());
             orderItemData.setProductName(pojo.getName());
+            orderItemData.setMrp(pojo.getMrp());
             orderItemData.setQuantity(orderItemPojo.getQuantity());
             orderItemData.setSellingPrice(orderItemPojo.getSellingprice());
 

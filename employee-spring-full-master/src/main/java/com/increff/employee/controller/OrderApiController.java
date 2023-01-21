@@ -28,7 +28,7 @@ public class OrderApiController {
 	@Autowired
 	private OrderDto orderDto;
 
-	@ApiOperation(value = "Gets all order items")
+	@ApiOperation(value = "Gets all order")
 	@RequestMapping(path = "/api/order", method = RequestMethod.GET)
 	public List<OrderData> getAllOrders() throws ApiException {
 		return orderDto.getAll();
@@ -47,7 +47,7 @@ public class OrderApiController {
 		return orderDto.getAllOrderItems();
 	}
 
-	@ApiOperation(value = "gets a order")
+	@ApiOperation(value = "gets items for order")
 	@RequestMapping(path = "/api/order/{id}", method = RequestMethod.GET)
 	public List<OrderItemData> get(@PathVariable int id) throws ApiException {
 		return orderDto.getItemDatas(id);

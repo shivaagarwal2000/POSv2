@@ -2,6 +2,7 @@ package com.increff.employee.pojo;
 
 import javax.persistence.*;
 
+//TODO: getter setter lombok
 @Entity
 public class OrderItemPojo {
 

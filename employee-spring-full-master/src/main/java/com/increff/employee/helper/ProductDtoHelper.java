@@ -45,7 +45,6 @@ public class ProductDtoHelper {
 			}
 
 		}
-		return;
 	}
 
 	public static void normalise(ProductForm form) {

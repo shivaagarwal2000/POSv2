@@ -5,8 +5,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-//TODO: getter setter
-
 @Getter
 @Setter
 @Table(uniqueConstraints = {@UniqueConstraint(name = "uniqueBrandCategory", columnNames = {"brand", "category"})})

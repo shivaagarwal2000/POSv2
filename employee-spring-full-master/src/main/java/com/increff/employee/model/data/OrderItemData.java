@@ -7,6 +7,16 @@ public class OrderItemData extends OrderItemForm {
 	private int id;
 	private int orderId;
 	private double sellingPrice;
+
+	public double getMrp() {
+		return mrp;
+	}
+
+	public void setMrp(double mrp) {
+		this.mrp = mrp;
+	}
+
+	private double mrp;
 	private String productName;
 
 	public int getOrderId() {
