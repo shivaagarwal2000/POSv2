@@ -1,6 +1,5 @@
 package com.increff.employee.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.increff.employee.model.data.SalesReportData;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.increff.employee.dto.OrderDto;
 import com.increff.employee.model.data.OrderData;
-import com.increff.employee.model.data.OrderItemData;
+import com.increff.employee.model.data.CommonOrderItemData;
 import com.increff.employee.model.forms.OrderItemForm;
 import com.increff.employee.model.forms.SalesReportForm;
 import com.increff.employee.service.ApiException;
@@ -43,13 +42,13 @@ public class OrderApiController {
 
 	@ApiOperation(value = "Gets all order items")
 	@RequestMapping(path = "/api/placeOrder", method = RequestMethod.GET)
-	public List<OrderItemData> getAllOrderItems() throws ApiException {
+	public List<CommonOrderItemData> getAllOrderItems() throws ApiException {
 		return orderDto.getAllOrderItems();
 	}
 
 	@ApiOperation(value = "gets items for order")
 	@RequestMapping(path = "/api/order/{id}", method = RequestMethod.GET)
-	public List<OrderItemData> get(@PathVariable int id) throws ApiException {
+	public List<CommonOrderItemData> get(@PathVariable int id) throws ApiException {
 		return orderDto.getItemDatas(id);
 
 	}

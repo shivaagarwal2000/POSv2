@@ -2,7 +2,7 @@ package com.increff.employee.model.data;
 
 import com.increff.employee.model.forms.OrderItemForm;
 
-public class OrderItemData extends OrderItemForm {
+public class CommonOrderItemData extends OrderItemForm {
 
 	private int id;
 	private int orderId;

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.increff.employee.model.data.OrderData;
-import com.increff.employee.model.data.OrderItemData;
+import com.increff.employee.model.data.CommonOrderItemData;
 import com.increff.employee.model.forms.OrderItemForm;
 import com.increff.employee.model.forms.SalesReportForm;
 import com.increff.employee.model.data.SalesReportData;
@@ -28,7 +28,6 @@ import com.increff.employee.service.OrderItemService;
 import com.increff.employee.service.OrderService;
 import com.increff.employee.service.ProductService;
 import com.increff.employee.util.StringUtil;
-import javassist.expr.NewArray;
 
 @Service
 public class OrderDto {
@@ -114,11 +113,11 @@ public class OrderDto {
         orderService.delete(orderId);
     }
 
-    public List<OrderItemData> getAllOrderItems() throws ApiException {
+    public List<CommonOrderItemData> getAllOrderItems() throws ApiException {
         List<OrderItemPojo> list = orderItemService.getAll();
-        List<OrderItemData> orderItemDatas = new ArrayList<OrderItemData>();
+        List<CommonOrderItemData> orderItemDatas = new ArrayList<CommonOrderItemData>();
         for (OrderItemPojo orderItemPojo : list) {
-            OrderItemData orderItemData = new OrderItemData();
+            CommonOrderItemData orderItemData = new CommonOrderItemData();
             orderItemData.setId(orderItemPojo.getId());
             orderItemData.setOrderId(orderItemPojo.getOrderId());
             orderItemData.setQuantity(orderItemPojo.getQuantity());
@@ -136,11 +135,11 @@ public class OrderDto {
 
     }
 
-    public List<OrderItemData> getItemDatas(int orderId) throws ApiException {
+    public List<CommonOrderItemData> getItemDatas(int orderId) throws ApiException {
         List<OrderItemPojo> itemPojos = orderItemService.getItemPojos(orderId);
-        List<OrderItemData> itemDatas = new ArrayList<OrderItemData>();
+        List<CommonOrderItemData> itemDatas = new ArrayList<CommonOrderItemData>();
         for (OrderItemPojo orderItemPojo : itemPojos) {
-            OrderItemData orderItemData = new OrderItemData();
+            CommonOrderItemData orderItemData = new CommonOrderItemData();
 
             orderItemData.setId(orderItemPojo.getId());
             orderItemData.setOrderId(orderItemPojo.getOrderId());
