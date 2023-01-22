@@ -8,11 +8,13 @@
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/util/CookieUtil.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/controller/InventoryApiController.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/controller/InitApiController.java
+/mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/pojo/DaySalesPojo.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/dao/EmployeeDao.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/service/OrderItemService.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/dao/UserDao.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/spring/SecurityConfig.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/pojo/InventoryPojo.java
+/mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/service/DaySalesService.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/util/UserPrincipal.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/model/UserForm.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/helper/BrandDtoHelper.java
@@ -43,6 +45,7 @@
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/dao/OrderDao.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/service/EmployeeService.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/dto/ProductDto.java
+/mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/dao/DaySalesDao.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/dto/BrandDto.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/util/IOUtil.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/model/forms/OrderItemForm.java

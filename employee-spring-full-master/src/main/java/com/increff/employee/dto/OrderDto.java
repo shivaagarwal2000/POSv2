@@ -208,4 +208,8 @@ public class OrderDto {
 
     }
 
+    public void perDaySalesReport(){
+
+    }
+
 }

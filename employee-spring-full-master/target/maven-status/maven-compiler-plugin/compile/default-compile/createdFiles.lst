@@ -40,6 +40,7 @@ com/increff/employee/dao/AbstractDao.class
 com/increff/employee/dao/EmployeeDao.class
 com/increff/employee/model/AboutAppData.class
 com/increff/employee/service/OrderService.class
+com/increff/employee/dao/DaySalesDao.class
 com/increff/employee/model/UserData.class
 com/increff/employee/util/SecurityUtil.class
 com/increff/employee/model/LoginForm.class
@@ -65,11 +66,13 @@ com/increff/employee/dao/EmployeeInMemDao.class
 com/increff/employee/controller/BrandApiController.class
 com/increff/employee/dto/ProductDto.class
 com/increff/employee/dao/InventoryDao.class
+com/increff/employee/service/DaySalesService.class
 com/increff/employee/model/forms/BrandForm.class
 com/increff/employee/service/UserService.class
 com/increff/employee/helper/BrandDtoHelper.class
 com/increff/employee/spring/SpringConfig.class
 com/increff/employee/pojo/OrderPojo.class
+com/increff/employee/pojo/DaySalesPojo.class
 com/increff/employee/service/OrderItemService.class
 com/increff/employee/pojo/EmployeePojo.class
 com/increff/employee/pojo/BrandPojo.class
