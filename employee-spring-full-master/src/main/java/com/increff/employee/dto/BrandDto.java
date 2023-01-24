@@ -19,7 +19,7 @@ public class BrandDto {
 	@Autowired
 	private BrandService brandService;
 
-	public void add(BrandForm form) throws ApiException {
+	public void add(BrandForm form) throws ApiException {//TODO: make small func helper
 		if (StringUtil.isEmpty(form.getBrand()) || StringUtil.isEmpty(form.getCategory())) {
 			throw new ApiException("Error: either of brand/category can not be empty");
 		}

@@ -19,7 +19,7 @@ import com.increff.employee.util.StringUtil;
 	@Autowired
 	private BrandService brandService;
 
-	public void add(BrandForm form) throws ApiException {
+	public void add(BrandForm form) throws ApiException {//TODO: make small func helper
 <span class="nc bnc" id="L23" title="All 4 branches missed.">		if (StringUtil.isEmpty(form.getBrand()) || StringUtil.isEmpty(form.getCategory())) {</span>
 <span class="nc" id="L24">			throw new ApiException(&quot;Error: either of brand/category can not be empty&quot;);</span>
 		}

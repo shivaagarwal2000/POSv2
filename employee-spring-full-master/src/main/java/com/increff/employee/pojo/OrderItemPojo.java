@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 //TODO: getter setter lombok
 @Entity
+@Table(name = "OrderItems")
 public class OrderItemPojo {
 
 	@Id

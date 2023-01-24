@@ -2,20 +2,23 @@
 
 import com.increff.employee.dao.DaySalesDao;
 import com.increff.employee.pojo.DaySalesPojo;
+import com.increff.employee.pojo.OrderPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
-<span class="fc" id="L10">public class DaySalesService {</span>
+<span class="fc" id="L13">public class DaySalesService {</span>
 
 	@Autowired
 	private DaySalesDao daySalesDao;
 
 	@Transactional(rollbackFor = ApiException.class)
 	public void add(DaySalesPojo daySalesPojo) throws ApiException {
-<span class="nc" id="L17">		daySalesDao.insert(daySalesPojo);</span>
-<span class="nc" id="L18">	}</span>
+<span class="nc" id="L20">		daySalesDao.insert(daySalesPojo);</span>
+<span class="nc" id="L21">	}</span>
 
 //	@Transactional(readOnly = true)
 //	public BrandPojo get(int id) throws ApiException {

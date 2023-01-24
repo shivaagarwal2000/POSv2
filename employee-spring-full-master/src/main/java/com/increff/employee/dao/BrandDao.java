@@ -16,6 +16,7 @@ import com.increff.employee.service.ApiException;
 @Repository
 public class BrandDao extends AbstractDao {
 
+	//TODO: uppercase for final
 	private static final String delete_id = "delete from BrandPojo p where id=:id";
 	private static final String select_id = "select p from BrandPojo p where id=:id";
 	private static final String select_all = "select p from BrandPojo p";

@@ -18,6 +18,7 @@ import com.increff.employee.service.ApiException;
 
 	private static final String delete_id = &quot;delete from OrderPojo p where id=:id&quot;;
 	private static final String select_id = &quot;select p from OrderPojo p where id=:id&quot;;
+	private static final String select_date = &quot;select p from OrderPojo p where orderTime LIKE :reqDate&quot;;
 	private static final String select_orderTime = &quot;select p from OrderPojo p where orderTime=:orderTime&quot;;
 	private static final String select_all_orderDate = &quot;select p from OrderPojo p where orderTime &gt;= :startDate and orderTime &lt;= :endDate&quot;;
 	private static final String select_all = &quot;select p from OrderPojo p&quot;;
@@ -26,22 +27,31 @@ import com.increff.employee.service.ApiException;
 	private EntityManager entityManager;
 
 	@Transactional(rollbackFor = ApiException.class)
-	public void insert(OrderPojo orderPojo) {
-<span class="nc" id="L30">		entityManager.persist(orderPojo);</span>
-<span class="nc" id="L31">	}</span>
+	public OrderPojo insert(OrderPojo orderPojo) {
+<span class="nc" id="L31">		entityManager.persist(orderPojo);</span>
+<span class="nc" id="L32">		return orderPojo;</span>
+	}
 
+	//TODO: delete this
 	@Transactional(readOnly = true)
 	public OrderPojo select(String orderTime) {
-<span class="nc" id="L35">		TypedQuery&lt;OrderPojo&gt; query = getQuery(select_orderTime, OrderPojo.class);</span>
-<span class="nc" id="L36">		query.setParameter(&quot;orderTime&quot;, orderTime);</span>
-<span class="nc" id="L37">		return getSingle(query);</span>
+<span class="nc" id="L38">		TypedQuery&lt;OrderPojo&gt; query = getQuery(select_orderTime, OrderPojo.class);</span>
+<span class="nc" id="L39">		query.setParameter(&quot;orderTime&quot;, orderTime);</span>
+<span class="nc" id="L40">		return getSingle(query);</span>
+	}
+
+	@Transactional(readOnly = true)
+	public List&lt;OrderPojo&gt; selectByDate(String reqDate) {
+<span class="nc" id="L45">		TypedQuery&lt;OrderPojo&gt; query = getQuery(select_date, OrderPojo.class);</span>
+<span class="nc" id="L46">		query.setParameter(&quot;reqDate&quot;,reqDate + &quot;%&quot;);</span>
+<span class="nc" id="L47">		return query.getResultList();</span>
 	}
 
 	@Transactional(rollbackFor = ApiException.class)
 	public int delete(int id) {
-<span class="nc" id="L42">		Query query = entityManager.createQuery(delete_id);</span>
-<span class="nc" id="L43">		query.setParameter(&quot;id&quot;, id);</span>
-<span class="nc" id="L44">		return query.executeUpdate();</span>
+<span class="nc" id="L52">		Query query = entityManager.createQuery(delete_id);</span>
+<span class="nc" id="L53">		query.setParameter(&quot;id&quot;, id);</span>
+<span class="nc" id="L54">		return query.executeUpdate();</span>
 	}
 
 //
@@ -53,14 +63,14 @@ import com.increff.employee.service.ApiException;
 //
 	@Transactional(readOnly = true)
 	public List&lt;OrderPojo&gt; selectAll() {
-<span class="nc" id="L56">		TypedQuery&lt;OrderPojo&gt; query = getQuery(select_all, OrderPojo.class);</span>
-<span class="nc" id="L57">		return query.getResultList();</span>
+<span class="nc" id="L66">		TypedQuery&lt;OrderPojo&gt; query = getQuery(select_all, OrderPojo.class);</span>
+<span class="nc" id="L67">		return query.getResultList();</span>
 	}
 
 	@Transactional(readOnly = true)
 	public List&lt;OrderPojo&gt; selectBetweeenDates(String startDate, String endDate) {
-<span class="nc" id="L62">		TypedQuery&lt;OrderPojo&gt; query = getQuery(select_all_orderDate, OrderPojo.class);</span>
-<span class="nc" id="L63">		return query.setParameter(&quot;startDate&quot;, startDate).setParameter(&quot;endDate&quot;, endDate).getResultList();</span>
+<span class="nc" id="L72">		TypedQuery&lt;OrderPojo&gt; query = getQuery(select_all_orderDate, OrderPojo.class);</span>
+<span class="nc" id="L73">		return query.setParameter(&quot;startDate&quot;, startDate).setParameter(&quot;endDate&quot;, endDate).getResultList();</span>
 	}
 //
 //	public void update(OrderItemPojo p) {

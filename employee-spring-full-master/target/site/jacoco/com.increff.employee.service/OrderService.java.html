@@ -16,9 +16,9 @@ import com.increff.employee.pojo.OrderPojo;
 	private OrderDao orderDao;
 
 	@Transactional(rollbackFor = ApiException.class)
-	public void add(OrderPojo orderPojo) throws ApiException {
-<span class="nc" id="L20">		orderDao.insert(orderPojo);</span>
-<span class="nc" id="L21">	}</span>
+	public OrderPojo add(OrderPojo orderPojo) throws ApiException {
+<span class="nc" id="L20">		return orderDao.insert(orderPojo);</span>
+	}
 
 	@Transactional(readOnly = true)
 	public OrderPojo get(String orderTime) {
@@ -27,19 +27,24 @@ import com.increff.employee.pojo.OrderPojo;
 	}
 
 	@Transactional(readOnly = true)
+	public List&lt;OrderPojo&gt; selectByDate(String orderDate){
+<span class="nc" id="L31">		return orderDao.selectByDate(orderDate);</span>
+	}
+
+	@Transactional(readOnly = true)
 	public List&lt;OrderPojo&gt; getAll() {
-<span class="nc" id="L31">		return orderDao.selectAll();</span>
+<span class="nc" id="L36">		return orderDao.selectAll();</span>
 	}
 
 	@Transactional(readOnly = true)
 	public List&lt;OrderPojo&gt; getBetweenDates(String startDate, String endDate) {
-<span class="nc" id="L36">		return orderDao.selectBetweeenDates(startDate, endDate);</span>
+<span class="nc" id="L41">		return orderDao.selectBetweeenDates(startDate, endDate);</span>
 	}
 
 	@Transactional(rollbackFor = ApiException.class)
 	public void delete(int id) {
-<span class="nc" id="L41">		orderDao.delete(id);</span>
-<span class="nc" id="L42">	}</span>
+<span class="nc" id="L46">		orderDao.delete(id);</span>
+<span class="nc" id="L47">	}</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

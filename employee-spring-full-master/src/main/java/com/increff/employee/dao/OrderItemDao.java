@@ -64,6 +64,7 @@ public class OrderItemDao extends AbstractDao {
 		return query.getResultList();
 	}
 
+	@Transactional(rollbackFor = ApiException.class)
 	public void update(OrderItemPojo orderItemPojo) {
 	}
 

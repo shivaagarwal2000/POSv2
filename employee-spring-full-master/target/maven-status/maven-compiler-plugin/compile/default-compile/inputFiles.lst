@@ -25,6 +25,7 @@
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/dao/OrderItemDao.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/model/forms/BrandForm.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/model/InfoData.java
+/mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/dto/DaySalesDto.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/spring/DbConfig.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/service/ProductService.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/model/EmployeeForm.java

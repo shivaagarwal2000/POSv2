@@ -9,6 +9,7 @@ com/increff/employee/pojo/OrderItemPojo.class
 com/increff/employee/model/data/ProductData.class
 com/increff/employee/service/InventoryService.class
 com/increff/employee/spring/ControllerConfig.class
+com/increff/employee/dto/DaySalesDto.class
 com/increff/employee/model/data/InventoryData.class
 com/increff/employee/model/EmployeeData.class
 com/increff/employee/util/IOUtil.class

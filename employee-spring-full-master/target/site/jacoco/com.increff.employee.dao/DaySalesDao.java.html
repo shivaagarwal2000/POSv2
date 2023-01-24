@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
 //	private static final String select_id = &quot;select p from BrandPojo p where id=:id&quot;;
 //	private static final String select_all = &quot;select p from BrandPojo p&quot;;
 //	private static final String select_brand_category = &quot;select p from BrandPojo p where brand=:brand and category=:category&quot;;
-
+//TODO: clean up
 	@PersistenceContext
 	private EntityManager entityManager;
 
@@ -23,38 +23,6 @@ import javax.persistence.PersistenceContext;
 	public void insert(DaySalesPojo daySalesPojo) {
 <span class="nc" id="L24">		entityManager.persist(daySalesPojo);</span>
 <span class="nc" id="L25">	}</span>
-
-//	@Transactional(rollbackFor = ApiException.class)
-//	public int delete(int id) {
-//		Query query = entityManager.createQuery(delete_id);
-//		query.setParameter(&quot;id&quot;, id);
-//		return query.executeUpdate();
-//	}
-//
-//	@Transactional(readOnly = true)
-//	public BrandPojo select(int id) {
-//		TypedQuery&lt;BrandPojo&gt; query = getQuery(select_id, BrandPojo.class);
-//		query.setParameter(&quot;id&quot;, id);
-//		return getSingle(query);
-//	}
-//
-//	@Transactional(readOnly = true)
-//	public List&lt;BrandPojo&gt; selectAll() {
-//		TypedQuery&lt;BrandPojo&gt; query = getQuery(select_all, BrandPojo.class);
-//		return query.getResultList();
-//	}
-//
-//	@Transactional(rollbackFor = ApiException.class)
-//	public void update(BrandPojo brandPojo) {
-//	}
-//
-//	@Transactional(readOnly = true)
-//	public BrandPojo select(String brand, String category) {
-//		TypedQuery&lt;BrandPojo&gt; query = getQuery(select_brand_category, BrandPojo.class);
-//		query.setParameter(&quot;brand&quot;, brand);
-//		query.setParameter(&quot;category&quot;, category);
-//		return getSingle(query);
-//	}
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

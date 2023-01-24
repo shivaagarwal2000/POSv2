@@ -11,7 +11,7 @@ public class ProductPojo {
 	@Column(nullable = false)
 	private String barcode;
 	@Column(nullable = false)
-	private int brand_category;
+	private int brand_category;//TODO: brandId
 	@Column(nullable = false, length = 50)
 	private String name;
 	@Column(nullable = false)

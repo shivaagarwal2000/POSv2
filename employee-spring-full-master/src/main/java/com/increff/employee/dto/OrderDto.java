@@ -1,33 +1,22 @@
 package com.increff.employee.dto;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-
+import com.increff.employee.model.data.CommonOrderItemData;
+import com.increff.employee.model.data.OrderData;
+import com.increff.employee.model.data.SalesReportData;
+import com.increff.employee.model.forms.OrderItemForm;
+import com.increff.employee.model.forms.SalesReportForm;
+import com.increff.employee.pojo.*;
+import com.increff.employee.service.*;
+import com.increff.employee.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.increff.employee.model.data.OrderData;
-import com.increff.employee.model.data.CommonOrderItemData;
-import com.increff.employee.model.forms.OrderItemForm;
-import com.increff.employee.model.forms.SalesReportForm;
-import com.increff.employee.model.data.SalesReportData;
-import com.increff.employee.pojo.BrandPojo;
-import com.increff.employee.pojo.InventoryPojo;
-import com.increff.employee.pojo.OrderItemPojo;
-import com.increff.employee.pojo.OrderPojo;
-import com.increff.employee.pojo.ProductPojo;
-import com.increff.employee.service.ApiException;
-import com.increff.employee.service.BrandService;
-import com.increff.employee.service.InventoryService;
-import com.increff.employee.service.OrderItemService;
-import com.increff.employee.service.OrderService;
-import com.increff.employee.service.ProductService;
-import com.increff.employee.util.StringUtil;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+import static com.increff.employee.pojo.TableConstants.PENDING_STATUS;
 
 @Service
 public class OrderDto {
@@ -48,19 +37,22 @@ public class OrderDto {
     private BrandService brandService;
 
     public List<OrderData> getAll() {
+        // Get list of all orders
         List<OrderPojo> orderPojos = orderService.getAll();
         List<OrderData> orderDatas = new ArrayList<OrderData>();
         for (OrderPojo orderPojo : orderPojos) {
             OrderData orderData = new OrderData();
             orderData.setId(orderPojo.getId());
             orderData.setOrderTime(orderPojo.getOrderTime());
+            orderData.setStatus(orderPojo.getStatus());
             orderDatas.add(orderData);
         }
         return orderDatas;
     }
 
+    //TODO: edge - if multiple entries together for item -- ?
     @Transactional(rollbackFor = ApiException.class)
-    public void add(List<OrderItemForm> forms) throws ApiException {
+    public void addOrder(List<OrderItemForm> forms) throws ApiException {
 //		for each form, check empty, normalise, validate values
         for (OrderItemForm form : forms) {
             if (StringUtil.isEmpty(form.getBarcode()) || StringUtil.isEmpty(String.valueOf(form.getQuantity()))) {
@@ -73,12 +65,12 @@ public class OrderDto {
         for (OrderItemForm form : forms) {
             form.setBarcode(StringUtil.toLowerCase(form.getBarcode()));
             ProductPojo productPojo = productService.get(form.getBarcode());
-            if (productPojo == null) {
-                throw new ApiException("Error: given barcode does not exist");
+            if (Objects.isNull(productPojo)) {
+                throw new ApiException("Error: given barcode does not exist for -" + form.getBarcode());
             }
             InventoryPojo inventoryPojo = inventoryService.get(productPojo.getId());
             if (inventoryPojo.getQuantity() < form.getQuantity()) {
-                throw new ApiException("Error: not enough quantity to fulfil");
+                throw new ApiException("Error: not enough quantity to fulfil -" + productPojo.getName());
             }
             OrderItemPojo orderItemPojo = new OrderItemPojo();
             orderItemPojo.setOrderId(orderLen);
@@ -88,23 +80,70 @@ public class OrderDto {
             orderItemPojos.add(orderItemPojo);
         }
 
-//		generate entry into the orderMasterTable for this order
+//		TODO: zone datetime change
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         String orderTime = dateFormat.format(date);
         OrderPojo orderPojo = new OrderPojo();
         orderPojo.setOrderTime(orderTime);
+        orderPojo.setStatus(PENDING_STATUS);
+
         orderService.add(orderPojo);
         OrderPojo orderPojo2 = orderService.get(orderTime);
+//        OrderPojo orderPojo2 = orderService.add(orderPojo);
 
         for (OrderItemPojo orderItemPojo : orderItemPojos) {
             orderItemPojo.setOrderId(orderPojo2.getId());
-            InventoryPojo inventoryPojo = inventoryService.get(orderItemPojo.getProductId());
+        }
+//            InventoryPojo inventoryPojo = inventoryService.get(orderItemPojo.getProductId());
+//            inventoryPojo.setQuantity(inventoryPojo.getQuantity() - orderItemPojo.getQuantity());
+//            inventoryService.update(inventoryPojo.getId(), inventoryPojo);
+        orderItemService.add(orderItemPojos);
+    }
+
+    @Transactional(rollbackFor = ApiException.class)
+    public void editOrderItem(int orderItemId, OrderItemForm orderItemForm) throws ApiException {
+        if (StringUtil.isEmpty(orderItemForm.getBarcode()) || StringUtil.isEmpty(String.valueOf(orderItemForm.getQuantity()))) {
+            throw new ApiException("Error: barcode/quantity can not be empty");
+        }
+        orderItemForm.setBarcode(StringUtil.toLowerCase(orderItemForm.getBarcode()));
+        ProductPojo productPojo = productService.get(orderItemForm.getBarcode());
+        if (Objects.isNull(productPojo)) {
+            throw new ApiException("Error: given barcode does not exist for -" + orderItemForm.getBarcode());
+        }
+        InventoryPojo inventoryPojo = inventoryService.get(productPojo.getId());
+        if (inventoryPojo.getQuantity() < orderItemForm.getQuantity()) {
+            throw new ApiException("Error: not enough quantity to fulfil -" + productPojo.getName());
+        }
+        OrderItemPojo oldOrderItemPojo = orderItemService.select(orderItemId);
+        OrderItemPojo orderItemPojo = new OrderItemPojo();
+        orderItemPojo.setOrderId(oldOrderItemPojo.getOrderId());
+        orderItemPojo.setProductId(productPojo.getId());
+        orderItemPojo.setQuantity(orderItemForm.getQuantity());
+        orderItemPojo.setSellingprice(orderItemForm.getQuantity() * productPojo.getMrp());
+        orderItemService.update(orderItemId, orderItemPojo);
+    }
+
+    @Transactional(rollbackFor = ApiException.class)
+    public void placeOrder(int orderId) throws ApiException {
+        List<OrderItemPojo> orderItemPojos = orderItemService.getItemPojos(orderId);
+        for (OrderItemPojo orderItemPojo : orderItemPojos) {
+            ProductPojo productPojo = productService.get(orderItemPojo.getProductId());
+            if (Objects.isNull(productPojo)) {
+                throw new ApiException("Error: one of the product is no more");
+            }
+            InventoryPojo inventoryPojo = inventoryService.get(productPojo.getId());
+            if (inventoryPojo.getQuantity() < orderItemPojo.getQuantity()) {
+                throw new ApiException("Error: not enough quantity to fulfil -" + productPojo.getName());
+            }
+        }
+        for (OrderItemPojo orderItemPojo : orderItemPojos) {
+            ProductPojo productPojo = productService.get(orderItemPojo.getProductId());
+            InventoryPojo inventoryPojo = inventoryService.get(productPojo.getId());
             inventoryPojo.setQuantity(inventoryPojo.getQuantity() - orderItemPojo.getQuantity());
             inventoryService.update(inventoryPojo.getId(), inventoryPojo);
         }
-
-        orderItemService.add(orderItemPojos);
+        orderService.placeOrder(orderId);
     }
 
     @Transactional(rollbackFor = ApiException.class)
@@ -113,6 +152,7 @@ public class OrderDto {
         orderService.delete(orderId);
     }
 
+    //TODO: no use -- delete
     public List<CommonOrderItemData> getAllOrderItems() throws ApiException {
         List<OrderItemPojo> list = orderItemService.getAll();
         List<CommonOrderItemData> orderItemDatas = new ArrayList<CommonOrderItemData>();
@@ -155,6 +195,7 @@ public class OrderDto {
         return itemDatas;
     }
 
+    //TODO: change to only fetch with start date, end date
     public List<SalesReportData> getSalesReportDatas(SalesReportForm salesReportForm) throws ApiException {
         String startDate = salesReportForm.getStartDate();
         String endDate = salesReportForm.getEndDate();
@@ -205,10 +246,6 @@ public class OrderDto {
         }
 
         return salesReportDatas;
-
-    }
-
-    public void perDaySalesReport(){
 
     }
 

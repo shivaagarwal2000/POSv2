@@ -3,6 +3,7 @@ package com.increff.employee.pojo;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Orders")
 public class OrderPojo {
 
 	@Id
@@ -10,6 +11,16 @@ public class OrderPojo {
 	private int id;
 	@Column(nullable = false) //TODO: zone date time
 	private String orderTime;
+	@Column(nullable = false)
+	private String status;
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public int getId() {
 		return id;

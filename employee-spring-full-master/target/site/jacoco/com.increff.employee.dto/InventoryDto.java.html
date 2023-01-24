@@ -37,67 +37,68 @@ import com.increff.employee.util.StringUtil;
 <span class="nc" id="L37">			throw new ApiException(&quot;Error: barcode/quantity can not be empty&quot;);</span>
 		}
 <span class="nc" id="L39">		InventoryDtoHelper.normalise(form);</span>
-<span class="nc" id="L40">		ProductPojo productPojo = validate(form.getBarcode());</span>
-<span class="nc bnc" id="L41" title="All 2 branches missed.">		if (productPojo == null) {</span>
-<span class="nc" id="L42">			throw new ApiException(&quot;Error: product with given barcode does not exist&quot;);</span>
+		//TODO: remove validate
+<span class="nc" id="L41">		ProductPojo productPojo = validate(form.getBarcode());</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">		if (productPojo == null) {</span>
+<span class="nc" id="L43">			throw new ApiException(&quot;Error: product with given barcode does not exist&quot;);</span>
 		}
-<span class="nc" id="L44">		InventoryPojo inventoryPojo = InventoryDtoHelper.convert(form, productPojo.getId());</span>
-<span class="nc" id="L45">		inventoryService.add(inventoryPojo);</span>
-<span class="nc" id="L46">	}</span>
+<span class="nc" id="L45">		InventoryPojo inventoryPojo = InventoryDtoHelper.convert(form, productPojo.getId());</span>
+<span class="nc" id="L46">		inventoryService.add(inventoryPojo);</span>
+<span class="nc" id="L47">	}</span>
 
 	public InventoryData get(int id) throws ApiException {
-<span class="nc" id="L49">		InventoryPojo inventoryPojo = inventoryService.get(id);</span>
 <span class="nc" id="L50">		ProductPojo productPojo = productService.get(id);</span>
-<span class="nc" id="L51">		return InventoryDtoHelper.convert(inventoryPojo, productPojo.getBarcode());</span>
+<span class="nc" id="L51">		InventoryPojo inventoryPojo = inventoryService.get(id);</span>
+<span class="nc" id="L52">		return InventoryDtoHelper.convert(inventoryPojo, productPojo.getBarcode());</span>
 	}
 
 	public List&lt;InventoryData&gt; getAll() throws ApiException {
-<span class="nc" id="L55">		List&lt;InventoryPojo&gt; list = inventoryService.getAll();</span>
-<span class="nc" id="L56">		List&lt;InventoryData&gt; list2 = new ArrayList&lt;InventoryData&gt;();</span>
-<span class="nc bnc" id="L57" title="All 2 branches missed.">		for (InventoryPojo p : list) {</span>
-<span class="nc" id="L58">			ProductPojo productPojo = productService.get(p.getId());</span>
-<span class="nc" id="L59">			list2.add(InventoryDtoHelper.convert(p, productPojo.getBarcode()));</span>
-<span class="nc" id="L60">		}</span>
-<span class="nc" id="L61">		return list2;</span>
+<span class="nc" id="L56">		List&lt;InventoryPojo&gt; list = inventoryService.getAll();</span>
+<span class="nc" id="L57">		List&lt;InventoryData&gt; list2 = new ArrayList&lt;InventoryData&gt;();</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">		for (InventoryPojo p : list) {</span>
+<span class="nc" id="L59">			ProductPojo productPojo = productService.get(p.getId());</span>
+<span class="nc" id="L60">			list2.add(InventoryDtoHelper.convert(p, productPojo.getBarcode()));</span>
+<span class="nc" id="L61">		}</span>
+<span class="nc" id="L62">		return list2;</span>
 	}
 
 	public List&lt;InventoryReportData&gt; getReportData() throws ApiException {
-<span class="nc" id="L65">		List&lt;InventoryData&gt; inventoryDatas = getAll();</span>
-<span class="nc" id="L66">		List&lt;InventoryReportData&gt; reportDatas = new ArrayList&lt;InventoryReportData&gt;();</span>
+<span class="nc" id="L66">		List&lt;InventoryData&gt; inventoryDatas = getAll();</span>
+<span class="nc" id="L67">		List&lt;InventoryReportData&gt; reportDatas = new ArrayList&lt;InventoryReportData&gt;();</span>
 
-<span class="nc" id="L68">		HashMap&lt;Integer, Integer&gt; hash_map = new HashMap&lt;Integer, Integer&gt;();</span>
-<span class="nc bnc" id="L69" title="All 2 branches missed.">		for (InventoryData inventoryData : inventoryDatas) {</span>
-<span class="nc" id="L70">			ProductPojo productPojo = productService.get(inventoryData.getBarcode());</span>
-<span class="nc" id="L71">			hash_map.put(productPojo.getBrand_category(),</span>
-<span class="nc" id="L72">					hash_map.getOrDefault(productPojo.getBrand_category(), 0) + inventoryData.getQuantity());</span>
-<span class="nc" id="L73">		}</span>
-<span class="nc bnc" id="L74" title="All 2 branches missed.">		for (int key : hash_map.keySet()) {</span>
-<span class="nc" id="L75">			InventoryReportData inventoryReportData = new InventoryReportData();</span>
-<span class="nc" id="L76">			BrandPojo brandPojo = brandService.get(key);</span>
-<span class="nc" id="L77">			inventoryReportData.setBrand(brandPojo.getBrand());</span>
-<span class="nc" id="L78">			inventoryReportData.setCategory(brandPojo.getCategory());</span>
-<span class="nc" id="L79">			inventoryReportData.setQuantity(hash_map.get(key));</span>
-<span class="nc" id="L80">			reportDatas.add(inventoryReportData);</span>
-<span class="nc" id="L81">		}</span>
-<span class="nc" id="L82">		return reportDatas;</span>
+<span class="nc" id="L69">		HashMap&lt;Integer, Integer&gt; hash_map = new HashMap&lt;Integer, Integer&gt;();</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">		for (InventoryData inventoryData : inventoryDatas) {</span>
+<span class="nc" id="L71">			ProductPojo productPojo = productService.get(inventoryData.getBarcode());</span>
+<span class="nc" id="L72">			hash_map.put(productPojo.getBrand_category(),</span>
+<span class="nc" id="L73">					hash_map.getOrDefault(productPojo.getBrand_category(), 0) + inventoryData.getQuantity());</span>
+<span class="nc" id="L74">		}</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">		for (int key : hash_map.keySet()) {</span>
+<span class="nc" id="L76">			InventoryReportData inventoryReportData = new InventoryReportData();</span>
+<span class="nc" id="L77">			BrandPojo brandPojo = brandService.get(key);</span>
+<span class="nc" id="L78">			inventoryReportData.setBrand(brandPojo.getBrand());</span>
+<span class="nc" id="L79">			inventoryReportData.setCategory(brandPojo.getCategory());</span>
+<span class="nc" id="L80">			inventoryReportData.setQuantity(hash_map.get(key));</span>
+<span class="nc" id="L81">			reportDatas.add(inventoryReportData);</span>
+<span class="nc" id="L82">		}</span>
+<span class="nc" id="L83">		return reportDatas;</span>
 	}
 
 	public void update(int id, InventoryForm form) throws ApiException {
-<span class="nc bnc" id="L86" title="All 4 branches missed.">		if (StringUtil.isEmpty(form.getBarcode()) || StringUtil.isEmpty(String.valueOf(form.getQuantity()))) {</span>
-<span class="nc" id="L87">			throw new ApiException(&quot;Error: barcode/quantity can not be empty&quot;);</span>
+<span class="nc bnc" id="L87" title="All 4 branches missed.">		if (StringUtil.isEmpty(form.getBarcode()) || StringUtil.isEmpty(String.valueOf(form.getQuantity()))) {</span>
+<span class="nc" id="L88">			throw new ApiException(&quot;Error: barcode/quantity can not be empty&quot;);</span>
 		}
-<span class="nc" id="L89">		InventoryDtoHelper.normalise(form);</span>
-<span class="nc" id="L90">		InventoryPojo b = InventoryDtoHelper.convert(form, id);</span>
-<span class="nc" id="L91">		inventoryService.update(id, b);</span>
-<span class="nc" id="L92">	}</span>
+<span class="nc" id="L90">		InventoryDtoHelper.normalise(form);</span>
+<span class="nc" id="L91">		InventoryPojo b = InventoryDtoHelper.convert(form, id);</span>
+<span class="nc" id="L92">		inventoryService.update(id, b);</span>
+<span class="nc" id="L93">	}</span>
 
 	public void delete(int id) throws ApiException {
-<span class="nc" id="L95">		inventoryService.delete(id);</span>
-<span class="nc" id="L96">	}</span>
+<span class="nc" id="L96">		inventoryService.delete(id);</span>
+<span class="nc" id="L97">	}</span>
 
 	public ProductPojo validate(String barcode) {
-<span class="nc" id="L99">		ProductPojo productPojo = productService.get(barcode);</span>
-<span class="nc" id="L100">		return productPojo;</span>
+<span class="nc" id="L100">		ProductPojo productPojo = productService.get(barcode);</span>
+<span class="nc" id="L101">		return productPojo;</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

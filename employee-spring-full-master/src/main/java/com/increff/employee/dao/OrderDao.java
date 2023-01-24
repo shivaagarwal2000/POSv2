@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import com.increff.employee.pojo.OrderItemPojo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,7 @@ public class OrderDao extends AbstractDao {
 
 	private static final String delete_id = "delete from OrderPojo p where id=:id";
 	private static final String select_id = "select p from OrderPojo p where id=:id";
+	private static final String select_date = "select p from OrderPojo p where orderTime LIKE :reqDate";
 	private static final String select_orderTime = "select p from OrderPojo p where orderTime=:orderTime";
 	private static final String select_all_orderDate = "select p from OrderPojo p where orderTime >= :startDate and orderTime <= :endDate";
 	private static final String select_all = "select p from OrderPojo p";
@@ -26,15 +28,33 @@ public class OrderDao extends AbstractDao {
 	private EntityManager entityManager;
 
 	@Transactional(rollbackFor = ApiException.class)
-	public void insert(OrderPojo orderPojo) {
+	public OrderPojo insert(OrderPojo orderPojo) {
+//		add pending order in the orderPojo
 		entityManager.persist(orderPojo);
+//		TODO: print the id to check what is getting returned
+		return orderPojo;
 	}
 
+	//TODO: delete this
 	@Transactional(readOnly = true)
 	public OrderPojo select(String orderTime) {
 		TypedQuery<OrderPojo> query = getQuery(select_orderTime, OrderPojo.class);
 		query.setParameter("orderTime", orderTime);
 		return getSingle(query);
+	}
+
+	@Transactional(readOnly = true)
+	public OrderPojo select(int orderId) {
+		TypedQuery<OrderPojo> query = getQuery(select_id, OrderPojo.class);
+		query.setParameter("id", orderId);
+		return getSingle(query);
+	}
+
+	@Transactional(readOnly = true)
+	public List<OrderPojo> selectByDate(String reqDate) {
+		TypedQuery<OrderPojo> query = getQuery(select_date, OrderPojo.class);
+		query.setParameter("reqDate",reqDate + "%");
+		return query.getResultList();
 	}
 
 	@Transactional(rollbackFor = ApiException.class)
@@ -44,6 +64,10 @@ public class OrderDao extends AbstractDao {
 		return query.executeUpdate();
 	}
 
+	@Transactional(rollbackFor = ApiException.class)
+	public void update(OrderPojo orderPojo){
+
+	}
 //
 //	public OrderItemPojo select(int id) {
 //		TypedQuery<OrderItemPojo> query = getQuery(select_id, OrderItemPojo.class);
@@ -61,6 +85,10 @@ public class OrderDao extends AbstractDao {
 	public List<OrderPojo> selectBetweeenDates(String startDate, String endDate) {
 		TypedQuery<OrderPojo> query = getQuery(select_all_orderDate, OrderPojo.class);
 		return query.setParameter("startDate", startDate).setParameter("endDate", endDate).getResultList();
+	}
+
+	@Transactional(rollbackFor = ApiException.class)
+	public void updateStatus(OrderPojo orderPojo){
 	}
 //
 //	public void update(OrderItemPojo p) {
