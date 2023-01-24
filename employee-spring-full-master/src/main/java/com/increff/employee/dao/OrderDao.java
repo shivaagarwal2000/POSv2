@@ -1,5 +1,6 @@
 package com.increff.employee.dao;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -19,9 +20,9 @@ public class OrderDao extends AbstractDao {
 
 	private static final String delete_id = "delete from OrderPojo p where id=:id";
 	private static final String select_id = "select p from OrderPojo p where id=:id";
-	private static final String select_date = "select p from OrderPojo p where orderTime LIKE :reqDate";
-	private static final String select_orderTime = "select p from OrderPojo p where orderTime=:orderTime";
-	private static final String select_all_orderDate = "select p from OrderPojo p where orderTime >= :startDate and orderTime <= :endDate";
+	private static final String select_date = "select p from OrderPojo p where time LIKE :reqDate";
+	private static final String select_orderTime = "select p from OrderPojo p where time=:time";
+	private static final String select_all_orderDate = "select p from OrderPojo p where time >= :startDate and time <= :endDate";
 	private static final String select_all = "select p from OrderPojo p";
 
 	@PersistenceContext
@@ -37,9 +38,9 @@ public class OrderDao extends AbstractDao {
 
 	//TODO: delete this
 	@Transactional(readOnly = true)
-	public OrderPojo select(String orderTime) {
+	public OrderPojo select(ZonedDateTime orderTime) {
 		TypedQuery<OrderPojo> query = getQuery(select_orderTime, OrderPojo.class);
-		query.setParameter("orderTime", orderTime);
+		query.setParameter("time", orderTime);
 		return getSingle(query);
 	}
 
@@ -82,7 +83,7 @@ public class OrderDao extends AbstractDao {
 	}
 
 	@Transactional(readOnly = true)
-	public List<OrderPojo> selectBetweeenDates(String startDate, String endDate) {
+	public List<OrderPojo> selectBetweeenDates(ZonedDateTime startDate, ZonedDateTime endDate) {
 		TypedQuery<OrderPojo> query = getQuery(select_all_orderDate, OrderPojo.class);
 		return query.setParameter("startDate", startDate).setParameter("endDate", endDate).getResultList();
 	}

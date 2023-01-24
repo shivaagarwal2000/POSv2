@@ -62,6 +62,7 @@
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/spring/SpringSecurityInitializer.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/model/forms/InventoryForm.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/pojo/ProductPojo.java
+/mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/pojo/TableConstants.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/pojo/UserPojo.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/service/OrderService.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/increff/employee/spring/SpringConfig.java

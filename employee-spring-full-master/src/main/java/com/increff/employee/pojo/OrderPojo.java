@@ -1,40 +1,54 @@
 package com.increff.employee.pojo;
 
 import javax.persistence.*;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "Orders")
 public class OrderPojo {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	@Column(nullable = false) //TODO: zone date time
-	private String orderTime;
-	@Column(nullable = false)
-	private String status;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+//    @Column(nullable = false)
+//    private String orderTime;
 
-	public String getStatus() {
-		return status;
-	}
+    @Column(nullable = false)
+    private ZonedDateTime time;
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    @Column(nullable = false)
+    private String status;
 
-	public int getId() {
-		return id;
-	}
+    public ZonedDateTime getTime() {
+        return time;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setTime(ZonedDateTime time) {
+        this.time = time;
+    }
 
-	public String getOrderTime() {
-		return orderTime;
-	}
 
-	public void setOrderTime(String orderTime) {
-		this.orderTime = orderTime;
-	}
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+//    public String getOrderTime() {
+//        return orderTime;
+//    }
+
+//    public void setOrderTime(String orderTime) {
+//        this.orderTime = orderTime;
+//    }
 }

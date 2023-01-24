@@ -12,11 +12,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
 
 import static com.increff.employee.pojo.TableConstants.PENDING_STATUS;
+import static com.increff.employee.pojo.TableConstants.PLACED_STATUS;
 
 @Service
 public class OrderDto {
@@ -43,7 +50,7 @@ public class OrderDto {
         for (OrderPojo orderPojo : orderPojos) {
             OrderData orderData = new OrderData();
             orderData.setId(orderPojo.getId());
-            orderData.setOrderTime(orderPojo.getOrderTime());
+            orderData.setOrderTime(orderPojo.getTime().toString());
             orderData.setStatus(orderPojo.getStatus());
             orderDatas.add(orderData);
         }
@@ -53,7 +60,7 @@ public class OrderDto {
     //TODO: edge - if multiple entries together for item -- ?
     @Transactional(rollbackFor = ApiException.class)
     public void addOrder(List<OrderItemForm> forms) throws ApiException {
-//		for each form, check empty, normalise, validate values
+//      add the order
         for (OrderItemForm form : forms) {
             if (StringUtil.isEmpty(form.getBarcode()) || StringUtil.isEmpty(String.valueOf(form.getQuantity()))) {
                 throw new ApiException("Error: barcode/quantity can not be empty");
@@ -80,16 +87,18 @@ public class OrderDto {
             orderItemPojos.add(orderItemPojo);
         }
 
-//		TODO: zone datetime change
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-        String orderTime = dateFormat.format(date);
+//		TODO: date - zone datetime change
+//        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+//        Date date = new Date();
+        ZonedDateTime zonedDateTime = ZonedDateTime.now();
+//        String orderTime = zonedDateTime.toString();
         OrderPojo orderPojo = new OrderPojo();
-        orderPojo.setOrderTime(orderTime);
+//        orderPojo.setOrderTime(orderTime);
+        orderPojo.setTime(zonedDateTime);
         orderPojo.setStatus(PENDING_STATUS);
 
         orderService.add(orderPojo);
-        OrderPojo orderPojo2 = orderService.get(orderTime);
+        OrderPojo orderPojo2 = orderService.get(zonedDateTime);
 //        OrderPojo orderPojo2 = orderService.add(orderPojo);
 
         for (OrderItemPojo orderItemPojo : orderItemPojos) {
@@ -103,6 +112,7 @@ public class OrderDto {
 
     @Transactional(rollbackFor = ApiException.class)
     public void editOrderItem(int orderItemId, OrderItemForm orderItemForm) throws ApiException {
+
         if (StringUtil.isEmpty(orderItemForm.getBarcode()) || StringUtil.isEmpty(String.valueOf(orderItemForm.getQuantity()))) {
             throw new ApiException("Error: barcode/quantity can not be empty");
         }
@@ -116,6 +126,11 @@ public class OrderDto {
             throw new ApiException("Error: not enough quantity to fulfil -" + productPojo.getName());
         }
         OrderItemPojo oldOrderItemPojo = orderItemService.select(orderItemId);
+        OrderPojo orderPojo = orderService.get(oldOrderItemPojo.getOrderId());
+        if (orderPojo.getStatus() == PLACED_STATUS) {
+//            trying to edit placed orderItem
+            return;
+        }
         OrderItemPojo orderItemPojo = new OrderItemPojo();
         orderItemPojo.setOrderId(oldOrderItemPojo.getOrderId());
         orderItemPojo.setProductId(productPojo.getId());
@@ -197,17 +212,19 @@ public class OrderDto {
 
     //TODO: change to only fetch with start date, end date
     public List<SalesReportData> getSalesReportDatas(SalesReportForm salesReportForm) throws ApiException {
-        String startDate = salesReportForm.getStartDate();
-        String endDate = salesReportForm.getEndDate();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        ZonedDateTime startDate = LocalDate.parse(salesReportForm.getStartDate(), dtf).atStartOfDay(ZoneId.systemDefault());
+        ZonedDateTime endDate = LocalDate.parse(salesReportForm.getEndDate(), dtf).atStartOfDay(ZoneId.systemDefault()).withHour(23).withMinute(59).withSecond(59);
+        System.out.println(endDate);
         String brand = salesReportForm.getBrand();
         String category = salesReportForm.getCategory();
 
-        if (startDate.isEmpty()) {
-            startDate = "1970";
-        }
-        if (endDate.isEmpty()) {
-            endDate = "3000";
-        }
+//        if (startDate.isEmpty()) {
+//            startDate = "1970";
+//        }
+//        if (endDate.isEmpty()) {
+//            endDate = "3000";
+//        }
         List<OrderPojo> orderPojos = orderService.getBetweenDates(startDate, endDate);
         System.out.println(orderPojos);
         List<SalesReportData> salesReportDatas = new ArrayList<SalesReportData>();

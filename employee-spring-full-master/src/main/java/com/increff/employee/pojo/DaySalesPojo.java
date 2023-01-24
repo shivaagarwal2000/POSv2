@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.ZonedDateTime;
 
 @Getter
 @Setter
@@ -12,7 +13,7 @@ import javax.persistence.*;
 public class DaySalesPojo {
 
     @Id
-    private String date;
+    private ZonedDateTime date;
     @Column(nullable = false)
     private int invoiced_orders_count;
     @Column(nullable = false)

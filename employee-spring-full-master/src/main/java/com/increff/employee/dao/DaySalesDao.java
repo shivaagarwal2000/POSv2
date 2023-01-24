@@ -15,7 +15,7 @@ public class DaySalesDao extends AbstractDao {
 //	private static final String select_id = "select p from BrandPojo p where id=:id";
 //	private static final String select_all = "select p from BrandPojo p";
 //	private static final String select_brand_category = "select p from BrandPojo p where brand=:brand and category=:category";
-//TODO: clean up
+//TODO: clean up -- move such methods to abstract
 	@PersistenceContext
 	private EntityManager entityManager;
 

@@ -44,7 +44,7 @@ public class OrderApiController {
     @ApiOperation(value = "Place order")
     @RequestMapping(path = "/api/order/place/{id}", method = RequestMethod.PUT)
     public void placeOrder(@PathVariable int id) throws ApiException {
-
+        orderDto.placeOrder(id);
     }
 
     @ApiOperation(value = "Gets all orders")
@@ -76,11 +76,13 @@ public class OrderApiController {
 //	}
 
     //TODO: make method as GET
+    //TODO: only "placed" orders to be fetched
+    //TODO: date -between dates
     @ApiOperation(value = "get order report")
     @RequestMapping(path = "/api/order/report", method = RequestMethod.POST)
     public List<SalesReportData> getSalesReport(@RequestBody SalesReportForm salesReportForm) throws ApiException {
-        salesReportForm.setStartDate(salesReportForm.getStartDate().replace('-', '/'));
-        salesReportForm.setEndDate(salesReportForm.getEndDate().replace('-', '/'));
+//        salesReportForm.setStartDate(salesReportForm.getStartDate().replace('-', '/'));
+//        salesReportForm.setEndDate(salesReportForm.getEndDate().replace('-', '/'));
         List<SalesReportData> salesReportDatas = orderDto.getSalesReportDatas(salesReportForm);
         return salesReportDatas;
     }

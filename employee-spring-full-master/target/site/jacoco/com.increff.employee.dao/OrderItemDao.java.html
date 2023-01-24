@@ -64,8 +64,9 @@ import com.increff.employee.service.ApiException;
 <span class="nc" id="L64">		return query.getResultList();</span>
 	}
 
+	@Transactional(rollbackFor = ApiException.class)
 	public void update(OrderItemPojo orderItemPojo) {
-<span class="nc" id="L68">	}</span>
+<span class="nc" id="L69">	}</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

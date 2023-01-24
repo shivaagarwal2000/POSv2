@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -21,13 +24,17 @@ public class DaySalesDto {
 	private OrderItemService orderItemService;
 
 	//TODO: move it to the properties file
+	//TODO: run for each second with many orders
 	@Scheduled(cron = "0 0 8 * * *")
 	public void add() throws ApiException {
-		//TODO: get previous date
-		String prevdate = "";
+		//TODO: date - get previous date
+//		String prevdate = "";
+//		List<OrderPojo> orderPojos = orderService.selectByDate(prevdate);
 
-		List<OrderPojo> orderPojos = orderService.selectByDate(prevdate);
-		if (orderPojos.size() == 0){//TODO: empty function
+		ZonedDateTime prevDateStart = LocalDate.now().minusDays(1).atStartOfDay(ZoneId.systemDefault());
+		ZonedDateTime prevDateEnd = LocalDate.now().minusDays(1).atStartOfDay(ZoneId.systemDefault()).withHour(23).withMinute(59).withSecond(59);
+		List<OrderPojo> orderPojos = orderService.getBetweenDates(prevDateStart, prevDateEnd);
+		if (orderPojos.size() == 0){
 			return;
 		}
 		int prevDayOrderCount = 0;
@@ -42,15 +49,11 @@ public class DaySalesDto {
 			}
 		}
 		DaySalesPojo daySalesPojo = new DaySalesPojo();
-		daySalesPojo.setDate(prevdate);
+		daySalesPojo.setDate(prevDateStart);
 		daySalesPojo.setInvoiced_orders_count(prevDayOrderCount);
 		daySalesPojo.setInvoiced_items_count(prevDayOrderItemsCount);
 		daySalesPojo.setTotal_revenue(totalRevenue);
 		daySalesService.add(daySalesPojo);
 	}
 
-//	@Scheduled(cron = "0/1 * * * * *")
-//	public void testScheduler(){
-//		System.out.println("this is scheduled task");
-//	}
 }

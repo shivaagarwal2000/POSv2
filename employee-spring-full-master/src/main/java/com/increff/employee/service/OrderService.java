@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import static com.increff.employee.pojo.TableConstants.PLACED_STATUS;
@@ -22,7 +23,7 @@ public class OrderService {
     }
 
     @Transactional(readOnly = true)
-    public OrderPojo get(String orderTime) {
+    public OrderPojo get(ZonedDateTime orderTime) {
         return orderDao.select(orderTime);
 
     }
@@ -35,11 +36,12 @@ public class OrderService {
 
     @Transactional(readOnly = true)
     public void placeOrder(int orderId) {
-//		return orderDao.select(orderId);
+//      change status of order "pending" -> "placed"
         OrderPojo orderPojo = get(orderId);
         orderPojo.setStatus(PLACED_STATUS);
-//		TODO: put current time
-//		orderPojo.setOrderTime();
+//		TODO: date - put current time
+        orderPojo.setTime(ZonedDateTime.now());
+        orderDao.update(orderPojo);
     }
 
     @Transactional(readOnly = true)
@@ -53,7 +55,7 @@ public class OrderService {
     }
 
     @Transactional(readOnly = true)
-    public List<OrderPojo> getBetweenDates(String startDate, String endDate) {
+    public List<OrderPojo> getBetweenDates(ZonedDateTime startDate, ZonedDateTime endDate) {
         return orderDao.selectBetweeenDates(startDate, endDate);
     }
 

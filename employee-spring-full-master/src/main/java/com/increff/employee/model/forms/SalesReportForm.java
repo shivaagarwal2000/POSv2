@@ -1,5 +1,7 @@
 package com.increff.employee.model.forms;
 
+import java.time.ZonedDateTime;
+
 public class SalesReportForm {
 
 	private String startDate;
@@ -22,6 +24,22 @@ public class SalesReportForm {
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
+
+//	public String getStartDate() {
+//		return startDate;
+//	}
+//
+//	public void setStartDate(String startDate) {
+//		this.startDate = startDate;
+//	}
+//
+//	public String getEndDate() {
+//		return endDate;
+//	}
+//
+//	public void setEndDate(String endDate) {
+//		this.endDate = endDate;
+//	}
 
 	public String getBrand() {
 		return brand;
