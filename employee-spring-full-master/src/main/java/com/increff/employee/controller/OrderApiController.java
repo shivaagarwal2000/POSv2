@@ -88,10 +88,11 @@ public class OrderApiController {
         return salesReportDatas;
     }
 
+    //TODO: logic: return base 64 pdf string
     @ApiOperation(value = "get order invoice")
     @RequestMapping(path = "/api/order/invoice/{id}", method = RequestMethod.GET)
-    public void getInvoice(@PathVariable int id) throws ApiException, IOException {
-        orderDto.getInvoice(id);
+    public String getInvoice(@PathVariable int id) throws ApiException, IOException {
+        return orderDto.getInvoice(id);
     }
 
 }

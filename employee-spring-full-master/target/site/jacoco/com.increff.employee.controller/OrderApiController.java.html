@@ -88,11 +88,12 @@ import java.util.List;
 <span class="nc" id="L88">        return salesReportDatas;</span>
     }
 
+    //TODO: logic: return base 64 pdf string
     @ApiOperation(value = &quot;get order invoice&quot;)
     @RequestMapping(path = &quot;/api/order/invoice/{id}&quot;, method = RequestMethod.GET)
-    public void getInvoice(@PathVariable int id) throws ApiException, IOException {
-<span class="nc" id="L94">        orderDto.getInvoice(id);</span>
-<span class="nc" id="L95">    }</span>
+    public String getInvoice(@PathVariable int id) throws ApiException, IOException {
+<span class="nc" id="L95">        return orderDto.getInvoice(id);</span>
+    }
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

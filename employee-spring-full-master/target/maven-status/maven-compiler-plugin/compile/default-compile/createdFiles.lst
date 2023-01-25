@@ -1,6 +1,7 @@
 com/increff/employee/util/StringUtil.class
 com/increff/employee/controller/SampleController.class
 com/increff/employee/helper/ProductDtoHelper.class
+com/increff/employee/client/OrderClient.class
 com/increff/employee/controller/AppUiController.class
 com/increff/employee/controller/AbstractUiController.class
 com/increff/employee/service/EmployeeService.class
