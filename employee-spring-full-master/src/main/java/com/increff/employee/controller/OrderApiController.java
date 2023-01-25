@@ -12,6 +12,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @Api
@@ -77,7 +79,6 @@ public class OrderApiController {
 
     //TODO: make method as GET
     //TODO: only "placed" orders to be fetched
-    //TODO: date -between dates
     @ApiOperation(value = "get order report")
     @RequestMapping(path = "/api/order/report", method = RequestMethod.POST)
     public List<SalesReportData> getSalesReport(@RequestBody SalesReportForm salesReportForm) throws ApiException {
@@ -85,6 +86,12 @@ public class OrderApiController {
 //        salesReportForm.setEndDate(salesReportForm.getEndDate().replace('-', '/'));
         List<SalesReportData> salesReportDatas = orderDto.getSalesReportDatas(salesReportForm);
         return salesReportDatas;
+    }
+
+    @ApiOperation(value = "get order invoice")
+    @RequestMapping(path = "/api/order/invoice/{id}", method = RequestMethod.GET)
+    public void getInvoice(@PathVariable int id) throws ApiException, IOException {
+        orderDto.getInvoice(id);
     }
 
 }

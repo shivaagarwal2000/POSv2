@@ -1,5 +1,6 @@
 package com.increff.employee.dto;
 
+import com.google.gson.Gson;
 import com.increff.employee.model.data.CommonOrderItemData;
 import com.increff.employee.model.data.OrderData;
 import com.increff.employee.model.data.SalesReportData;
@@ -8,13 +9,18 @@ import com.increff.employee.model.forms.SalesReportForm;
 import com.increff.employee.pojo.*;
 import com.increff.employee.service.*;
 import com.increff.employee.util.StringUtil;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -266,4 +272,23 @@ public class OrderDto {
 
     }
 
+    //TODO: move the url to properties file
+    public static final String completeUrl = "http://localhost:9500/invoice/api/invoice";
+
+    public void getInvoice(int orderId) throws ApiException, IOException {
+        //TODO: make client layer -- do the call and get the pdf
+        List<CommonOrderItemData> commonOrderItemDatas = getItemDatas(orderId);
+
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost(completeUrl);
+        httpPost.setHeader("Accept", "application/json");
+        httpPost.setHeader("Content-type", "application/json");
+
+        StringEntity stringEntity = new StringEntity(new Gson().toJson(commonOrderItemDatas));
+        httpPost.setEntity(stringEntity);
+        System.out.println("executing request: " + httpPost.getRequestLine());
+
+        HttpResponse httpResponse = httpClient.execute(httpPost);
+        System.out.println(httpResponse);
+    }
 }

@@ -24,6 +24,7 @@ public class ProductDto {
 	@Autowired
 	private ProductService productService;
 
+	//TODO: restrict mrp to 2 decimal places
 	public void add(ProductForm form) throws ApiException {
 		ProductDtoHelper.emptyCheck(form);
 		ProductDtoHelper.normalise(form);

@@ -22,7 +22,7 @@ public class OrderDao extends AbstractDao {
 	private static final String select_id = "select p from OrderPojo p where id=:id";
 	private static final String select_date = "select p from OrderPojo p where time LIKE :reqDate";
 	private static final String select_orderTime = "select p from OrderPojo p where time=:time";
-	private static final String select_all_orderDate = "select p from OrderPojo p where time >= :startDate and time <= :endDate";
+	private static final String select_all_orderDate = "select p from OrderPojo p where time >= :startDate and time <= :endDate and status = " + "placed";
 	private static final String select_all = "select p from OrderPojo p";
 
 	@PersistenceContext
@@ -51,6 +51,7 @@ public class OrderDao extends AbstractDao {
 		return getSingle(query);
 	}
 
+	//TODO: no use
 	@Transactional(readOnly = true)
 	public List<OrderPojo> selectByDate(String reqDate) {
 		TypedQuery<OrderPojo> query = getQuery(select_date, OrderPojo.class);

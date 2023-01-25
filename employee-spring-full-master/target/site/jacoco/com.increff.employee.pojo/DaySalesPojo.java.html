@@ -4,21 +4,22 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.ZonedDateTime;
 
 @Getter
-<span class="nc" id="L9">@Setter</span>
+<span class="nc" id="L10">@Setter</span>
 @Entity
 @Table(name = &quot;pos_day_sales&quot;)
-<span class="nc" id="L12">public class DaySalesPojo {</span>
+<span class="nc" id="L13">public class DaySalesPojo {</span>
 
     @Id
-<span class="nc" id="L15">    private String date;</span>
+<span class="nc" id="L16">    private ZonedDateTime date;</span>
     @Column(nullable = false)
-<span class="nc" id="L17">    private int invoiced_orders_count;</span>
+<span class="nc" id="L18">    private int invoiced_orders_count;</span>
     @Column(nullable = false)
-<span class="nc" id="L19">    private int invoiced_items_count;</span>
+<span class="nc" id="L20">    private int invoiced_items_count;</span>
     @Column(nullable = false)
-<span class="nc" id="L21">    private double total_revenue;</span>
+<span class="nc" id="L22">    private double total_revenue;</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

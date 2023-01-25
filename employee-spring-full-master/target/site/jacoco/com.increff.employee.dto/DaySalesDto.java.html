@@ -8,10 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
-<span class="fc" id="L14">public class DaySalesDto {</span>
+<span class="fc" id="L17">public class DaySalesDto {</span>
 
 	@Autowired
 	private DaySalesService daySalesService;
@@ -21,37 +24,37 @@ import java.util.List;
 	private OrderItemService orderItemService;
 
 	//TODO: move it to the properties file
+	//TODO: run for each second with many orders
 	@Scheduled(cron = &quot;0 0 8 * * *&quot;)
 	public void add() throws ApiException {
 		//TODO: date - get previous date
-<span class="nc" id="L27">		String prevdate = &quot;&quot;;</span>
+//		String prevdate = &quot;&quot;;
+//		List&lt;OrderPojo&gt; orderPojos = orderService.selectByDate(prevdate);
 
-<span class="nc" id="L29">		List&lt;OrderPojo&gt; orderPojos = orderService.selectByDate(prevdate);</span>
-<span class="nc bnc" id="L30" title="All 2 branches missed.">		if (orderPojos.size() == 0){//TODO: empty function</span>
-<span class="nc" id="L31">			return;</span>
+<span class="nc" id="L34">		ZonedDateTime prevDateStart = LocalDate.now().minusDays(1).atStartOfDay(ZoneId.systemDefault());</span>
+<span class="nc" id="L35">		ZonedDateTime prevDateEnd = LocalDate.now().minusDays(1).atStartOfDay(ZoneId.systemDefault()).withHour(23).withMinute(59).withSecond(59);</span>
+<span class="nc" id="L36">		List&lt;OrderPojo&gt; orderPojos = orderService.getBetweenDates(prevDateStart, prevDateEnd);</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">		if (orderPojos.size() == 0){</span>
+<span class="nc" id="L38">			return;</span>
 		}
-<span class="nc" id="L33">		int prevDayOrderCount = 0;</span>
-<span class="nc" id="L34">		int prevDayOrderItemsCount = 0;</span>
-<span class="nc" id="L35">		double totalRevenue = 0;</span>
-<span class="nc bnc" id="L36" title="All 2 branches missed.">		for (OrderPojo orderPojo: orderPojos){</span>
-<span class="nc" id="L37">			prevDayOrderCount += 1;</span>
-<span class="nc" id="L38">			List&lt;OrderItemPojo&gt; orderItemPojos = orderItemService.getItemPojos(orderPojo.getId());</span>
-<span class="nc bnc" id="L39" title="All 2 branches missed.">			for(OrderItemPojo orderItemPojo: orderItemPojos){</span>
-<span class="nc" id="L40">				prevDayOrderItemsCount += 1;</span>
-<span class="nc" id="L41">				totalRevenue += orderItemPojo.getSellingprice();</span>
-<span class="nc" id="L42">			}</span>
-<span class="nc" id="L43">		}</span>
-<span class="nc" id="L44">		DaySalesPojo daySalesPojo = new DaySalesPojo();</span>
-<span class="nc" id="L45">		daySalesPojo.setDate(prevdate);</span>
-<span class="nc" id="L46">		daySalesPojo.setInvoiced_orders_count(prevDayOrderCount);</span>
-<span class="nc" id="L47">		daySalesPojo.setInvoiced_items_count(prevDayOrderItemsCount);</span>
-<span class="nc" id="L48">		daySalesPojo.setTotal_revenue(totalRevenue);</span>
-<span class="nc" id="L49">		daySalesService.add(daySalesPojo);</span>
-<span class="nc" id="L50">	}</span>
+<span class="nc" id="L40">		int prevDayOrderCount = 0;</span>
+<span class="nc" id="L41">		int prevDayOrderItemsCount = 0;</span>
+<span class="nc" id="L42">		double totalRevenue = 0;</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">		for (OrderPojo orderPojo: orderPojos){</span>
+<span class="nc" id="L44">			prevDayOrderCount += 1;</span>
+<span class="nc" id="L45">			List&lt;OrderItemPojo&gt; orderItemPojos = orderItemService.getItemPojos(orderPojo.getId());</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">			for(OrderItemPojo orderItemPojo: orderItemPojos){</span>
+<span class="nc" id="L47">				prevDayOrderItemsCount += 1;</span>
+<span class="nc" id="L48">				totalRevenue += orderItemPojo.getSellingprice();</span>
+<span class="nc" id="L49">			}</span>
+<span class="nc" id="L50">		}</span>
+<span class="nc" id="L51">		DaySalesPojo daySalesPojo = new DaySalesPojo();</span>
+<span class="nc" id="L52">		daySalesPojo.setDate(prevDateStart);</span>
+<span class="nc" id="L53">		daySalesPojo.setInvoiced_orders_count(prevDayOrderCount);</span>
+<span class="nc" id="L54">		daySalesPojo.setInvoiced_items_count(prevDayOrderItemsCount);</span>
+<span class="nc" id="L55">		daySalesPojo.setTotal_revenue(totalRevenue);</span>
+<span class="nc" id="L56">		daySalesService.add(daySalesPojo);</span>
+<span class="nc" id="L57">	}</span>
 
-//	@Scheduled(cron = &quot;0/1 * * * * *&quot;)
-//	public void testScheduler(){
-//		System.out.println(&quot;this is scheduled task&quot;);
-//	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
