@@ -17,22 +17,26 @@ public class BrandService {
 
 	@Transactional(rollbackFor = ApiException.class)
 	public void add(BrandPojo brandPojo) throws ApiException {
+		//add a new brand
 		brandDao.insert(brandPojo);
 	}
 
 	@Transactional(readOnly = true)
 	public BrandPojo get(int id) throws ApiException {
+		//fetch a brand with brandId
 		return getCheck(id);
 	}
 
 	@Transactional(readOnly = true)
 	public List<BrandPojo> getAll() {
+		//fetch all the brands
 		return brandDao.selectAll();
 	}
 
 	@Transactional(rollbackFor = ApiException.class)
 	public void update(int id, BrandPojo brandPojo) throws ApiException {
-		BrandPojo oldBrandPojo = getCheck(id);
+		//update an old brand
+		BrandPojo oldBrandPojo = get(id);
 		oldBrandPojo.setBrand(brandPojo.getBrand());
 		oldBrandPojo.setCategory(brandPojo.getCategory());
 		brandDao.update(oldBrandPojo);
@@ -40,10 +44,11 @@ public class BrandService {
 
 	@Transactional(rollbackFor = ApiException.class)
 	public void delete(int id) {
+		//delete an existing brand
 		brandDao.delete(id);
 	}
 
-	@Transactional(readOnly = true)
+	@Transactional(readOnly = true)//TODO: refactor - minor - clean up if no major use
 	public BrandPojo getCheck(int id) throws ApiException {
 		BrandPojo brandPojo = brandDao.select(id);
 		if (brandPojo == null) {
@@ -54,8 +59,8 @@ public class BrandService {
 
 	@Transactional(readOnly = true)
 	public BrandPojo get(String brand, String category) {
+		//fetch a brand with brand, category combination
 		return brandDao.select(brand, category);
-
 	}
 
 }

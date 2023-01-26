@@ -17,45 +17,50 @@ import com.increff.employee.pojo.BrandPojo;
 
 	@Transactional(rollbackFor = ApiException.class)
 	public void add(BrandPojo brandPojo) throws ApiException {
-<span class="nc" id="L20">		brandDao.insert(brandPojo);</span>
-<span class="nc" id="L21">	}</span>
+		//add a new brand
+<span class="nc" id="L21">		brandDao.insert(brandPojo);</span>
+<span class="nc" id="L22">	}</span>
 
 	@Transactional(readOnly = true)
 	public BrandPojo get(int id) throws ApiException {
-<span class="nc" id="L25">		return getCheck(id);</span>
+		//fetch a brand with brandId
+<span class="nc" id="L27">		return getCheck(id);</span>
 	}
 
 	@Transactional(readOnly = true)
 	public List&lt;BrandPojo&gt; getAll() {
-<span class="nc" id="L30">		return brandDao.selectAll();</span>
+		//fetch all the brands
+<span class="nc" id="L33">		return brandDao.selectAll();</span>
 	}
 
 	@Transactional(rollbackFor = ApiException.class)
 	public void update(int id, BrandPojo brandPojo) throws ApiException {
-<span class="nc" id="L35">		BrandPojo oldBrandPojo = getCheck(id);</span>
-<span class="nc" id="L36">		oldBrandPojo.setBrand(brandPojo.getBrand());</span>
-<span class="nc" id="L37">		oldBrandPojo.setCategory(brandPojo.getCategory());</span>
-<span class="nc" id="L38">		brandDao.update(oldBrandPojo);</span>
-<span class="nc" id="L39">	}</span>
+		//update an old brand
+<span class="nc" id="L39">		BrandPojo oldBrandPojo = get(id);</span>
+<span class="nc" id="L40">		oldBrandPojo.setBrand(brandPojo.getBrand());</span>
+<span class="nc" id="L41">		oldBrandPojo.setCategory(brandPojo.getCategory());</span>
+<span class="nc" id="L42">		brandDao.update(oldBrandPojo);</span>
+<span class="nc" id="L43">	}</span>
 
 	@Transactional(rollbackFor = ApiException.class)
 	public void delete(int id) {
-<span class="nc" id="L43">		brandDao.delete(id);</span>
-<span class="nc" id="L44">	}</span>
+		//delete an existing brand
+<span class="nc" id="L48">		brandDao.delete(id);</span>
+<span class="nc" id="L49">	}</span>
 
-	@Transactional(readOnly = true)
+	@Transactional(readOnly = true)//TODO: refactor - minor - clean up if no major use
 	public BrandPojo getCheck(int id) throws ApiException {
-<span class="nc" id="L48">		BrandPojo brandPojo = brandDao.select(id);</span>
-<span class="nc bnc" id="L49" title="All 2 branches missed.">		if (brandPojo == null) {</span>
-<span class="nc" id="L50">			throw new ApiException(&quot;Brand with given ID does not exit, id: &quot; + id);</span>
+<span class="nc" id="L53">		BrandPojo brandPojo = brandDao.select(id);</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">		if (brandPojo == null) {</span>
+<span class="nc" id="L55">			throw new ApiException(&quot;Brand with given ID does not exit, id: &quot; + id);</span>
 		}
-<span class="nc" id="L52">		return brandPojo;</span>
+<span class="nc" id="L57">		return brandPojo;</span>
 	}
 
 	@Transactional(readOnly = true)
 	public BrandPojo get(String brand, String category) {
-<span class="nc" id="L57">		return brandDao.select(brand, category);</span>
-
+		//fetch a brand with brand, category combination
+<span class="nc" id="L63">		return brandDao.select(brand, category);</span>
 	}
 
 }

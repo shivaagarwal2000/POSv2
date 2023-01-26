@@ -8,6 +8,8 @@ employee-spring,com.increff.employee.model.data,InventoryReportData,24,0,0,0,10,
 employee-spring,com.increff.employee.model.data,ProductData,10,0,0,0,4,0,3,0,3,0
 employee-spring,com.increff.employee.spring,WebInitializer,20,0,0,0,4,0,4,0,4,0
 employee-spring,com.increff.employee.spring,ControllerConfig,4,112,0,0,2,25,1,7,1,7
+employee-spring,com.increff.employee.spring,SecurityConfig,0,92,0,0,0,14,0,4,0,4
+employee-spring,com.increff.employee.spring,SpringSecurityInitializer,3,0,0,0,1,0,1,0,1,0
 employee-spring,com.increff.employee.spring,SpringConfig,3,0,0,0,1,0,1,0,1,0
 employee-spring,com.increff.employee.spring,DbConfig,0,108,0,0,0,28,0,4,0,4
 employee-spring,com.increff.employee.service,InventoryService,68,3,4,0,19,1,9,1,7,1
@@ -67,10 +69,10 @@ employee-spring,com.increff.employee.model,AboutAppData,17,0,0,0,7,0,5,0,5,0
 employee-spring,com.increff.employee.model,InfoData,23,0,0,0,10,0,5,0,5,0
 employee-spring,com.increff.employee.model,LoginForm,17,0,0,0,7,0,5,0,5,0
 employee-spring,com.increff.employee.dto,DaySalesDto,90,3,6,0,23,1,4,1,1,1
-employee-spring,com.increff.employee.dto,BrandDto,125,3,20,0,28,1,16,1,6,1
+employee-spring,com.increff.employee.dto,BrandDto,88,3,8,0,24,1,10,1,6,1
 employee-spring,com.increff.employee.dto,ProductDto,131,3,8,0,31,1,9,1,5,1
 employee-spring,com.increff.employee.dto,InventoryDto,216,3,16,0,46,1,15,1,7,1
-employee-spring,com.increff.employee.dto,OrderDto,777,3,46,0,152,1,32,1,9,1
+employee-spring,com.increff.employee.dto,OrderDto,794,3,52,0,156,1,35,1,9,1
 employee-spring,com.increff.employee.model.forms,ProductForm,38,0,0,0,16,0,11,0,11,0
 employee-spring,com.increff.employee.model.forms,InventoryForm,17,0,0,0,7,0,5,0,5,0
 employee-spring,com.increff.employee.model.forms,BrandForm,17,0,0,0,7,0,5,0,5,0
@@ -78,4 +80,4 @@ employee-spring,com.increff.employee.model.forms,OrderItemForm,17,0,0,0,7,0,5,0,
 employee-spring,com.increff.employee.model.forms,SalesReportForm,31,0,0,0,13,0,9,0,9,0
 employee-spring,com.increff.employee.helper,ProductDtoHelper,137,0,18,0,33,0,14,0,5,0
 employee-spring,com.increff.employee.helper,InventoryDtoHelper,39,0,0,0,12,0,4,0,4,0
-employee-spring,com.increff.employee.helper,BrandDtoHelper,68,0,2,0,18,0,6,0,5,0
+employee-spring,com.increff.employee.helper,BrandDtoHelper,82,0,6,0,21,0,9,0,6,0

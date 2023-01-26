@@ -213,23 +213,26 @@ public class OrderDto {
         return itemDatas;
     }
 
-    //TODO: change to only fetch with start date, end date
+    //TODO: change to get all filters.
     public List<SalesReportData> getSalesReportDatas(SalesReportForm salesReportForm) throws ApiException {
+        if (salesReportForm.getStartDate().isEmpty()) {
+            salesReportForm.setStartDate("1970-01-01");
+        }
+        if (salesReportForm.getEndDate().isEmpty()) {
+            salesReportForm.setEndDate("3000-01-01");
+        }
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         ZonedDateTime startDate = LocalDate.parse(salesReportForm.getStartDate(), dtf).atStartOfDay(ZoneId.systemDefault());
         ZonedDateTime endDate = LocalDate.parse(salesReportForm.getEndDate(), dtf).atStartOfDay(ZoneId.systemDefault()).withHour(23).withMinute(59).withSecond(59);
-        System.out.println(endDate);
+//        System.out.println(endDate);
+        if (startDate.isAfter(endDate)){
+            throw new ApiException("Error: start date can't be after end date");
+        }
         String brand = salesReportForm.getBrand();
         String category = salesReportForm.getCategory();
 
-//        if (startDate.isEmpty()) {
-//            startDate = "1970";
-//        }
-//        if (endDate.isEmpty()) {
-//            endDate = "3000";
-//        }
         List<OrderPojo> orderPojos = orderService.getBetweenDates(startDate, endDate);
-        System.out.println(orderPojos);
+//        System.out.println(orderPojos);
         List<SalesReportData> salesReportDatas = new ArrayList<SalesReportData>();
         HashMap<String, SalesReportData> hash_map = new HashMap<String, SalesReportData>();
 

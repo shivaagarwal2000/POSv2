@@ -1,43 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BrandDtoHelper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">employee-spring</a> &gt; <a href="index.source.html" class="el_package">com.increff.employee.helper</a> &gt; <span class="el_source">BrandDtoHelper.java</span></div><h1>BrandDtoHelper.java</h1><pre class="source lang-java linenums">package com.increff.employee.helper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.increff.employee.model.data.BrandData;
 import com.increff.employee.model.forms.BrandForm;
 import com.increff.employee.pojo.BrandPojo;
 import com.increff.employee.service.ApiException;
 import com.increff.employee.util.StringUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 <span class="nc" id="L12">public class BrandDtoHelper {</span>
 
-	public static BrandData convert(BrandPojo brandPojo) {
-<span class="nc" id="L15">		BrandData brandData = new BrandData();</span>
-<span class="nc" id="L16">		brandData.setBrand(brandPojo.getBrand());</span>
-<span class="nc" id="L17">		brandData.setCategory(brandPojo.getCategory());</span>
-<span class="nc" id="L18">		brandData.setId(brandPojo.getId());</span>
-<span class="nc" id="L19">		return brandData;</span>
-	}
+    public static void emptyCheck(BrandForm form) throws ApiException {
+<span class="nc bnc" id="L15" title="All 4 branches missed.">        if (StringUtil.isEmpty(form.getBrand()) || StringUtil.isEmpty(form.getCategory())) {</span>
+<span class="nc" id="L16">            throw new ApiException(&quot;Error: either of brand/category can not be empty&quot;);</span>
+        }
+<span class="nc" id="L18">    }</span>
 
-	public static BrandPojo convert(BrandForm brandForm) throws ApiException {
-<span class="nc" id="L23">		BrandPojo brandPojo = new BrandPojo();</span>
-<span class="nc" id="L24">		brandPojo.setBrand(brandForm.getBrand());</span>
-<span class="nc" id="L25">		brandPojo.setCategory(brandForm.getCategory());</span>
-<span class="nc" id="L26">		return brandPojo;</span>
-	}
+    public static BrandData convert(BrandPojo brandPojo) {
+<span class="nc" id="L21">        BrandData brandData = new BrandData();</span>
+<span class="nc" id="L22">        brandData.setBrand(brandPojo.getBrand());</span>
+<span class="nc" id="L23">        brandData.setCategory(brandPojo.getCategory());</span>
+<span class="nc" id="L24">        brandData.setId(brandPojo.getId());</span>
+<span class="nc" id="L25">        return brandData;</span>
+    }
 
-	public static void normalise(BrandForm form) {
-<span class="nc" id="L30">		form.setBrand(StringUtil.toLowerCase(form.getBrand()));</span>
-<span class="nc" id="L31">		form.setCategory(StringUtil.toLowerCase(form.getCategory()));</span>
-<span class="nc" id="L32">	}</span>
+    public static BrandPojo convert(BrandForm brandForm) throws ApiException {
+<span class="nc" id="L29">        BrandPojo brandPojo = new BrandPojo();</span>
+<span class="nc" id="L30">        brandPojo.setBrand(brandForm.getBrand());</span>
+<span class="nc" id="L31">        brandPojo.setCategory(brandForm.getCategory());</span>
+<span class="nc" id="L32">        return brandPojo;</span>
+    }
 
-	public static List&lt;BrandData&gt; getAll(List&lt;BrandPojo&gt; brandPojos) {
-<span class="nc" id="L35">		List&lt;BrandData&gt; list2 = new ArrayList&lt;BrandData&gt;();</span>
-<span class="nc bnc" id="L36" title="All 2 branches missed.">		for (BrandPojo brandPojo : brandPojos) {</span>
-<span class="nc" id="L37">			list2.add(BrandDtoHelper.convert(brandPojo));</span>
-<span class="nc" id="L38">		}</span>
-<span class="nc" id="L39">		return list2;</span>
-	}
+    public static void normalise(BrandForm form) {
+<span class="nc" id="L36">        form.setBrand(StringUtil.toLowerCase(form.getBrand()));</span>
+<span class="nc" id="L37">        form.setCategory(StringUtil.toLowerCase(form.getCategory()));</span>
+<span class="nc" id="L38">    }</span>
+
+    public static List&lt;BrandData&gt; getAll(List&lt;BrandPojo&gt; brandPojos) {
+<span class="nc" id="L41">        List&lt;BrandData&gt; list2 = new ArrayList&lt;BrandData&gt;();</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">        for (BrandPojo brandPojo : brandPojos) {</span>
+<span class="nc" id="L43">            list2.add(BrandDtoHelper.convert(brandPojo));</span>
+<span class="nc" id="L44">        }</span>
+<span class="nc" id="L45">        return list2;</span>
+    }
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

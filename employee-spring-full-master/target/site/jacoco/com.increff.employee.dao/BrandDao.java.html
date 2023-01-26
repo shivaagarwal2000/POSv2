@@ -15,51 +15,52 @@ import com.increff.employee.service.ApiException;
 
 @Repository
 <span class="fc" id="L17">public class BrandDao extends AbstractDao {</span>
-
+//	Dao deals with executing the jpql queries, here for the BrandPojo Entity
+	//TODO: refactor - major - clean up the code duplication and send class general query to abstractdao
 	//TODO: uppercase for final
-	private static final String delete_id = &quot;delete from BrandPojo p where id=:id&quot;;
-	private static final String select_id = &quot;select p from BrandPojo p where id=:id&quot;;
-	private static final String select_all = &quot;select p from BrandPojo p&quot;;
-	private static final String select_brand_category = &quot;select p from BrandPojo p where brand=:brand and category=:category&quot;;
+	private static final String DELETE_ID = &quot;delete from BrandPojo p where id=:id&quot;;
+	private static final String SELECT_ID = &quot;select p from BrandPojo p where id=:id&quot;;
+	private static final String SELECT_ALL = &quot;select p from BrandPojo p&quot;;
+	private static final String SELECT_BRAND_CATEGORY = &quot;select p from BrandPojo p where brand=:brand and category=:category&quot;;
 
 	@PersistenceContext
 	private EntityManager entityManager;
 
 	@Transactional(rollbackFor = ApiException.class)
 	public void insert(BrandPojo brandPojo) {
-<span class="nc" id="L30">		entityManager.persist(brandPojo);</span>
-<span class="nc" id="L31">	}</span>
+<span class="nc" id="L31">		entityManager.persist(brandPojo);</span>
+<span class="nc" id="L32">	}</span>
 
 	@Transactional(rollbackFor = ApiException.class)
 	public int delete(int id) {
-<span class="nc" id="L35">		Query query = entityManager.createQuery(delete_id);</span>
-<span class="nc" id="L36">		query.setParameter(&quot;id&quot;, id);</span>
-<span class="nc" id="L37">		return query.executeUpdate();</span>
+<span class="nc" id="L36">		Query query = entityManager.createQuery(DELETE_ID);</span>
+<span class="nc" id="L37">		query.setParameter(&quot;id&quot;, id);</span>
+<span class="nc" id="L38">		return query.executeUpdate();</span>
 	}
 
 	@Transactional(readOnly = true)
 	public BrandPojo select(int id) {
-<span class="nc" id="L42">		TypedQuery&lt;BrandPojo&gt; query = getQuery(select_id, BrandPojo.class);</span>
-<span class="nc" id="L43">		query.setParameter(&quot;id&quot;, id);</span>
-<span class="nc" id="L44">		return getSingle(query);</span>
+<span class="nc" id="L43">		TypedQuery&lt;BrandPojo&gt; query = getQuery(SELECT_ID, BrandPojo.class);</span>
+<span class="nc" id="L44">		query.setParameter(&quot;id&quot;, id);</span>
+<span class="nc" id="L45">		return getSingle(query);</span>
 	}
 
 	@Transactional(readOnly = true)
 	public List&lt;BrandPojo&gt; selectAll() {
-<span class="nc" id="L49">		TypedQuery&lt;BrandPojo&gt; query = getQuery(select_all, BrandPojo.class);</span>
-<span class="nc" id="L50">		return query.getResultList();</span>
+<span class="nc" id="L50">		TypedQuery&lt;BrandPojo&gt; query = getQuery(SELECT_ALL, BrandPojo.class);</span>
+<span class="nc" id="L51">		return query.getResultList();</span>
 	}
 
 	@Transactional(rollbackFor = ApiException.class)
 	public void update(BrandPojo brandPojo) {
-<span class="nc" id="L55">	}</span>
+<span class="nc" id="L56">	}</span>
 
 	@Transactional(readOnly = true)
 	public BrandPojo select(String brand, String category) {
-<span class="nc" id="L59">		TypedQuery&lt;BrandPojo&gt; query = getQuery(select_brand_category, BrandPojo.class);</span>
-<span class="nc" id="L60">		query.setParameter(&quot;brand&quot;, brand);</span>
-<span class="nc" id="L61">		query.setParameter(&quot;category&quot;, category);</span>
-<span class="nc" id="L62">		return getSingle(query);</span>
+<span class="nc" id="L60">		TypedQuery&lt;BrandPojo&gt; query = getQuery(SELECT_BRAND_CATEGORY, BrandPojo.class);</span>
+<span class="nc" id="L61">		query.setParameter(&quot;brand&quot;, brand);</span>
+<span class="nc" id="L62">		query.setParameter(&quot;category&quot;, category);</span>
+<span class="nc" id="L63">		return getSingle(query);</span>
 	}
 
 }

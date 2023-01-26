@@ -213,65 +213,68 @@ import static com.increff.employee.pojo.TableConstants.PLACED_STATUS;
 <span class="nc" id="L213">        return itemDatas;</span>
     }
 
-    //TODO: change to only fetch with start date, end date
+    //TODO: change to get all filters.
     public List&lt;SalesReportData&gt; getSalesReportDatas(SalesReportForm salesReportForm) throws ApiException {
-<span class="nc" id="L218">        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd&quot;);</span>
-<span class="nc" id="L219">        ZonedDateTime startDate = LocalDate.parse(salesReportForm.getStartDate(), dtf).atStartOfDay(ZoneId.systemDefault());</span>
-<span class="nc" id="L220">        ZonedDateTime endDate = LocalDate.parse(salesReportForm.getEndDate(), dtf).atStartOfDay(ZoneId.systemDefault()).withHour(23).withMinute(59).withSecond(59);</span>
-<span class="nc" id="L221">        System.out.println(endDate);</span>
-<span class="nc" id="L222">        String brand = salesReportForm.getBrand();</span>
-<span class="nc" id="L223">        String category = salesReportForm.getCategory();</span>
+<span class="nc bnc" id="L218" title="All 2 branches missed.">        if (salesReportForm.getStartDate().isEmpty()) {</span>
+<span class="nc" id="L219">            salesReportForm.setStartDate(&quot;1970-01-01&quot;);</span>
+        }
+<span class="nc bnc" id="L221" title="All 2 branches missed.">        if (salesReportForm.getEndDate().isEmpty()) {</span>
+<span class="nc" id="L222">            salesReportForm.setEndDate(&quot;3000-01-01&quot;);</span>
+        }
+<span class="nc" id="L224">        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd&quot;);</span>
+<span class="nc" id="L225">        ZonedDateTime startDate = LocalDate.parse(salesReportForm.getStartDate(), dtf).atStartOfDay(ZoneId.systemDefault());</span>
+<span class="nc" id="L226">        ZonedDateTime endDate = LocalDate.parse(salesReportForm.getEndDate(), dtf).atStartOfDay(ZoneId.systemDefault()).withHour(23).withMinute(59).withSecond(59);</span>
+//        System.out.println(endDate);
+<span class="nc bnc" id="L228" title="All 2 branches missed.">        if (startDate.isAfter(endDate)){</span>
+<span class="nc" id="L229">            throw new ApiException(&quot;Error: start date can't be after end date&quot;);</span>
+        }
+<span class="nc" id="L231">        String brand = salesReportForm.getBrand();</span>
+<span class="nc" id="L232">        String category = salesReportForm.getCategory();</span>
 
-//        if (startDate.isEmpty()) {
-//            startDate = &quot;1970&quot;;
-//        }
-//        if (endDate.isEmpty()) {
-//            endDate = &quot;3000&quot;;
-//        }
-<span class="nc" id="L231">        List&lt;OrderPojo&gt; orderPojos = orderService.getBetweenDates(startDate, endDate);</span>
-<span class="nc" id="L232">        System.out.println(orderPojos);</span>
-<span class="nc" id="L233">        List&lt;SalesReportData&gt; salesReportDatas = new ArrayList&lt;SalesReportData&gt;();</span>
-<span class="nc" id="L234">        HashMap&lt;String, SalesReportData&gt; hash_map = new HashMap&lt;String, SalesReportData&gt;();</span>
+<span class="nc" id="L234">        List&lt;OrderPojo&gt; orderPojos = orderService.getBetweenDates(startDate, endDate);</span>
+//        System.out.println(orderPojos);
+<span class="nc" id="L236">        List&lt;SalesReportData&gt; salesReportDatas = new ArrayList&lt;SalesReportData&gt;();</span>
+<span class="nc" id="L237">        HashMap&lt;String, SalesReportData&gt; hash_map = new HashMap&lt;String, SalesReportData&gt;();</span>
 
-<span class="nc bnc" id="L236" title="All 2 branches missed.">        for (OrderPojo orderPojo : orderPojos) {</span>
-<span class="nc" id="L237">            List&lt;OrderItemPojo&gt; orderItemPojos = orderItemService.getItemPojos(orderPojo.getId());</span>
+<span class="nc bnc" id="L239" title="All 2 branches missed.">        for (OrderPojo orderPojo : orderPojos) {</span>
+<span class="nc" id="L240">            List&lt;OrderItemPojo&gt; orderItemPojos = orderItemService.getItemPojos(orderPojo.getId());</span>
 
-<span class="nc bnc" id="L239" title="All 2 branches missed.">            for (OrderItemPojo orderItemPojo : orderItemPojos) {</span>
-<span class="nc" id="L240">                ProductPojo productPojo = productService.get(orderItemPojo.getProductId());</span>
-<span class="nc" id="L241">                BrandPojo brandPojo = brandService.get(productPojo.getBrand_category());</span>
-<span class="nc bnc" id="L242" title="All 2 branches missed.">                if (hash_map.containsKey(brandPojo.getBrand() + brandPojo.getCategory())) {</span>
-<span class="nc" id="L243">                    SalesReportData salesReportData = new SalesReportData();</span>
-<span class="nc" id="L244">                    salesReportData.setBrand(brandPojo.getBrand());</span>
-<span class="nc" id="L245">                    salesReportData.setCategory(brandPojo.getCategory());</span>
-<span class="nc" id="L246">                    salesReportData</span>
-<span class="nc" id="L247">                            .setQuantity(hash_map.get(brandPojo.getBrand() + brandPojo.getCategory()).getQuantity()</span>
-<span class="nc" id="L248">                                    + orderItemPojo.getQuantity());</span>
-<span class="nc" id="L249">                    salesReportData.setRevenue(hash_map.get(brandPojo.getBrand() + brandPojo.getCategory()).getRevenue()</span>
-<span class="nc" id="L250">                            + orderItemPojo.getSellingprice());</span>
-<span class="nc" id="L251">                    hash_map.put(brandPojo.getBrand() + brandPojo.getCategory(), salesReportData);</span>
-<span class="nc" id="L252">                } else {</span>
-<span class="nc" id="L253">                    SalesReportData salesReportData = new SalesReportData();</span>
-<span class="nc" id="L254">                    salesReportData.setBrand(brandPojo.getBrand());</span>
-<span class="nc" id="L255">                    salesReportData.setCategory(brandPojo.getCategory());</span>
-<span class="nc" id="L256">                    salesReportData.setQuantity(orderItemPojo.getQuantity());</span>
-<span class="nc" id="L257">                    salesReportData.setRevenue(orderItemPojo.getSellingprice());</span>
-<span class="nc" id="L258">                    hash_map.put(brandPojo.getBrand() + brandPojo.getCategory(), salesReportData);</span>
+<span class="nc bnc" id="L242" title="All 2 branches missed.">            for (OrderItemPojo orderItemPojo : orderItemPojos) {</span>
+<span class="nc" id="L243">                ProductPojo productPojo = productService.get(orderItemPojo.getProductId());</span>
+<span class="nc" id="L244">                BrandPojo brandPojo = brandService.get(productPojo.getBrand_category());</span>
+<span class="nc bnc" id="L245" title="All 2 branches missed.">                if (hash_map.containsKey(brandPojo.getBrand() + brandPojo.getCategory())) {</span>
+<span class="nc" id="L246">                    SalesReportData salesReportData = new SalesReportData();</span>
+<span class="nc" id="L247">                    salesReportData.setBrand(brandPojo.getBrand());</span>
+<span class="nc" id="L248">                    salesReportData.setCategory(brandPojo.getCategory());</span>
+<span class="nc" id="L249">                    salesReportData</span>
+<span class="nc" id="L250">                            .setQuantity(hash_map.get(brandPojo.getBrand() + brandPojo.getCategory()).getQuantity()</span>
+<span class="nc" id="L251">                                    + orderItemPojo.getQuantity());</span>
+<span class="nc" id="L252">                    salesReportData.setRevenue(hash_map.get(brandPojo.getBrand() + brandPojo.getCategory()).getRevenue()</span>
+<span class="nc" id="L253">                            + orderItemPojo.getSellingprice());</span>
+<span class="nc" id="L254">                    hash_map.put(brandPojo.getBrand() + brandPojo.getCategory(), salesReportData);</span>
+<span class="nc" id="L255">                } else {</span>
+<span class="nc" id="L256">                    SalesReportData salesReportData = new SalesReportData();</span>
+<span class="nc" id="L257">                    salesReportData.setBrand(brandPojo.getBrand());</span>
+<span class="nc" id="L258">                    salesReportData.setCategory(brandPojo.getCategory());</span>
+<span class="nc" id="L259">                    salesReportData.setQuantity(orderItemPojo.getQuantity());</span>
+<span class="nc" id="L260">                    salesReportData.setRevenue(orderItemPojo.getSellingprice());</span>
+<span class="nc" id="L261">                    hash_map.put(brandPojo.getBrand() + brandPojo.getCategory(), salesReportData);</span>
                 }
-<span class="nc" id="L260">            }</span>
+<span class="nc" id="L263">            }</span>
 
-<span class="nc" id="L262">        }</span>
+<span class="nc" id="L265">        }</span>
 
-<span class="nc bnc" id="L264" title="All 2 branches missed.">        for (String key : hash_map.keySet()) {</span>
-<span class="nc" id="L265">            salesReportDatas.add(hash_map.get(key));</span>
-<span class="nc" id="L266">        }</span>
+<span class="nc bnc" id="L267" title="All 2 branches missed.">        for (String key : hash_map.keySet()) {</span>
+<span class="nc" id="L268">            salesReportDatas.add(hash_map.get(key));</span>
+<span class="nc" id="L269">        }</span>
 
-<span class="nc" id="L268">        return salesReportDatas;</span>
+<span class="nc" id="L271">        return salesReportDatas;</span>
 
     }
 
     public String getInvoice(int orderId) throws ApiException, IOException {
-<span class="nc" id="L273">        List&lt;CommonOrderItemData&gt; commonOrderItemDatas = getItemDatas(orderId);</span>
-<span class="nc" id="L274">        return orderClient.getInvoice(commonOrderItemDatas);</span>
+<span class="nc" id="L276">        List&lt;CommonOrderItemData&gt; commonOrderItemDatas = getItemDatas(orderId);</span>
+<span class="nc" id="L277">        return orderClient.getInvoice(commonOrderItemDatas);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
