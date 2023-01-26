@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<invoice>
+    <customerName>testname</customerName>
+    <orderId>testid</orderId>
+    <companyName>Increff</companyName>
+    <building>Enzyme</building>
+    <street>5th main street</street>
+    <city>Bengaluru</city>
+    <invoiceDate>testDate</invoiceDate>
+    <invoiceTime>testTime</invoiceTime>
+    <orderItems>
+        <orderItem>
+            <sn>2</sn>
+            <id>1</id>
+            <productName>p1</productName>
+            <quantity>1</quantity>
+            <sellingPrice>5.0</sellingPrice>
+            <total>5.0</total>
+        </orderItem>
+        <orderItem>
+            <sn>3</sn>
+            <id>2</id>
+            <productName>p2</productName>
+            <quantity>1</quantity>
+            <sellingPrice>10.0</sellingPrice>
+            <total>10.0</total>
+        </orderItem>
+    </orderItems>
+    <totalAmount>total-xyz</totalAmount>
+</invoice>

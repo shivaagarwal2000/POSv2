@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<invoice>
+    <customerName>piyush</customerName>
+    <orderId>1</orderId>
+    <companyName>Increff</companyName>
+    <building>Enzyme</building>
+    <street>5th main street</street>
+    <city>Bangaluru,</city>
+    <invoiceDate>2023/01/23</invoiceDate>
+    <invoiceTime>11:29:29</invoiceTime>
+    <orderItems>
+        <orderItem>
+            <sn>1</sn>
+            <id>32</id>
+            <productName>dairy-milk</productName>
+            <quantity>31</quantity>
+            <sellingPrice>20.0</sellingPrice>
+            <total>620.0</total>
+        </orderItem>
+        <orderItem>
+            <sn>2</sn>
+            <id>33</id>
+            <productName>string</productName>
+            <quantity>2</quantity>
+            <sellingPrice>20.0</sellingPrice>
+            <total>40.0</total>
+        </orderItem>
+    </orderItems>
+    <totalAmount>660.0</totalAmount>
+</invoice>
