@@ -1,5 +1,9 @@
 function getBrandUrl() {
   var baseUrl = $("meta[name=baseUrl]").attr("content");
+  var role = $('role');
+  console.log(role);
+  console.log([[${role}]])
+  console.dir($("meta[name=baseUrl]"))
   return baseUrl + "/api/brand";
 }
 
