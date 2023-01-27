@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class InvoiceData {
 
-    private int serial;
+    private int serial;// TODO What is the use of serial? Priority: 5
     private String productName;
     private double mrp;
     private int quantity;

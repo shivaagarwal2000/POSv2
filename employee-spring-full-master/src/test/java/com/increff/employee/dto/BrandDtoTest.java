@@ -2,6 +2,7 @@ package com.increff.employee.dto;
 
 import com.increff.employee.model.data.BrandData;
 import com.increff.employee.model.forms.BrandForm;
+import com.increff.employee.pojo.BrandPojo;
 import com.increff.employee.service.AbstractUnitTest;
 import com.increff.employee.service.ApiException;
 import org.junit.Test;
@@ -20,22 +21,24 @@ public class BrandDtoTest extends AbstractUnitTest {
     public void testAdd() throws ApiException {
         //test whether valid brand getting added
         BrandForm brandForm = new BrandForm();
-        brandForm.setBrand("brand-test");
+        brandForm.setBrand("  Brand-test  ");
         brandForm.setCategory("brand_category");
         brandDto.add(brandForm);
+        BrandData brandData = brandDto.getAll().get(0);
+        assertEquals(brandData.getBrand(), "brand-test");
     }
 
-    @Test
-    public void testEmptyBrandAdd() {
+    @Test(expected = ApiException.class)// TODO add expected in other cases also Priority: 5
+    public void testEmptyBrandAdd() throws ApiException{
         //test whether empty brand showing error
         try {
             BrandForm brandForm = new BrandForm();
             brandForm.setCategory("category-test");
             brandDto.add(brandForm);
-            fail("empty brand --> empty add shouldv'e thrown exception but didn't");
         } catch (final ApiException apiException) {
             final String ERROR_MSG = "Error: either of brand/category can not be empty";
             assertEquals(apiException.getMessage(), ERROR_MSG);
+            throw apiException;
         }
 
     }
@@ -61,13 +64,8 @@ public class BrandDtoTest extends AbstractUnitTest {
         //test if duplicate brand category combination is getting added
         try {
             BrandForm brandForm = new BrandForm();
-            BrandForm brandForm1 = new BrandForm();
-            brandForm.setBrand("brand-test");
-            brandForm.setCategory("category-test");
-            brandForm1.setBrand("brand-test");
-            brandForm1.setCategory("category-test");
             brandDto.add(brandForm);
-            brandDto.add(brandForm1);
+            brandDto.add(brandForm);
         } catch (final ApiException apiException) {
             final String ERROR_MSG = "Error: given brand, category combination already exists";
             assertEquals(apiException.getMessage(), ERROR_MSG);

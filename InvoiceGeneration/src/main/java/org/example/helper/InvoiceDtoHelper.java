@@ -26,9 +26,9 @@ import java.util.List;
 import static org.example.dto.InvoiceDto.reqFilePath;
 
 public class InvoiceDtoHelper {
-    public static void generatePdf(List<CommonOrderItemData> forms) throws FOPException, IOException, TransformerException {
+    public static void generatePdf(List<CommonOrderItemData> forms) throws FOPException, IOException, TransformerException {// TODO Catch specific exception and throw ApiException with their messages Priority: 5
         int count = 1;
-        String xmlFilePath = reqFilePath + "order-" + Integer.toString(forms.get(0).getOrderId()) + ".xml";
+        String xmlFilePath = reqFilePath + "order-" + Integer.toString(forms.get(0).getOrderId()) + ".xml";// TODO Unnecessary Integer.toString call says IDE Priority: 5
         try {
             DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
 
@@ -36,12 +36,14 @@ public class InvoiceDtoHelper {
 
             Document document = documentBuilder.newDocument();
 
+            // TODO Try to make this using XML model file conversion Priority: 5
             // root element
             Element root = document.createElement("invoice");
             document.appendChild(root);
 
             // employee element
             //TODO: refactor - remove customer name
+            // TODO Move Element creation to another function Priority: 5
             Element customerName = document.createElement("customerName");
             customerName.appendChild(document.createTextNode("testname"));
             root.appendChild(customerName);
@@ -120,15 +122,15 @@ public class InvoiceDtoHelper {
             System.out.println("Done creating XML File");
 
         } catch (ParserConfigurationException pce) {
-            pce.printStackTrace();
+            pce.printStackTrace();// TODO Throw ApiException Priority: 5
         } catch (TransformerException tfe) {
-            tfe.printStackTrace();
+            tfe.printStackTrace();// TODO Throw ApiException Priority: 5
         }
 
         convertToPDF(xmlFilePath, forms.get(0).getOrderId());
     }
 
-    public static void convertToPDF(String xmlFilePath, int orderId) throws IOException, FOPException, TransformerException {
+    public static void convertToPDF(String xmlFilePath, int orderId) throws IOException, FOPException, TransformerException {// TODO Catch specific exception and throw ApiException with their messages Priority: 5
         // the XSL FO file
         File xsltFile = new File(reqFilePath + "template.xsl");
         // the XML file which provides the input

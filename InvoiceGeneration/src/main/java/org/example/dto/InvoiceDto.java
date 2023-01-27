@@ -32,11 +32,11 @@ public class InvoiceDto {
             return getBase64String(orderId);
         }
         InvoiceDtoHelper.generatePdf(forms);
-        InvoicePojo invoicePojo = new InvoicePojo();
+        InvoicePojo invoicePojo = new InvoicePojo();// TODO Move this to helper Priority: 5
         invoicePojo.setOrderId(orderId);
         invoicePojo.setLocalFilePath(reqFilePath + "order-" + orderId + ".pdf");
         invoiceService.add(invoicePojo);
-        return getBase64String(orderId);
+        return getBase64String(orderId);// TODO If we first get getBase64String and keep it in a variable then perform invoiceService.add(), we will not require transactional Priority: 5
     }
 
     public String getBase64String(int orderId) {
@@ -44,13 +44,13 @@ public class InvoiceDto {
         String pdfFilePath = invoiceService.get(orderId).getLocalFilePath();
         try {
             File file = new File(pdfFilePath);
-            byte[] bytes = Files.readAllBytes(file.toPath());
+            byte[] bytes = Files.readAllBytes(file.toPath());// TODO Only add try catch around the line which will throw the error Priority: 5
             String b64 = Base64.getEncoder().encodeToString(bytes);
             return b64;
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception e) { // TODO Catch specific exception like IOException, instead of catching generic Exception Priority: 5
+            e.printStackTrace();// TODO Throw ApiException with e.getMessage() Priority: 5
         }
-        return "";
+        return ""; // TODO Do not return empty string. Throw ApiException. Priority: 5
     }
 
 }

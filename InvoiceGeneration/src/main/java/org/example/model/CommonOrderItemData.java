@@ -1,6 +1,6 @@
 package org.example.model;
 
-public class CommonOrderItemData {
+public class CommonOrderItemData {// TODO Use commons class Priority: 5
     private int id;
     private int orderId;
     private double sellingPrice;

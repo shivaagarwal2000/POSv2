@@ -7,7 +7,7 @@ import javax.xml.bind.Marshaller;
 
 import org.example.Employee;
 
-public class ObjectToXml {
+public class ObjectToXml {// TODO Remove unused class Priority: 5
     public static void main(String[] args) throws Exception{
         JAXBContext contextObj = JAXBContext.newInstance(Employee.class);
 

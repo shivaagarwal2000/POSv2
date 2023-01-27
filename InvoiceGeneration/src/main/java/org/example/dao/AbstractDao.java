@@ -4,7 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-public abstract class AbstractDao {
+public abstract class AbstractDao {// TODO Move this to commons Priority: 5
 
 	@PersistenceContext
 	private EntityManager em;
@@ -20,5 +20,5 @@ public abstract class AbstractDao {
 	protected EntityManager em() {
 		return em;
 	}
-
+// TODO Add more functions here like selectById, deleteById, selectAll Priority: 5
 }

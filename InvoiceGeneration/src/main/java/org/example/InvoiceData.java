@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class InvoiceData {
+public class InvoiceData {// TODO Remove unused class Priority: 5
     private int serial;
     private String productName;
     private int quantity;

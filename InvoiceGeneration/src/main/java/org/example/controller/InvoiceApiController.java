@@ -21,7 +21,7 @@ public class InvoiceApiController {
 
     @ApiOperation(value = "Download pdf Invoice")
     @RequestMapping(path = "/api/invoice", method = RequestMethod.POST)
-    public String getInvoice(@RequestBody List<CommonOrderItemData> forms) throws Exception {
+    public String getInvoice(@RequestBody List<CommonOrderItemData> forms) throws Exception {// TODO Do not throw Exception. Catch each exception and throw ApiException only. Priority: 5
         return invoiceDto.getInvoice(forms);
     }
 

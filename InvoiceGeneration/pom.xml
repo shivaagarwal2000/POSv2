@@ -11,8 +11,10 @@
     </parent>
     <packaging>war</packaging>
     <groupId>org.example</groupId>
+<!--    TODO change groupId to org.invoice-->
     <artifactId>InvoiceGeneration</artifactId>
     <version>1.0-SNAPSHOT</version>
+<!--    TODO Move common properties to commons-->
     <properties>
         <spring.version>4.3.6.RELEASE</spring.version>
         <swagger.version>2.4.0</swagger.version>

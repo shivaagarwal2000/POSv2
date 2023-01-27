@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 @XmlRootElement
-public class Invoice {
+public class Invoice { // TODO Remove used class Priority: 5
     private List<InvoiceData> invoiceDataList;
     public Invoice(){}
     public Invoice(List<InvoiceData> invoiceData) {

@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class Employee {
+public class Employee { // TODO Move this to model package, remove if not being used Priority: 5
     private int id;
     private String name;
     private float salary;

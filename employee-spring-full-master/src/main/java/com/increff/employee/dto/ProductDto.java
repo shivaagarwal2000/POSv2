@@ -32,7 +32,7 @@ public class ProductDto {
 		if (brandPojo == null) {
 			throw new ApiException("Error: Brand category combination does not exist");
 		}
-		ProductPojo existingProductPojo = productService.get(form.getBarcode());
+		ProductPojo existingProductPojo = productService.get(form.getBarcode());// TODO Use getCheck Priority: 5
 		if (existingProductPojo != null) {
 			throw new ApiException("Error: Barcode already exists");
 		}

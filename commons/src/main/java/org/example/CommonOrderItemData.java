@@ -1,5 +1,6 @@
 package org.example;
 
+//TODO use getter setter Priority: 5
 public class CommonOrderItemData {
     private int id;
     private int orderId;
@@ -63,6 +64,6 @@ public class CommonOrderItemData {
     }
 
     private String productName;
-    private String barcode;
+    private String barcode; // TODO Maintain proper formatting Priority: 5
     private int quantity;
 }

@@ -65,6 +65,9 @@ public class DbConfig {
 		Properties jpaProperties = new Properties();
 		jpaProperties.put("hibernate.dialect", hibernateDialect);
 		jpaProperties.put("hibernate.show_sql", hibernateShowSql);
+// TODO Add customer table name generation strategy here Priority: 5
+//		jpaProperties.put("hibernate.physical_naming_strategy", new SnakeCaseNamingStrategy("pos_"));
+
 		jpaProperties.put("hibernate.hbm2ddl.auto", hibernateHbm2ddl);
 		jpaProperties.put("hibernate.hbm2ddl.auto", hibernateHbm2ddl);
 		bean.setJpaProperties(jpaProperties);
