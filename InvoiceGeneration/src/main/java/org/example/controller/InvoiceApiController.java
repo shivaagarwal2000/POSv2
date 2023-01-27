@@ -22,7 +22,6 @@ public class InvoiceApiController {
     @ApiOperation(value = "Download pdf Invoice")
     @RequestMapping(path = "/api/invoice", method = RequestMethod.POST)
     public String getInvoice(@RequestBody List<CommonOrderItemData> forms) throws Exception {
-
         return invoiceDto.getInvoice(forms);
     }
 
