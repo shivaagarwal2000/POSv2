@@ -19,7 +19,7 @@ public class BrandDto {
 
     public void add(BrandForm form) throws ApiException {//TODO: make small func helper
         BrandDtoHelper.emptyCheck(form);
-        BrandDtoHelper.normalise(form);
+        BrandDtoHelper.normalise(form); //TODO: logic - test is yet to check this
         BrandPojo brandPojo = validate(form);
         if (brandPojo != null) {
             throw new ApiException("Error: given brand, category combination already exists");

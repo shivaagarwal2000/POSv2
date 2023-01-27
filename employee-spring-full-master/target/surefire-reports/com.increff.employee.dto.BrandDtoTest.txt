@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.increff.employee.dto.BrandDtoTest
 -------------------------------------------------------------------------------
-Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.998 sec
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 19.389 sec

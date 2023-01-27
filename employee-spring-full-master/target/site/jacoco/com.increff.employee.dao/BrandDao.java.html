@@ -33,22 +33,22 @@ import com.increff.employee.service.ApiException;
 
 	@Transactional(rollbackFor = ApiException.class)
 	public int delete(int id) {
-<span class="nc" id="L36">		Query query = entityManager.createQuery(DELETE_ID);</span>
-<span class="nc" id="L37">		query.setParameter(&quot;id&quot;, id);</span>
-<span class="nc" id="L38">		return query.executeUpdate();</span>
+<span class="fc" id="L36">		Query query = entityManager.createQuery(DELETE_ID);</span>
+<span class="fc" id="L37">		query.setParameter(&quot;id&quot;, id);</span>
+<span class="fc" id="L38">		return query.executeUpdate();</span>
 	}
 
 	@Transactional(readOnly = true)
 	public BrandPojo select(int id) {
-<span class="nc" id="L43">		TypedQuery&lt;BrandPojo&gt; query = getQuery(SELECT_ID, BrandPojo.class);</span>
-<span class="nc" id="L44">		query.setParameter(&quot;id&quot;, id);</span>
-<span class="nc" id="L45">		return getSingle(query);</span>
+<span class="fc" id="L43">		TypedQuery&lt;BrandPojo&gt; query = getQuery(SELECT_ID, BrandPojo.class);</span>
+<span class="fc" id="L44">		query.setParameter(&quot;id&quot;, id);</span>
+<span class="fc" id="L45">		return getSingle(query);</span>
 	}
 
 	@Transactional(readOnly = true)
 	public List&lt;BrandPojo&gt; selectAll() {
-<span class="nc" id="L50">		TypedQuery&lt;BrandPojo&gt; query = getQuery(SELECT_ALL, BrandPojo.class);</span>
-<span class="nc" id="L51">		return query.getResultList();</span>
+<span class="fc" id="L50">		TypedQuery&lt;BrandPojo&gt; query = getQuery(SELECT_ALL, BrandPojo.class);</span>
+<span class="fc" id="L51">		return query.getResultList();</span>
 	}
 
 	@Transactional(rollbackFor = ApiException.class)

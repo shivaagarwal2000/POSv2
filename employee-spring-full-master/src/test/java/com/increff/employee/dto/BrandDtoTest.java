@@ -7,11 +7,13 @@ import com.increff.employee.service.AbstractUnitTest;
 import com.increff.employee.service.ApiException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.thymeleaf.util.StringUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class BrandDtoTest extends AbstractUnitTest {
 
     @Autowired
@@ -64,6 +66,10 @@ public class BrandDtoTest extends AbstractUnitTest {
         //test if duplicate brand category combination is getting added
         try {
             BrandForm brandForm = new BrandForm();
+            String brand = "brand";
+            String category = "category";
+            brandForm.setBrand(brand);
+            brandForm.setCategory(category);
             brandDto.add(brandForm);
             brandDto.add(brandForm);
         } catch (final ApiException apiException) {
@@ -107,24 +113,27 @@ public class BrandDtoTest extends AbstractUnitTest {
     @Test
     public void testGet() {
         //test the retrieval of single item
-//        try {
-//            BrandForm brandForm = new BrandForm();
-//            String brand = "brand";
-//            String category = "category";
-//            brandForm.setCategory(category);
-//            brandForm.setBrand(brand);
-//            brandDto.add(brandForm);
-//            BrandData brandData = brandDto.get(1);
-//            assertEquals(brand, brandData.getBrand());
-//            assertEquals(category, brandData.getCategory());
-//        }
-//        catch (ApiException apiException) {
-//            fail("Get method not able to retrieve correct entry");
-//        }
+        try {
+            BrandForm brandForm = new BrandForm();
+            String brand = "brand";
+            String category = "category";
+            brandForm.setCategory(category);
+            brandForm.setBrand(brand);
+            brandDto.add(brandForm);
+//            List<BrandData> brandDataList = brandDto.getAll();
+//            for (BrandData brandData: brandDataList) {
+//                System.out.println(brandData.getBrand() + brandData.getCategory() + brandData.getId());
+//            }
+            BrandData brandData = brandDto.get(1);
+            assertEquals(brand, brandData.getBrand());
+            assertEquals(category, brandData.getCategory());
+        } catch (ApiException apiException) {
+            fail("Get method not able to retrieve correct entry");
+        }
     }
 
     @Test
-    public void testGetAll(){
+    public void testGetAll() {
         //test the retrieval of all entries
 //        try {
 //            List<BrandData>
@@ -132,6 +141,51 @@ public class BrandDtoTest extends AbstractUnitTest {
 //        catch () {
 //
 //        }
+    }
+
+    @Test
+    public void testUpdate() {
+
+    }
+
+    @Test
+    public void testDelete() {
+        //test if brand is getting deleted
+        try {
+            BrandForm brandForm = new BrandForm();
+            String brand = "brand";
+            String category = "category";
+            brandForm.setCategory(category);
+            brandForm.setBrand(brand);
+            brandDto.add(brandForm);
+//            List<BrandData> brandDataList = brandDto.getAll();
+//            for (BrandData brandData: brandDataList) {
+//                System.out.println(brandData.getBrand() + brandData.getCategory() + brandData.getId());
+//            }
+            brandDto.delete(1);
+            BrandData brandData = brandDto.get(1);
+            fail("Delete method not deleting the entry");
+        } catch (final ApiException apiException) {
+            final String ERROR_MSG = "Brand with given ID does not exit, id: 1";
+            assertEquals(ERROR_MSG, apiException.getMessage());
+        }
+
+    }
+
+    @Test
+    public void testValidate() {
+        //test validating the length while adding
+        try {
+            int length = 52;
+            String brand = StringUtils.repeat("b", length);
+            BrandForm brandForm = new BrandForm();
+            brandForm.setBrand(brand);
+            brandForm.setCategory("category-test");
+            brandDto.validate(brandForm);
+        } catch (final ApiException apiException) {
+            final String ERROR_MSG = "Error: length of brand, category exceeds maximum limit";
+            assertEquals(apiException.getMessage(), ERROR_MSG);
+        }
     }
 
 }

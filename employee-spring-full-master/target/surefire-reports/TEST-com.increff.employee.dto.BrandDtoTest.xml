@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="8" failures="0" name="com.increff.employee.dto.BrandDtoTest" time="0.479" errors="0" skipped="0">
+<testsuite tests="11" failures="0" name="com.increff.employee.dto.BrandDtoTest" time="0.571" errors="0" skipped="0">
   <properties>
     <property name="idea.version" value="2022.3.1"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
@@ -63,12 +63,15 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="com.increff.employee.dto.BrandDtoTest" name="testAdd" time="0.429"/>
-  <testcase classname="com.increff.employee.dto.BrandDtoTest" name="testGet" time="0.002"/>
-  <testcase classname="com.increff.employee.dto.BrandDtoTest" name="testEmptyBrandAdd" time="0.005"/>
-  <testcase classname="com.increff.employee.dto.BrandDtoTest" name="testCategoryLengthOnAdd" time="0.005"/>
-  <testcase classname="com.increff.employee.dto.BrandDtoTest" name="testBrandLengthOnAdd" time="0.003"/>
-  <testcase classname="com.increff.employee.dto.BrandDtoTest" name="testEmptyCategoryAdd" time="0.003"/>
-  <testcase classname="com.increff.employee.dto.BrandDtoTest" name="testGetAll" time="0.003"/>
-  <testcase classname="com.increff.employee.dto.BrandDtoTest" name="testDuplicateAdd" time="0.029"/>
+  <testcase classname="com.increff.employee.dto.BrandDtoTest" name="testAdd" time="0.446"/>
+  <testcase classname="com.increff.employee.dto.BrandDtoTest" name="testGet" time="0.026"/>
+  <testcase classname="com.increff.employee.dto.BrandDtoTest" name="testEmptyBrandAdd" time="0.011"/>
+  <testcase classname="com.increff.employee.dto.BrandDtoTest" name="testValidate" time="0.009"/>
+  <testcase classname="com.increff.employee.dto.BrandDtoTest" name="testCategoryLengthOnAdd" time="0.007"/>
+  <testcase classname="com.increff.employee.dto.BrandDtoTest" name="testBrandLengthOnAdd" time="0.007"/>
+  <testcase classname="com.increff.employee.dto.BrandDtoTest" name="testEmptyCategoryAdd" time="0.007"/>
+  <testcase classname="com.increff.employee.dto.BrandDtoTest" name="testDelete" time="0.031"/>
+  <testcase classname="com.increff.employee.dto.BrandDtoTest" name="testGetAll" time="0.006"/>
+  <testcase classname="com.increff.employee.dto.BrandDtoTest" name="testUpdate" time="0.007"/>
+  <testcase classname="com.increff.employee.dto.BrandDtoTest" name="testDuplicateAdd" time="0.014"/>
 </testsuite>

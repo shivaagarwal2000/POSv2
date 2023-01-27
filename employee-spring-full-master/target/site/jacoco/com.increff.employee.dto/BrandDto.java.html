@@ -19,7 +19,7 @@ import java.util.List;
 
     public void add(BrandForm form) throws ApiException {//TODO: make small func helper
 <span class="fc" id="L21">        BrandDtoHelper.emptyCheck(form);</span>
-<span class="fc" id="L22">        BrandDtoHelper.normalise(form);</span>
+<span class="fc" id="L22">        BrandDtoHelper.normalise(form); //TODO: logic - test is yet to check this</span>
 <span class="fc" id="L23">        BrandPojo brandPojo = validate(form);</span>
 <span class="fc bfc" id="L24" title="All 2 branches covered.">        if (brandPojo != null) {</span>
 <span class="fc" id="L25">            throw new ApiException(&quot;Error: given brand, category combination already exists&quot;);</span>
@@ -29,12 +29,12 @@ import java.util.List;
 <span class="fc" id="L29">    }</span>
 
     public BrandData get(int id) throws ApiException {
-<span class="nc" id="L32">        return BrandDtoHelper.convert(brandService.get(id));</span>
+<span class="fc" id="L32">        return BrandDtoHelper.convert(brandService.get(id));</span>
     }
 
     public List&lt;BrandData&gt; getAll() {
-<span class="nc" id="L36">        List&lt;BrandPojo&gt; list = brandService.getAll();</span>
-<span class="nc" id="L37">        return BrandDtoHelper.getAll(list);</span>
+<span class="fc" id="L36">        List&lt;BrandPojo&gt; list = brandService.getAll();</span>
+<span class="fc" id="L37">        return BrandDtoHelper.getAll(list);</span>
     }
 
     public void update(int id, BrandForm form) throws ApiException {
@@ -49,8 +49,8 @@ import java.util.List;
 <span class="nc" id="L49">    }</span>
 
     public void delete(int id) throws ApiException {
-<span class="nc" id="L52">        brandService.delete(id);</span>
-<span class="nc" id="L53">    }</span>
+<span class="fc" id="L52">        brandService.delete(id);</span>
+<span class="fc" id="L53">    }</span>
 
     public BrandPojo validate(BrandForm form) throws ApiException {
 <span class="fc bfc" id="L56" title="All 4 branches covered.">        if (form.getBrand().length() &gt; 50 || form.getCategory().length() &gt; 50) {</span>

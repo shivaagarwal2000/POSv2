@@ -1,4 +1,5 @@
 com/increff/employee/service/EmployeeServiceTest.class
+com/increff/employee/service/BrandServiceTest.class
 com/increff/employee/service/AbstractUnitTest.class
 com/increff/employee/dto/BrandDtoTest.class
 com/increff/employee/service/SampleTest.class

@@ -32,7 +32,7 @@ import com.increff.employee.service.ProductService;
 <span class="nc bnc" id="L32" title="All 2 branches missed.">		if (brandPojo == null) {</span>
 <span class="nc" id="L33">			throw new ApiException(&quot;Error: Brand category combination does not exist&quot;);</span>
 		}
-<span class="nc" id="L35">		ProductPojo existingProductPojo = productService.get(form.getBarcode());</span>
+<span class="nc" id="L35">		ProductPojo existingProductPojo = productService.get(form.getBarcode());// TODO Use getCheck Priority: 5</span>
 <span class="nc bnc" id="L36" title="All 2 branches missed.">		if (existingProductPojo != null) {</span>
 <span class="nc" id="L37">			throw new ApiException(&quot;Error: Barcode already exists&quot;);</span>
 		}

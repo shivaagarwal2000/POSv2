@@ -18,11 +18,11 @@ import java.util.List;
 <span class="fc" id="L18">    }</span>
 
     public static BrandData convert(BrandPojo brandPojo) {
-<span class="nc" id="L21">        BrandData brandData = new BrandData();</span>
-<span class="nc" id="L22">        brandData.setBrand(brandPojo.getBrand());</span>
-<span class="nc" id="L23">        brandData.setCategory(brandPojo.getCategory());</span>
-<span class="nc" id="L24">        brandData.setId(brandPojo.getId());</span>
-<span class="nc" id="L25">        return brandData;</span>
+<span class="fc" id="L21">        BrandData brandData = new BrandData();</span>
+<span class="fc" id="L22">        brandData.setBrand(brandPojo.getBrand());</span>
+<span class="fc" id="L23">        brandData.setCategory(brandPojo.getCategory());</span>
+<span class="fc" id="L24">        brandData.setId(brandPojo.getId());</span>
+<span class="fc" id="L25">        return brandData;</span>
     }
 
     public static BrandPojo convert(BrandForm brandForm) throws ApiException {
@@ -38,11 +38,11 @@ import java.util.List;
 <span class="fc" id="L38">    }</span>
 
     public static List&lt;BrandData&gt; getAll(List&lt;BrandPojo&gt; brandPojos) {
-<span class="nc" id="L41">        List&lt;BrandData&gt; list2 = new ArrayList&lt;BrandData&gt;();</span>
-<span class="nc bnc" id="L42" title="All 2 branches missed.">        for (BrandPojo brandPojo : brandPojos) {</span>
-<span class="nc" id="L43">            list2.add(BrandDtoHelper.convert(brandPojo));</span>
-<span class="nc" id="L44">        }</span>
-<span class="nc" id="L45">        return list2;</span>
+<span class="fc" id="L41">        List&lt;BrandData&gt; list2 = new ArrayList&lt;BrandData&gt;();</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        for (BrandPojo brandPojo : brandPojos) {</span>
+<span class="fc" id="L43">            list2.add(BrandDtoHelper.convert(brandPojo));</span>
+<span class="fc" id="L44">        }</span>
+<span class="fc" id="L45">        return list2;</span>
     }
 
 }
