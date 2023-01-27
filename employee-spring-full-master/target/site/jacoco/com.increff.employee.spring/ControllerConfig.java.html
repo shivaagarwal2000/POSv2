@@ -21,64 +21,63 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
-@EnableScheduling
 @EnableWebMvc
 @EnableSwagger2
-<span class="fc" id="L27">public class ControllerConfig extends WebMvcConfigurerAdapter {</span>
+<span class="fc" id="L26">public class ControllerConfig extends WebMvcConfigurerAdapter {</span>
 
 	public static final String PACKAGE_CONTROLLER = &quot;com.increff.employee.controller&quot;;
 
 	private ApplicationContext applicationContext;
 
 	public void setApplicationContext(ApplicationContext applicationContext) {
-<span class="nc" id="L34">		this.applicationContext = applicationContext;</span>
-<span class="nc" id="L35">	}</span>
+<span class="nc" id="L33">		this.applicationContext = applicationContext;</span>
+<span class="nc" id="L34">	}</span>
 
 	@Bean
 	public Docket api() {
-<span class="fc" id="L39">		return new Docket(DocumentationType.SWAGGER_2)//</span>
-<span class="fc" id="L40">				.useDefaultResponseMessages(false)//</span>
-<span class="fc" id="L41">				.select().apis(RequestHandlerSelectors.basePackage(PACKAGE_CONTROLLER))//</span>
-<span class="fc" id="L42">				.paths(PathSelectors.regex(&quot;/api/.*&quot;))//</span>
-<span class="fc" id="L43">				.build();</span>
+<span class="fc" id="L38">		return new Docket(DocumentationType.SWAGGER_2)//</span>
+<span class="fc" id="L39">				.useDefaultResponseMessages(false)//</span>
+<span class="fc" id="L40">				.select().apis(RequestHandlerSelectors.basePackage(PACKAGE_CONTROLLER))//</span>
+<span class="fc" id="L41">				.paths(PathSelectors.regex(&quot;/api/.*&quot;))//</span>
+<span class="fc" id="L42">				.build();</span>
 	}
 
 	// Add configuration for Swagger
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-<span class="fc" id="L49">		registry.addResourceHandler(&quot;/swagger-ui.html&quot;).addResourceLocations(&quot;classpath:/META-INF/resources/&quot;);</span>
-<span class="fc" id="L50">		registry.addResourceHandler(&quot;/webjars/**&quot;).addResourceLocations(&quot;classpath:/META-INF/resources/webjars/&quot;);</span>
-<span class="fc" id="L51">		registry.addResourceHandler(&quot;/static/**&quot;).addResourceLocations(&quot;/static/&quot;);</span>
-<span class="fc" id="L52">	}</span>
+<span class="fc" id="L48">		registry.addResourceHandler(&quot;/swagger-ui.html&quot;).addResourceLocations(&quot;classpath:/META-INF/resources/&quot;);</span>
+<span class="fc" id="L49">		registry.addResourceHandler(&quot;/webjars/**&quot;).addResourceLocations(&quot;classpath:/META-INF/resources/webjars/&quot;);</span>
+<span class="fc" id="L50">		registry.addResourceHandler(&quot;/static/**&quot;).addResourceLocations(&quot;/static/&quot;);</span>
+<span class="fc" id="L51">	}</span>
 
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-<span class="fc" id="L56">		configurer.enable();</span>
-<span class="fc" id="L57">	}</span>
+<span class="fc" id="L55">		configurer.enable();</span>
+<span class="fc" id="L56">	}</span>
 
 	@Bean
 	public SpringTemplateEngine templateEngine() {
-<span class="fc" id="L61">		SpringTemplateEngine engine = new SpringTemplateEngine();</span>
-<span class="fc" id="L62">		engine.setEnableSpringELCompiler(true);</span>
-<span class="fc" id="L63">		engine.setTemplateResolver(templateResolver());</span>
-<span class="fc" id="L64">		return engine;</span>
+<span class="fc" id="L60">		SpringTemplateEngine engine = new SpringTemplateEngine();</span>
+<span class="fc" id="L61">		engine.setEnableSpringELCompiler(true);</span>
+<span class="fc" id="L62">		engine.setTemplateResolver(templateResolver());</span>
+<span class="fc" id="L63">		return engine;</span>
 	}
 
 	@Bean
 	public ThymeleafViewResolver viewResolver() {
-<span class="fc" id="L69">		ThymeleafViewResolver resolver = new ThymeleafViewResolver();</span>
-<span class="fc" id="L70">		resolver.setTemplateEngine(templateEngine());</span>
-<span class="fc" id="L71">		resolver.setCharacterEncoding(&quot;UTF-8&quot;);</span>
-<span class="fc" id="L72">		return resolver;</span>
+<span class="fc" id="L68">		ThymeleafViewResolver resolver = new ThymeleafViewResolver();</span>
+<span class="fc" id="L69">		resolver.setTemplateEngine(templateEngine());</span>
+<span class="fc" id="L70">		resolver.setCharacterEncoding(&quot;UTF-8&quot;);</span>
+<span class="fc" id="L71">		return resolver;</span>
 	}
 
 	@Bean
 	public ITemplateResolver templateResolver() {
-<span class="fc" id="L77">		SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();</span>
-<span class="fc" id="L78">		resolver.setApplicationContext(applicationContext);</span>
-<span class="fc" id="L79">		resolver.setPrefix(&quot;/html/&quot;);</span>
-<span class="fc" id="L80">		resolver.setTemplateMode(TemplateMode.HTML);</span>
-<span class="fc" id="L81">		return resolver;</span>
+<span class="fc" id="L76">		SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();</span>
+<span class="fc" id="L77">		resolver.setApplicationContext(applicationContext);</span>
+<span class="fc" id="L78">		resolver.setPrefix(&quot;/html/&quot;);</span>
+<span class="fc" id="L79">		resolver.setTemplateMode(TemplateMode.HTML);</span>
+<span class="fc" id="L80">		return resolver;</span>
 	}
 
 //	@Bean

@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.requestMatchers()//
 				.antMatchers("/api/**")//
 				.antMatchers("/ui/**")//
-				.and().authorizeRequests()//
+				.and().authorizeRequests()//TODO: logic - allow the sales report post
 				.antMatchers(HttpMethod.POST,"/api/**").hasAuthority("supervisor")
 				.antMatchers(HttpMethod.PUT,"/api/**").hasAuthority("supervisor")
 //				.antMatchers("/api/admin/**").hasAuthority("admin")//

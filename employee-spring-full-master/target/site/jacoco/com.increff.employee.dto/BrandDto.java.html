@@ -18,15 +18,15 @@ import java.util.List;
     private BrandService brandService;
 
     public void add(BrandForm form) throws ApiException {//TODO: make small func helper
-<span class="nc" id="L21">        BrandDtoHelper.emptyCheck(form);</span>
-<span class="nc" id="L22">        BrandDtoHelper.normalise(form);</span>
-<span class="nc" id="L23">        BrandPojo brandPojo = validate(form);</span>
-<span class="nc bnc" id="L24" title="All 2 branches missed.">        if (brandPojo != null) {</span>
-<span class="nc" id="L25">            throw new ApiException(&quot;Error: given brand, category combination already exists&quot;);</span>
+<span class="fc" id="L21">        BrandDtoHelper.emptyCheck(form);</span>
+<span class="fc" id="L22">        BrandDtoHelper.normalise(form);</span>
+<span class="fc" id="L23">        BrandPojo brandPojo = validate(form);</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        if (brandPojo != null) {</span>
+<span class="fc" id="L25">            throw new ApiException(&quot;Error: given brand, category combination already exists&quot;);</span>
         }
-<span class="nc" id="L27">        brandService.add(BrandDtoHelper.convert(form));</span>
+<span class="fc" id="L27">        brandService.add(BrandDtoHelper.convert(form));</span>
 
-<span class="nc" id="L29">    }</span>
+<span class="fc" id="L29">    }</span>
 
     public BrandData get(int id) throws ApiException {
 <span class="nc" id="L32">        return BrandDtoHelper.convert(brandService.get(id));</span>
@@ -53,11 +53,11 @@ import java.util.List;
 <span class="nc" id="L53">    }</span>
 
     public BrandPojo validate(BrandForm form) throws ApiException {
-<span class="nc bnc" id="L56" title="All 4 branches missed.">        if (form.getBrand().length() &gt; 50 || form.getCategory().length() &gt; 50) {</span>
-<span class="nc" id="L57">            throw new ApiException(&quot;Error: length of brand, category exceeds maximum limit&quot;);</span>
+<span class="fc bfc" id="L56" title="All 4 branches covered.">        if (form.getBrand().length() &gt; 50 || form.getCategory().length() &gt; 50) {</span>
+<span class="fc" id="L57">            throw new ApiException(&quot;Error: length of brand, category exceeds maximum limit&quot;);</span>
         }
-<span class="nc" id="L59">        BrandPojo bPojo = brandService.get(form.getBrand(), form.getCategory());</span>
-<span class="nc" id="L60">        return bPojo;</span>
+<span class="fc" id="L59">        BrandPojo bPojo = brandService.get(form.getBrand(), form.getCategory());</span>
+<span class="fc" id="L60">        return bPojo;</span>
     }
 
 }

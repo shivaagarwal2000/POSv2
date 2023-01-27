@@ -28,8 +28,8 @@ import com.increff.employee.service.ApiException;
 
 	@Transactional(rollbackFor = ApiException.class)
 	public void insert(BrandPojo brandPojo) {
-<span class="nc" id="L31">		entityManager.persist(brandPojo);</span>
-<span class="nc" id="L32">	}</span>
+<span class="fc" id="L31">		entityManager.persist(brandPojo);</span>
+<span class="fc" id="L32">	}</span>
 
 	@Transactional(rollbackFor = ApiException.class)
 	public int delete(int id) {
@@ -57,10 +57,10 @@ import com.increff.employee.service.ApiException;
 
 	@Transactional(readOnly = true)
 	public BrandPojo select(String brand, String category) {
-<span class="nc" id="L60">		TypedQuery&lt;BrandPojo&gt; query = getQuery(SELECT_BRAND_CATEGORY, BrandPojo.class);</span>
-<span class="nc" id="L61">		query.setParameter(&quot;brand&quot;, brand);</span>
-<span class="nc" id="L62">		query.setParameter(&quot;category&quot;, category);</span>
-<span class="nc" id="L63">		return getSingle(query);</span>
+<span class="fc" id="L60">		TypedQuery&lt;BrandPojo&gt; query = getQuery(SELECT_BRAND_CATEGORY, BrandPojo.class);</span>
+<span class="fc" id="L61">		query.setParameter(&quot;brand&quot;, brand);</span>
+<span class="fc" id="L62">		query.setParameter(&quot;category&quot;, category);</span>
+<span class="fc" id="L63">		return getSingle(query);</span>
 	}
 
 }

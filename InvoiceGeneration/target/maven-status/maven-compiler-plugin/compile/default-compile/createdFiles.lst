@@ -3,6 +3,7 @@ org/example/spring/WebInitializer.class
 org/example/dao/AbstractDao.class
 org/example/Employee.class
 org/example/FOPPdfDemo.class
+org/example/helper/InvoiceDtoHelper.class
 org/example/model/CommonOrderItemData.class
 org/example/dao/InvoiceDao.class
 org/example/dto/InvoiceDto.class

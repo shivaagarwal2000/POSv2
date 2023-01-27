@@ -3,8 +3,12 @@
 import com.increff.employee.pojo.DaySalesPojo;
 import com.increff.employee.pojo.OrderItemPojo;
 import com.increff.employee.pojo.OrderPojo;
-import com.increff.employee.service.*;
+import com.increff.employee.service.ApiException;
+import com.increff.employee.service.DaySalesService;
+import com.increff.employee.service.OrderItemService;
+import com.increff.employee.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -13,48 +17,49 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
 
+@EnableScheduling
 @Service
-<span class="fc" id="L17">public class DaySalesDto {</span>
+<span class="fc" id="L22">public class DaySalesDto {</span>
 
-	@Autowired
-	private DaySalesService daySalesService;
-	@Autowired
-	private OrderService orderService;
-	@Autowired
-	private OrderItemService orderItemService;
+    @Autowired
+    private DaySalesService daySalesService;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private OrderItemService orderItemService;
 
-	//TODO: move it to the properties file
-	//TODO: run for each second with many orders
-	@Scheduled(cron = &quot;0 0 8 * * *&quot;)
-	public void add() throws ApiException {
-		//TODO: date - get previous date
+    //TODO: move it to the properties file
+    //TODO: run for each second with many orders
+    @Scheduled(cron = &quot;0 0 8 * * *&quot;)
+    public void add() throws ApiException {
+        //TODO: date - get previous date
 //		String prevdate = &quot;&quot;;
 //		List&lt;OrderPojo&gt; orderPojos = orderService.selectByDate(prevdate);
 
-<span class="nc" id="L34">		ZonedDateTime prevDateStart = LocalDate.now().minusDays(1).atStartOfDay(ZoneId.systemDefault());</span>
-<span class="nc" id="L35">		ZonedDateTime prevDateEnd = LocalDate.now().minusDays(1).atStartOfDay(ZoneId.systemDefault()).withHour(23).withMinute(59).withSecond(59);</span>
-<span class="nc" id="L36">		List&lt;OrderPojo&gt; orderPojos = orderService.getBetweenDates(prevDateStart, prevDateEnd);</span>
-<span class="nc bnc" id="L37" title="All 2 branches missed.">		if (orderPojos.size() == 0){</span>
-<span class="nc" id="L38">			return;</span>
-		}
-<span class="nc" id="L40">		int prevDayOrderCount = 0;</span>
-<span class="nc" id="L41">		int prevDayOrderItemsCount = 0;</span>
-<span class="nc" id="L42">		double totalRevenue = 0;</span>
-<span class="nc bnc" id="L43" title="All 2 branches missed.">		for (OrderPojo orderPojo: orderPojos){</span>
-<span class="nc" id="L44">			prevDayOrderCount += 1;</span>
-<span class="nc" id="L45">			List&lt;OrderItemPojo&gt; orderItemPojos = orderItemService.getItemPojos(orderPojo.getId());</span>
-<span class="nc bnc" id="L46" title="All 2 branches missed.">			for(OrderItemPojo orderItemPojo: orderItemPojos){</span>
-<span class="nc" id="L47">				prevDayOrderItemsCount += 1;</span>
-<span class="nc" id="L48">				totalRevenue += orderItemPojo.getSellingprice();</span>
-<span class="nc" id="L49">			}</span>
-<span class="nc" id="L50">		}</span>
-<span class="nc" id="L51">		DaySalesPojo daySalesPojo = new DaySalesPojo();</span>
-<span class="nc" id="L52">		daySalesPojo.setDate(prevDateStart);</span>
-<span class="nc" id="L53">		daySalesPojo.setInvoiced_orders_count(prevDayOrderCount);</span>
-<span class="nc" id="L54">		daySalesPojo.setInvoiced_items_count(prevDayOrderItemsCount);</span>
-<span class="nc" id="L55">		daySalesPojo.setTotal_revenue(totalRevenue);</span>
-<span class="nc" id="L56">		daySalesService.add(daySalesPojo);</span>
-<span class="nc" id="L57">	}</span>
+<span class="nc" id="L39">        ZonedDateTime prevDateStart = LocalDate.now().minusDays(1).atStartOfDay(ZoneId.systemDefault());</span>
+<span class="nc" id="L40">        ZonedDateTime prevDateEnd = LocalDate.now().minusDays(1).atStartOfDay(ZoneId.systemDefault()).withHour(23).withMinute(59).withSecond(59);</span>
+<span class="nc" id="L41">        List&lt;OrderPojo&gt; orderPojos = orderService.getBetweenDates(prevDateStart, prevDateEnd);</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">        if (orderPojos.size() == 0) {</span>
+<span class="nc" id="L43">            return;</span>
+        }
+<span class="nc" id="L45">        int prevDayOrderCount = 0;</span>
+<span class="nc" id="L46">        int prevDayOrderItemsCount = 0;</span>
+<span class="nc" id="L47">        double totalRevenue = 0;</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">        for (OrderPojo orderPojo : orderPojos) {</span>
+<span class="nc" id="L49">            prevDayOrderCount += 1;</span>
+<span class="nc" id="L50">            List&lt;OrderItemPojo&gt; orderItemPojos = orderItemService.getItemPojos(orderPojo.getId());</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">            for (OrderItemPojo orderItemPojo : orderItemPojos) {</span>
+<span class="nc" id="L52">                prevDayOrderItemsCount += 1;</span>
+<span class="nc" id="L53">                totalRevenue += orderItemPojo.getSellingprice();</span>
+<span class="nc" id="L54">            }</span>
+<span class="nc" id="L55">        }</span>
+<span class="nc" id="L56">        DaySalesPojo daySalesPojo = new DaySalesPojo();</span>
+<span class="nc" id="L57">        daySalesPojo.setDate(prevDateStart);</span>
+<span class="nc" id="L58">        daySalesPojo.setInvoiced_orders_count(prevDayOrderCount);</span>
+<span class="nc" id="L59">        daySalesPojo.setInvoiced_items_count(prevDayOrderItemsCount);</span>
+<span class="nc" id="L60">        daySalesPojo.setTotal_revenue(totalRevenue);</span>
+<span class="nc" id="L61">        daySalesService.add(daySalesPojo);</span>
+<span class="nc" id="L62">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

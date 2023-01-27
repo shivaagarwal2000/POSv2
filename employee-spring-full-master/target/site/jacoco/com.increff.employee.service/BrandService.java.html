@@ -18,8 +18,8 @@ import com.increff.employee.pojo.BrandPojo;
 	@Transactional(rollbackFor = ApiException.class)
 	public void add(BrandPojo brandPojo) throws ApiException {
 		//add a new brand
-<span class="nc" id="L21">		brandDao.insert(brandPojo);</span>
-<span class="nc" id="L22">	}</span>
+<span class="fc" id="L21">		brandDao.insert(brandPojo);</span>
+<span class="fc" id="L22">	}</span>
 
 	@Transactional(readOnly = true)
 	public BrandPojo get(int id) throws ApiException {
@@ -60,7 +60,7 @@ import com.increff.employee.pojo.BrandPojo;
 	@Transactional(readOnly = true)
 	public BrandPojo get(String brand, String category) {
 		//fetch a brand with brand, category combination
-<span class="nc" id="L63">		return brandDao.select(brand, category);</span>
+<span class="fc" id="L63">		return brandDao.select(brand, category);</span>
 	}
 
 }
