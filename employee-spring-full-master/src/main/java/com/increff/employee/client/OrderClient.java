@@ -20,9 +20,10 @@ import java.util.List;
 public class OrderClient {
 
     //TODO: move the url to properties file
-    public static final String completeUrl = "http://localhost:9500/invoice/api/invoice";
-    public String getInvoice(List<CommonOrderItemData> commonOrderItemDatas) throws IOException {
+    public static final String completeUrl = "http://localhost:9500/invoice/api/invoice";// TODO final variables should be uppercase Priority: 5
+    public String getInvoice(List<CommonOrderItemData> commonOrderItemDatas) throws IOException {// TODO Catch and throw ApiException Priority: 5
 
+        // TODO Use rest template Priority: 5
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(completeUrl);
         httpPost.setHeader("Accept", "application/json");

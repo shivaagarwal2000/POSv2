@@ -64,17 +64,17 @@ public class OrderDto {
     @Transactional(rollbackFor = ApiException.class)
     public void addOrder(List<OrderItemForm> forms) throws ApiException {
 //      add the order
-        for (OrderItemForm form : forms) {
+        for (OrderItemForm form : forms) {// TODO Move form validation to helper Priority: 5
             if (StringUtil.isEmpty(form.getBarcode()) || StringUtil.isEmpty(String.valueOf(form.getQuantity()))) {
                 throw new ApiException("Error: barcode/quantity can not be empty");
             }
         }
 //		get the length of order table to get order id
-        int orderLen = 0;
+        int orderLen = 0;// TODO You can first persist order which will set the orderId then use that in items Priority: 5
         ArrayList<OrderItemPojo> orderItemPojos = new ArrayList<OrderItemPojo>();
         for (OrderItemForm form : forms) {
             form.setBarcode(StringUtil.toLowerCase(form.getBarcode()));
-            ProductPojo productPojo = productService.get(form.getBarcode());
+            ProductPojo productPojo = productService.get(form.getBarcode());// TODO Use getcheck Priority: 5
             if (Objects.isNull(productPojo)) {
                 throw new ApiException("Error: given barcode does not exist for -" + form.getBarcode());
             }
@@ -82,7 +82,7 @@ public class OrderDto {
             if (inventoryPojo.getQuantity() < form.getQuantity()) {
                 throw new ApiException("Error: not enough quantity to fulfil -" + productPojo.getName());
             }
-            OrderItemPojo orderItemPojo = new OrderItemPojo();
+            OrderItemPojo orderItemPojo = new OrderItemPojo();// TODO Move this to helper Priority: 5
             orderItemPojo.setOrderId(orderLen);
             orderItemPojo.setProductId(productPojo.getId());
             orderItemPojo.setQuantity(form.getQuantity());
@@ -93,7 +93,7 @@ public class OrderDto {
 //		TODO: date - zone datetime change
 //        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 //        Date date = new Date();
-        ZonedDateTime zonedDateTime = ZonedDateTime.now();
+        ZonedDateTime zonedDateTime = ZonedDateTime.now();// TODO Move order creation before orderItems Priority: 5
 //        String orderTime = zonedDateTime.toString();
         OrderPojo orderPojo = new OrderPojo();
 //        orderPojo.setOrderTime(orderTime);
@@ -113,14 +113,15 @@ public class OrderDto {
         orderItemService.add(orderItemPojos);
     }
 
-    @Transactional(rollbackFor = ApiException.class)
+    @Transactional(rollbackFor = ApiException.class)// TODO Transactional not required as there is single save call Priority: 5
     public void editOrderItem(int orderItemId, OrderItemForm orderItemForm) throws ApiException {
 
+        // TODO Move form validation to helper Priority: 5
         if (StringUtil.isEmpty(orderItemForm.getBarcode()) || StringUtil.isEmpty(String.valueOf(orderItemForm.getQuantity()))) {
             throw new ApiException("Error: barcode/quantity can not be empty");
         }
         orderItemForm.setBarcode(StringUtil.toLowerCase(orderItemForm.getBarcode()));
-        ProductPojo productPojo = productService.get(orderItemForm.getBarcode());
+        ProductPojo productPojo = productService.get(orderItemForm.getBarcode());// TODO use getCheck Priority: 5
         if (Objects.isNull(productPojo)) {
             throw new ApiException("Error: given barcode does not exist for -" + orderItemForm.getBarcode());
         }
@@ -130,11 +131,11 @@ public class OrderDto {
         }
         OrderItemPojo oldOrderItemPojo = orderItemService.select(orderItemId);
         OrderPojo orderPojo = orderService.get(oldOrderItemPojo.getOrderId());
-        if (orderPojo.getStatus() == PLACED_STATUS) {
+        if (orderPojo.getStatus() == PLACED_STATUS) {// TODO Use Objects.isEqual Priority: 5
 //            trying to edit placed orderItem
-            return;
+            return;// TODO Throw ApiException Priority: 5
         }
-        OrderItemPojo orderItemPojo = new OrderItemPojo();
+        OrderItemPojo orderItemPojo = new OrderItemPojo();// TODO Move to helper Priority: 5
         orderItemPojo.setOrderId(oldOrderItemPojo.getOrderId());
         orderItemPojo.setProductId(productPojo.getId());
         orderItemPojo.setQuantity(orderItemForm.getQuantity());
@@ -146,11 +147,11 @@ public class OrderDto {
     public void placeOrder(int orderId) throws ApiException {
         List<OrderItemPojo> orderItemPojos = orderItemService.getItemPojos(orderId);
         for (OrderItemPojo orderItemPojo : orderItemPojos) {
-            ProductPojo productPojo = productService.get(orderItemPojo.getProductId());
+            ProductPojo productPojo = productService.get(orderItemPojo.getProductId());// TODO User getCheck Priority: 5
             if (Objects.isNull(productPojo)) {
                 throw new ApiException("Error: one of the product is no more");
             }
-            InventoryPojo inventoryPojo = inventoryService.get(productPojo.getId());
+            InventoryPojo inventoryPojo = inventoryService.get(productPojo.getId());// TODO This is being used too many times, move to a seprate function in OrderDto Priority: 5
             if (inventoryPojo.getQuantity() < orderItemPojo.getQuantity()) {
                 throw new ApiException("Error: not enough quantity to fulfil -" + productPojo.getName());
             }
@@ -165,7 +166,7 @@ public class OrderDto {
     }
 
     @Transactional(rollbackFor = ApiException.class)
-    public void deleteOrder(int orderId) {
+    public void deleteOrder(int orderId) {// TODO Check if order is placed Priority: 5
         orderItemService.deleteOrder(orderId);
         orderService.delete(orderId);
     }
@@ -193,7 +194,7 @@ public class OrderDto {
 
     }
 
-    public List<CommonOrderItemData> getItemDatas(int orderId) throws ApiException {
+    public List<CommonOrderItemData> getItemDatas(int orderId) throws ApiException {// TODO Refactor and move code to helper Priority: 5
         List<OrderItemPojo> itemPojos = orderItemService.getItemPojos(orderId);
         List<CommonOrderItemData> itemDatas = new ArrayList<CommonOrderItemData>();
         for (OrderItemPojo orderItemPojo : itemPojos) {
@@ -215,7 +216,7 @@ public class OrderDto {
 
     //TODO: change to get all filters.
     public List<SalesReportData> getSalesReportDatas(SalesReportForm salesReportForm) throws ApiException {
-        if (salesReportForm.getStartDate().isEmpty()) {
+        if (salesReportForm.getStartDate().isEmpty()) {// TODO Move this to normalize helper Priority: 5
             salesReportForm.setStartDate("1970-01-01");
         }
         if (salesReportForm.getEndDate().isEmpty()) {
@@ -228,13 +229,13 @@ public class OrderDto {
         if (startDate.isAfter(endDate)){
             throw new ApiException("Error: start date can't be after end date");
         }
-        String brand = salesReportForm.getBrand();
+        String brand = salesReportForm.getBrand();// TODO Unused variables Priority: 5
         String category = salesReportForm.getCategory();
 
         List<OrderPojo> orderPojos = orderService.getBetweenDates(startDate, endDate);
 //        System.out.println(orderPojos);
         List<SalesReportData> salesReportDatas = new ArrayList<SalesReportData>();
-        HashMap<String, SalesReportData> hash_map = new HashMap<String, SalesReportData>();
+        HashMap<String, SalesReportData> hash_map = new HashMap<String, SalesReportData>();// TODO Rename variable  Priority: 5
 
         for (OrderPojo orderPojo : orderPojos) {
             List<OrderItemPojo> orderItemPojos = orderItemService.getItemPojos(orderPojo.getId());
@@ -242,7 +243,9 @@ public class OrderDto {
             for (OrderItemPojo orderItemPojo : orderItemPojos) {
                 ProductPojo productPojo = productService.get(orderItemPojo.getProductId());
                 BrandPojo brandPojo = brandService.get(productPojo.getBrand_category());
+                // TODO Apply filter based on brand and category Priority: 5
                 if (hash_map.containsKey(brandPojo.getBrand() + brandPojo.getCategory())) {
+                    // TODO Move below code to helper Priority: 5
                     SalesReportData salesReportData = new SalesReportData();
                     salesReportData.setBrand(brandPojo.getBrand());
                     salesReportData.setCategory(brandPojo.getCategory());
@@ -272,7 +275,7 @@ public class OrderDto {
 
     }
 
-    public String getInvoice(int orderId) throws ApiException, IOException {
+    public String getInvoice(int orderId) throws ApiException, IOException {// TODO Throw only apiException Priority: 5
         List<CommonOrderItemData> commonOrderItemDatas = getItemDatas(orderId);
         return orderClient.getInvoice(commonOrderItemDatas);
     }
