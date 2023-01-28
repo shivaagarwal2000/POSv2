@@ -16,16 +16,17 @@ public class ProductService {
 
     @Transactional(rollbackFor = ApiException.class)
     public void add(ProductPojo productPojo) throws ApiException {
-        if (productPojo.getMrp() <= 0) {
-            throw new ApiException("Error: mrp can not be zero/negative");
-        }
-//		normalize(productPojo); -- normalise the mrp
         dao.insert(productPojo);
     }
 
     @Transactional(readOnly = true)
     public ProductPojo get(int id) throws ApiException {
-        return getCheck(id);
+//        return getCheck(id);
+        ProductPojo productPojo = dao.select(id);
+        if (productPojo == null) {
+            throw new ApiException("Error: product with given ID does not exist, id: " + id);
+        }
+        return productPojo;
     }
 
     @Transactional(readOnly = true)
@@ -39,8 +40,8 @@ public class ProductService {
             throw new ApiException("Error: mrp can not be zero/negative");
         }
 //		normalize(productPojo); -- normalise the mrp
-        ProductPojo oldProductPojo = getCheck(id);
-        oldProductPojo.setBarcode(productPojo.getBarcode());
+        ProductPojo oldProductPojo = get(id);
+//        oldProductPojo.setBarcode(productPojo.getBarcode());
         oldProductPojo.setBrand_category(productPojo.getBrand_category());
         oldProductPojo.setMrp(productPojo.getMrp());
         oldProductPojo.setName(productPojo.getName());
@@ -57,13 +58,13 @@ public class ProductService {
         return dao.select(barcode);
     }
 
-    @Transactional(readOnly = true)
-    public ProductPojo getCheck(int id) throws ApiException {
-        ProductPojo productPojo = dao.select(id);
-        if (productPojo == null) {
-            throw new ApiException("Error: product with given ID does not exist, id: " + id);
-        }
-        return productPojo;
-    }
+//    @Transactional(readOnly = true)
+//    public ProductPojo getCheck(int id) throws ApiException {
+//        ProductPojo productPojo = dao.select(id);
+//        if (productPojo == null) {
+//            throw new ApiException("Error: product with given ID does not exist, id: " + id);
+//        }
+//        return productPojo;
+//    }
 
 }

@@ -24,23 +24,24 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 <span class="fc" id="L24">				.requestMatchers()//</span>
 <span class="fc" id="L25">				.antMatchers(&quot;/api/**&quot;)//</span>
 <span class="fc" id="L26">				.antMatchers(&quot;/ui/**&quot;)//</span>
-<span class="fc" id="L27">				.and().authorizeRequests()//TODO: logic - allow the sales report post</span>
-<span class="fc" id="L28">				.antMatchers(HttpMethod.POST,&quot;/api/**&quot;).hasAuthority(&quot;supervisor&quot;)</span>
-<span class="fc" id="L29">				.antMatchers(HttpMethod.PUT,&quot;/api/**&quot;).hasAuthority(&quot;supervisor&quot;)</span>
+//				.antMatchers(&quot;/site/**&quot;)//
+<span class="fc" id="L28">				.and().authorizeRequests()//TODO: logic - allow the sales report post</span>
+<span class="fc" id="L29">				.antMatchers(HttpMethod.POST,&quot;/api/**&quot;).hasAuthority(&quot;supervisor&quot;)</span>
+<span class="fc" id="L30">				.antMatchers(HttpMethod.PUT,&quot;/api/**&quot;).hasAuthority(&quot;supervisor&quot;)</span>
 //				.antMatchers(&quot;/api/admin/**&quot;).hasAuthority(&quot;admin&quot;)//
 //				.antMatchers(&quot;/api/**&quot;).hasAnyAuthority(&quot;admin&quot;, &quot;standard&quot;)//
 //				.antMatchers(&quot;/ui/admin/**&quot;).hasAuthority(&quot;admin&quot;)//
 //				.antMatchers(&quot;/ui/**&quot;).hasAnyAuthority(&quot;admin&quot;, &quot;standard&quot;)//
 				// Ignore CSRF and CORS
-<span class="fc" id="L35">				.and().csrf().disable().cors().disable();</span>
-<span class="fc" id="L36">		logger.info(&quot;Configuration complete&quot;);</span>
-<span class="fc" id="L37">	}</span>
+<span class="fc" id="L36">				.and().csrf().disable().cors().disable();</span>
+<span class="fc" id="L37">		logger.info(&quot;Configuration complete&quot;);</span>
+<span class="fc" id="L38">	}</span>
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-<span class="fc" id="L41">		web.ignoring().antMatchers(&quot;/v2/api-docs&quot;, &quot;/configuration/ui&quot;, &quot;/swagger-resources&quot;, &quot;/configuration/security&quot;,</span>
+<span class="fc" id="L42">		web.ignoring().antMatchers(&quot;/v2/api-docs&quot;, &quot;/configuration/ui&quot;, &quot;/swagger-resources&quot;, &quot;/configuration/security&quot;,</span>
 				&quot;/swagger-ui.html&quot;, &quot;/webjars/**&quot;);
-<span class="fc" id="L43">	}</span>
+<span class="fc" id="L44">	}</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

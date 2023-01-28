@@ -26,6 +26,8 @@ public abstract class AbstractUiController {
 	@Value("${app.baseUrl}")
 	private String baseUrl;
 
+//	private String role;
+
 	protected ModelAndView mav(String page) {
 		// Get current user
 		UserPrincipal principal = SecurityUtil.getPrincipal();
@@ -35,20 +37,17 @@ public abstract class AbstractUiController {
 		// Set info
 		ModelAndView mav = new ModelAndView(page);
 		mav.addObject("info", info);
-
-//		if (Objects.isNull(principal) == false){
-//			String userEmail = principal.getEmail();
-//			System.out.println(userEmail);
-//			try {
-//				UserPojo userPojo = userService.get(userEmail);
-//				System.out.println(userPojo.getRole());
-//				mav.addObject("role","supervisor");
-//			}
-//			catch (ApiException apiException){
-//				System.out.println("unable to get the user");
-//			}
-//		}
-
+		System.out.println(principal);
+		if (Objects.isNull(principal) == false){
+			String userEmail = principal.getEmail();
+			try {
+				UserPojo userPojo = userService.get(userEmail);
+				mav.addObject("role",userPojo.getRole());
+			}
+			catch (ApiException apiException){
+				System.out.println("unable to get the user");
+			}
+		}
 		mav.addObject("baseUrl", baseUrl);
 		return mav;
 	}

@@ -149,13 +149,18 @@
         </div>
 
     </div>
+    <input type="hidden" id="jsonBom" value='${role}'/>
 </main>
 <!-- Container end-->
 
 <footer th:replace="snippets.html :: name_footer"></footer>
 
+<script>
+    var role = "[[${role}]]";
+</script>
 <script th:src="@{/static/brand.js}">
 </script>
+
 
 </body>
 

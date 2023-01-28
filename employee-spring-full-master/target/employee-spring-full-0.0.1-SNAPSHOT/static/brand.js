@@ -1,9 +1,7 @@
 function getBrandUrl() {
   var baseUrl = $("meta[name=baseUrl]").attr("content");
-  var role = $('role');
+//  var role = $("meta[name=info]");
   console.log(role);
-  console.log([[${role}]])
-  console.dir($("meta[name=baseUrl]"))
   return baseUrl + "/api/brand";
 }
 
@@ -233,3 +231,6 @@ function init() {
 //run code when DOM is ready
 $(document).ready(init);
 $(document).ready(getBrandList);
+
+var myVar = "${info.email}";
+console.log(myVar)

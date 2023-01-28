@@ -56,7 +56,7 @@ public class ProductDao extends AbstractDao {
 		return query.getResultList();
 	}
 
-	@Transactional(rollbackFor = ApiException.class)
+	@Transactional(rollbackFor = ApiException.class) // TODO: refactor - mini: remove
 	public void update(ProductPojo productPojo) {
 	}
 

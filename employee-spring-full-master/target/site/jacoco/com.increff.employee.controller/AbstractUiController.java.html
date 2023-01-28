@@ -26,28 +26,28 @@ import java.util.Objects;
 	@Value(&quot;${app.baseUrl}&quot;)
 	private String baseUrl;
 
+//	private String role;
+
 	protected ModelAndView mav(String page) {
 		// Get current user
-<span class="nc" id="L31">		UserPrincipal principal = SecurityUtil.getPrincipal();</span>
+<span class="nc" id="L33">		UserPrincipal principal = SecurityUtil.getPrincipal();</span>
 
-<span class="nc bnc" id="L33" title="All 2 branches missed.">		info.setEmail(principal == null ? &quot;&quot; : principal.getEmail());</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">		info.setEmail(principal == null ? &quot;&quot; : principal.getEmail());</span>
 
 		// Set info
-<span class="nc" id="L36">		ModelAndView mav = new ModelAndView(page);</span>
-<span class="nc" id="L37">		mav.addObject(&quot;info&quot;, info);</span>
-<span class="nc bnc" id="L38" title="All 2 branches missed.">		if (Objects.isNull(principal) == false){</span>
-<span class="nc" id="L39">			String userEmail = principal.getEmail();</span>
-<span class="nc" id="L40">			System.out.println(userEmail);</span>
+<span class="nc" id="L38">		ModelAndView mav = new ModelAndView(page);</span>
+<span class="nc" id="L39">		mav.addObject(&quot;info&quot;, info);</span>
+<span class="nc" id="L40">		System.out.println(principal);</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">		if (Objects.isNull(principal) == false){</span>
+<span class="nc" id="L42">			String userEmail = principal.getEmail();</span>
 			try {
-<span class="nc" id="L42">				UserPojo userPojo = userService.get(userEmail);</span>
-<span class="nc" id="L43">				System.out.println(userPojo.getRole());</span>
-<span class="nc" id="L44">				mav.addObject(&quot;role&quot;,&quot;supervisor&quot;);</span>
+<span class="nc" id="L44">				UserPojo userPojo = userService.get(userEmail);</span>
+<span class="nc" id="L45">				mav.addObject(&quot;role&quot;,userPojo.getRole());</span>
 			}
-<span class="nc" id="L46">			catch (ApiException apiException){</span>
-<span class="nc" id="L47">				System.out.println(&quot;unable to get the user&quot;);</span>
-<span class="nc" id="L48">			}</span>
+<span class="nc" id="L47">			catch (ApiException apiException){</span>
+<span class="nc" id="L48">				System.out.println(&quot;unable to get the user&quot;);</span>
+<span class="nc" id="L49">			}</span>
 		}
-<span class="nc" id="L50">		mav.addObject(&quot;role&quot;,&quot;supervisor&quot;);</span>
 <span class="nc" id="L51">		mav.addObject(&quot;baseUrl&quot;, baseUrl);</span>
 <span class="nc" id="L52">		return mav;</span>
 	}

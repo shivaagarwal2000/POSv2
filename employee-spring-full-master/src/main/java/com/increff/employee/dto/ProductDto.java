@@ -32,6 +32,9 @@ public class ProductDto {
 		if (brandPojo == null) {
 			throw new ApiException("Error: Brand category combination does not exist");
 		}
+		if (form.getMrp() <= 0){
+			throw new ApiException("Error: mrp can not be negative");
+		}
 		ProductPojo existingProductPojo = productService.get(form.getBarcode());// TODO Use getCheck Priority: 5
 		if (existingProductPojo != null) {
 			throw new ApiException("Error: Barcode already exists");
