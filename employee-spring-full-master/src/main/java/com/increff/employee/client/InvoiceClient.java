@@ -2,7 +2,6 @@ package com.increff.employee.client;
 
 import com.google.gson.Gson;
 import com.increff.employee.model.data.CommonOrderItemData;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -12,12 +11,10 @@ import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @Service
-public class OrderClient {
+public class InvoiceClient {
 
     //TODO: move the url to properties file
     public static final String completeUrl = "http://localhost:9500/invoice/api/invoice";// TODO final variables should be uppercase Priority: 5

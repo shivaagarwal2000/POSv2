@@ -1,6 +1,7 @@
 package com.increff.employee.dto;
 
 import com.increff.employee.dao.BrandDao;
+import com.increff.employee.dao.ProductDao;
 import com.increff.employee.model.data.ProductData;
 import com.increff.employee.model.forms.ProductForm;
 import com.increff.employee.pojo.BrandPojo;
@@ -20,6 +21,8 @@ public class ProductDtoTest extends AbstractUnitTest {
     private ProductDto productDto;
     @Autowired
     private BrandDao brandDao;
+    @Autowired
+    private ProductDao productDao;
 
     @Test
     public void testAdd() throws ApiException { // TODO: include to have trim and lowercase effect
@@ -162,6 +165,10 @@ public class ProductDtoTest extends AbstractUnitTest {
     @Test
     public void testAddWithNegativeMrp() {
         try {
+            BrandPojo brandPojo = new BrandPojo();
+            brandPojo.setBrand("brand");
+            brandPojo.setCategory("category");
+            brandDao.insert(brandPojo);
             ProductForm productForm = new ProductForm();
             productForm.setBrand("brand");
             productForm.setCategory("category");
@@ -179,11 +186,15 @@ public class ProductDtoTest extends AbstractUnitTest {
     @Test
     public void testDuplicateProduct() {
         try {
+            BrandPojo brandPojo = new BrandPojo();
+            brandPojo.setBrand("brand");
+            brandPojo.setCategory("category");
+            brandDao.insert(brandPojo);
             ProductForm productForm = new ProductForm();
             productForm.setBrand("brand");
             productForm.setCategory("category");
             productForm.setBarcode("barcode");
-            productForm.setMrp(-5);
+            productForm.setMrp(5);
             productForm.setName("name");
             productDto.add(productForm);
             productDto.add(productForm);
@@ -248,5 +259,35 @@ public class ProductDtoTest extends AbstractUnitTest {
         assertEquals(productForm.getBarcode(), productData.getBarcode());
     }
 
+    @Test
+    public void testEmptyUpdate() {
+
+    }
+
+    @Test
+    public void testDelete() throws ApiException {
+        try {
+
+            BrandPojo brandPojo = new BrandPojo();
+            brandPojo.setBrand("brand");
+            brandPojo.setCategory("category");
+            brandDao.insert(brandPojo);
+            ProductForm productForm = new ProductForm();
+            productForm.setBrand("  brand");
+            productForm.setCategory("category  ");
+            productForm.setBarcode("barcode");
+            productForm.setMrp(1);
+            productForm.setName("name");
+            productDto.add(productForm);
+            productDto.delete(1);
+            ProductData productData = productDto.get(1);
+            fail("product dto delete method not able to delete correct entry");
+        }
+        catch (ApiException apiException) {
+            final String ERROR_MSG = "Error: product with given ID does not exist, id: 1";
+            assertEquals(ERROR_MSG, apiException.getMessage());
+        }
+
+    }
 
 }

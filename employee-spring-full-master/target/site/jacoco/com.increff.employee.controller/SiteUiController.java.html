@@ -33,7 +33,7 @@ import org.springframework.web.servlet.ModelAndView;
 <span class="nc" id="L33">		return mav(&quot;features.html&quot;);</span>
 	}
 
-	@RequestMapping(value = &quot;/site/brand&quot;)
+	@RequestMapping(value = &quot;/site/brand&quot;) // TODO: remove from here and only to be accessed via login -- ui
 	public ModelAndView brand() {
 <span class="nc" id="L38">		return mav(&quot;brand.html&quot;);</span>
 	}

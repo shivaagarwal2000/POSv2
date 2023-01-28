@@ -1,7 +1,6 @@
 com/increff/employee/util/StringUtil.class
 com/increff/employee/controller/SampleController.class
 com/increff/employee/helper/ProductDtoHelper.class
-com/increff/employee/client/OrderClient.class
 com/increff/employee/spring/SpringSecurityInitializer.class
 com/increff/employee/controller/AppUiController.class
 com/increff/employee/controller/AbstractUiController.class
@@ -46,6 +45,7 @@ com/increff/employee/service/OrderService.class
 com/increff/employee/dao/DaySalesDao.class
 com/increff/employee/model/UserData.class
 com/increff/employee/util/SecurityUtil.class
+com/increff/employee/client/InvoiceClient.class
 com/increff/employee/model/LoginForm.class
 com/increff/employee/service/ProductService.class
 com/increff/employee/controller/ProductApiController.class

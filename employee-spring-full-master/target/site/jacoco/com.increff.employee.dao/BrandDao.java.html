@@ -51,9 +51,9 @@ import com.increff.employee.service.ApiException;
 <span class="fc" id="L51">		return query.getResultList();</span>
 	}
 
-	@Transactional(rollbackFor = ApiException.class)
+	@Transactional(rollbackFor = ApiException.class) // TODO: refactor - mini: remove
 	public void update(BrandPojo brandPojo) {
-<span class="nc" id="L56">	}</span>
+<span class="fc" id="L56">	}</span>
 
 	@Transactional(readOnly = true)
 	public BrandPojo select(String brand, String category) {

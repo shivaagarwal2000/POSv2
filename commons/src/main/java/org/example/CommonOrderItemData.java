@@ -6,6 +6,9 @@ public class CommonOrderItemData {
     private int orderId;
     private double sellingPrice;
     private double mrp;
+    private String productName;
+    private String barcode;
+    private int quantity;
 
     public int getId() {
         return id;
@@ -63,7 +66,5 @@ public class CommonOrderItemData {
         this.quantity = quantity;
     }
 
-    private String productName;
-    private String barcode; // TODO Maintain proper formatting Priority: 5
-    private int quantity;
+
 }

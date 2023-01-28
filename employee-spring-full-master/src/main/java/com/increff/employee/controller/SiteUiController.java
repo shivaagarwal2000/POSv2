@@ -33,7 +33,7 @@ public class SiteUiController extends AbstractUiController {
 		return mav("features.html");
 	}
 
-	@RequestMapping(value = "/site/brand")
+	@RequestMapping(value = "/site/brand") // TODO: remove from here and only to be accessed via login -- ui
 	public ModelAndView brand() {
 		return mav("brand.html");
 	}

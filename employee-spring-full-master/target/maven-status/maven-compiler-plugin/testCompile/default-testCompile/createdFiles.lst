@@ -1,7 +1,15 @@
+com/increff/employee/dao/OrderDaoTest.class
 com/increff/employee/service/EmployeeServiceTest.class
-com/increff/employee/service/BrandServiceTest.class
+com/increff/employee/dto/ProductDtoTest.class
+com/increff/employee/dao/ProductDaoTest.class
 com/increff/employee/service/AbstractUnitTest.class
+com/increff/employee/service/OrderServiceTest.class
 com/increff/employee/dto/BrandDtoTest.class
 com/increff/employee/service/SampleTest.class
-com/increff/employee/service/AboutAppServiceTest.class
 com/increff/employee/service/QaConfig.class
+com/increff/employee/dao/BrandDaoTest.class
+com/increff/employee/dao/InventoryDaoTest.class
+com/increff/employee/service/ProductServiceTest.class
+com/increff/employee/service/BrandServiceTest.class
+com/increff/employee/service/InventoryServiceTest.class
+com/increff/employee/service/AboutAppServiceTest.class

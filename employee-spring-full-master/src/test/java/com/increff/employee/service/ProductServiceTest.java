@@ -59,13 +59,6 @@ public class ProductServiceTest extends AbstractUnitTest {
 
     @Test
     public void testGetAll() {
-        //test retrieving all BrandPojo
-//        try {
-//            List<BrandData>
-//        }
-//        catch () {
-//
-//        }
 
     }
 

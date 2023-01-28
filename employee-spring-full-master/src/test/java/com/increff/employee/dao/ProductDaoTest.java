@@ -4,12 +4,14 @@ import com.increff.employee.pojo.ProductPojo;
 import com.increff.employee.service.AbstractUnitTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class ProductDaoTest extends AbstractUnitTest {
 
     @Autowired
@@ -19,6 +21,7 @@ public class ProductDaoTest extends AbstractUnitTest {
 
     @Test
     public void testInsert() {
+        //test inserting productpojo through dao layer
         ProductPojo productPojo = new ProductPojo();
         productPojo.setBarcode("barcode");
         productPojo.setMrp(4);
@@ -34,6 +37,7 @@ public class ProductDaoTest extends AbstractUnitTest {
 
     @Test
     public void testDelete() {
+        //test deleting productpojo through dao layer
         ProductPojo productPojo = new ProductPojo();
         productPojo.setBarcode("barcode");
         productPojo.setMrp(4);
@@ -49,6 +53,7 @@ public class ProductDaoTest extends AbstractUnitTest {
 
     @Test
     public void testSelectById() {
+        //test retrieval of productpojo using id through dao layer
         ProductPojo productPojo = new ProductPojo();
         productPojo.setBarcode("barcode");
         productPojo.setMrp(4);
@@ -64,6 +69,7 @@ public class ProductDaoTest extends AbstractUnitTest {
 
     @Test
     public void testSelectByBarcode() {
+        //test retrieval of productpojo using barcode through dao layer
         ProductPojo productPojo = new ProductPojo();
         productPojo.setBarcode("barcode");
         productPojo.setMrp(4);

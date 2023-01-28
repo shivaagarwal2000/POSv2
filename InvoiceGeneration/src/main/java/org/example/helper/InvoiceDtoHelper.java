@@ -52,7 +52,7 @@ public class InvoiceDtoHelper {
             orderId.appendChild(document.createTextNode(Integer.toString(forms.get(0).getOrderId())));
             root.appendChild(orderId);
             Element companyName = document.createElement("companyName");
-            companyName.appendChild(document.createTextNode("Increff"));
+            companyName.appendChild(document.createTextNode("Increff,"));
             root.appendChild(companyName);
             Element building = document.createElement("building");
             building.appendChild(document.createTextNode("2nd floor, Enzyme Tech Park,"));

@@ -26,28 +26,28 @@ import com.increff.employee.service.ApiException;
 
 	@Transactional(rollbackFor = ApiException.class)
 	public void insert(ProductPojo productPojo) {
-<span class="nc" id="L29">		entityManager.persist(productPojo);</span>
-<span class="nc" id="L30">	}</span>
+<span class="fc" id="L29">		entityManager.persist(productPojo);</span>
+<span class="fc" id="L30">	}</span>
 
 	@Transactional(rollbackFor = ApiException.class)
 	public int delete(int id) {
-<span class="nc" id="L34">		Query query = entityManager.createQuery(delete_id);</span>
-<span class="nc" id="L35">		query.setParameter(&quot;id&quot;, id);</span>
-<span class="nc" id="L36">		return query.executeUpdate();</span>
+<span class="fc" id="L34">		Query query = entityManager.createQuery(delete_id);</span>
+<span class="fc" id="L35">		query.setParameter(&quot;id&quot;, id);</span>
+<span class="fc" id="L36">		return query.executeUpdate();</span>
 	}
 
 	@Transactional(readOnly = true)
 	public ProductPojo select(int id) {
-<span class="nc" id="L41">		TypedQuery&lt;ProductPojo&gt; query = getQuery(select_id, ProductPojo.class);</span>
-<span class="nc" id="L42">		query.setParameter(&quot;id&quot;, id);</span>
-<span class="nc" id="L43">		return getSingle(query);</span>
+<span class="fc" id="L41">		TypedQuery&lt;ProductPojo&gt; query = getQuery(select_id, ProductPojo.class);</span>
+<span class="fc" id="L42">		query.setParameter(&quot;id&quot;, id);</span>
+<span class="fc" id="L43">		return getSingle(query);</span>
 	}
 
 	@Transactional(readOnly = true)
 	public ProductPojo select(String barcode) {
-<span class="nc" id="L48">		TypedQuery&lt;ProductPojo&gt; query = getQuery(select_barcode, ProductPojo.class);</span>
-<span class="nc" id="L49">		query.setParameter(&quot;barcode&quot;, barcode);</span>
-<span class="nc" id="L50">		return getSingle(query);</span>
+<span class="fc" id="L48">		TypedQuery&lt;ProductPojo&gt; query = getQuery(select_barcode, ProductPojo.class);</span>
+<span class="fc" id="L49">		query.setParameter(&quot;barcode&quot;, barcode);</span>
+<span class="fc" id="L50">		return getSingle(query);</span>
 	}
 
 	@Transactional(readOnly = true)
@@ -56,9 +56,9 @@ import com.increff.employee.service.ApiException;
 <span class="nc" id="L56">		return query.getResultList();</span>
 	}
 
-	@Transactional(rollbackFor = ApiException.class)
+	@Transactional(rollbackFor = ApiException.class) // TODO: refactor - mini: remove
 	public void update(ProductPojo productPojo) {
-<span class="nc" id="L61">	}</span>
+<span class="fc" id="L61">	}</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

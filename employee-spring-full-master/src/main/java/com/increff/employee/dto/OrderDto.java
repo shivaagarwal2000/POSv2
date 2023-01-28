@@ -1,6 +1,6 @@
 package com.increff.employee.dto;
 
-import com.increff.employee.client.OrderClient;
+import com.increff.employee.client.InvoiceClient;
 import com.increff.employee.model.data.CommonOrderItemData;
 import com.increff.employee.model.data.OrderData;
 import com.increff.employee.model.data.SalesReportData;
@@ -44,7 +44,7 @@ public class OrderDto {
     @Autowired
     private BrandService brandService;
     @Autowired
-    private OrderClient orderClient;
+    private InvoiceClient invoiceClient;
 
     public List<OrderData> getAll() {
         // Get list of all orders
@@ -277,6 +277,6 @@ public class OrderDto {
 
     public String getInvoice(int orderId) throws ApiException, IOException {// TODO Throw only apiException Priority: 5
         List<CommonOrderItemData> commonOrderItemDatas = getItemDatas(orderId);
-        return orderClient.getInvoice(commonOrderItemDatas);
+        return invoiceClient.getInvoice(commonOrderItemDatas);
     }
 }

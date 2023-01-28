@@ -19,6 +19,7 @@ public class BrandDaoTest extends AbstractUnitTest {
 
     @Test
     public void testInsert() {
+        //test adding brandpojo through dao layer
         BrandPojo brandPojo = new BrandPojo();
         brandPojo.setBrand("brand");
         brandPojo.setCategory("category");
@@ -30,6 +31,7 @@ public class BrandDaoTest extends AbstractUnitTest {
 
     @Test
     public void testDelete() {
+        //test deleting brandpojo through dao layer
         BrandPojo brandPojo = new BrandPojo();
         brandPojo.setBrand("brand");
         brandPojo.setCategory("category");
@@ -43,6 +45,7 @@ public class BrandDaoTest extends AbstractUnitTest {
 
     @Test
     public void testSelectById() {
+        //test retrieval of brandpojo using id
         BrandPojo brandPojo = new BrandPojo();
         brandPojo.setBrand("brand");
         brandPojo.setCategory("category");
@@ -54,11 +57,13 @@ public class BrandDaoTest extends AbstractUnitTest {
 
     @Test
     public void testSelectAll() {
+        //test retrieval of all brand pojo through dao layer
 
     }
 
     @Test
     public void testSelectByBrandCategory() {
+        //test retrieval of brandpojo using brand and category
         BrandPojo brandPojo = new BrandPojo();
         brandPojo.setBrand("brand");
         brandPojo.setCategory("category");
