@@ -50,3 +50,15 @@ function writeFileData(arr) {
   tempLink.setAttribute("download", "download.tsv");
   tempLink.click();
 }
+
+function restrictAccess(){
+    var role = $("meta[name=role]").attr("content");
+    if (role == "supervisor") {
+        return;
+    }
+    const restrictedItems = document.getElementsByClassName("restricted");
+    for (let i = 0; i < restrictedItems.length; i++) {
+      restrictedItems[i].disabled=true;
+    }
+    console.log('running')
+}

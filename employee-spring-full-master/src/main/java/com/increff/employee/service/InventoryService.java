@@ -23,7 +23,11 @@ public class InventoryService {
 
 	@Transactional(readOnly = true)
 	public InventoryPojo get(int id) throws ApiException {
-		return getCheck(id);
+		InventoryPojo inventoryPojo = dao.select(id);
+		if (inventoryPojo == null) {
+			throw new ApiException("Error: Inventory with given ID does not exit, id: " + id);
+		}
+		return inventoryPojo;
 	}
 
 	@Transactional(readOnly = true)
@@ -34,9 +38,8 @@ public class InventoryService {
 	@Transactional(rollbackFor = ApiException.class)
 	public void update(int id, InventoryPojo inventoryPojo) throws ApiException {
 		validateQuantity(inventoryPojo);
-		InventoryPojo oldInventoryPojo = getCheck(id);
+		InventoryPojo oldInventoryPojo = get(id);
 		oldInventoryPojo.setQuantity(inventoryPojo.getQuantity());
-		dao.update(oldInventoryPojo);
 	}
 
 	@Transactional(rollbackFor = ApiException.class)
@@ -44,14 +47,6 @@ public class InventoryService {
 		dao.delete(id);
 	}
 
-	@Transactional(readOnly = true)
-	public InventoryPojo getCheck(int id) throws ApiException {
-		InventoryPojo inventoryPojo = dao.select(id);
-		if (inventoryPojo == null) {
-			throw new ApiException("Error: Inventory with given ID does not exit, id: " + id);
-		}
-		return inventoryPojo;
-	}
 
 	public void validateQuantity(InventoryPojo inventoryPojo) throws ApiException {
 		if (inventoryPojo.getQuantity() < 0) {

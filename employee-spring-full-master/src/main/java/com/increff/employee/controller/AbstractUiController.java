@@ -37,7 +37,6 @@ public abstract class AbstractUiController {
 		// Set info
 		ModelAndView mav = new ModelAndView(page);
 		mav.addObject("info", info);
-		System.out.println(principal);
 		if (Objects.isNull(principal) == false){
 			String userEmail = principal.getEmail();
 			try {

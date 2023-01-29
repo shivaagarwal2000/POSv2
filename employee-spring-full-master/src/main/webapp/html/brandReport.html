@@ -6,51 +6,62 @@
 
 <body>
 
-	<nav th:replace="snippets.html :: name_site_navbar"></nav>
+<nav th:replace="snippets.html :: name_app_navbar"></nav>
 
-	<div class="container">
+<div class="container">
 
-		<h3>Brand Report</h3>
+    <div class="container">
 
-		<!-- Blank Row -->
-		<div class="row">&nbsp;</div>
+        <h3>Brand Report</h3>
 
-		<label for="inputBrand">Brand: </label>
-		<input type="text" id="inputBrand" onkeyup="myFunction()" placeholder="Search for Brands">
-		
-		<label for="inputCategory">Category: </label>
-		<input type="text" id="inputCategory" onkeyup="myFunction()" placeholder="Search for Category">
+        <!-- Blank Row -->
+        <!--		<div class="row">&nbsp;</div>-->
 
-		<div class="row">
+        <div class="row">
+            <div class="form-group" style="display:flex;">
+                <label for="inputBrand" class="col-sm-3 col-form-label">Brand: </label>
+                <input type="text" class="form-control" id="inputBrand" onkeyup="myFunction()" placeholder="Search for Brands">
+            </div>
 
-			<!-- Table -->
-			<div class="col-12">
-				<table class="table table-striped" id="brand-table">
-					<thead>
-						<tr>
-							<th scope="col">ID</th>
-							<th scope="col">Brand</th>
-							<th scope="col">Category</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td>Nestle</td>
-							<td>Dairy</td>
-						</tr>
-					</tbody>
-				</table>
+            <div class="form-group" style="display:flex;">
+                <label for="inputCategory" class="col-sm-4 col-form-label">Category: </label>
+                <input type="text" class="form-control" id="inputCategory" onkeyup="myFunction()" placeholder="Search for Category">
+            </div>
+        </div>
+    </div>
 
-			</div>
 
-		</div>
-	</div>
-	<!-- Container end-->
+    <div class="row">
 
-	<footer th:replace="snippets.html :: name_footer"></footer>
+        <!-- Table -->
+        <div class="col-12">
+            <table class="table table-striped" id="brand-table">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Brand</th>
+                    <th scope="col">Category</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Nestle</td>
+                    <td>Dairy</td>
+                </tr>
+                </tbody>
+            </table>
 
-	<script th:src="@{/static/brandReport.js}" /></script>
+        </div>
+
+    </div>
+</div>
+<!-- Container end-->
+
+<footer th:replace="snippets.html :: name_footer"></footer>
+
+<script th:src="@{/static/brandReport.js}"/>
+</script>
 
 </body>
 

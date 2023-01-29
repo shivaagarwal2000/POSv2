@@ -33,23 +33,23 @@ import com.increff.employee.util.StringUtil;
 	private BrandService brandService;
 
 	public void add(InventoryForm form) throws ApiException {
-<span class="nc bnc" id="L36" title="All 4 branches missed.">		if (StringUtil.isEmpty(form.getBarcode()) || StringUtil.isEmpty(String.valueOf(form.getQuantity()))) {</span>
+<span class="pc bpc" id="L36" title="2 of 4 branches missed.">		if (StringUtil.isEmpty(form.getBarcode()) || StringUtil.isEmpty(String.valueOf(form.getQuantity()))) {</span>
 <span class="nc" id="L37">			throw new ApiException(&quot;Error: barcode/quantity can not be empty&quot;);</span>
 		}
-<span class="nc" id="L39">		InventoryDtoHelper.normalise(form);</span>
+<span class="fc" id="L39">		InventoryDtoHelper.normalise(form);</span>
 		//TODO: remove validate
-<span class="nc" id="L41">		ProductPojo productPojo = validate(form.getBarcode());</span>
-<span class="nc bnc" id="L42" title="All 2 branches missed.">		if (productPojo == null) {</span>
+<span class="fc" id="L41">		ProductPojo productPojo = validate(form.getBarcode());</span>
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">		if (productPojo == null) {</span>
 <span class="nc" id="L43">			throw new ApiException(&quot;Error: product with given barcode does not exist&quot;);</span>
 		}
-<span class="nc" id="L45">		InventoryPojo inventoryPojo = InventoryDtoHelper.convert(form, productPojo.getId());</span>
-<span class="nc" id="L46">		inventoryService.add(inventoryPojo);</span>
-<span class="nc" id="L47">	}</span>
+<span class="fc" id="L45">		InventoryPojo inventoryPojo = InventoryDtoHelper.convert(form, productPojo.getId());</span>
+<span class="fc" id="L46">		inventoryService.add(inventoryPojo);</span>
+<span class="fc" id="L47">	}</span>
 
 	public InventoryData get(int id) throws ApiException {
-<span class="nc" id="L50">		ProductPojo productPojo = productService.get(id);</span>
-<span class="nc" id="L51">		InventoryPojo inventoryPojo = inventoryService.get(id);</span>
-<span class="nc" id="L52">		return InventoryDtoHelper.convert(inventoryPojo, productPojo.getBarcode());</span>
+<span class="fc" id="L50">		ProductPojo productPojo = productService.get(id);</span>
+<span class="fc" id="L51">		InventoryPojo inventoryPojo = inventoryService.get(id);</span>
+<span class="fc" id="L52">		return InventoryDtoHelper.convert(inventoryPojo, productPojo.getBarcode());</span>
 	}
 
 	public List&lt;InventoryData&gt; getAll() throws ApiException {
@@ -88,17 +88,21 @@ import com.increff.employee.util.StringUtil;
 <span class="nc" id="L88">			throw new ApiException(&quot;Error: barcode/quantity can not be empty&quot;);</span>
 		}
 <span class="nc" id="L90">		InventoryDtoHelper.normalise(form);</span>
-<span class="nc" id="L91">		InventoryPojo b = InventoryDtoHelper.convert(form, id);</span>
-<span class="nc" id="L92">		inventoryService.update(id, b);</span>
-<span class="nc" id="L93">	}</span>
-
-	public void delete(int id) throws ApiException {
-<span class="nc" id="L96">		inventoryService.delete(id);</span>
+<span class="nc" id="L91">		ProductPojo productPojo = validate(form.getBarcode());</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">		if (productPojo == null) {</span>
+<span class="nc" id="L93">			throw new ApiException(&quot;Error: product with given barcode does not exist&quot;);</span>
+		}
+<span class="nc" id="L95">		InventoryPojo b = InventoryDtoHelper.convert(form, id);</span>
+<span class="nc" id="L96">		inventoryService.update(id, b);</span>
 <span class="nc" id="L97">	}</span>
 
+	public void delete(int id) throws ApiException {
+<span class="nc" id="L100">		inventoryService.delete(id);</span>
+<span class="nc" id="L101">	}</span>
+
 	public ProductPojo validate(String barcode) {
-<span class="nc" id="L100">		ProductPojo productPojo = productService.get(barcode);</span>
-<span class="nc" id="L101">		return productPojo;</span>
+<span class="fc" id="L104">		ProductPojo productPojo = productService.get(barcode);</span>
+<span class="fc" id="L105">		return productPojo;</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -6,7 +6,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="baseUrl" th:attr="content=${baseUrl}">
-
+    <meta name="role" th:attr="content=${role}">
     <script src="https://kit.fontawesome.com/c30beb553f.js"
             crossorigin="anonymous"></script>
 
@@ -21,7 +21,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-1"
      th:fragment="name_site_navbar">
     <a class="navbar-brand" th:href="@{/}"> <img
-            th:src="@{/static/logo.jpeg}" style="height:150px;width:150px;" class="d-inline-block align-top" alt="">
+            th:src="@{/static/logo.jpeg}" class="d-inline-block align-top" alt="">
     </a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -35,24 +35,6 @@
                                     th:href="@{/site/features}">Features</a></li>
             <li class="nav-item"><a class="nav-link"
                                     th:href="@{/site/pricing}">Pricing</a></li>
-            <li class="nav-item"><a class="nav-link"
-                                    th:href="@{/site/brand}">Brand</a></li>
-            <li class="nav-item"><a class="nav-link"
-                                    th:href="@{/site/product}">Product</a></li>
-            <li class="nav-item"><a class="nav-link"
-                                    th:href="@{/site/inventory}">Inventory</a></li>
-            <li class="nav-item"><a class="nav-link"
-                                    th:href="@{/site/orderItem}">OrderItems</a></li>
-            <li class="nav-item"><a class="nav-link"
-                                    th:href="@{/site/allOrder}">Orders</a></li>
-            <li class="nav-item"><a class="nav-link"
-                                    th:href="@{/site/placeOrder}">PlaceOrder</a></li>
-            <li class="nav-item"><a class="nav-link"
-                                    th:href="@{/site/brandreport}">BrandReport</a></li>
-            <li class="nav-item"><a class="nav-link"
-                                    th:href="@{/site/inventoryreport}">InventoryReport</a></li>
-            <li class="nav-item"><a class="nav-link"
-                                    th:href="@{/site/salesreport}">SalesReport</a></li>
         </ul>
 
         <ul class="navbar-nav ml-auto">
@@ -68,7 +50,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light  mb-1"
      th:fragment="name_app_navbar">
     <a class="navbar-brand" th:href="@{/}"> <img
-            th:src="@{/static/logo.jpg}" class="d-inline-block align-top" alt="">
+            th:src="@{/static/logo.jpeg}" class="d-inline-block align-top" alt="">
     </a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -86,6 +68,22 @@
             </li>
             <li class="nav-item"><a class="nav-link"
                                     th:href="@{/ui/brand}">Brand</a></li>
+            <li class="nav-item"><a class="nav-link"
+                                    th:href="@{/ui/product}">Product</a></li>
+            <li class="nav-item"><a class="nav-link"
+                                    th:href="@{/site/inventory}">Inventory</a></li>
+            <li class="nav-item"><a class="nav-link"
+                                    th:href="@{/site/orderItem}">OrderItems</a></li>
+            <li class="nav-item"><a class="nav-link"
+                                    th:href="@{/site/allOrder}">Orders</a></li>
+            <li class="nav-item"><a class="nav-link"
+                                    th:href="@{/site/placeOrder}">PlaceOrder</a></li>
+            <li class="nav-item"><a class="nav-link"
+                                    th:href="@{/site/brandreport}">BrandReport</a></li>
+            <li class="nav-item"><a class="nav-link"
+                                    th:href="@{/site/inventoryreport}">InventoryReport</a></li>
+            <li class="nav-item"><a class="nav-link"
+                                    th:href="@{/site/salesreport}">SalesReport</a></li>
         </ul>
 
         <ul class="navbar-nav ml-auto">

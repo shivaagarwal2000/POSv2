@@ -7,25 +7,30 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 <span class="fc" id="L8">public class AppUiController extends AbstractUiController {</span>
 
-	@RequestMapping(value = &quot;/ui/home&quot;)
-	public ModelAndView home() {
-<span class="nc" id="L12">		return mav(&quot;home.html&quot;);</span>
-	}
+    @RequestMapping(value = &quot;/ui/home&quot;)
+    public ModelAndView home() {
+<span class="nc" id="L12">        return mav(&quot;home.html&quot;);</span>
+    }
 
-	@RequestMapping(value = &quot;/ui/employee&quot;)
-	public ModelAndView employee() {
-<span class="nc" id="L17">		return mav(&quot;employee.html&quot;);</span>
-	}
+    @RequestMapping(value = &quot;/ui/employee&quot;)
+    public ModelAndView employee() {
+<span class="nc" id="L17">        return mav(&quot;employee.html&quot;);</span>
+    }
 
-	@RequestMapping(value = &quot;/ui/admin&quot;)
-	public ModelAndView admin() {
-<span class="nc" id="L22">		return mav(&quot;user.html&quot;);</span>
-	}
+    @RequestMapping(value = &quot;/ui/admin&quot;)
+    public ModelAndView admin() {
+<span class="nc" id="L22">        return mav(&quot;user.html&quot;);</span>
+    }
 
-	@RequestMapping(value = &quot;/ui/brand&quot;)
-	public ModelAndView brand() {
-<span class="nc" id="L27">		return mav(&quot;brand.html&quot;);</span>
-	}
+    @RequestMapping(value = &quot;/ui/brand&quot;)
+    public ModelAndView brand() {
+<span class="nc" id="L27">        return mav(&quot;brand.html&quot;);</span>
+    }
+
+    @RequestMapping(value = &quot;/ui/product&quot;)
+    public ModelAndView product() {
+<span class="nc" id="L32">        return mav(&quot;product.html&quot;);</span>
+    }
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

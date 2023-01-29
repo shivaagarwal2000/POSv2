@@ -88,6 +88,10 @@ public class InventoryDto {
 			throw new ApiException("Error: barcode/quantity can not be empty");
 		}
 		InventoryDtoHelper.normalise(form);
+		ProductPojo productPojo = validate(form.getBarcode());
+		if (productPojo == null) {
+			throw new ApiException("Error: product with given barcode does not exist");
+		}
 		InventoryPojo b = InventoryDtoHelper.convert(form, id);
 		inventoryService.update(id, b);
 	}

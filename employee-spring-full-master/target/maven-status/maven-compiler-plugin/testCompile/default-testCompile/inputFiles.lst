@@ -1,6 +1,7 @@
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/increff/employee/service/AbstractUnitTest.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/increff/employee/dto/BrandDtoTest.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/increff/employee/service/InventoryServiceTest.java
+/mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/increff/employee/dto/InventoryDtoTest.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/increff/employee/service/AboutAppServiceTest.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/increff/employee/dao/BrandDaoTest.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/increff/employee/service/SampleTest.java

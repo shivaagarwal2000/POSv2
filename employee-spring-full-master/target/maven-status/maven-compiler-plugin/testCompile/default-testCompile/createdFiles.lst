@@ -12,4 +12,5 @@ com/increff/employee/dao/InventoryDaoTest.class
 com/increff/employee/service/ProductServiceTest.class
 com/increff/employee/service/BrandServiceTest.class
 com/increff/employee/service/InventoryServiceTest.class
+com/increff/employee/dto/InventoryDtoTest.class
 com/increff/employee/service/AboutAppServiceTest.class

@@ -29,6 +29,7 @@ public class ProductDtoTest extends AbstractUnitTest {
         BrandPojo brandPojo = new BrandPojo();
         brandPojo.setBrand("brand");
         brandPojo.setCategory("category");
+        System.out.println(brandDao);
         brandDao.insert(brandPojo);
         ProductForm productForm = new ProductForm();
         productForm.setBrand("  brand");
