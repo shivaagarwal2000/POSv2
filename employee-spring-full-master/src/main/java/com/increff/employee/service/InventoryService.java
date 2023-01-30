@@ -1,6 +1,7 @@
 package com.increff.employee.service;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,11 @@ public class InventoryService {
 		return inventoryPojo;
 	}
 
+	public boolean isPresent(int id) {
+		InventoryPojo inventoryPojo = dao.select(id);
+		return Objects.isNull(inventoryPojo) == false;
+	}
+
 	@Transactional(readOnly = true)
 	public List<InventoryPojo> getAll() {
 		return dao.selectAll();
@@ -49,7 +55,7 @@ public class InventoryService {
 
 
 	public void validateQuantity(InventoryPojo inventoryPojo) throws ApiException {
-		if (inventoryPojo.getQuantity() < 0) {
+		if (inventoryPojo.getQuantity() <= 0) {
 			throw new ApiException("Error: quantity can not be negative");
 		}
 	}

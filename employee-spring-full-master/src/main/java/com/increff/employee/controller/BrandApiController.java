@@ -25,6 +25,12 @@ public class BrandApiController {
         brandDto.add(form);
     }
 
+    @ApiOperation(value = "upload bulk brands")
+    @RequestMapping(path = "/api/brand/all", method = RequestMethod.POST)
+    public void bulkAdd(@RequestBody List<BrandForm> forms) throws ApiException {
+        brandDto.bulkAdd(forms);
+    }
+
     @ApiOperation(value = "gets a brand")
     @RequestMapping(path = "/api/brand/{id}", method = RequestMethod.GET)
     public BrandData get(@PathVariable int id) throws ApiException {

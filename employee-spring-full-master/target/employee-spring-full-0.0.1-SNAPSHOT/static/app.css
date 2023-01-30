@@ -21,3 +21,7 @@ body {
 .fas{
     font-size: 4rem;
 }
+
+.form-group {
+    padding: 5px;
+}

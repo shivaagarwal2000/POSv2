@@ -2,7 +2,7 @@ package com.increff.employee.model.forms;
 
 public class InventoryForm {
 
-	private int quantity;
+	private Integer quantity;
 	private String barcode;
 
 	public String getBarcode() {
@@ -13,11 +13,11 @@ public class InventoryForm {
 		this.barcode = barcode;
 	}
 
-	public int getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 

@@ -5,7 +5,7 @@ import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "Orders")
-public class OrderPojo {
+public class OrderPojo extends AbstractDateAudit{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

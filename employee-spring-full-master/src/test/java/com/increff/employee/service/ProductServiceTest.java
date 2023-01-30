@@ -2,15 +2,18 @@ package com.increff.employee.service;
 
 import com.increff.employee.dao.ProductDao;
 import com.increff.employee.pojo.BrandPojo;
+import com.increff.employee.pojo.InventoryPojo;
 import com.increff.employee.pojo.ProductPojo;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.test.annotation.DirtiesContext;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class ProductServiceTest extends AbstractUnitTest {
@@ -58,8 +61,19 @@ public class ProductServiceTest extends AbstractUnitTest {
     }
 
     @Test
-    public void testGetAll() {
-
+    public void testGetAll() throws ApiException {
+        List<ProductPojo> productPojoList = new ArrayList<ProductPojo>();
+        for (int i = 1; i <= 3; i++) {
+            ProductPojo productPojo = new ProductPojo();
+            productPojo.setBrand_category(i);
+            productPojo.setMrp(i);
+            productPojo.setName("name" + i);
+            productPojo.setBarcode("barcode" + i);
+            productService.add(productPojo);
+            productPojoList.add(productPojo);
+        }
+        List<ProductPojo> insertedProductPojos = productService.getAll();
+        assertArrayEquals(productPojoList.toArray(), insertedProductPojos.toArray());
     }
 
     @Test

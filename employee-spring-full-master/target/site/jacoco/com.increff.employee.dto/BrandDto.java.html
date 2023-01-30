@@ -10,54 +10,67 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
-<span class="fc" id="L15">public class BrandDto {</span>
+<span class="fc" id="L16">public class BrandDto {</span>
 
     @Autowired
     private BrandService brandService;
 
     public void add(BrandForm form) throws ApiException {//TODO: make small func helper
-<span class="fc" id="L21">        BrandDtoHelper.emptyCheck(form);</span>
-<span class="fc" id="L22">        BrandDtoHelper.normalise(form); //TODO: logic - test is yet to check this</span>
-<span class="fc" id="L23">        BrandPojo brandPojo = validate(form);</span>
-<span class="fc bfc" id="L24" title="All 2 branches covered.">        if (brandPojo != null) {</span>
-<span class="fc" id="L25">            throw new ApiException(&quot;Error: given brand, category combination already exists&quot;);</span>
+<span class="fc" id="L22">        BrandDtoHelper.emptyCheck(form);</span>
+<span class="fc" id="L23">        BrandDtoHelper.normalise(form); //TODO: logic - test is yet to check this</span>
+<span class="fc" id="L24">        BrandPojo brandPojo = validate(form);</span>
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        if (brandPojo != null) {</span>
+<span class="fc" id="L26">            throw new ApiException(&quot;Error: given brand, category combination already exists&quot;);</span>
         }
-<span class="fc" id="L27">        brandService.add(BrandDtoHelper.convert(form));</span>
+<span class="fc" id="L28">        brandService.add(BrandDtoHelper.convert(form));</span>
 
-<span class="fc" id="L29">    }</span>
+<span class="fc" id="L30">    }</span>
+
+    public void bulkAdd(List&lt;BrandForm&gt; forms) throws ApiException {
+<span class="nc bnc" id="L33" title="All 2 branches missed.">        for (BrandForm brandForm: forms) {</span>
+<span class="nc" id="L34">            BrandPojo brandPojo = brandService.get(brandForm.getBrand(), brandForm.getCategory());</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">            if (Objects.isNull(brandPojo)) {</span>
+<span class="nc" id="L36">                throw new ApiException(&quot;Error: brand, category combination exists&quot;);</span>
+            }
+<span class="nc" id="L38">        }</span>
+<span class="nc bnc" id="L39" title="All 2 branches missed.">        for (BrandForm brandForm: forms) {</span>
+<span class="nc" id="L40">            add(brandForm);</span>
+<span class="nc" id="L41">        }</span>
+<span class="nc" id="L42">    }</span>
 
     public BrandData get(int id) throws ApiException {
-<span class="fc" id="L32">        return BrandDtoHelper.convert(brandService.get(id));</span>
+<span class="fc" id="L45">        return BrandDtoHelper.convert(brandService.get(id));</span>
     }
 
     public List&lt;BrandData&gt; getAll() {
-<span class="fc" id="L36">        List&lt;BrandPojo&gt; list = brandService.getAll();</span>
-<span class="fc" id="L37">        return BrandDtoHelper.getAll(list);</span>
+<span class="fc" id="L49">        List&lt;BrandPojo&gt; list = brandService.getAll();</span>
+<span class="fc" id="L50">        return BrandDtoHelper.getAll(list);</span>
     }
 
     public void update(int id, BrandForm form) throws ApiException {
-<span class="nc" id="L41">        BrandDtoHelper.emptyCheck(form);</span>
-<span class="nc" id="L42">        BrandDtoHelper.normalise(form);</span>
-<span class="nc" id="L43">        BrandPojo oldBrandPojo = validate(form);</span>
-<span class="nc bnc" id="L44" title="All 2 branches missed.">        if (oldBrandPojo != null) {</span>
-<span class="nc" id="L45">            throw new ApiException(&quot;Error: given brand, category combination already exists&quot;);</span>
+<span class="nc" id="L54">        BrandDtoHelper.emptyCheck(form);</span>
+<span class="nc" id="L55">        BrandDtoHelper.normalise(form);</span>
+<span class="nc" id="L56">        BrandPojo oldBrandPojo = validate(form);</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">        if (oldBrandPojo != null) {</span>
+<span class="nc" id="L58">            throw new ApiException(&quot;Error: given brand, category combination already exists&quot;);</span>
         }
-<span class="nc" id="L47">        BrandPojo brandPojo = BrandDtoHelper.convert(form);</span>
-<span class="nc" id="L48">        brandService.update(id, brandPojo);</span>
-<span class="nc" id="L49">    }</span>
+<span class="nc" id="L60">        BrandPojo brandPojo = BrandDtoHelper.convert(form);</span>
+<span class="nc" id="L61">        brandService.update(id, brandPojo);</span>
+<span class="nc" id="L62">    }</span>
 
     public void delete(int id) throws ApiException {
-<span class="fc" id="L52">        brandService.delete(id);</span>
-<span class="fc" id="L53">    }</span>
+<span class="fc" id="L65">        brandService.delete(id);</span>
+<span class="fc" id="L66">    }</span>
 
     public BrandPojo validate(BrandForm form) throws ApiException {
-<span class="fc bfc" id="L56" title="All 4 branches covered.">        if (form.getBrand().length() &gt; 50 || form.getCategory().length() &gt; 50) {</span>
-<span class="fc" id="L57">            throw new ApiException(&quot;Error: length of brand, category exceeds maximum limit&quot;);</span>
+<span class="fc bfc" id="L69" title="All 4 branches covered.">        if (form.getBrand().length() &gt; 50 || form.getCategory().length() &gt; 50) {</span>
+<span class="fc" id="L70">            throw new ApiException(&quot;Error: length of brand, category exceeds maximum limit&quot;);</span>
         }
-<span class="fc" id="L59">        BrandPojo bPojo = brandService.get(form.getBrand(), form.getCategory());</span>
-<span class="fc" id="L60">        return bPojo;</span>
+<span class="fc" id="L72">        BrandPojo bPojo = brandService.get(form.getBrand(), form.getCategory());</span>
+<span class="fc" id="L73">        return bPojo;</span>
     }
 
 }

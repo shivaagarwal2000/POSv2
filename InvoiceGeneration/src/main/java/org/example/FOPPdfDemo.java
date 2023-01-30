@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.util.Base64;
+import java.util.Objects;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;

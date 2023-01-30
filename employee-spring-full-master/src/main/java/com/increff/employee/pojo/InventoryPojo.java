@@ -10,11 +10,21 @@ import javax.persistence.Id;
 @Getter
 @Setter
 @Entity
-public class InventoryPojo {
+public class InventoryPojo extends AbstractDateAudit{
 
     @Id
     private int id;
     @Column(nullable = false)
     private int quantity;
+    @Override
+    public boolean equals(Object obj){
+        InventoryPojo inventoryPojo = (InventoryPojo) obj;
+        boolean status = false;
+        if(this.id == inventoryPojo.id
+                && this.quantity == inventoryPojo.quantity){
+            status = true;
+        }
+        return status;
+    }
 
 }

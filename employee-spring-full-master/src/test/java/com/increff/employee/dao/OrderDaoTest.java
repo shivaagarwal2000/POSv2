@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 public class OrderDaoTest extends AbstractUnitTest {
 
     @Autowired
-    private BrandDao brandDao;
+    private OrderDao orderDao;
     @Test
     public void testInsert(){
     }

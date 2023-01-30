@@ -14,4 +14,15 @@ public class InventoryData extends InventoryForm {
 		this.id = id;
 	}
 
+	@Override
+	public boolean equals(Object obj){
+		InventoryData inventoryData = (InventoryData) obj;
+		boolean status = false;
+		if(this.id == inventoryData.id
+				&& this.getQuantity() == inventoryData.getQuantity() && this.getBarcode() == inventoryData.getBarcode()){
+			status = true;
+		}
+		return status;
+	}
+
 }

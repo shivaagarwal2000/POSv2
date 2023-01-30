@@ -21,6 +21,7 @@ public class InventoryDaoTest extends AbstractUnitTest {
 
     @Test
     public void testInsert() {
+        //test insertion of inventorypojo using dao layer
         InventoryPojo inventoryPojo = new InventoryPojo();
         inventoryPojo.setId(1);
         inventoryPojo.setQuantity(1);
@@ -31,6 +32,7 @@ public class InventoryDaoTest extends AbstractUnitTest {
 
     @Test
     public void testDelete() {
+        //test deletion of inventorypojo using dao layer
         InventoryPojo inventoryPojo = new InventoryPojo();
         inventoryPojo.setQuantity(1);
         inventoryDao.insert(inventoryPojo);
@@ -44,6 +46,7 @@ public class InventoryDaoTest extends AbstractUnitTest {
 
     @Test
     public void testSelectById() {
+        //test retrieval of inventorypojo using dao layer
         InventoryPojo inventoryPojo = new InventoryPojo();
         inventoryPojo.setId(1);
         inventoryPojo.setQuantity(1);
@@ -54,6 +57,7 @@ public class InventoryDaoTest extends AbstractUnitTest {
 
     @Test
     public void testSelectAll() {
+        //test retrieval of all inventory pojo
         List<InventoryPojo> inventoryPojoList = new ArrayList<InventoryPojo>();
         for (int i = 1; i <= 3; i++){
             InventoryPojo inventoryPojo = new InventoryPojo();

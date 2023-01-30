@@ -31,11 +31,7 @@ import java.util.List;
 <span class="nc" id="L31">        System.out.println(&quot;executing request: &quot; + httpPost.getRequestLine()); //TODO: refactor: clean up</span>
 
 <span class="nc" id="L33">        HttpResponse httpResponse = httpClient.execute(httpPost);</span>
-//        System.out.println(httpResponse);
-//        HttpEntity responseHttpEntity = httpResponse.getEntity();
-//        InputStream content = responseHttpEntity.getContent();
-//        System.out.println();
-<span class="nc" id="L38">        return EntityUtils.toString(httpResponse.getEntity());</span>
+<span class="nc" id="L34">        return EntityUtils.toString(httpResponse.getEntity());</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

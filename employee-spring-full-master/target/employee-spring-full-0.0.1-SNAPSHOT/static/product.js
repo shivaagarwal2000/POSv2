@@ -142,11 +142,11 @@ function downloadErrors() {
 function displayBrandList(data) {
 	var $tbody = $('#brand-table').find('tbody');
 	$tbody.empty();
-	let count = 0;
+	let count = 1;
 	for (var i in data) {
 		var e = data[i];
-		var buttonHtml = '<button onclick="deleteBrand(' + e.id + ')">delete</button>'
-		buttonHtml += ' <button onclick="displayEditBrand(' + e.id + ')">edit</button>'
+		var buttonHtml = '<button onclick="deleteBrand(' + e.id + ')" class="btn btn-danger restricted">delete</button>'
+		buttonHtml += ' <button onclick="displayEditBrand(' + e.id + ')" class="restricted btn btn-primary">edit</button>'
 		var row = '<tr>'
 			+ '<td>' + count + '</td>'
 			+ '<td>' + e.barcode + '</td>'

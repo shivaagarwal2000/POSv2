@@ -10,7 +10,7 @@ import java.time.ZonedDateTime;
 <span class="nc" id="L10">@Setter</span>
 @Entity
 @Table(name = &quot;pos_day_sales&quot;)
-<span class="nc" id="L13">public class DaySalesPojo {</span>
+<span class="nc" id="L13">public class DaySalesPojo extends AbstractDateAudit{</span>
 
     @Id
 <span class="nc" id="L16">    private ZonedDateTime date;</span>

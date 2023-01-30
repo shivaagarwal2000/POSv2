@@ -1,8 +1,6 @@
 package com.increff.employee.service;
 
-import com.increff.employee.pojo.BrandPojo;
 import com.increff.employee.pojo.InventoryPojo;
-import io.swagger.models.auth.In;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
@@ -20,7 +18,7 @@ public class InventoryServiceTest extends AbstractUnitTest {
 
     @Test // TODO: refactor: add comments
     public void testAdd() throws ApiException {
-        //test adding brandPojo
+        //test adding inventorypojo using service layer
         InventoryPojo inventoryPojo = new InventoryPojo();
         inventoryPojo.setId(1);
         inventoryPojo.setQuantity(10);
@@ -31,16 +29,16 @@ public class InventoryServiceTest extends AbstractUnitTest {
     }
 
     @Test
-    public void testAddNegativeQuantity(){
-        try{
+    public void testAddNegativeQuantity() {
+        //test adding inventorypojo with negative quantity
+        try {
             InventoryPojo inventoryPojo = new InventoryPojo();
             inventoryPojo.setId(1);
             inventoryPojo.setQuantity(-10);
             inventoryService.add(inventoryPojo);
             InventoryPojo inventoryPojo1 = inventoryService.get(1);
             fail("inventory service inserting negative quantity");
-        }
-        catch (ApiException apiException){
+        } catch (ApiException apiException) {
             final String ERROR_MSG = "Error: quantity can not be negative";
             assertEquals(ERROR_MSG, apiException.getMessage());
         }
@@ -48,7 +46,7 @@ public class InventoryServiceTest extends AbstractUnitTest {
 
     @Test
     public void testGetId() {
-        //test retrieval of brandPojo
+        //test retrieval of inventorypojo using id
         try {
             InventoryPojo inventoryPojo = new InventoryPojo();
             inventoryPojo.setId(1);
@@ -64,8 +62,9 @@ public class InventoryServiceTest extends AbstractUnitTest {
 
     @Test
     public void testGetAll() throws ApiException {
+        //test retrieval of all inventorypojo
         List<InventoryPojo> inventoryPojoList = new ArrayList<InventoryPojo>();
-        for (int i = 1; i <= 3; i++){
+        for (int i = 1; i <= 3; i++) {
             InventoryPojo inventoryPojo = new InventoryPojo();
             inventoryPojo.setId(i);
             inventoryPojo.setQuantity(i);
@@ -73,11 +72,12 @@ public class InventoryServiceTest extends AbstractUnitTest {
             inventoryPojoList.add(inventoryPojo);
         }
         List<InventoryPojo> insertedInventoryPojos = inventoryService.getAll();
-        assertArrayEquals( inventoryPojoList.toArray(), insertedInventoryPojos.toArray());
+        assertArrayEquals(inventoryPojoList.toArray(), insertedInventoryPojos.toArray());
     }
 
     @Test
     public void testUpdate() throws ApiException {
+        //test update of inventorypojo using service layer
         InventoryPojo inventoryPojo = new InventoryPojo();
         inventoryPojo.setId(1);
         inventoryPojo.setQuantity(10);
@@ -99,8 +99,7 @@ public class InventoryServiceTest extends AbstractUnitTest {
             inventoryPojo.setQuantity(-20);
             inventoryService.update(inventoryPojo.getId(), inventoryPojo);
             fail("inventory service updating to negative quantity");
-        }
-        catch (ApiException apiException) {
+        } catch (ApiException apiException) {
             final String ERROR_MSG = "Error: quantity can not be negative";
             assertEquals(ERROR_MSG, apiException.getMessage());
         }
@@ -116,20 +115,26 @@ public class InventoryServiceTest extends AbstractUnitTest {
             inventoryService.delete(1);
             InventoryPojo inventoryPojo1 = inventoryService.get(1);
             fail("inventory service not deleting the entry");
-        }
-        catch (ApiException apiException) {
+        } catch (ApiException apiException) {
             final String ERROR_MSG = "Error: Inventory with given ID does not exit, id: 1";
             assertEquals(ERROR_MSG, apiException.getMessage());
         }
     }
 
     @Test
-    public void testValidateQuantity(){
-        try {
+    public void testValidateQuantity() throws ApiException {
+        InventoryPojo inventoryPojo = new InventoryPojo();
+        inventoryPojo.setId(1);
+        inventoryPojo.setQuantity(10);
+        inventoryService.validateQuantity(inventoryPojo);
+    }
 
+    @Test
+    public void testValidateNegativeQuantity() throws ApiException {
+        try {
             InventoryPojo inventoryPojo = new InventoryPojo();
             inventoryPojo.setId(1);
-            inventoryPojo.setQuantity(10);
+            inventoryPojo.setQuantity(-10);
             inventoryService.validateQuantity(inventoryPojo);
         }
         catch (ApiException apiException) {

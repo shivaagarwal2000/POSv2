@@ -14,5 +14,16 @@ import com.increff.employee.model.forms.InventoryForm;
 <span class="fc" id="L14">		this.id = id;</span>
 <span class="fc" id="L15">	}</span>
 
+	@Override
+	public boolean equals(Object obj){
+<span class="fc" id="L19">		InventoryData inventoryData = (InventoryData) obj;</span>
+<span class="fc" id="L20">		boolean status = false;</span>
+<span class="pc bpc" id="L21" title="1 of 2 branches missed.">		if(this.id == inventoryData.id</span>
+<span class="pc bpc" id="L22" title="2 of 4 branches missed.">				&amp;&amp; this.getQuantity() == inventoryData.getQuantity() &amp;&amp; this.getBarcode() == inventoryData.getBarcode()){</span>
+<span class="fc" id="L23">			status = true;</span>
+		}
+<span class="fc" id="L25">		return status;</span>
+	}
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

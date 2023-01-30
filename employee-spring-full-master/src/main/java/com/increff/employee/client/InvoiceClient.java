@@ -31,10 +31,6 @@ public class InvoiceClient {
         System.out.println("executing request: " + httpPost.getRequestLine()); //TODO: refactor: clean up
 
         HttpResponse httpResponse = httpClient.execute(httpPost);
-//        System.out.println(httpResponse);
-//        HttpEntity responseHttpEntity = httpResponse.getEntity();
-//        InputStream content = responseHttpEntity.getContent();
-//        System.out.println();
         return EntityUtils.toString(httpResponse.getEntity());
     }
 }

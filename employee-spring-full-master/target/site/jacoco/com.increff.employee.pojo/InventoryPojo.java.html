@@ -10,12 +10,22 @@ import javax.persistence.Id;
 @Getter
 <span class="fc" id="L11">@Setter</span>
 @Entity
-<span class="fc" id="L13">public class InventoryPojo {</span>
+<span class="fc" id="L13">public class InventoryPojo extends AbstractDateAudit{</span>
 
     @Id
 <span class="fc" id="L16">    private int id;</span>
     @Column(nullable = false)
 <span class="fc" id="L18">    private int quantity;</span>
+    @Override
+    public boolean equals(Object obj){
+<span class="nc" id="L21">        InventoryPojo inventoryPojo = (InventoryPojo) obj;</span>
+<span class="nc" id="L22">        boolean status = false;</span>
+<span class="nc bnc" id="L23" title="All 4 branches missed.">        if(this.id == inventoryPojo.id</span>
+                &amp;&amp; this.quantity == inventoryPojo.quantity){
+<span class="nc" id="L25">            status = true;</span>
+        }
+<span class="nc" id="L27">        return status;</span>
+    }
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -30,4 +30,14 @@ public class InventoryReportData {
 		this.quantity = quantity;
 	}
 
+	@Override
+	public boolean equals(Object obj){
+		InventoryReportData inventoryReportData = (InventoryReportData) obj;
+		boolean status = false;
+		if(this.brand == inventoryReportData.getBrand()
+				&& this.quantity == inventoryReportData.getQuantity() && this.category == inventoryReportData.getCategory()){
+			status = true;
+		}
+		return status;
+	}
 }

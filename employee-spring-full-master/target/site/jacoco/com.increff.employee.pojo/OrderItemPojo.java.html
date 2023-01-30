@@ -5,7 +5,7 @@ import javax.persistence.*;
 //TODO: getter setter lombok
 @Entity
 @Table(name = &quot;OrderItems&quot;)
-<span class="fc" id="L8">public class OrderItemPojo {</span>
+<span class="fc" id="L8">public class OrderItemPojo extends AbstractDateAudit{</span>
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

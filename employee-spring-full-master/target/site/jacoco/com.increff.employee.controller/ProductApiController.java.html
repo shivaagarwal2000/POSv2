@@ -30,29 +30,35 @@ import io.swagger.annotations.ApiOperation;
 <span class="nc" id="L30">		productDto.add(form);</span>
 <span class="nc" id="L31">	}</span>
 
+	@ApiOperation(value = &quot;Adds bulk products&quot;)
+	@RequestMapping(path = &quot;/api/product/all&quot;, method = RequestMethod.POST)
+	public void bulkAdd(@RequestBody List&lt;ProductForm&gt; forms) throws ApiException {
+<span class="nc" id="L36">		productDto.bulkAdd(forms);</span>
+<span class="nc" id="L37">	}</span>
+
 	@ApiOperation(value = &quot;gets a product&quot;)
 	@RequestMapping(path = &quot;/api/product/{id}&quot;, method = RequestMethod.GET)
 	public ProductData get(@PathVariable int id) throws ApiException {
-<span class="nc" id="L36">		return productDto.get(id);</span>
+<span class="nc" id="L42">		return productDto.get(id);</span>
 	}
 
 	@ApiOperation(value = &quot;Gets list of all products&quot;)
 	@RequestMapping(path = &quot;/api/product&quot;, method = RequestMethod.GET)
 	public List&lt;ProductData&gt; getAll() throws ApiException {
-<span class="nc" id="L42">		return productDto.getAll();</span>
+<span class="nc" id="L48">		return productDto.getAll();</span>
 	}
 
 	@ApiOperation(value = &quot;updates a product&quot;)
 	@RequestMapping(path = &quot;/api/product/{id}&quot;, method = RequestMethod.PUT)
 	public void update(@PathVariable int id, @RequestBody ProductForm form) throws ApiException {
-<span class="nc" id="L48">		productDto.update(id, form);</span>
-<span class="nc" id="L49">	}</span>
+<span class="nc" id="L54">		productDto.update(id, form);</span>
+<span class="nc" id="L55">	}</span>
 
 	@ApiOperation(value = &quot;delete a product&quot;)
 	@RequestMapping(path = &quot;/api/product/{id}&quot;, method = RequestMethod.DELETE)
 	public void delete(@PathVariable int id) throws ApiException {
-<span class="nc" id="L54">		productDto.delete(id);</span>
-<span class="nc" id="L55">	}</span>
+<span class="nc" id="L60">		productDto.delete(id);</span>
+<span class="nc" id="L61">	}</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

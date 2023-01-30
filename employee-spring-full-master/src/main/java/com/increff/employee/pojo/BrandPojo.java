@@ -1,5 +1,6 @@
 package com.increff.employee.pojo;
 
+import com.increff.employee.model.data.InventoryData;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Setter
 @Table(uniqueConstraints = {@UniqueConstraint(name = "uniqueBrandCategory", columnNames = {"brand", "category"})})
 @Entity
-public class BrandPojo {
+public class BrandPojo extends AbstractDateAudit{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,5 +19,14 @@ public class BrandPojo {
     private String brand;
     @Column(nullable = false, length = 50)
     private String category;
-
+    @Override
+    public boolean equals(Object obj){
+        BrandPojo brandPojo = (BrandPojo) obj;
+        boolean status = false;
+        if(this.id == brandPojo.id
+                && this.brand == brandPojo.brand && this.category == brandPojo.category){
+            status = true;
+        }
+        return status;
+    }
 }

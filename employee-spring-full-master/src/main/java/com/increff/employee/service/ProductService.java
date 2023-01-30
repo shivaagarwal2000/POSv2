@@ -49,6 +49,20 @@ public class ProductService {
     }
 
     @Transactional(rollbackFor = ApiException.class)
+    public void update(String barcode, ProductPojo productPojo) throws ApiException {
+        if (productPojo.getMrp() <= 0) {
+            throw new ApiException("Error: mrp can not be zero/negative");
+        }
+//		normalize(productPojo); -- normalise the mrp
+        ProductPojo oldProductPojo = get(barcode);
+//        oldProductPojo.setBarcode(productPojo.getBarcode());
+        oldProductPojo.setBrand_category(productPojo.getBrand_category());
+        oldProductPojo.setMrp(productPojo.getMrp());
+        oldProductPojo.setName(productPojo.getName());
+        dao.update(oldProductPojo);
+    }
+
+    @Transactional(rollbackFor = ApiException.class)
     public void delete(int id) {
         dao.delete(id);
     }

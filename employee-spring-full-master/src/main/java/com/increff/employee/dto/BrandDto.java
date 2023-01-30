@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class BrandDto {
@@ -26,6 +27,18 @@ public class BrandDto {
         }
         brandService.add(BrandDtoHelper.convert(form));
 
+    }
+
+    public void bulkAdd(List<BrandForm> forms) throws ApiException {
+        for (BrandForm brandForm: forms) {
+            BrandPojo brandPojo = brandService.get(brandForm.getBrand(), brandForm.getCategory());
+            if (Objects.isNull(brandPojo)) {
+                throw new ApiException("Error: brand, category combination exists");
+            }
+        }
+        for (BrandForm brandForm: forms) {
+            add(brandForm);
+        }
     }
 
     public BrandData get(int id) throws ApiException {

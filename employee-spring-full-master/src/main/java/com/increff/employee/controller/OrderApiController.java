@@ -23,8 +23,6 @@ public class OrderApiController {
     @Autowired
     private OrderDto orderDto;
 
-
-
     @ApiOperation(value = "Adds an order")
     @RequestMapping(path = "/api/order", method = RequestMethod.POST)
     public void addOrder(@RequestBody List<OrderItemForm> forms) throws ApiException {
@@ -77,8 +75,6 @@ public class OrderApiController {
 //		return salesReportDatas;
 //	}
 
-    //TODO: make method as GET
-    //TODO: only "placed" orders to be fetched
     @ApiOperation(value = "get order report")
     @RequestMapping(path = "/api/order/report", method = RequestMethod.POST)
     public List<SalesReportData> getSalesReport(@RequestBody SalesReportForm salesReportForm) throws ApiException {

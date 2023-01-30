@@ -25,29 +25,35 @@ import java.util.List;
 <span class="nc" id="L25">        brandDto.add(form);</span>
 <span class="nc" id="L26">    }</span>
 
+    @ApiOperation(value = &quot;upload bulk brands&quot;)
+    @RequestMapping(path = &quot;/api/brand/all&quot;, method = RequestMethod.POST)
+    public void bulkAdd(@RequestBody List&lt;BrandForm&gt; forms) throws ApiException {
+<span class="nc" id="L31">        brandDto.bulkAdd(forms);</span>
+<span class="nc" id="L32">    }</span>
+
     @ApiOperation(value = &quot;gets a brand&quot;)
     @RequestMapping(path = &quot;/api/brand/{id}&quot;, method = RequestMethod.GET)
     public BrandData get(@PathVariable int id) throws ApiException {
-<span class="nc" id="L31">        return brandDto.get(id);</span>
+<span class="nc" id="L37">        return brandDto.get(id);</span>
     }
 
     @ApiOperation(value = &quot;Gets list of all brands&quot;)
     @RequestMapping(path = &quot;/api/brand&quot;, method = RequestMethod.GET)
     public List&lt;BrandData&gt; getAll() {
-<span class="nc" id="L37">        return brandDto.getAll();</span>
+<span class="nc" id="L43">        return brandDto.getAll();</span>
     }
 
     @ApiOperation(value = &quot;updates a brand&quot;)
     @RequestMapping(path = &quot;/api/brand/{id}&quot;, method = RequestMethod.PUT)
     public void update(@PathVariable int id, @RequestBody BrandForm brandForm) throws ApiException {
-<span class="nc" id="L43">        brandDto.update(id, brandForm);</span>
-<span class="nc" id="L44">    }</span>
+<span class="nc" id="L49">        brandDto.update(id, brandForm);</span>
+<span class="nc" id="L50">    }</span>
 
     @ApiOperation(value = &quot;deletes a brand&quot;)
     @RequestMapping(path = &quot;/api/brand/{id}&quot;, method = RequestMethod.DELETE)
     public void delete(@PathVariable int id) throws ApiException {
-<span class="nc" id="L49">        brandDto.delete(id);</span>
-<span class="nc" id="L50">    }</span>
+<span class="nc" id="L55">        brandDto.delete(id);</span>
+<span class="nc" id="L56">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

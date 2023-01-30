@@ -1,15 +1,17 @@
 package com.increff.employee.dao;
 
 import com.increff.employee.pojo.BrandPojo;
+import com.increff.employee.pojo.InventoryPojo;
 import com.increff.employee.service.AbstractUnitTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class BrandDaoTest extends AbstractUnitTest {
@@ -58,7 +60,16 @@ public class BrandDaoTest extends AbstractUnitTest {
     @Test
     public void testSelectAll() {
         //test retrieval of all brand pojo through dao layer
-
+        List<BrandPojo> brandPojoList = new ArrayList<BrandPojo>();
+        for (int i = 1; i <= 3; i++){
+            BrandPojo brandPojo = new BrandPojo();
+            brandPojo.setBrand("brand" + i);
+            brandPojo.setCategory("category" + i);
+            brandDao.insert(brandPojo);
+            brandPojoList.add(brandPojo);
+        }
+        List<BrandPojo> insertedBrandPojos = brandDao.selectAll();
+        assertArrayEquals( brandPojoList.toArray(), insertedBrandPojos.toArray());
     }
 
     @Test

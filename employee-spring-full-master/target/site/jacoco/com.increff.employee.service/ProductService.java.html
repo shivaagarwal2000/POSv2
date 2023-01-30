@@ -31,7 +31,7 @@ import java.util.List;
 
     @Transactional(readOnly = true)
     public List&lt;ProductPojo&gt; getAll() {
-<span class="nc" id="L34">        return dao.selectAll();</span>
+<span class="fc" id="L34">        return dao.selectAll();</span>
     }
 
     @Transactional(rollbackFor = ApiException.class)
@@ -49,13 +49,27 @@ import java.util.List;
 <span class="fc" id="L49">    }</span>
 
     @Transactional(rollbackFor = ApiException.class)
+    public void update(String barcode, ProductPojo productPojo) throws ApiException {
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        if (productPojo.getMrp() &lt;= 0) {</span>
+<span class="nc" id="L54">            throw new ApiException(&quot;Error: mrp can not be zero/negative&quot;);</span>
+        }
+//		normalize(productPojo); -- normalise the mrp
+<span class="nc" id="L57">        ProductPojo oldProductPojo = get(barcode);</span>
+//        oldProductPojo.setBarcode(productPojo.getBarcode());
+<span class="nc" id="L59">        oldProductPojo.setBrand_category(productPojo.getBrand_category());</span>
+<span class="nc" id="L60">        oldProductPojo.setMrp(productPojo.getMrp());</span>
+<span class="nc" id="L61">        oldProductPojo.setName(productPojo.getName());</span>
+<span class="nc" id="L62">        dao.update(oldProductPojo);</span>
+<span class="nc" id="L63">    }</span>
+
+    @Transactional(rollbackFor = ApiException.class)
     public void delete(int id) {
-<span class="fc" id="L53">        dao.delete(id);</span>
-<span class="fc" id="L54">    }</span>
+<span class="fc" id="L67">        dao.delete(id);</span>
+<span class="fc" id="L68">    }</span>
 
     @Transactional(readOnly = true)
     public ProductPojo get(String barcode) {
-<span class="fc" id="L58">        return dao.select(barcode);</span>
+<span class="fc" id="L72">        return dao.select(barcode);</span>
     }
 
 //    @Transactional(readOnly = true)

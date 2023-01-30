@@ -145,7 +145,8 @@ function displayBrandList(data) {
 			')">View Details</button> ' +
 			'<button onclick="deleteOrder(' +
 			e.id +
-			')">Delete Order</button>';
+			')">Delete Order</button>' +
+			'<a id="order' + e.id + '" onclick="getInvoice(' + e.id + ')" class="btn btn-primary">Get Invoice</a> ';
 		var row =
 			"<tr>" +
 			"<td>" +
@@ -162,6 +163,27 @@ function displayBrandList(data) {
 	}
 }
 
+function getInvoice(id) {
+    var baseUrl = getBrandUrl() + "/invoice/" + id;
+    $.ajax({
+    		url: baseUrl,
+    		type: "GET",
+    		headers: {
+    			"Content-Type": "application/json",
+    		},
+    		success: function(response) {
+    		    var resData = response;
+    		    const linkSource = "data:application/pdf;base64," + response;
+                const downloadLink = document.createElement("a");
+                const fileName = "order-" + id + ".pdf";
+                downloadLink.display = "none";
+                downloadLink.href = linkSource;
+                downloadLink.download = fileName;
+                downloadLink.click();
+    		},
+    		error: handleAjaxError,
+    	});
+}
 // var orderDetailId = 0;
 orderDetailId = 0;
 

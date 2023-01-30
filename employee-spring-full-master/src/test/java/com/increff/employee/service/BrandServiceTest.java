@@ -1,14 +1,16 @@
 package com.increff.employee.service;
 
 import com.increff.employee.pojo.BrandPojo;
+import com.increff.employee.pojo.InventoryPojo;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class BrandServiceTest extends AbstractUnitTest {
@@ -48,14 +50,17 @@ public class BrandServiceTest extends AbstractUnitTest {
     }
 
     @Test
-    public void testGetAll() {
-        //test retrieving all BrandPojo
-//        try {
-//            List<BrandData>
-//        }
-//        catch () {
-//
-//        }
+    public void testGetAll() throws ApiException {
+        List<BrandPojo> brandPojoList = new ArrayList<BrandPojo>();
+        for (int i = 1; i <= 3; i++) {
+            BrandPojo brandPojo = new BrandPojo();
+            brandPojo.setBrand("brand" + i);
+            brandPojo.setCategory("category" + i);
+            brandPojoList.add(brandPojo);
+            brandService.add(brandPojo);
+        }
+        List<BrandPojo> insertedBrandPojos = brandService.getAll();
+        assertArrayEquals(brandPojoList.toArray(), insertedBrandPojos.toArray());
 
     }
 

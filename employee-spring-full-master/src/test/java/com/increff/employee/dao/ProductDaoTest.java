@@ -1,15 +1,18 @@
 package com.increff.employee.dao;
 
+import com.increff.employee.pojo.BrandPojo;
 import com.increff.employee.pojo.ProductPojo;
 import com.increff.employee.service.AbstractUnitTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.test.annotation.DirtiesContext;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class ProductDaoTest extends AbstractUnitTest {
@@ -85,7 +88,18 @@ public class ProductDaoTest extends AbstractUnitTest {
 
     @Test
     public void testSelectAll() {
-
+        List<ProductPojo> productPojoList = new ArrayList<ProductPojo>();
+        for (int i = 1; i <= 3; i++){
+            ProductPojo productPojo = new ProductPojo();
+            productPojo.setName("name" + i);
+            productPojo.setMrp(i);
+            productPojo.setBarcode("barcode" + i);
+            productPojo.setBrand_category(i + 1);
+            productDao.insert(productPojo);
+            productPojoList.add(productPojo);
+        }
+        List<ProductPojo> insertedProductPojos = productDao.selectAll();
+        assertArrayEquals( productPojoList.toArray(), insertedProductPojos.toArray());
     }
 
 }

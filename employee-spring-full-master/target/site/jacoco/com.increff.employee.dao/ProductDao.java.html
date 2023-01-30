@@ -52,8 +52,8 @@ import com.increff.employee.service.ApiException;
 
 	@Transactional(readOnly = true)
 	public List&lt;ProductPojo&gt; selectAll() {
-<span class="nc" id="L55">		TypedQuery&lt;ProductPojo&gt; query = getQuery(select_all, ProductPojo.class);</span>
-<span class="nc" id="L56">		return query.getResultList();</span>
+<span class="fc" id="L55">		TypedQuery&lt;ProductPojo&gt; query = getQuery(select_all, ProductPojo.class);</span>
+<span class="fc" id="L56">		return query.getResultList();</span>
 	}
 
 	@Transactional(rollbackFor = ApiException.class) // TODO: refactor - mini: remove

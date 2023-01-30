@@ -30,6 +30,12 @@ public class ProductApiController {
 		productDto.add(form);
 	}
 
+	@ApiOperation(value = "Adds bulk products")
+	@RequestMapping(path = "/api/product/all", method = RequestMethod.POST)
+	public void bulkAdd(@RequestBody List<ProductForm> forms) throws ApiException {
+		productDto.bulkAdd(forms);
+	}
+
 	@ApiOperation(value = "gets a product")
 	@RequestMapping(path = "/api/product/{id}", method = RequestMethod.GET)
 	public ProductData get(@PathVariable int id) throws ApiException {
