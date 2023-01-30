@@ -1,8 +1,6 @@
 function getBrandUrl() {
   var baseUrl = $("meta[name=baseUrl]").attr("content");
   var role = $("meta[name=role]").attr("content");
-//  var role = $("meta[name=info]");
-  console.log(role);
   return baseUrl + "/api/brand";
 }
 
@@ -11,8 +9,6 @@ function addBrand(event) {
   //Set the values to update
   var $form = $("#brand-form");
   var json = toJson($form);
-  console.log(json);
-  console.log(typeof json);
   var url = getBrandUrl();
 
   $.ajax({

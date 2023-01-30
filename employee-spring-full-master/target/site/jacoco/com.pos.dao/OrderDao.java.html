@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderDao.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">employee-spring</a> &gt; <a href="index.source.html" class="el_package">com.pos.dao</a> &gt; <span class="el_source">OrderDao.java</span></div><h1>OrderDao.java</h1><pre class="source lang-java linenums">package com.pos.dao;
+
+import java.time.ZonedDateTime;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+
+import com.pos.service.ApiException;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.pos.pojo.OrderPojo;
+
+@Repository
+<span class="fc" id="L18">public class OrderDao extends AbstractDao {</span>
+
+	private static final String delete_id = &quot;delete from OrderPojo p where id=:id&quot;;
+	private static final String select_id = &quot;select p from OrderPojo p where id=:id&quot;;
+	private static final String select_date = &quot;select p from OrderPojo p where time LIKE :reqDate&quot;;
+	private static final String select_orderTime = &quot;select p from OrderPojo p where time=:time&quot;;
+	private static final String select_all_orderDate = &quot;select p from OrderPojo p where time &gt;= :startDate and time &lt;= :endDate and status = &quot; + &quot;placed&quot;;
+	private static final String select_all = &quot;select p from OrderPojo p&quot;;
+
+	@PersistenceContext
+	private EntityManager entityManager;
+
+	@Transactional(rollbackFor = ApiException.class)
+	public OrderPojo insert(OrderPojo orderPojo) {
+//		add pending order in the orderPojo
+<span class="nc" id="L33">		entityManager.persist(orderPojo);</span>
+//		TODO: print the id to check what is getting returned
+<span class="nc" id="L35">		return orderPojo;</span>
+	}
+
+	//TODO: delete this
+	@Transactional(readOnly = true)
+	public OrderPojo select(ZonedDateTime orderTime) {
+<span class="nc" id="L41">		TypedQuery&lt;OrderPojo&gt; query = getQuery(select_orderTime, OrderPojo.class);</span>
+<span class="nc" id="L42">		query.setParameter(&quot;time&quot;, orderTime);</span>
+<span class="nc" id="L43">		return getSingle(query);</span>
+	}
+
+	@Transactional(readOnly = true)
+	public OrderPojo select(int orderId) {
+<span class="nc" id="L48">		TypedQuery&lt;OrderPojo&gt; query = getQuery(select_id, OrderPojo.class);</span>
+<span class="nc" id="L49">		query.setParameter(&quot;id&quot;, orderId);</span>
+<span class="nc" id="L50">		return getSingle(query);</span>
+	}
+
+	//TODO: no use
+	@Transactional(readOnly = true)
+	public List&lt;OrderPojo&gt; selectByDate(String reqDate) {
+<span class="nc" id="L56">		TypedQuery&lt;OrderPojo&gt; query = getQuery(select_date, OrderPojo.class);</span>
+<span class="nc" id="L57">		query.setParameter(&quot;reqDate&quot;,reqDate + &quot;%&quot;);</span>
+<span class="nc" id="L58">		return query.getResultList();</span>
+	}
+
+	@Transactional(rollbackFor = ApiException.class)
+	public int delete(int id) {
+<span class="nc" id="L63">		Query query = entityManager.createQuery(delete_id);</span>
+<span class="nc" id="L64">		query.setParameter(&quot;id&quot;, id);</span>
+<span class="nc" id="L65">		return query.executeUpdate();</span>
+	}
+
+	@Transactional(rollbackFor = ApiException.class)
+	public void update(OrderPojo orderPojo){
+
+<span class="nc" id="L71">	}</span>
+//
+//	public OrderItemPojo select(int id) {
+//		TypedQuery&lt;OrderItemPojo&gt; query = getQuery(select_id, OrderItemPojo.class);
+//		query.setParameter(&quot;id&quot;, id);
+//		return getSingle(query);
+//	}
+//
+	@Transactional(readOnly = true)
+	public List&lt;OrderPojo&gt; selectAll() {
+<span class="nc" id="L81">		TypedQuery&lt;OrderPojo&gt; query = getQuery(select_all, OrderPojo.class);</span>
+<span class="nc" id="L82">		return query.getResultList();</span>
+	}
+
+	@Transactional(readOnly = true)
+	public List&lt;OrderPojo&gt; selectBetweeenDates(ZonedDateTime startDate, ZonedDateTime endDate) {
+<span class="nc" id="L87">		TypedQuery&lt;OrderPojo&gt; query = getQuery(select_all_orderDate, OrderPojo.class);</span>
+<span class="nc" id="L88">		return query.setParameter(&quot;startDate&quot;, startDate).setParameter(&quot;endDate&quot;, endDate).getResultList();</span>
+	}
+
+	@Transactional(rollbackFor = ApiException.class)
+	public void updateStatus(OrderPojo orderPojo){
+<span class="nc" id="L93">	}</span>
+//
+//	public void update(OrderItemPojo p) {
+//	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

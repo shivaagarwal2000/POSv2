@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InventoryDto.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">employee-spring</a> &gt; <a href="index.source.html" class="el_package">com.pos.dto</a> &gt; <span class="el_source">InventoryDto.java</span></div><h1>InventoryDto.java</h1><pre class="source lang-java linenums">package com.pos.dto;
+
+import com.pos.helper.InventoryDtoHelper;
+import com.pos.model.data.InventoryData;
+import com.pos.model.data.InventoryReportData;
+import com.pos.model.forms.InventoryForm;
+import com.pos.pojo.BrandPojo;
+import com.pos.pojo.InventoryPojo;
+import com.pos.pojo.ProductPojo;
+import com.pos.service.ApiException;
+import com.pos.service.BrandService;
+import com.pos.service.InventoryService;
+import com.pos.service.ProductService;
+import com.pos.util.StringUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
+
+@Service
+<span class="fc" id="L25">public class InventoryDto {</span>
+
+    @Autowired
+    private InventoryService inventoryService;
+
+    @Autowired
+    private ProductService productService;
+
+    @Autowired
+    private BrandService brandService;
+
+    @Transactional(rollbackFor = ApiException.class)
+    public void add(InventoryForm form) throws ApiException {
+<span class="fc" id="L38">        ProductPojo productPojo = validate(form);</span>
+<span class="fc" id="L39">        InventoryPojo inventoryPojo = InventoryDtoHelper.convert(form, productPojo.getId());</span>
+<span class="fc" id="L40">        inventoryService.add(inventoryPojo);</span>
+<span class="fc" id="L41">    }</span>
+
+    @Transactional(rollbackFor = ApiException.class)
+    public void bulkAdd(List&lt;InventoryForm&gt; forms) throws ApiException {
+<span class="nc bnc" id="L45" title="All 2 branches missed.">        for (InventoryForm inventoryForm : forms) {</span>
+<span class="nc" id="L46">            validate(inventoryForm);</span>
+<span class="nc" id="L47">        }</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">        for (InventoryForm inventoryForm : forms) {</span>
+<span class="nc" id="L49">            ProductPojo productPojo = productService.get(inventoryForm.getBarcode());</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">            if (inventoryService.isPresent(productPojo.getId())) {</span>
+<span class="nc" id="L51">                update(productPojo.getId(), inventoryForm);</span>
+            } else {
+<span class="nc" id="L53">				add(inventoryForm);</span>
+            }
+<span class="nc" id="L55">        }</span>
+<span class="nc" id="L56">    }</span>
+
+    public InventoryData get(int id) throws ApiException {
+<span class="fc" id="L59">        ProductPojo productPojo = productService.get(id);</span>
+<span class="fc" id="L60">        InventoryPojo inventoryPojo = inventoryService.get(id);</span>
+<span class="fc" id="L61">        return InventoryDtoHelper.convert(inventoryPojo, productPojo.getBarcode());</span>
+    }
+
+    public List&lt;InventoryData&gt; getAll() throws ApiException {
+<span class="fc" id="L65">        List&lt;InventoryPojo&gt; list = inventoryService.getAll();</span>
+<span class="fc" id="L66">        List&lt;InventoryData&gt; list2 = new ArrayList&lt;InventoryData&gt;();</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        for (InventoryPojo p : list) {</span>
+<span class="fc" id="L68">            ProductPojo productPojo = productService.get(p.getId());</span>
+<span class="fc" id="L69">            list2.add(InventoryDtoHelper.convert(p, productPojo.getBarcode()));</span>
+<span class="fc" id="L70">        }</span>
+<span class="fc" id="L71">        return list2;</span>
+    }
+
+    public List&lt;InventoryReportData&gt; getReportData() throws ApiException {
+<span class="fc" id="L75">        List&lt;InventoryData&gt; inventoryDatas = getAll();</span>
+<span class="fc" id="L76">        List&lt;InventoryReportData&gt; reportDatas = new ArrayList&lt;InventoryReportData&gt;();</span>
+
+<span class="fc" id="L78">        HashMap&lt;Integer, Integer&gt; hash_map = new HashMap&lt;Integer, Integer&gt;();</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        for (InventoryData inventoryData : inventoryDatas) {</span>
+<span class="fc" id="L80">            ProductPojo productPojo = productService.get(inventoryData.getBarcode());</span>
+<span class="fc" id="L81">            hash_map.put(productPojo.getBrand_category(),</span>
+<span class="fc" id="L82">                    hash_map.getOrDefault(productPojo.getBrand_category(), 0) + inventoryData.getQuantity());</span>
+<span class="fc" id="L83">        }</span>
+<span class="fc bfc" id="L84" title="All 2 branches covered.">        for (int key : hash_map.keySet()) {</span>
+<span class="fc" id="L85">            InventoryReportData inventoryReportData = new InventoryReportData();</span>
+<span class="fc" id="L86">            BrandPojo brandPojo = brandService.get(key);</span>
+<span class="fc" id="L87">            inventoryReportData.setBrand(brandPojo.getBrand());</span>
+<span class="fc" id="L88">            inventoryReportData.setCategory(brandPojo.getCategory());</span>
+<span class="fc" id="L89">            inventoryReportData.setQuantity(hash_map.get(key));</span>
+<span class="fc" id="L90">            reportDatas.add(inventoryReportData);</span>
+<span class="fc" id="L91">        }</span>
+<span class="fc" id="L92">        return reportDatas;</span>
+    }
+
+    public void update(int id, InventoryForm form) throws ApiException {
+<span class="fc" id="L96">        ProductPojo productPojo = validate(form);</span>
+<span class="fc" id="L97">        InventoryPojo inventoryPojo = InventoryDtoHelper.convert(form, id);</span>
+<span class="fc" id="L98">        inventoryService.update(id, inventoryPojo);</span>
+<span class="fc" id="L99">    }</span>
+
+    public void delete(int id) throws ApiException {
+<span class="fc" id="L102">        inventoryService.delete(id);</span>
+<span class="fc" id="L103">    }</span>
+
+    public ProductPojo validate(InventoryForm form) throws ApiException {
+<span class="fc bfc" id="L106" title="All 4 branches covered.">        if (StringUtil.isEmpty(form.getBarcode()) || Objects.isNull(form.getQuantity())) {</span>
+<span class="fc" id="L107">            throw new ApiException(&quot;Error: barcode/quantity can not be empty&quot;);</span>
+        }
+<span class="fc" id="L109">        InventoryDtoHelper.normalise(form);</span>
+<span class="fc" id="L110">        ProductPojo productPojo = productService.get(form.getBarcode());</span>
+<span class="fc bfc" id="L111" title="All 2 branches covered.">        if (productPojo == null) {</span>
+<span class="fc" id="L112">            throw new ApiException(&quot;Error: product with given barcode does not exist&quot;);</span>
+        }
+<span class="fc" id="L114">        return productPojo;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

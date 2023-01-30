@@ -6,24 +6,26 @@ function getBrandUrl() {
 //BUTTON ACTIONS
 function addBrand(event) {
 	//Set the values to update
-	var $form = $("#brand-form");
-	var json = toJson($form);
-	var url = getBrandUrl();
+	let placeOrderUrl = $("meta[name=baseUrl]").attr("content") + "/ui/placeOrder";
+	console.log(placeOrderUrl)
+	window.open(placeOrderUrl);
+//	var $form = $("#brand-form");
+//	var json = toJson($form);
+//	var url = getBrandUrl();
+//
+//	$.ajax({
+//		url: url,
+//		type: "POST",
+//		data: json,
+//		headers: {
+//			"Content-Type": "application/json",
+//		},
+//		success: function(response) {
+//			getBrandList();
+//		},
+//		error: handleAjaxError,
+//	});
 
-	$.ajax({
-		url: url,
-		type: "POST",
-		data: json,
-		headers: {
-			"Content-Type": "application/json",
-		},
-		success: function(response) {
-			getBrandList();
-		},
-		error: handleAjaxError,
-	});
-
-	return false;
 }
 
 function updateBrand(event) {
@@ -139,14 +141,16 @@ function displayBrandList(data) {
 	$tbody.empty();
 	for (var i in data) {
 		var e = data[i];
-		var buttonHtml =
-			'<button onclick="showOrderDetails(' +
-			e.id +
-			')">View Details</button> ' +
-			'<button onclick="deleteOrder(' +
-			e.id +
-			')">Delete Order</button>' +
-			'<a id="order' + e.id + '" onclick="getInvoice(' + e.id + ')" class="btn btn-primary">Get Invoice</a> ';
+		if (e.status == "pending") {
+		    var buttonHtml = '<button onclick="editOrder(' + e.id + ')" class="btn btn-primary">Edit</button> ' +
+            			    '<button onclick="deleteOrder(' + e.id + ')" class="btn btn-primary">Delete Order</button>' +
+            			    '<a id="order' + e.id + '" onclick="placeOrder(' + e.id + ')" class="btn btn-primary">Place Order</a> ';
+		}
+		else {
+		    var buttonHtml = '<button onclick="showOrderDetails(' + e.id + ')" class="btn btn-primary">View Details</button> ' +
+                             '<a id="order' + e.id + '" onclick="getInvoice(' + e.id + ')" class="btn btn-primary" style="cursor:pointer">Get Invoice</a> ';
+		}
+
 		var row =
 			"<tr>" +
 			"<td>" +
@@ -156,11 +160,51 @@ function displayBrandList(data) {
 			e.orderTime +
 			"</td>" +
 			"<td>" +
+            e.status +
+            "</td>" +
+			"<td>" +
 			buttonHtml +
 			"</td>" +
 			"</tr>";
 		$tbody.append(row);
 	}
+}
+
+function editOrder(id) {
+
+}
+
+function placeOrder(id) {
+    let url = getBrandUrl() + "/place/" + id;
+    $.ajax({
+        url: url,
+        type: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        success: function(response) {
+            alert("order placed");
+            generateInvoice(id);
+            getBrandList();
+        },
+        error: handleAjaxError,
+
+    });
+}
+
+function generateInvoice(id) {
+    var baseUrl = getBrandUrl() + "/invoice/" + id;
+    $.ajax({
+        url: baseUrl,
+        type: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        success: function(response) {
+            console.log("invoice generated");
+        },
+        error: handleAjaxError,
+    });
 }
 
 function getInvoice(id) {
@@ -267,10 +311,10 @@ function init() {
 	$("#add-brand").click(addBrand);
 	$("#update-brand").click(updateBrand);
 	$("#refresh-data").click(getBrandList);
-	$("#upload-data").click(displayUploadData);
-	$("#process-data").click(processData);
-	$("#download-errors").click(downloadErrors);
-	$("#employeeFile").on("change", updateFileName);
+//	$("#upload-data").click(displayUploadData);
+//	$("#process-data").click(processData);
+//	$("#download-errors").click(downloadErrors);
+//	$("#employeeFile").on("change", updateFileName);
 }
 
 //run code when DOM is ready

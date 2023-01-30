@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
 <!--        TODO change package name to org.commons Priority: 5-->
-        <groupId>org.example</groupId>
+        <groupId>org.master</groupId>
         <artifactId>master-module</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <packaging>jar</packaging>
-
+    <groupId>org.commons</groupId>
     <version>0.0.1-SNAPSHOT</version>
     <artifactId>commons</artifactId>
 

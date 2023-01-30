@@ -37,6 +37,7 @@ function updateBrand(event) {
 
 	//Set the values to update
 	var $form = $("#brand-edit-form");
+	console.log($form)
 	var json = toJson($form);
 
 	$.ajax({

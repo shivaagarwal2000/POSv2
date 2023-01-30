@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EmployeeService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">employee-spring</a> &gt; <a href="index.source.html" class="el_package">com.pos.service</a> &gt; <span class="el_source">EmployeeService.java</span></div><h1>EmployeeService.java</h1><pre class="source lang-java linenums">package com.pos.service;
+
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import com.pos.dao.EmployeeDao;
+import com.pos.pojo.EmployeePojo;
+import com.pos.util.StringUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+<span class="fc" id="L14">public class EmployeeService {</span>
+
+	@Autowired
+	private EmployeeDao dao;
+
+	@Transactional(rollbackOn = ApiException.class)
+	public void add(EmployeePojo p) throws ApiException {
+<span class="fc" id="L21">		normalize(p);</span>
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">		if(StringUtil.isEmpty(p.getName())) {</span>
+<span class="nc" id="L23">			throw new ApiException(&quot;name cannot be empty&quot;);</span>
+		}
+<span class="fc" id="L25">		dao.insert(p);</span>
+<span class="fc" id="L26">	}</span>
+
+	@Transactional
+	public void delete(int id) {
+<span class="nc" id="L30">		dao.delete(id);</span>
+<span class="nc" id="L31">	}</span>
+
+	@Transactional(rollbackOn = ApiException.class)
+	public EmployeePojo get(int id) throws ApiException {
+<span class="nc" id="L35">		return getCheck(id);</span>
+	}
+
+	@Transactional
+	public List&lt;EmployeePojo&gt; getAll() {
+<span class="nc" id="L40">		return dao.selectAll();</span>
+	}
+
+	@Transactional(rollbackOn  = ApiException.class)
+	public void update(int id, EmployeePojo p) throws ApiException {
+<span class="nc" id="L45">		normalize(p);</span>
+<span class="nc" id="L46">		EmployeePojo ex = getCheck(id);</span>
+<span class="nc" id="L47">		ex.setAge(p.getAge());</span>
+<span class="nc" id="L48">		ex.setName(p.getName());</span>
+<span class="nc" id="L49">		dao.update(ex);</span>
+<span class="nc" id="L50">	}</span>
+
+	@Transactional
+	public EmployeePojo getCheck(int id) throws ApiException {
+<span class="nc" id="L54">		EmployeePojo p = dao.select(id);</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">		if (p == null) {</span>
+<span class="nc" id="L56">			throw new ApiException(&quot;Employee with given ID does not exit, id: &quot; + id);</span>
+		}
+<span class="nc" id="L58">		return p;</span>
+	}
+
+	protected static void normalize(EmployeePojo p) {
+<span class="fc" id="L62">		p.setName(StringUtil.toLowerCase(p.getName()));</span>
+<span class="fc" id="L63">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

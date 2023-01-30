@@ -8,10 +8,10 @@ $(document).ready(function() {
 
 function getBrandUrl() {
 	var baseUrl = $("meta[name=baseUrl]").attr("content");
-	return baseUrl + "/api/placeOrder";
+	return baseUrl + "/api/order";
 }
 
-function placeOrder() {
+function addOrder() {
 	var itemBarcodes = document.getElementsByClassName("itemBarcode");
 	var itemQuantities = document.getElementsByClassName("itemQuantity");
 	let orderItems = [];
@@ -29,10 +29,8 @@ function placeOrder() {
 			barcode: itemBarcodes[i].value,
 			quantity: itemQuantities[i].value,
 		};
-		console.log(jsonOrderItem);
 		orderItems.push(jsonOrderItem);
 	}
-	console.log(orderItems);
 	// var $form = $("#brand-form");
 	// var json = toJson($form);
 	var url = getBrandUrl();
@@ -47,7 +45,7 @@ function placeOrder() {
 		},
 		statusCode: {
 			200: function() {
-				alert("order placed");
+				alert("order saved");
 			},
 			400: handleAjaxError
 		}
