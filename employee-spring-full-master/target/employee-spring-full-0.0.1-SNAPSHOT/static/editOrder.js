@@ -30,7 +30,7 @@ function updateBrand(event) {
   $("#edit-brand-modal").modal("toggle");
   //Get the ID
   var id = $("#brand-edit-form input[name=id]").val();
-  var url = getBrandUrl() + "/" + id;
+  var url = getBrandUrl() + "/editItem/" + id;
   console.log(url);
   //Set the values to update
   var $form = $("#brand-edit-form");
@@ -44,9 +44,12 @@ function updateBrand(event) {
       "Content-Type": "application/json",
     },
     success: function (response) {
+      $("#edit-brand-modal").modal("toggle");
       getBrandList();
     },
-    error: handleAjaxError,
+    error: function(response) {
+        console.log(response);
+    },
   });
 
   return false;
@@ -54,7 +57,7 @@ function updateBrand(event) {
 
 //get the list of all brands
 function getBrandList() {
-  var url = getBrandUrl();
+  var url = getBrandUrl() + "/" + orderDetailId;
   $.ajax({
     url: url,
     type: "GET",
@@ -67,8 +70,8 @@ function getBrandList() {
 
 //controller for delete button
 function deleteBrand(id) {
-  var url = getBrandUrl() + "/" + id;
-
+  var url = getBrandUrl() + "/deleteItem/" + id;
+  console.log(url)
   $.ajax({
     url: url,
     type: "DELETE",
@@ -157,9 +160,9 @@ function displayOrderItemList(data) {
   for (var i in data) {
     var e = data[i];
     var buttonHtml =
-      '<button onclick="deleteBrand(' + e.id + ')">delete</button>';
+      '<button onclick="deleteBrand(' + e.id + ')"  class="btn btn-danger">delete</button>';
     buttonHtml +=
-      ' <button onclick="displayEditBrand(' + e.id + ')">edit</button>';
+      ' <button onclick="displayEditBrand(' + e.id + ')"  class="btn btn-primary">edit</button>';
     var row =
       "<tr>" +
       "<td>" +
@@ -180,21 +183,21 @@ function displayOrderItemList(data) {
       "<td>" +
       e.sellingPrice +
       "</td>" +
-//      "<td>" +
-//      buttonHtml +
-//      "</td>" +
+      "<td>" +
+      buttonHtml +
+      "</td>" +
       "</tr>";
     total += e.sellingPrice
     $tbody.append(row);
     count += 1
   }
-  var row = '<tr><td></td><td></td><td></td><td></td><td></td><td> Total Amount: ' + total + '</td></tr>'
+  var row = '<tr><td></td><td></td><td></td><td></td><td></td><td> Total Amount: ' + total + '</td><td></td></tr>'
   $tbody.append(row)
 }
 
 //controller for edit button
 function displayEditBrand(id) {
-  var url = getBrandUrl() + "/" + id;
+  var url = getBrandUrl() + "/item/" + id;
   $.ajax({
     url: url,
     type: "GET",
@@ -237,16 +240,19 @@ function displayUploadData() {
 
 //prefills the edit overlay
 function displayBrand(data) {
-  $("#brand-edit-form input[name=brand]").val(data.brand);
-  $("#brand-edit-form input[name=category]").val(data.category);
   $("#brand-edit-form input[name=id]").val(data.id);
+  $("#brand-edit-form input[name=barcode]").val(data.barcode);
+  $("#brand-edit-form-display input[name=productName]").val(data.productName);
+  $("#brand-edit-form-display input[name=mrp]").val(data.mrp);
+  $("#brand-edit-form input[name=quantity]").val(data.quantity);
+  $("#brand-edit-form-display input[name=sellingPrice]").val(data.sellingPrice);
   $("#edit-brand-modal").modal("toggle");
 }
 
 //INITIALIZATION CODE
 function init() {
   $("#add-brand").click(addBrand);
-//  $("#update-brand").click(updateBrand);
+  $("#update-brand").click(updateBrand);
   $("#refresh-data").click(getBrandList);
 //  $("#upload-data").click(displayUploadData);
   $("#process-data").click(processData);
@@ -261,6 +267,10 @@ for (let i = 0; i < curUrl.length; i++) {
     lastind = i;
   }
 }
+// console.log(curUrl);
+// console.log(lastind);
+// console.log(curUrl.length);
+var orderDetailId = parseInt(curUrl.substr(lastind + 1));
 
 function getInvoice() {
     let id = orderDetailId;
@@ -288,10 +298,7 @@ function getInvoice() {
 }
 
 
-// console.log(curUrl);
-// console.log(lastind);
-// console.log(curUrl.length);
-var orderDetailId = parseInt(curUrl.substr(lastind + 1));
+
 
 //run code when DOM is ready
 $(document).ready(init);

@@ -40,6 +40,12 @@ public class OrderApiController {
         orderDto.editOrderItem(id, orderItemForm);
     }
 
+    @ApiOperation(value = "delete an order item")
+    @RequestMapping(path = "/api/order/deleteItem/{id}", method = RequestMethod.DELETE)
+    public void deleteOrderItem(@PathVariable int id) throws ApiException {
+        orderDto.deleteOrderItem(id);
+    }
+
     @ApiOperation(value = "Place order")
     @RequestMapping(path = "/api/order/place/{id}", method = RequestMethod.PUT)
     public void placeOrder(@PathVariable int id) throws ApiException {
@@ -52,11 +58,16 @@ public class OrderApiController {
         return orderDto.getAll();
     }
 
+    @ApiOperation(value = "Gets item detail")
+    @RequestMapping(path = "/api/order/item/{id}", method = RequestMethod.GET)
+    public CommonOrderItemData getOrderItemData(@PathVariable int id) throws ApiException {
+        return orderDto.getOrderItem(id);
+    }
+
     @ApiOperation(value = "gets items for order")
     @RequestMapping(path = "/api/order/{id}", method = RequestMethod.GET)
     public List<CommonOrderItemData> get(@PathVariable int id) throws ApiException {
         return orderDto.getItemDatas(id);
-
     }
 
     @ApiOperation(value = "delete a order")

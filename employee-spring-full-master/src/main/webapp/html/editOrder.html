@@ -10,10 +10,11 @@
 
 	<div class="container">
 
-		<h3>Create Order</h3>
+		<h3>Order Detail - [PENDING]</h3>
 
-		<!-- Top row with form-->
-		<!-- <div class="row">
+		<button onclick="placeOrder()" class="btn btn-primary">Place Order</button>
+		<!-- Top row with form
+		<div class="row">
 			<div class="col-12">
 				<form class="form-inline" id="brand-form">
 					<div class="form-group">
@@ -41,20 +42,20 @@
 
 
 		<!-- Blank Row -->
-		<!-- <div class="row">&nbsp;</div>
+		<div class="row">&nbsp;</div>
 		<div class="row">
 
-			Table
+			<!-- Table -->
 			<div class="col-12">
-				<table class="table table-striped" id="brand-table">
+				<table class="table table-striped" id="orderDetail-table">
 					<thead>
 						<tr>
-							<th scope="col">ID</th>
-							<th scope="col">orderId</th>
-							<th scope="col">sellingPrice</th>
-							<th scope="col">productName</th>
-							<th scope="col">barcode</th>
-							<th scope="col">quantity</th>
+							<th scope="col">S.No.</th>
+							<th scope="col">Barcode</th>
+							<th scope="col">ProductName</th>
+							<th scope="col">Mrp</th>
+							<th scope="col">Quantity</th>
+							<th scope="col">SellingPrice</th>
 							<th scope="col">Actions</th>
 						</tr>
 					</thead>
@@ -69,47 +70,56 @@
 				</table>
 
 			</div>
-		</div> -->
-		<table id="datatable">
-			<tr> <div>
-				<td>Barcode</td> <td>:</td> <td colspan="2"><input type="text" class="itemBarcode" /></td> <td> Quantity</td> <td>:</td> <td><input type="number" class="itemQuantity"/></td> 
-			</div> 
-			</tr>
-		</table>
-
-		<button type="button" id="add">
-			<b>Add</b>
-		</button>
-
-		<button type="button" id="submit" onclick="addOrder()">
-			<b>Save</b>
-		</button>
+		</div>
 
 		<!-- Employee Edit Modal through overlay -->
 		<div class="modal" tabindex="-1" role="dialog" id="edit-brand-modal">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title">Edit Brand</h5>
+						<h5 class="modal-title">Edit Order</h5>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body">
-						<form class="form-inline" id="brand-edit-form">
+						<form class="form-inline" id="brand-edit-form-display">
 							<div class="form-group">
-								<label for="inputBrand" class="col-sm-2 col-form-label">Brand</label>
+								<label for="inputCategory" class="col-sm-2 col-form-label">Product Name</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" name="brand"
-										id="inputBrand" placeholder="enter brand">
+									<input type="text" class="form-control" name="productName"
+										   id="inputCategory" placeholder="enter category" readonly>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputCategory" class="col-sm-2 col-form-label">Category</label>
+								<label for="inputCategory" class="col-sm-2 col-form-label">Mrp</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" name="category"
-										id="inputCategory" placeholder="enter category">
+									<input type="text" class="form-control" name="mrp"
+										   id="inputCategory" placeholder="enter category" readonly>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputCategory" class="col-sm-2 col-form-label">SellingPrice</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" name="sellingPrice"
+										   id="inputCategory" placeholder="enter category" readonly>
+								</div>
+							</div>
+						</form>
+						<form class="form-inline" id="brand-edit-form">
+							<div class="form-group">
+								<label for="inputBrand" class="col-sm-2 col-form-label">Barcode</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" name="barcode"
+										id="inputBrand" placeholder="enter brand" readonly>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputCategory" class="col-sm-2 col-form-label">Quantity</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" name="quantity"
+										   id="inputCategory" placeholder="enter category">
 								</div>
 							</div>
 							<input type="hidden" name="id">
@@ -166,8 +176,8 @@
 
 	<footer th:replace="snippets.html :: name_footer"></footer>
 
-	<!--  <script th:src="@{/static/orderItem.js}" /></script>-->
-	<script th:src="@{/static/placeOrder.js}" /></script>
+	<script th:src="@{/static/orders.js}" /></script>
+	<script th:src="@{/static/editOrder.js}" /></script>
 
 </body>
 

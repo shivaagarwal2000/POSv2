@@ -65,11 +65,11 @@
   </properties>
   <testcase classname="com.pos.service.InventoryServiceTest" name="testAddNegativeQuantity" time="0.004"/>
   <testcase classname="com.pos.service.InventoryServiceTest" name="testAdd" time="0.008"/>
-  <testcase classname="com.pos.service.InventoryServiceTest" name="testGetId" time="0.008"/>
+  <testcase classname="com.pos.service.InventoryServiceTest" name="testGetId" time="0.007"/>
   <testcase classname="com.pos.service.InventoryServiceTest" name="testUpdateNegativeQuantity" time="0.004"/>
   <testcase classname="com.pos.service.InventoryServiceTest" name="testValidateQuantity" time="0.003"/>
-  <testcase classname="com.pos.service.InventoryServiceTest" name="testValidateNegativeQuantity" time="0.004"/>
-  <testcase classname="com.pos.service.InventoryServiceTest" name="testDelete" time="0.01"/>
-  <testcase classname="com.pos.service.InventoryServiceTest" name="testGetAll" time="0.009"/>
+  <testcase classname="com.pos.service.InventoryServiceTest" name="testValidateNegativeQuantity" time="0.005"/>
+  <testcase classname="com.pos.service.InventoryServiceTest" name="testDelete" time="0.011"/>
+  <testcase classname="com.pos.service.InventoryServiceTest" name="testGetAll" time="0.008"/>
   <testcase classname="com.pos.service.InventoryServiceTest" name="testUpdate" time="0.01"/>
 </testsuite>

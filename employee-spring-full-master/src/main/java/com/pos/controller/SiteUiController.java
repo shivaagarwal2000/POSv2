@@ -38,11 +38,6 @@ public class SiteUiController extends AbstractUiController {
 		return mav("orderItem.html");
 	}
 
-	@RequestMapping(value = "/site/orderDetail/{id}")
-	public ModelAndView orderDetail() {
-		return mav("orderDetail.html");
-	}
-
 	@RequestMapping(value = "/site/brandreport")
 	public ModelAndView brandReport() {
 		return mav("brandReport.html");

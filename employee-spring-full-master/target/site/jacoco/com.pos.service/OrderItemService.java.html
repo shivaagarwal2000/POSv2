@@ -38,18 +38,23 @@ import java.util.List;
 <span class="nc" id="L38">        orderItemDao.deleteOrder(orderId);</span>
 <span class="nc" id="L39">    }</span>
 
+    @Transactional(rollbackFor = ApiException.class)
+    public void delete(int id) {
+<span class="nc" id="L43">        orderItemDao.delete(id);</span>
+<span class="nc" id="L44">    }</span>
+
 	@Transactional(readOnly = true)
     public OrderItemPojo select(int orderItemId) {
-<span class="nc" id="L43">        return orderItemDao.select(orderItemId);</span>
+<span class="nc" id="L48">        return orderItemDao.select(orderItemId);</span>
     }
 
     @Transactional(rollbackFor = ApiException.class)
     public void update(int orderItemId, OrderItemPojo orderItemPojo){
-<span class="nc" id="L48">        OrderItemPojo oldOrderItemPojo = orderItemDao.select(orderItemId);</span>
-<span class="nc" id="L49">        oldOrderItemPojo.setProductId(orderItemPojo.getProductId());</span>
-<span class="nc" id="L50">        oldOrderItemPojo.setSellingprice(orderItemPojo.getSellingprice());</span>
-<span class="nc" id="L51">        oldOrderItemPojo.setQuantity(orderItemPojo.getQuantity());</span>
-<span class="nc" id="L52">        orderItemDao.update(oldOrderItemPojo);</span>
-<span class="nc" id="L53">    }</span>
+<span class="nc" id="L53">        OrderItemPojo oldOrderItemPojo = orderItemDao.select(orderItemId);</span>
+<span class="nc" id="L54">        oldOrderItemPojo.setProductId(orderItemPojo.getProductId());</span>
+<span class="nc" id="L55">        oldOrderItemPojo.setSellingprice(orderItemPojo.getSellingprice());</span>
+<span class="nc" id="L56">        oldOrderItemPojo.setQuantity(orderItemPojo.getQuantity());</span>
+<span class="nc" id="L57">        orderItemDao.update(oldOrderItemPojo);</span>
+<span class="nc" id="L58">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

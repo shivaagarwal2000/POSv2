@@ -38,6 +38,11 @@ public class OrderItemService {
         orderItemDao.deleteOrder(orderId);
     }
 
+    @Transactional(rollbackFor = ApiException.class)
+    public void delete(int id) {
+        orderItemDao.delete(id);
+    }
+
 	@Transactional(readOnly = true)
     public OrderItemPojo select(int orderItemId) {
         return orderItemDao.select(orderItemId);

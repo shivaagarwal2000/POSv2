@@ -171,7 +171,9 @@ function displayBrandList(data) {
 }
 
 function editOrder(id) {
-
+    let baseUrl = $("meta[name=baseUrl]").attr("content");
+    let url = baseUrl + "/ui/pendingOrderDetail/" + id;
+    window.open(url);
 }
 
 function placeOrder(id) {
@@ -234,7 +236,7 @@ orderDetailId = 0;
 function showOrderDetails(id) {
 	orderDetailId = id;
 	var baseUrl = $("meta[name=baseUrl]").attr("content");
-	var url = baseUrl + "/site/orderDetail/" + orderDetailId;
+	var url = baseUrl + "/ui/placedOrderDetail/" + orderDetailId;
 	window.open(url);
 	//console.log(id);
 }

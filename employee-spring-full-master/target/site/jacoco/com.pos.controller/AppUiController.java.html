@@ -46,10 +46,17 @@ import org.springframework.web.servlet.ModelAndView;
     public ModelAndView orders() {
 <span class="nc" id="L47">        return mav(&quot;orders.html&quot;);</span>
     }
-
     @RequestMapping(value = &quot;/ui/placeOrder&quot;)
     public ModelAndView createOrder() {
-<span class="nc" id="L52">        return mav(&quot;placeOrder.html&quot;);</span>
+<span class="nc" id="L51">        return mav(&quot;placeOrder.html&quot;);</span>
+    }
+    @RequestMapping(value = &quot;/ui/placedOrderDetail/{id}&quot;)
+    public ModelAndView placedOrderDetail() {
+<span class="nc" id="L55">        return mav(&quot;orderDetail.html&quot;);</span>
+    }
+    @RequestMapping(value = &quot;/ui/pendingOrderDetail/{id}&quot;)
+    public ModelAndView orderDetail() {
+<span class="nc" id="L59">        return mav(&quot;editOrder.html&quot;);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

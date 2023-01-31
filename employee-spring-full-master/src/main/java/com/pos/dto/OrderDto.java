@@ -53,11 +53,27 @@ public class OrderDto {
         for (OrderPojo orderPojo : orderPojos) {
             OrderData orderData = new OrderData();
             orderData.setId(orderPojo.getId());
-            orderData.setOrderTime(orderPojo.getTime().toString());
+//            orderData.setOrderTime(orderPojo.getTime().toString());
+            orderData.setOrderTime(orderPojo.getTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss z")));
             orderData.setStatus(orderPojo.getStatus());
             orderDatas.add(orderData);
         }
         return orderDatas;
+    }
+
+    @Transactional(readOnly = true)
+    public CommonOrderItemData getOrderItem(int itemId) throws ApiException {
+        CommonOrderItemData orderItemData = new CommonOrderItemData();
+        OrderItemPojo orderItemPojo = orderItemService.select(itemId);
+        ProductPojo productPojo = productService.get(orderItemPojo.getProductId());
+        orderItemData.setId(orderItemPojo.getId());
+        orderItemData.setQuantity(orderItemPojo.getQuantity());
+        orderItemData.setMrp(productPojo.getMrp());
+        orderItemData.setBarcode(productPojo.getBarcode());
+        orderItemData.setProductName(productPojo.getName());
+        orderItemData.setOrderId(orderItemPojo.getOrderId());
+        orderItemData.setSellingPrice(orderItemPojo.getSellingprice());
+        return orderItemData;
     }
 
     //TODO: edge - if multiple entries together for item -- ?
@@ -169,6 +185,11 @@ public class OrderDto {
     public void deleteOrder(int orderId) {// TODO Check if order is placed Priority: 5
         orderItemService.deleteOrder(orderId);
         orderService.delete(orderId);
+    }
+
+    @Transactional(rollbackFor = ApiException.class)
+    public void deleteOrderItem(int id) {// TODO Check if order is placed Priority: 5
+        orderItemService.delete(id);
     }
 
     //TODO: no use -- delete

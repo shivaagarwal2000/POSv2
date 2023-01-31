@@ -6,38 +6,40 @@
 
 <body>
 
-	<nav th:replace="snippets.html :: name_site_navbar"></nav>
+	<nav th:replace="snippets.html :: name_app_navbar"></nav>
 
 	<div class="container">
 
-		<h3>Order Detail</h3>
+		<h3>Order Detail - [PLACED]</h3>
 
-		<!-- Top row with form
+		<button id="invoiceButton" class="btn btn-primary" onclick="getInvoice()">Get Invoice</button>
+<!--		<button type="button" class="btn btn-primary" id="refresh-data">Refres</button>-->
+<!--		top row with form-->
 		<div class="row">
 			<div class="col-12">
-				<form class="form-inline" id="brand-form">
-					<div class="form-group">
-						<label for="inputBrand" class="col-sm-2 col-form-label">Brand</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" name="brand"
-								id="inputBrand" placeholder="enter brand">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="inputCategory" class="col-sm-2 col-form-label">Category</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" name="category"
-								id="inputCategory" placeholder="enter category">
-						</div>
-					</div>
-					<button type="submit" class="btn btn-primary" id="add-brand">Add</button>
-					&nbsp;
-					<button type="button" class="btn btn-primary" id="refresh-data">Refresh</button>
-					&nbsp;
-					<button type="button" class="btn btn-primary" id="upload-data">Upload</button>
-				</form>
+<!--				<form class="form-inline" id="brand-form">-->
+<!--					<div class="form-group">-->
+<!--						<label for="inputBrand" class="col-sm-2 col-form-label">Brand</label>-->
+<!--						<div class="col-sm-10">-->
+<!--							<input type="text" class="form-control" name="brand"-->
+<!--								id="inputBrand" placeholder="enter brand">-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="form-group">-->
+<!--						<label for="inputCategory" class="col-sm-2 col-form-label">Category</label>-->
+<!--						<div class="col-sm-10">-->
+<!--							<input type="text" class="form-control" name="category"-->
+<!--								id="inputCategory" placeholder="enter category">-->
+<!--						</div>-->
+<!--					</div>-->
+
+<!--					&nbsp;-->
+
+<!--					&nbsp;-->
+
+<!--				</form>-->
 			</div>
-		</div> -->
+		</div>
 
 
 		<!-- Blank Row -->
@@ -49,13 +51,12 @@
 				<table class="table table-striped" id="orderDetail-table">
 					<thead>
 						<tr>
-							<th scope="col">ID</th>
-							<th scope="col">orderId</th>
-							<th scope="col">sellingPrice</th>
-							<th scope="col">productName</th>
-							<th scope="col">barcode</th>
-							<th scope="col">quantity</th>
-							<th scope="col">Actions</th>
+							<th scope="col">S.No.</th>
+							<th scope="col">Barcode</th>
+							<th scope="col">ProductName</th>
+							<th scope="col">Mrp</th>
+							<th scope="col">Quantity</th>
+							<th scope="col">SellingPrice</th>
 						</tr>
 					</thead>
 					<tbody>

@@ -46,6 +46,8 @@ function addOrder() {
 		statusCode: {
 			200: function() {
 				alert("order saved");
+				var url = $("meta[name=baseUrl]").attr("content") + "/ui/orders";
+				window.location.replace(url);
 			},
 			400: handleAjaxError
 		}

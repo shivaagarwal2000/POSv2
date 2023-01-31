@@ -40,30 +40,41 @@ import java.util.List;
 <span class="nc" id="L40">        orderDto.editOrderItem(id, orderItemForm);</span>
 <span class="nc" id="L41">    }</span>
 
+    @ApiOperation(value = &quot;delete an order item&quot;)
+    @RequestMapping(path = &quot;/api/order/deleteItem/{id}&quot;, method = RequestMethod.DELETE)
+    public void deleteOrderItem(@PathVariable int id) throws ApiException {
+<span class="nc" id="L46">        orderDto.deleteOrderItem(id);</span>
+<span class="nc" id="L47">    }</span>
+
     @ApiOperation(value = &quot;Place order&quot;)
     @RequestMapping(path = &quot;/api/order/place/{id}&quot;, method = RequestMethod.PUT)
     public void placeOrder(@PathVariable int id) throws ApiException {
-<span class="nc" id="L46">        orderDto.placeOrder(id);</span>
-<span class="nc" id="L47">    }</span>
+<span class="nc" id="L52">        orderDto.placeOrder(id);</span>
+<span class="nc" id="L53">    }</span>
 
     @ApiOperation(value = &quot;Gets all orders&quot;)
     @RequestMapping(path = &quot;/api/order&quot;, method = RequestMethod.GET)
     public List&lt;OrderData&gt; getAllOrders() throws ApiException {
-<span class="nc" id="L52">        return orderDto.getAll();</span>
+<span class="nc" id="L58">        return orderDto.getAll();</span>
+    }
+
+    @ApiOperation(value = &quot;Gets item detail&quot;)
+    @RequestMapping(path = &quot;/api/order/item/{id}&quot;, method = RequestMethod.GET)
+    public CommonOrderItemData getOrderItemData(@PathVariable int id) throws ApiException {
+<span class="nc" id="L64">        return orderDto.getOrderItem(id);</span>
     }
 
     @ApiOperation(value = &quot;gets items for order&quot;)
     @RequestMapping(path = &quot;/api/order/{id}&quot;, method = RequestMethod.GET)
     public List&lt;CommonOrderItemData&gt; get(@PathVariable int id) throws ApiException {
-<span class="nc" id="L58">        return orderDto.getItemDatas(id);</span>
-
+<span class="nc" id="L70">        return orderDto.getItemDatas(id);</span>
     }
 
     @ApiOperation(value = &quot;delete a order&quot;)
     @RequestMapping(path = &quot;/api/order/{id}&quot;, method = RequestMethod.DELETE)
     public void delete(@PathVariable int id) throws ApiException {
-<span class="nc" id="L65">        orderDto.deleteOrder(id);</span>
-<span class="nc" id="L66">    }</span>
+<span class="nc" id="L76">        orderDto.deleteOrder(id);</span>
+<span class="nc" id="L77">    }</span>
 
 //	@ApiOperation(value = &quot;get order report&quot;)
 //	@RequestMapping(path = &quot;/api/order/report&quot;, method = RequestMethod.POST)
@@ -79,14 +90,14 @@ import java.util.List;
     public List&lt;SalesReportData&gt; getSalesReport(@RequestBody SalesReportForm salesReportForm) throws ApiException {
 //        salesReportForm.setStartDate(salesReportForm.getStartDate().replace('-', '/'));
 //        salesReportForm.setEndDate(salesReportForm.getEndDate().replace('-', '/'));
-<span class="nc" id="L82">        List&lt;SalesReportData&gt; salesReportDatas = orderDto.getSalesReportDatas(salesReportForm);</span>
-<span class="nc" id="L83">        return salesReportDatas;</span>
+<span class="nc" id="L93">        List&lt;SalesReportData&gt; salesReportDatas = orderDto.getSalesReportDatas(salesReportForm);</span>
+<span class="nc" id="L94">        return salesReportDatas;</span>
     }
 
     @ApiOperation(value = &quot;get order invoice&quot;)
     @RequestMapping(path = &quot;/api/order/invoice/{id}&quot;, method = RequestMethod.GET)
     public String getInvoice(@PathVariable int id) throws ApiException, IOException {
-<span class="nc" id="L89">        return orderDto.getInvoice(id);</span>
+<span class="nc" id="L100">        return orderDto.getInvoice(id);</span>
     }
 
 }

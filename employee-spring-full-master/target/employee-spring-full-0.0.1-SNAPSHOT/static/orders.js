@@ -143,12 +143,12 @@ function displayBrandList(data) {
 		var e = data[i];
 		if (e.status == "pending") {
 		    var buttonHtml = '<button onclick="editOrder(' + e.id + ')" class="btn btn-primary">Edit</button> ' +
-            			    '<button onclick="deleteOrder(' + e.id + ')" class="btn btn-primary">Delete Order</button>' +
-            			    '<a id="order' + e.id + '" onclick="placeOrder(' + e.id + ')" class="btn btn-primary">Place Order</a> ';
+            			    '<button onclick="deleteOrder(' + e.id + ')" class="btn btn-danger">Delete Order</button> ' +
+            			    '<button id="order' + e.id + '" onclick="placeOrder(' + e.id + ')" class="btn btn-primary">Place Order</button> ';
 		}
 		else {
 		    var buttonHtml = '<button onclick="showOrderDetails(' + e.id + ')" class="btn btn-primary">View Details</button> ' +
-                             '<a id="order' + e.id + '" onclick="getInvoice(' + e.id + ')" class="btn btn-primary" style="cursor:pointer">Get Invoice</a> ';
+                             '<button id="order' + e.id + '" onclick="getInvoice(' + e.id + ')" class="btn btn-primary">Get Invoice</button> ';
 		}
 
 		var row =
@@ -171,7 +171,9 @@ function displayBrandList(data) {
 }
 
 function editOrder(id) {
-
+    let baseUrl = $("meta[name=baseUrl]").attr("content");
+    let url = baseUrl + "/ui/pendingOrderDetail/" + id;
+    window.open(url);
 }
 
 function placeOrder(id) {
@@ -234,7 +236,7 @@ orderDetailId = 0;
 function showOrderDetails(id) {
 	orderDetailId = id;
 	var baseUrl = $("meta[name=baseUrl]").attr("content");
-	var url = baseUrl + "/site/orderDetail/" + orderDetailId;
+	var url = baseUrl + "/ui/placedOrderDetail/" + orderDetailId;
 	window.open(url);
 	//console.log(id);
 }
