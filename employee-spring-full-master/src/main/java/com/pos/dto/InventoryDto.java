@@ -40,20 +40,20 @@ public class InventoryDto {
         inventoryService.add(inventoryPojo);
     }
 
-    @Transactional(rollbackFor = ApiException.class)
-    public void bulkAdd(List<InventoryForm> forms) throws ApiException {
-        for (InventoryForm inventoryForm : forms) {
-            validate(inventoryForm);
-        }
-        for (InventoryForm inventoryForm : forms) {
-            ProductPojo productPojo = productService.get(inventoryForm.getBarcode());
-            if (inventoryService.isPresent(productPojo.getId())) {
-                update(productPojo.getId(), inventoryForm);
-            } else {
-				add(inventoryForm);
-            }
-        }
-    }
+//    @Transactional(rollbackFor = ApiException.class)
+//    public void bulkAdd(List<InventoryForm> forms) throws ApiException {
+//        for (InventoryForm inventoryForm : forms) {
+//            validate(inventoryForm);
+//        }
+//        for (InventoryForm inventoryForm : forms) {
+//            ProductPojo productPojo = productService.get(inventoryForm.getBarcode());
+//            if (inventoryService.isPresent(productPojo.getId())) {
+//                update(productPojo.getId(), inventoryForm);
+//            } else {
+//				add(inventoryForm);
+//            }
+//        }
+//    }
 
     public InventoryData get(int id) throws ApiException {
         ProductPojo productPojo = productService.get(id);

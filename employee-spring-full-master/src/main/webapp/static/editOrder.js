@@ -93,7 +93,7 @@ function placeOrder() {
         },
         success: function(response) {
             alert("order placed");
-            getInvoice();
+//            getInvoice();
             var baseUrl = $("meta[name=baseUrl]").attr("content");
             var url = baseUrl + "/ui/orders";
             window.location.replace(url);
@@ -226,6 +226,22 @@ function displayEditBrand(id) {
     },
     error: handleAjaxError,
   });
+}
+
+function deleteOrder() {
+    let baseUrl = getBrandUrl() + "/" + orderDetailId;
+    console.log(baseUrl);
+    $.ajax({
+        url: baseUrl,
+        type: "DELETE",
+        success: function (data) {
+          alert("Order deleted!")
+          var baseUrl = $("meta[name=baseUrl]").attr("content");
+          var url = baseUrl + "/ui/orders";
+          window.location.replace(url);
+        },
+        error: handleAjaxError,
+      });
 }
 
 function resetUploadDialog() {

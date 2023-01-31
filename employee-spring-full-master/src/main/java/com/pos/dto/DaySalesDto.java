@@ -17,7 +17,6 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
 
-@EnableScheduling
 @Service
 public class DaySalesDto {
 
@@ -27,15 +26,7 @@ public class DaySalesDto {
     private OrderService orderService;
     @Autowired
     private OrderItemService orderItemService;
-
-    //TODO: move it to the properties file
-    //TODO: run for each second with many orders
-    @Scheduled(cron = "0 0 8 * * *")
     public void add() throws ApiException {
-        //TODO: date - get previous date
-//		String prevdate = "";
-//		List<OrderPojo> orderPojos = orderService.selectByDate(prevdate);
-
         ZonedDateTime prevDateStart = LocalDate.now().minusDays(1).atStartOfDay(ZoneId.systemDefault());
         ZonedDateTime prevDateEnd = LocalDate.now().minusDays(1).atStartOfDay(ZoneId.systemDefault()).withHour(23).withMinute(59).withSecond(59);
         List<OrderPojo> orderPojos = orderService.getBetweenDates(prevDateStart, prevDateEnd);

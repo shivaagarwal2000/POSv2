@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="4" failures="0" name="com.pos.dao.InventoryDaoTest" time="3.909" errors="0" skipped="0">
+<testsuite tests="4" failures="0" name="com.pos.dao.InventoryDaoTest" time="3.724" errors="0" skipped="0">
   <properties>
     <property name="idea.version" value="2022.3.1"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
@@ -63,8 +63,8 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="com.pos.dao.InventoryDaoTest" name="testSelectAll" time="0.898"/>
-  <testcase classname="com.pos.dao.InventoryDaoTest" name="testDelete" time="0.898"/>
-  <testcase classname="com.pos.dao.InventoryDaoTest" name="testInsert" time="0.924"/>
-  <testcase classname="com.pos.dao.InventoryDaoTest" name="testSelectById" time="1.189"/>
+  <testcase classname="com.pos.dao.InventoryDaoTest" name="testSelectAll" time="0.969"/>
+  <testcase classname="com.pos.dao.InventoryDaoTest" name="testDelete" time="0.946"/>
+  <testcase classname="com.pos.dao.InventoryDaoTest" name="testInsert" time="0.903"/>
+  <testcase classname="com.pos.dao.InventoryDaoTest" name="testSelectById" time="0.906"/>
 </testsuite>

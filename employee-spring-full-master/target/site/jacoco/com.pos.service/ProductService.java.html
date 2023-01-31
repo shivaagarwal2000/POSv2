@@ -7,24 +7,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
-<span class="fc" id="L12">public class ProductService {</span>
+<span class="fc" id="L13">public class ProductService {</span>
 
     @Autowired
     private ProductDao dao;
 
     @Transactional(rollbackFor = ApiException.class)
     public void add(ProductPojo productPojo) throws ApiException {
-<span class="fc" id="L19">        dao.insert(productPojo);</span>
-<span class="fc" id="L20">    }</span>
+<span class="fc" id="L20">        dao.insert(productPojo);</span>
+<span class="fc" id="L21">    }</span>
 
     @Transactional(readOnly = true)
     public ProductPojo get(int id) throws ApiException {
-//        return getCheck(id);
 <span class="fc" id="L25">        ProductPojo productPojo = dao.select(id);</span>
-<span class="fc bfc" id="L26" title="All 2 branches covered.">        if (productPojo == null) {</span>
-<span class="fc" id="L27">            throw new ApiException(&quot;Error: product with given ID does not exist, id: &quot; + id);</span>
+<span class="pc bpc" id="L26" title="1 of 2 branches missed.">        if (productPojo == null) {</span>
+<span class="nc" id="L27">            throw new ApiException(&quot;Error: product with given ID does not exist, id: &quot; + id);</span>
         }
 <span class="fc" id="L29">        return productPojo;</span>
     }
@@ -47,38 +47,31 @@ import java.util.List;
 <span class="fc" id="L47">        dao.update(oldProductPojo);</span>
 <span class="fc" id="L48">    }</span>
 
-    @Transactional(rollbackFor = ApiException.class)
+    @Transactional(rollbackFor = ApiException.class) // TODO: normalise price to two decimal places
     public void update(String barcode, ProductPojo productPojo) throws ApiException {
 <span class="nc bnc" id="L52" title="All 2 branches missed.">        if (productPojo.getMrp() &lt;= 0) {</span>
 <span class="nc" id="L53">            throw new ApiException(&quot;Error: mrp can not be zero/negative&quot;);</span>
         }
-//		normalize(productPojo); -- normalise the mrp
-<span class="nc" id="L56">        ProductPojo oldProductPojo = get(barcode);</span>
-//        oldProductPojo.setBarcode(productPojo.getBarcode());
-<span class="nc" id="L58">        oldProductPojo.setBrand_category(productPojo.getBrand_category());</span>
-<span class="nc" id="L59">        oldProductPojo.setMrp(productPojo.getMrp());</span>
-<span class="nc" id="L60">        oldProductPojo.setName(productPojo.getName());</span>
-<span class="nc" id="L61">        dao.update(oldProductPojo);</span>
-<span class="nc" id="L62">    }</span>
+<span class="nc" id="L55">        ProductPojo oldProductPojo = get(barcode);</span>
+<span class="nc" id="L56">        oldProductPojo.setBrand_category(productPojo.getBrand_category());</span>
+<span class="nc" id="L57">        oldProductPojo.setMrp(productPojo.getMrp());</span>
+<span class="nc" id="L58">        oldProductPojo.setName(productPojo.getName());</span>
+<span class="nc" id="L59">        dao.update(oldProductPojo);</span>
+<span class="nc" id="L60">    }</span>
 
     @Transactional(rollbackFor = ApiException.class)
     public void delete(int id) {
-<span class="fc" id="L66">        dao.delete(id);</span>
-<span class="fc" id="L67">    }</span>
+<span class="fc" id="L64">        dao.delete(id);</span>
+<span class="fc" id="L65">    }</span>
 
     @Transactional(readOnly = true)
-    public ProductPojo get(String barcode) {
-<span class="fc" id="L71">        return dao.select(barcode);</span>
+    public ProductPojo get(String barcode) throws ApiException {
+<span class="fc" id="L69">        ProductPojo productPojo = dao.select(barcode);</span>
+<span class="pc bpc" id="L70" title="1 of 2 branches missed.">        if (Objects.isNull(productPojo)) {</span>
+<span class="nc" id="L71">            throw new ApiException(&quot;Error: product does not exits for barcode: &quot;+ barcode);</span>
+        }
+<span class="fc" id="L73">        return dao.select(barcode);</span>
     }
-
-//    @Transactional(readOnly = true)
-//    public ProductPojo getCheck(int id) throws ApiException {
-//        ProductPojo productPojo = dao.select(id);
-//        if (productPojo == null) {
-//            throw new ApiException(&quot;Error: product with given ID does not exist, id: &quot; + id);
-//        }
-//        return productPojo;
-//    }
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

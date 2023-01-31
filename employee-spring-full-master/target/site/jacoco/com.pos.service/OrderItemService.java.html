@@ -8,16 +8,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
-<span class="fc" id="L13">public class OrderItemService {</span>
+<span class="fc" id="L14">public class OrderItemService {</span>
 
     @Autowired
     private OrderItemDao orderItemDao;
 
     @Transactional(rollbackFor = ApiException.class)
-    public void add(ArrayList&lt;OrderItemPojo&gt; orderItemPojos) throws ApiException {
-
+    public void add(List&lt;OrderItemPojo&gt; orderItemPojos) throws ApiException {
 <span class="nc bnc" id="L21" title="All 2 branches missed.">        for (OrderItemPojo orderItemPojo : orderItemPojos) {</span>
 <span class="nc" id="L22">            orderItemDao.insert(orderItemPojo);</span>
 <span class="nc" id="L23">        }</span>
@@ -44,17 +44,21 @@ import java.util.List;
 <span class="nc" id="L44">    }</span>
 
 	@Transactional(readOnly = true)
-    public OrderItemPojo select(int orderItemId) {
-<span class="nc" id="L48">        return orderItemDao.select(orderItemId);</span>
+    public OrderItemPojo select(int orderItemId) throws ApiException { // TODO: logic : check all get, select to see if proper exception on no selection
+<span class="nc" id="L48">        OrderItemPojo orderItemPojo = orderItemDao.select(orderItemId);</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">        if (Objects.isNull(orderItemPojo)) {</span>
+<span class="nc" id="L50">            throw new ApiException(&quot;Error: order item does not exists&quot;);</span>
+        }
+<span class="nc" id="L52">        return orderItemDao.select(orderItemId);</span>
     }
 
     @Transactional(rollbackFor = ApiException.class)
-    public void update(int orderItemId, OrderItemPojo orderItemPojo){
-<span class="nc" id="L53">        OrderItemPojo oldOrderItemPojo = orderItemDao.select(orderItemId);</span>
-<span class="nc" id="L54">        oldOrderItemPojo.setProductId(orderItemPojo.getProductId());</span>
-<span class="nc" id="L55">        oldOrderItemPojo.setSellingprice(orderItemPojo.getSellingprice());</span>
-<span class="nc" id="L56">        oldOrderItemPojo.setQuantity(orderItemPojo.getQuantity());</span>
-<span class="nc" id="L57">        orderItemDao.update(oldOrderItemPojo);</span>
-<span class="nc" id="L58">    }</span>
+    public void update(int orderItemId, OrderItemPojo orderItemPojo) throws ApiException {
+<span class="nc" id="L57">        OrderItemPojo oldOrderItemPojo = select(orderItemId);</span>
+<span class="nc" id="L58">        oldOrderItemPojo.setProductId(orderItemPojo.getProductId());</span>
+<span class="nc" id="L59">        oldOrderItemPojo.setSellingprice(orderItemPojo.getSellingprice());</span>
+<span class="nc" id="L60">        oldOrderItemPojo.setQuantity(orderItemPojo.getQuantity());</span>
+<span class="nc" id="L61">        orderItemDao.update(oldOrderItemPojo);</span>
+<span class="nc" id="L62">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

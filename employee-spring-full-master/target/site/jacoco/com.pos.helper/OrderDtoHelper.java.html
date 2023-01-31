@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderDtoHelper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">employee-spring</a> &gt; <a href="index.source.html" class="el_package">com.pos.helper</a> &gt; <span class="el_source">OrderDtoHelper.java</span></div><h1>OrderDtoHelper.java</h1><pre class="source lang-java linenums">package com.pos.helper;
+
+import com.pos.model.data.CommonOrderItemData;
+import com.pos.model.data.OrderData;
+import com.pos.model.forms.OrderItemForm;
+import com.pos.pojo.OrderItemPojo;
+import com.pos.pojo.OrderPojo;
+import com.pos.pojo.ProductPojo;
+import com.pos.service.ApiException;
+
+import java.time.format.DateTimeFormatter;
+import java.util.Objects;
+
+import static com.pos.pojo.TableConstants.PLACED_STATUS;
+
+<span class="nc" id="L16">public class OrderDtoHelper {</span>
+
+    public static OrderData convert(OrderPojo orderPojo) {
+<span class="nc" id="L19">        OrderData orderData = new OrderData();</span>
+<span class="nc" id="L20">        orderData.setId(orderPojo.getId());</span>
+<span class="nc" id="L21">        orderData.setOrderTime(orderPojo.getTime().format(DateTimeFormatter.ofPattern(&quot;dd/MM/yyyy - HH:mm:ss z&quot;)));</span>
+<span class="nc" id="L22">        orderData.setStatus(orderPojo.getStatus());</span>
+<span class="nc" id="L23">        return orderData;</span>
+    }
+
+    public static CommonOrderItemData convert(ProductPojo productPojo, OrderItemPojo orderItemPojo) {
+<span class="nc" id="L27">        CommonOrderItemData orderItemData = new CommonOrderItemData();</span>
+<span class="nc" id="L28">        orderItemData.setId(orderItemPojo.getId());</span>
+<span class="nc" id="L29">        orderItemData.setQuantity(orderItemPojo.getQuantity());</span>
+<span class="nc" id="L30">        orderItemData.setMrp(productPojo.getMrp());</span>
+<span class="nc" id="L31">        orderItemData.setBarcode(productPojo.getBarcode());</span>
+<span class="nc" id="L32">        orderItemData.setProductName(productPojo.getName());</span>
+<span class="nc" id="L33">        orderItemData.setOrderId(orderItemPojo.getOrderId());</span>
+<span class="nc" id="L34">        orderItemData.setSellingPrice(orderItemPojo.getSellingprice());</span>
+<span class="nc" id="L35">        return orderItemData;</span>
+    }
+
+    public static void isPlaced(OrderPojo orderPojo) throws ApiException {
+<span class="nc bnc" id="L39" title="All 2 branches missed.">        if (Objects.equals(orderPojo.getStatus(), PLACED_STATUS)) {</span>
+<span class="nc" id="L40">            throw new ApiException(&quot;Error: order is placed&quot;);</span>
+        }
+<span class="nc" id="L42">    }</span>
+
+    public static OrderItemPojo convert(OrderItemForm form, ProductPojo productPojo, int orderId) {
+<span class="nc" id="L45">        OrderItemPojo orderItemPojo = new OrderItemPojo();</span>
+<span class="nc" id="L46">        orderItemPojo.setOrderId(orderId);</span>
+<span class="nc" id="L47">        orderItemPojo.setProductId(productPojo.getId());</span>
+<span class="nc" id="L48">        orderItemPojo.setQuantity(form.getQuantity());</span>
+<span class="nc" id="L49">        orderItemPojo.setSellingprice(form.getQuantity() * productPojo.getMrp());</span>
+<span class="nc" id="L50">        return orderItemPojo;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

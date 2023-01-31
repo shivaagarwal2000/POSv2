@@ -1,4 +1,3 @@
-com/pos/dto/ProductDtoTest.class
 com/pos/service/SampleTest.class
 com/pos/dao/ProductDaoTest.class
 com/pos/service/BrandServiceTest.class
@@ -10,7 +9,6 @@ com/pos/dao/InventoryDaoTest.class
 com/pos/service/AboutAppServiceTest.class
 com/pos/dto/BrandDtoTest.class
 com/pos/service/OrderServiceTest.class
-com/pos/dto/InventoryDtoTest.class
 com/pos/service/AbstractUnitTest.class
 com/pos/dao/BrandDaoTest.class
 com/pos/dao/OrderDaoTest.class

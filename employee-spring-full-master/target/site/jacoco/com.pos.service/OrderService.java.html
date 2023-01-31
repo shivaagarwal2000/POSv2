@@ -8,61 +8,57 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Objects;
 
+import static com.pos.pojo.TableConstants.PENDING_STATUS;
 import static com.pos.pojo.TableConstants.PLACED_STATUS;
 
 @Service
-<span class="fc" id="L15">public class OrderService {</span>
+<span class="fc" id="L17">public class OrderService {</span>
 
     @Autowired
     private OrderDao orderDao;
 
     @Transactional(rollbackFor = ApiException.class)
-    public OrderPojo add(OrderPojo orderPojo) throws ApiException {
-<span class="nc" id="L22">        return orderDao.insert(orderPojo);</span>
+    public OrderPojo add() throws ApiException {
+<span class="nc" id="L24">        OrderPojo orderPojo = new OrderPojo();</span>
+<span class="nc" id="L25">        ZonedDateTime zonedDateTime = ZonedDateTime.now();</span>
+<span class="nc" id="L26">        orderPojo.setTime(zonedDateTime);</span>
+<span class="nc" id="L27">        orderPojo.setStatus(PENDING_STATUS);</span>
+<span class="nc" id="L28">        return orderDao.insert(orderPojo);</span>
     }
 
     @Transactional(readOnly = true)
-    public OrderPojo get(ZonedDateTime orderTime) {
-<span class="nc" id="L27">        return orderDao.select(orderTime);</span>
-
+    public OrderPojo get(int orderId) throws ApiException {
+<span class="nc" id="L33">        OrderPojo orderPojo = orderDao.select(orderId);</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">        if (Objects.isNull(orderPojo)) {</span>
+<span class="nc" id="L35">            throw new ApiException(&quot;Error: Order does not exist&quot;);</span>
+        }
+<span class="nc" id="L37">        return orderPojo;</span>
     }
 
     @Transactional(readOnly = true)
-    public OrderPojo get(int orderId) {
-<span class="nc" id="L33">        return orderDao.select(orderId);</span>
-
-    }
-
-    @Transactional(readOnly = true)
-    public void placeOrder(int orderId) {
-//      change status of order &quot;pending&quot; -&gt; &quot;placed&quot;
-<span class="nc" id="L40">        OrderPojo orderPojo = get(orderId);</span>
-<span class="nc" id="L41">        orderPojo.setStatus(PLACED_STATUS);</span>
-//		TODO: date - put current time
-<span class="nc" id="L43">        orderPojo.setTime(ZonedDateTime.now());</span>
-<span class="nc" id="L44">        orderDao.update(orderPojo);</span>
-<span class="nc" id="L45">    }</span>
-
-    @Transactional(readOnly = true)
-    public List&lt;OrderPojo&gt; selectByDate(String orderDate) {
-<span class="nc" id="L49">        return orderDao.selectByDate(orderDate);</span>
-    }
+    public void placeOrder(int orderId) throws ApiException {
+<span class="nc" id="L42">        OrderPojo orderPojo = get(orderId);</span>
+<span class="nc" id="L43">        orderPojo.setStatus(PLACED_STATUS);</span>
+<span class="nc" id="L44">        orderPojo.setTime(ZonedDateTime.now());</span>
+<span class="nc" id="L45">        orderDao.update(orderPojo);</span>
+<span class="nc" id="L46">    }</span>
 
     @Transactional(readOnly = true)
     public List&lt;OrderPojo&gt; getAll() {
-<span class="nc" id="L54">        return orderDao.selectAll();</span>
+<span class="nc" id="L50">        return orderDao.selectAll();</span>
     }
 
     @Transactional(readOnly = true)
     public List&lt;OrderPojo&gt; getBetweenDates(ZonedDateTime startDate, ZonedDateTime endDate) {
-<span class="nc" id="L59">        return orderDao.selectBetweeenDates(startDate, endDate);</span>
+<span class="nc" id="L55">        return orderDao.selectBetweeenDates(startDate, endDate);</span>
     }
 
     @Transactional(rollbackFor = ApiException.class)
     public void delete(int id) {
-<span class="nc" id="L64">        orderDao.delete(id);</span>
-<span class="nc" id="L65">    }</span>
+<span class="nc" id="L60">        orderDao.delete(id);</span>
+<span class="nc" id="L61">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

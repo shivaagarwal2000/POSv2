@@ -11,8 +11,10 @@ com/pos/dao/UserDao.class
 com/pos/helper/BrandDtoHelper.class
 com/pos/pojo/UserPojo.class
 com/pos/model/MessageData.class
+com/pos/scheduler/DaySalesScheduler.class
 com/pos/controller/SiteUiController.class
 com/pos/dao/OrderDao.class
+com/pos/helper/OrderDtoHelper.class
 com/pos/dto/InventoryDto.class
 com/pos/spring/SecurityConfig.class
 com/pos/model/data/BrandData.class

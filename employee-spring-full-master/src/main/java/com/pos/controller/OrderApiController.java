@@ -28,12 +28,6 @@ public class OrderApiController {
         orderDto.addOrder(forms);
     }
 
-    @ApiOperation(value = "Gets all order items")
-    @RequestMapping(path = "/api/order/all", method = RequestMethod.GET)
-    public List<CommonOrderItemData> getAllOrderItems() throws ApiException {
-        return orderDto.getAllOrderItems();
-    }
-
     @ApiOperation(value = "Edit an order item")
     @RequestMapping(path = "/api/order/editItem/{id}", method = RequestMethod.PUT)
     public void editOrderItem(@PathVariable int id, @RequestBody OrderItemForm orderItemForm) throws ApiException {
@@ -48,7 +42,7 @@ public class OrderApiController {
 
     @ApiOperation(value = "Place order")
     @RequestMapping(path = "/api/order/place/{id}", method = RequestMethod.PUT)
-    public void placeOrder(@PathVariable int id) throws ApiException {
+    public void placeOrder(@PathVariable int id) throws ApiException, IOException {
         orderDto.placeOrder(id);
     }
 
@@ -61,6 +55,7 @@ public class OrderApiController {
     @ApiOperation(value = "Gets item detail")
     @RequestMapping(path = "/api/order/item/{id}", method = RequestMethod.GET)
     public CommonOrderItemData getOrderItemData(@PathVariable int id) throws ApiException {
+        //get detail for an order item given id -- helps while editing
         return orderDto.getOrderItem(id);
     }
 
@@ -76,20 +71,9 @@ public class OrderApiController {
         orderDto.deleteOrder(id);
     }
 
-//	@ApiOperation(value = "get order report")
-//	@RequestMapping(path = "/api/order/report", method = RequestMethod.POST)
-//	public List<SalesReportData> getSalesReport(@RequestBody SalesReportForm salesReportForm) throws ApiException {
-//		salesReportForm.setStartDate(salesReportForm.getStartDate().replace('-', '/'));
-//		salesReportForm.setEndDate(salesReportForm.getEndDate().replace('-', '/'));
-//		List<SalesReportData> salesReportDatas = orderDto.getSalesReportDatas(salesReportForm);
-//		return salesReportDatas;
-//	}
-
     @ApiOperation(value = "get order report")
     @RequestMapping(path = "/api/order/report", method = RequestMethod.POST)
     public List<SalesReportData> getSalesReport(@RequestBody SalesReportForm salesReportForm) throws ApiException {
-//        salesReportForm.setStartDate(salesReportForm.getStartDate().replace('-', '/'));
-//        salesReportForm.setEndDate(salesReportForm.getEndDate().replace('-', '/'));
         List<SalesReportData> salesReportDatas = orderDto.getSalesReportDatas(salesReportForm);
         return salesReportDatas;
     }

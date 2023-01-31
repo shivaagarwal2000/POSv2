@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class OrderItemService {
@@ -16,8 +17,7 @@ public class OrderItemService {
     private OrderItemDao orderItemDao;
 
     @Transactional(rollbackFor = ApiException.class)
-    public void add(ArrayList<OrderItemPojo> orderItemPojos) throws ApiException {
-
+    public void add(List<OrderItemPojo> orderItemPojos) throws ApiException {
         for (OrderItemPojo orderItemPojo : orderItemPojos) {
             orderItemDao.insert(orderItemPojo);
         }
@@ -44,13 +44,17 @@ public class OrderItemService {
     }
 
 	@Transactional(readOnly = true)
-    public OrderItemPojo select(int orderItemId) {
+    public OrderItemPojo select(int orderItemId) throws ApiException { // TODO: logic : check all get, select to see if proper exception on no selection
+        OrderItemPojo orderItemPojo = orderItemDao.select(orderItemId);
+        if (Objects.isNull(orderItemPojo)) {
+            throw new ApiException("Error: order item does not exists");
+        }
         return orderItemDao.select(orderItemId);
     }
 
     @Transactional(rollbackFor = ApiException.class)
-    public void update(int orderItemId, OrderItemPojo orderItemPojo){
-        OrderItemPojo oldOrderItemPojo = orderItemDao.select(orderItemId);
+    public void update(int orderItemId, OrderItemPojo orderItemPojo) throws ApiException {
+        OrderItemPojo oldOrderItemPojo = select(orderItemId);
         oldOrderItemPojo.setProductId(orderItemPojo.getProductId());
         oldOrderItemPojo.setSellingprice(orderItemPojo.getSellingprice());
         oldOrderItemPojo.setQuantity(orderItemPojo.getQuantity());

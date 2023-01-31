@@ -8,7 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Objects;
 
+import static com.pos.pojo.TableConstants.PENDING_STATUS;
 import static com.pos.pojo.TableConstants.PLACED_STATUS;
 
 @Service
@@ -18,35 +20,29 @@ public class OrderService {
     private OrderDao orderDao;
 
     @Transactional(rollbackFor = ApiException.class)
-    public OrderPojo add(OrderPojo orderPojo) throws ApiException {
+    public OrderPojo add() throws ApiException {
+        OrderPojo orderPojo = new OrderPojo();
+        ZonedDateTime zonedDateTime = ZonedDateTime.now();
+        orderPojo.setTime(zonedDateTime);
+        orderPojo.setStatus(PENDING_STATUS);
         return orderDao.insert(orderPojo);
     }
 
     @Transactional(readOnly = true)
-    public OrderPojo get(ZonedDateTime orderTime) {
-        return orderDao.select(orderTime);
-
+    public OrderPojo get(int orderId) throws ApiException {
+        OrderPojo orderPojo = orderDao.select(orderId);
+        if (Objects.isNull(orderPojo)) {
+            throw new ApiException("Error: Order does not exist");
+        }
+        return orderPojo;
     }
 
     @Transactional(readOnly = true)
-    public OrderPojo get(int orderId) {
-        return orderDao.select(orderId);
-
-    }
-
-    @Transactional(readOnly = true)
-    public void placeOrder(int orderId) {
-//      change status of order "pending" -> "placed"
+    public void placeOrder(int orderId) throws ApiException {
         OrderPojo orderPojo = get(orderId);
         orderPojo.setStatus(PLACED_STATUS);
-//		TODO: date - put current time
         orderPojo.setTime(ZonedDateTime.now());
         orderDao.update(orderPojo);
-    }
-
-    @Transactional(readOnly = true)
-    public List<OrderPojo> selectByDate(String orderDate) {
-        return orderDao.selectByDate(orderDate);
     }
 
     @Transactional(readOnly = true)

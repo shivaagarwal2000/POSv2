@@ -21,6 +21,7 @@
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/model/data/BrandData.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/model/data/SalesReportData.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/service/ProductService.java
+/mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/helper/OrderDtoHelper.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/model/forms/ProductForm.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/controller/InventoryApiController.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/dao/OrderItemDao.java
@@ -64,6 +65,7 @@
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/controller/InitApiController.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/helper/ProductDtoHelper.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/dao/DaySalesDao.java
+/mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/scheduler/DaySalesScheduler.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/dto/ProductDto.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/controller/AdminApiController.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/model/forms/OrderItemForm.java

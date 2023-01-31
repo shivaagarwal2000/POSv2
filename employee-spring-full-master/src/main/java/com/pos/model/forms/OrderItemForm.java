@@ -3,7 +3,7 @@ package com.pos.model.forms;
 public class OrderItemForm {
 
 	private String barcode;
-	private int quantity;
+	private Integer quantity;
 
 	public String getBarcode() {
 		return barcode;

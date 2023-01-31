@@ -82,6 +82,26 @@ function deleteBrand(id) {
   });
 }
 
+function placeOrder() {
+    let id = orderDetailId;
+    let url = getBrandUrl() + "/place/" + id;
+    $.ajax({
+        url: url,
+        type: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        success: function(response) {
+            alert("order placed");
+//            getInvoice();
+            var baseUrl = $("meta[name=baseUrl]").attr("content");
+            var url = baseUrl + "/ui/orders";
+            window.location.replace(url);
+        },
+        error: handleAjaxError,
+    });
+}
+
 // FILE UPLOAD METHODS
 var fileData = [];
 var errorData = [];
@@ -208,6 +228,22 @@ function displayEditBrand(id) {
   });
 }
 
+function deleteOrder() {
+    let baseUrl = getBrandUrl() + "/" + orderDetailId;
+    console.log(baseUrl);
+    $.ajax({
+        url: baseUrl,
+        type: "DELETE",
+        success: function (data) {
+          alert("Order deleted!")
+          var baseUrl = $("meta[name=baseUrl]").attr("content");
+          var url = baseUrl + "/ui/orders";
+          window.location.replace(url);
+        },
+        error: handleAjaxError,
+      });
+}
+
 function resetUploadDialog() {
   //Reset file name
   var $file = $("#employeeFile");
@@ -275,26 +311,17 @@ var orderDetailId = parseInt(curUrl.substr(lastind + 1));
 function getInvoice() {
     let id = orderDetailId;
     var baseUrl = getBrandUrl() + "/invoice/" + id;
-    console.log(baseUrl)
     $.ajax({
-    		url: baseUrl,
-    		type: "GET",
-    		headers: {
-    			"Content-Type": "application/json",
-    		},
-    		success: function(response) {
-    		    var resData = response;
-    		    const linkSource = "data:application/pdf;base64," + response;
-                const downloadLink = document.createElement("a");
-                const fileName = "order-" + id + ".pdf";
-                downloadLink.display = "none";
-                downloadLink.href = linkSource;
-                downloadLink.download = fileName;
-                downloadLink.click();
-//                console.log(response)
-    		},
-    		error: handleAjaxError,
-    	});
+        url: baseUrl,
+        type: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        success: function(response) {
+            console.log("invoice generated");
+        },
+        error: handleAjaxError,
+    });
 }
 
 

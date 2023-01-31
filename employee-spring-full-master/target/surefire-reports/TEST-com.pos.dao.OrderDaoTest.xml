@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="6" failures="0" name="com.pos.dao.OrderDaoTest" time="4.837" errors="0" skipped="0">
+<testsuite tests="6" failures="0" name="com.pos.dao.OrderDaoTest" time="5.184" errors="0" skipped="0">
   <properties>
     <property name="idea.version" value="2022.3.1"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
@@ -63,10 +63,10 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="com.pos.dao.OrderDaoTest" name="testSelectAll" time="0.904"/>
-  <testcase classname="com.pos.dao.OrderDaoTest" name="testSelectByBrandCategory" time="0.821"/>
-  <testcase classname="com.pos.dao.OrderDaoTest" name="testDelete" time="0.8"/>
-  <testcase classname="com.pos.dao.OrderDaoTest" name="testInsert" time="0.769"/>
-  <testcase classname="com.pos.dao.OrderDaoTest" name="testUpdate" time="0.735"/>
-  <testcase classname="com.pos.dao.OrderDaoTest" name="testSelectById" time="0.808"/>
+  <testcase classname="com.pos.dao.OrderDaoTest" name="testSelectAll" time="0.873"/>
+  <testcase classname="com.pos.dao.OrderDaoTest" name="testSelectByBrandCategory" time="0.847"/>
+  <testcase classname="com.pos.dao.OrderDaoTest" name="testDelete" time="0.832"/>
+  <testcase classname="com.pos.dao.OrderDaoTest" name="testInsert" time="0.802"/>
+  <testcase classname="com.pos.dao.OrderDaoTest" name="testUpdate" time="0.923"/>
+  <testcase classname="com.pos.dao.OrderDaoTest" name="testSelectById" time="0.907"/>
 </testsuite>

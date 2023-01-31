@@ -186,7 +186,6 @@ function placeOrder(id) {
         },
         success: function(response) {
             alert("order placed");
-            generateInvoice(id);
             getBrandList();
         },
         error: handleAjaxError,

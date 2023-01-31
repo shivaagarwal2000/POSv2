@@ -11,6 +11,7 @@ import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @Service
@@ -25,7 +26,7 @@ public class InvoiceClient {
         HttpPost httpPost = new HttpPost(completeUrl);
         httpPost.setHeader("Accept", "application/json");
         httpPost.setHeader("Content-type", "application/json");
-
+        // TODO: try catch and return
         StringEntity stringEntity = new StringEntity(new Gson().toJson(commonOrderItemDatas));
         httpPost.setEntity(stringEntity);
         System.out.println("executing request: " + httpPost.getRequestLine()); //TODO: refactor: clean up

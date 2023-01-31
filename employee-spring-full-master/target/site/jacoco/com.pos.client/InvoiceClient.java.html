@@ -11,27 +11,28 @@ import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @Service
-<span class="fc" id="L17">public class InvoiceClient {</span>
+<span class="fc" id="L18">public class InvoiceClient {</span>
 
     //TODO: move the url to properties file
     public static final String completeUrl = &quot;http://localhost:9500/invoice/api/invoice&quot;;// TODO final variables should be uppercase Priority: 5
     public String getInvoice(List&lt;CommonOrderItemData&gt; commonOrderItemDatas) throws IOException {// TODO Catch and throw ApiException Priority: 5
 
         // TODO Use rest template Priority: 5
-<span class="nc" id="L24">        CloseableHttpClient httpClient = HttpClients.createDefault();</span>
-<span class="nc" id="L25">        HttpPost httpPost = new HttpPost(completeUrl);</span>
-<span class="nc" id="L26">        httpPost.setHeader(&quot;Accept&quot;, &quot;application/json&quot;);</span>
-<span class="nc" id="L27">        httpPost.setHeader(&quot;Content-type&quot;, &quot;application/json&quot;);</span>
+<span class="nc" id="L25">        CloseableHttpClient httpClient = HttpClients.createDefault();</span>
+<span class="nc" id="L26">        HttpPost httpPost = new HttpPost(completeUrl);</span>
+<span class="nc" id="L27">        httpPost.setHeader(&quot;Accept&quot;, &quot;application/json&quot;);</span>
+<span class="nc" id="L28">        httpPost.setHeader(&quot;Content-type&quot;, &quot;application/json&quot;);</span>
+        // TODO: try catch and return
+<span class="nc" id="L30">        StringEntity stringEntity = new StringEntity(new Gson().toJson(commonOrderItemDatas));</span>
+<span class="nc" id="L31">        httpPost.setEntity(stringEntity);</span>
+<span class="nc" id="L32">        System.out.println(&quot;executing request: &quot; + httpPost.getRequestLine()); //TODO: refactor: clean up</span>
 
-<span class="nc" id="L29">        StringEntity stringEntity = new StringEntity(new Gson().toJson(commonOrderItemDatas));</span>
-<span class="nc" id="L30">        httpPost.setEntity(stringEntity);</span>
-<span class="nc" id="L31">        System.out.println(&quot;executing request: &quot; + httpPost.getRequestLine()); //TODO: refactor: clean up</span>
-
-<span class="nc" id="L33">        HttpResponse httpResponse = httpClient.execute(httpPost);</span>
-<span class="nc" id="L34">        return EntityUtils.toString(httpResponse.getEntity());</span>
+<span class="nc" id="L34">        HttpResponse httpResponse = httpClient.execute(httpPost);</span>
+<span class="nc" id="L35">        return EntityUtils.toString(httpResponse.getEntity());</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
