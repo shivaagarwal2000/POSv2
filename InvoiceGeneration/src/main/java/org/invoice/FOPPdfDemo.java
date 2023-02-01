@@ -3,6 +3,8 @@ package org.invoice;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
@@ -61,6 +63,11 @@ public class FOPPdfDemo {// TODO Remove unused code Priority: 5
 //        }
     }
 
+    public static Double round(Double d, int precise) {
+        BigDecimal bigDecimal = new BigDecimal(d);
+        bigDecimal = bigDecimal.setScale(precise, RoundingMode.HALF_UP);
+        return bigDecimal.doubleValue();
+    }
 
     /**
      * Method that will convert the given XML to PDF

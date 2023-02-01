@@ -146,6 +146,9 @@ function displayBrandList(data) {
 	let count = 1;
 	for (var i in data) {
 		var e = data[i];
+		if (Number.isInteger(e.mrp)) {
+		    e.mrp = (e.mrp).toFixed(2);
+		}
 		var buttonHtml = '<button onclick="deleteBrand(' + e.id + ')" class="btn btn-danger restricted">delete</button>'
 		buttonHtml += ' <button onclick="displayEditBrand(' + e.id + ')" class="restricted btn btn-primary">edit</button>'
 		var row = '<tr>'

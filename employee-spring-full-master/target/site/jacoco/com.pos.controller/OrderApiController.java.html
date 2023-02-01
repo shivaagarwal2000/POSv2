@@ -24,9 +24,9 @@ import java.util.List;
 
     @ApiOperation(value = &quot;Adds an order&quot;)
     @RequestMapping(path = &quot;/api/order&quot;, method = RequestMethod.POST)
-    public void addOrder(@RequestBody List&lt;OrderItemForm&gt; forms) throws ApiException {
-<span class="nc" id="L28">        orderDto.addOrder(forms);</span>
-<span class="nc" id="L29">    }</span>
+    public int addOrder(@RequestBody List&lt;OrderItemForm&gt; forms) throws ApiException {
+<span class="nc" id="L28">        return orderDto.addOrder(forms);</span>
+    }
 
     @ApiOperation(value = &quot;Edit an order item&quot;)
     @RequestMapping(path = &quot;/api/order/editItem/{id}&quot;, method = RequestMethod.PUT)

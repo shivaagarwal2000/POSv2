@@ -1,12 +1,16 @@
 package com.pos.controller;
 
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.pos.dto.BrandDto;
+import com.pos.model.MessageData;
 import com.pos.model.data.BrandData;
 import com.pos.model.forms.BrandForm;
 import com.pos.service.ApiException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -54,5 +58,10 @@ public class BrandApiController {
     public void delete(@PathVariable int id) throws ApiException {
         brandDto.delete(id);
     }
+
+//    @ExceptionHandler(Exception.class)
+//    public String handleIOException(NumberFormatException ex, HttpServletRequest request) {
+//        return ClassUtils.getShortName(ex.getClass());
+//    }
 
 }

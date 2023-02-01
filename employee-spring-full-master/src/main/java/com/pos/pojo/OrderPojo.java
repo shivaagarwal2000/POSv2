@@ -10,12 +10,8 @@ public class OrderPojo extends AbstractDateAudit{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-//    @Column(nullable = false)
-//    private String orderTime;
-
     @Column(nullable = false)
     private ZonedDateTime time;
-
     @Column(nullable = false)
     private String status;
 

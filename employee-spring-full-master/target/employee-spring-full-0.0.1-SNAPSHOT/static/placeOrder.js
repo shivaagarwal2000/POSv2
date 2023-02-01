@@ -43,14 +43,20 @@ function addOrder() {
 		headers: {
 			"Content-Type": "application/json",
 		},
-		statusCode: {
-			200: function() {
-				alert("order saved");
-				var url = $("meta[name=baseUrl]").attr("content") + "/ui/orders";
-				window.location.replace(url);
-			},
-			400: handleAjaxError
-		}
+		success: function(data) {
+		    alert("order saved");
+            var url = $("meta[name=baseUrl]").attr("content") + "/ui/pendingOrderDetail/" + data;
+            window.location.replace(url);
+		},
+		error: handleAjaxError,
+//		statusCode: {
+//			200: function() {
+//				alert("order saved");
+//				var url = $("meta[name=baseUrl]").attr("content") + "/ui/orders";
+//				window.location.replace(url);
+//			},
+//			400: handleAjaxError
+//		}
 	});
 
 	return false;

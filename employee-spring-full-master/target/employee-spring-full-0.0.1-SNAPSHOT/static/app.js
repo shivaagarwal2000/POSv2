@@ -11,6 +11,13 @@ function toJson($form) {
   return json;
 }
 
+function resetForm(selectorString){
+  var inputFormElements = document.querySelectorAll(selectorString);
+  inputFormElements.forEach(function (arrayItem) {
+      arrayItem.value = "";
+  });
+}
+
 function handleAjaxError(response) {
   console.log(response);
   var response = JSON.parse(response.responseText);

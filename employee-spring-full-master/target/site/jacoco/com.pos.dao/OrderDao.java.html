@@ -19,7 +19,7 @@ import com.pos.pojo.OrderPojo;
 
 	private static final String delete_id = &quot;delete from OrderPojo p where id=:id&quot;;
 	private static final String select_id = &quot;select p from OrderPojo p where id=:id&quot;;
-	private static final String select_all_orderDate = &quot;select p from OrderPojo p where time &gt;= :startDate and time &lt;= :endDate and status = &quot; + &quot;placed&quot;;
+	private static final String select_all_orderDate = &quot;select p from OrderPojo p where time &gt;= :startDate and time &lt;= :endDate and status = 'placed'&quot;;
 	private static final String select_all = &quot;select p from OrderPojo p&quot;;
 
 	@PersistenceContext

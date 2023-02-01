@@ -8,12 +8,22 @@ import com.pos.model.forms.BrandForm;
 	private int id;
 
 	public int getId() {
-<span class="nc" id="L11">		return id;</span>
+<span class="fc" id="L11">		return id;</span>
 	}
 
 	public void setId(int id) {
 <span class="fc" id="L15">		this.id = id;</span>
 <span class="fc" id="L16">	}</span>
 
+	@Override
+	public boolean equals(Object obj){
+<span class="fc" id="L20">		BrandData brandData = (BrandData) obj;</span>
+<span class="fc" id="L21">		boolean status = false;</span>
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">		if(this.id == brandData.id</span>
+<span class="pc bpc" id="L23" title="2 of 4 branches missed.">				&amp;&amp; this.getBrand() == brandData.getBrand() &amp;&amp; this.getCategory() == brandData.getCategory()){</span>
+<span class="fc" id="L24">			status = true;</span>
+		}
+<span class="fc" id="L26">		return status;</span>
+	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -26,13 +26,12 @@ public class BrandDto {
             throw new ApiException("Error: given brand, category combination already exists");
         }
         brandService.add(BrandDtoHelper.convert(form));
-
     }
 
     public void bulkAdd(List<BrandForm> forms) throws ApiException {
         for (BrandForm brandForm: forms) {
             BrandPojo brandPojo = brandService.get(brandForm.getBrand(), brandForm.getCategory());
-            if (Objects.isNull(brandPojo)) {
+            if (Objects.isNull(brandPojo) == false) {
                 throw new ApiException("Error: brand, category combination exists");
             }
         }

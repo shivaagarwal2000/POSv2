@@ -6,6 +6,9 @@ import com.pos.pojo.ProductPojo;
 import com.pos.service.ApiException;
 import com.pos.util.StringUtil;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class ProductDtoHelper {
 
 	public static ProductData convert(ProductPojo productPojo, String brand, String category) throws ApiException {
@@ -47,11 +50,18 @@ public class ProductDtoHelper {
 		}
 	}
 
+	public static Double round(Double d, int precise) {
+		BigDecimal bigDecimal = new BigDecimal(d);
+		bigDecimal = bigDecimal.setScale(precise, RoundingMode.HALF_UP);
+		return bigDecimal.doubleValue();
+	}
+
 	public static void normalise(ProductForm form) {
 		form.setBarcode(StringUtil.toLowerCase(form.getBarcode()));
 		form.setBrand(StringUtil.toLowerCase(form.getBrand()));
 		form.setCategory(StringUtil.toLowerCase(form.getCategory()));
 		form.setName(StringUtil.toLowerCase(form.getName()));
+		form.setMrp(round(form.getMrp(), 2));
 	}
 
 }

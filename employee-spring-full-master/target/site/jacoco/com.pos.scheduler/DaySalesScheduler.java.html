@@ -14,7 +14,8 @@ import org.springframework.stereotype.Service;
     private DaySalesDto daySalesDto;
     @Scheduled(cron = &quot;0 0 8 * * *&quot;) //TODO: move it to the properties file
     public void getPreviousDaySalesEntry() throws ApiException { //TODO: run for each second with many orders
-<span class="nc" id="L17">        daySalesDto.add();</span>
-<span class="nc" id="L18">    }</span>
+<span class="nc" id="L17">        System.out.println(&quot;scheduled&quot;);</span>
+<span class="nc" id="L18">        daySalesDto.add();</span>
+<span class="nc" id="L19">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

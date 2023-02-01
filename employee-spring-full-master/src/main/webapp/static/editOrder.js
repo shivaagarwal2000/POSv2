@@ -31,7 +31,6 @@ function updateBrand(event) {
   //Get the ID
   var id = $("#brand-edit-form input[name=id]").val();
   var url = getBrandUrl() + "/editItem/" + id;
-  console.log(url);
   //Set the values to update
   var $form = $("#brand-edit-form");
   var json = toJson($form);
@@ -44,12 +43,10 @@ function updateBrand(event) {
       "Content-Type": "application/json",
     },
     success: function (response) {
-      $("#edit-brand-modal").modal("toggle");
+//      $("#edit-brand-modal").modal("toggle");
       getBrandList();
     },
-    error: function(response) {
-        console.log(response);
-    },
+    error: handleAjaxError
   });
 
   return false;
@@ -63,6 +60,10 @@ function getBrandList() {
     type: "GET",
     success: function (data) {
       displayOrderItemList(data);
+      let rowlength = document.getElementById("orderDetail-table").rows.length;
+      if (rowlength == 2){
+        document.getElementById("deleteOrderTrigger").click();
+      }
     },
     error: handleAjaxError,
   });
@@ -93,9 +94,8 @@ function placeOrder() {
         },
         success: function(response) {
             alert("order placed");
-//            getInvoice();
             var baseUrl = $("meta[name=baseUrl]").attr("content");
-            var url = baseUrl + "/ui/orders";
+            var url = baseUrl + "/ui/placedOrderDetail/" + id;
             window.location.replace(url);
         },
         error: handleAjaxError,

@@ -26,35 +26,35 @@ import java.util.Objects;
 
     //TODO: restrict mrp to 2 decimal places
     public void add(ProductForm form) throws ApiException {
-<span class="nc" id="L29">		BrandPojo brandPojo = validate(form);</span>
-<span class="nc" id="L30">        ProductPojo existingProductPojo = productService.get(form.getBarcode());// TODO Use getCheck Priority: 5</span>
-<span class="nc bnc" id="L31" title="All 2 branches missed.">        if (existingProductPojo != null) {</span>
-<span class="nc" id="L32">            throw new ApiException(&quot;Error: Barcode already exists&quot;);</span>
+<span class="fc" id="L29">        BrandPojo brandPojo = validate(form); // TODO: VERY WEIRD LOGIC</span>
+<span class="fc" id="L30">        ProductPojo existingProductPojo = productService.get(form.getBarcode());// TODO Use getCheck Priority: 5</span>
+<span class="pc bpc" id="L31" title="1 of 2 branches missed.">        if (Objects.isNull(existingProductPojo) == false) {</span>
+<span class="nc" id="L32">            throw new ApiException(&quot;Error: barcode already exists&quot;);</span>
         }
-<span class="nc" id="L34">        ProductPojo productPojo = ProductDtoHelper.convert(form, brandPojo.getId());</span>
-<span class="nc" id="L35">        productService.add(productPojo);</span>
-<span class="nc" id="L36">    }</span>
+<span class="fc" id="L34">        ProductPojo productPojo = ProductDtoHelper.convert(form, brandPojo.getId());</span>
+<span class="fc" id="L35">        productService.add(productPojo);</span>
+<span class="fc" id="L36">    }</span>
 
     public void bulkAdd(List&lt;ProductForm&gt; forms) throws ApiException {
-<span class="nc bnc" id="L39" title="All 2 branches missed.">		for (ProductForm productForm: forms) {</span>
-<span class="nc" id="L40">			validate(productForm);</span>
-<span class="nc" id="L41">		}</span>
-<span class="nc bnc" id="L42" title="All 2 branches missed.">		for (ProductForm productForm: forms) {</span>
-<span class="nc" id="L43">            ProductPojo existingProductPojo = productService.get(productForm.getBarcode());</span>
-<span class="nc bnc" id="L44" title="All 2 branches missed.">            if (Objects.isNull(existingProductPojo) == false) {</span>
-<span class="nc" id="L45">                BrandPojo brandPojo = validate(productForm);</span>
-<span class="nc" id="L46">                productService.update(productForm.getBarcode(), ProductDtoHelper.convert(productForm, brandPojo.getId()));</span>
-<span class="nc" id="L47">            }</span>
-            else {
+<span class="nc bnc" id="L39" title="All 2 branches missed.">        for (ProductForm productForm : forms) {</span>
+<span class="nc" id="L40">            validate(productForm);</span>
+<span class="nc" id="L41">        }</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">        for (ProductForm productForm : forms) {</span>
+
+<span class="nc" id="L44">            ProductPojo existingProductPojo = productService.get(productForm.getBarcode());</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">            if (Objects.isNull(existingProductPojo) == false) {</span>
+<span class="nc" id="L46">                BrandPojo brandPojo = validate(productForm);</span>
+<span class="nc" id="L47">                productService.update(productForm.getBarcode(), ProductDtoHelper.convert(productForm, brandPojo.getId()));</span>
+<span class="nc" id="L48">            } else {</span>
 <span class="nc" id="L49">                add(productForm);</span>
             }
-<span class="nc" id="L51">		}</span>
+<span class="nc" id="L51">        }</span>
 <span class="nc" id="L52">    }</span>
 
     public ProductData get(int id) throws ApiException {
-<span class="nc" id="L55">        ProductPojo productPojo = productService.get(id);</span>
-<span class="nc" id="L56">        BrandPojo brandPojo = brandService.get(productPojo.getBrand_category());</span>
-<span class="nc" id="L57">        return ProductDtoHelper.convert(productPojo, brandPojo.getBrand(), brandPojo.getCategory());</span>
+<span class="fc" id="L55">        ProductPojo productPojo = productService.get(id);</span>
+<span class="fc" id="L56">        BrandPojo brandPojo = brandService.get(productPojo.getBrand_category());</span>
+<span class="fc" id="L57">        return ProductDtoHelper.convert(productPojo, brandPojo.getBrand(), brandPojo.getCategory());</span>
     }
 
     public List&lt;ProductData&gt; getAll() throws ApiException {
@@ -78,16 +78,16 @@ import java.util.Objects;
 <span class="nc" id="L78">    }</span>
 
     public BrandPojo validate(ProductForm form) throws ApiException {
-<span class="nc" id="L81">        ProductDtoHelper.emptyCheck(form);</span>
-<span class="nc" id="L82">        ProductDtoHelper.normalise(form);</span>
-<span class="nc" id="L83">        BrandPojo brandPojo = brandService.get(form.getBrand(), form.getCategory());</span>
-<span class="nc bnc" id="L84" title="All 2 branches missed.">        if (brandPojo == null) {</span>
+<span class="fc" id="L81">        ProductDtoHelper.emptyCheck(form);</span>
+<span class="fc" id="L82">        ProductDtoHelper.normalise(form);</span>
+<span class="fc" id="L83">        BrandPojo brandPojo = brandService.get(form.getBrand(), form.getCategory());</span>
+<span class="pc bpc" id="L84" title="1 of 2 branches missed.">        if (brandPojo == null) {</span>
 <span class="nc" id="L85">            throw new ApiException(&quot;Error: Brand category combination does not exist&quot;);</span>
         }
-<span class="nc bnc" id="L87" title="All 2 branches missed.">        if (form.getMrp() &lt;= 0) {</span>
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">        if (form.getMrp() &lt;= 0) {</span>
 <span class="nc" id="L88">            throw new ApiException(&quot;Error: mrp can not be negative&quot;);</span>
         }
-<span class="nc" id="L90">		return brandPojo;</span>
+<span class="fc" id="L90">        return brandPojo;</span>
     }
 
 }

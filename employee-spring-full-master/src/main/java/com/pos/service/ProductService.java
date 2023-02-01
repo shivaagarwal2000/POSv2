@@ -52,7 +52,7 @@ public class ProductService {
         if (productPojo.getMrp() <= 0) {
             throw new ApiException("Error: mrp can not be zero/negative");
         }
-        ProductPojo oldProductPojo = get(barcode);
+        ProductPojo oldProductPojo = getCheck(barcode);
         oldProductPojo.setBrand_category(productPojo.getBrand_category());
         oldProductPojo.setMrp(productPojo.getMrp());
         oldProductPojo.setName(productPojo.getName());
@@ -66,11 +66,15 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public ProductPojo get(String barcode) throws ApiException {
-        ProductPojo productPojo = dao.select(barcode);
-        if (Objects.isNull(productPojo)) {
-            throw new ApiException("Error: product does not exits for barcode: "+ barcode);
-        }
         return dao.select(barcode);
     }
 
+    @Transactional(readOnly = true)
+    public ProductPojo getCheck(String barcode) throws ApiException {
+        ProductPojo productPojo = dao.select(barcode);
+        if (Objects.isNull(productPojo)) {
+            throw new ApiException("Error: product does not exists for barcode: "+ barcode);
+        }
+        return dao.select(barcode);
+    }
 }

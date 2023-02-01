@@ -30,10 +30,10 @@ public class InventoryService {
 		return inventoryPojo;
 	}
 
-	public boolean isPresent(int id) {
-		InventoryPojo inventoryPojo = dao.select(id);
-		return Objects.isNull(inventoryPojo) == false;
-	}
+//	public boolean isPresent(int id) {
+//		InventoryPojo inventoryPojo = dao.select(id);
+//		return Objects.isNull(inventoryPojo) == false;
+//	}
 
 	@Transactional(readOnly = true)
 	public List<InventoryPojo> getAll() {

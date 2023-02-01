@@ -17,46 +17,46 @@ import org.springframework.transaction.annotation.Transactional;
 
 	@Transactional(rollbackFor = ApiException.class)
 	public void add(InventoryPojo inventoryPojo) throws ApiException {
-<span class="fc" id="L20">		validateQuantity(inventoryPojo);</span>
-<span class="fc" id="L21">		dao.insert(inventoryPojo);</span>
-<span class="fc" id="L22">	}</span>
+<span class="nc" id="L20">		validateQuantity(inventoryPojo);</span>
+<span class="nc" id="L21">		dao.insert(inventoryPojo);</span>
+<span class="nc" id="L22">	}</span>
 
 	@Transactional(readOnly = true)
 	public InventoryPojo get(int id) throws ApiException {
-<span class="fc" id="L26">		InventoryPojo inventoryPojo = dao.select(id);</span>
-<span class="fc bfc" id="L27" title="All 2 branches covered.">		if (inventoryPojo == null) {</span>
-<span class="fc" id="L28">			throw new ApiException(&quot;Error: Inventory with given ID does not exit, id: &quot; + id);</span>
+<span class="nc" id="L26">		InventoryPojo inventoryPojo = dao.select(id);</span>
+<span class="nc bnc" id="L27" title="All 2 branches missed.">		if (inventoryPojo == null) {</span>
+<span class="nc" id="L28">			throw new ApiException(&quot;Error: Inventory with given ID does not exit, id: &quot; + id);</span>
 		}
-<span class="fc" id="L30">		return inventoryPojo;</span>
+<span class="nc" id="L30">		return inventoryPojo;</span>
 	}
 
-	public boolean isPresent(int id) {
-<span class="nc" id="L34">		InventoryPojo inventoryPojo = dao.select(id);</span>
-<span class="nc bnc" id="L35" title="All 2 branches missed.">		return Objects.isNull(inventoryPojo) == false;</span>
-	}
+//	public boolean isPresent(int id) {
+//		InventoryPojo inventoryPojo = dao.select(id);
+//		return Objects.isNull(inventoryPojo) == false;
+//	}
 
 	@Transactional(readOnly = true)
 	public List&lt;InventoryPojo&gt; getAll() {
-<span class="fc" id="L40">		return dao.selectAll();</span>
+<span class="nc" id="L40">		return dao.selectAll();</span>
 	}
 
 	@Transactional(rollbackFor = ApiException.class)
 	public void update(int id, InventoryPojo inventoryPojo) throws ApiException {
-<span class="fc" id="L45">		validateQuantity(inventoryPojo);</span>
-<span class="fc" id="L46">		InventoryPojo oldInventoryPojo = get(id);</span>
-<span class="fc" id="L47">		oldInventoryPojo.setQuantity(inventoryPojo.getQuantity());</span>
-<span class="fc" id="L48">	}</span>
+<span class="nc" id="L45">		validateQuantity(inventoryPojo);</span>
+<span class="nc" id="L46">		InventoryPojo oldInventoryPojo = get(id);</span>
+<span class="nc" id="L47">		oldInventoryPojo.setQuantity(inventoryPojo.getQuantity());</span>
+<span class="nc" id="L48">	}</span>
 
 	@Transactional(rollbackFor = ApiException.class)
 	public void delete(int id) {
-<span class="fc" id="L52">		dao.delete(id);</span>
-<span class="fc" id="L53">	}</span>
+<span class="nc" id="L52">		dao.delete(id);</span>
+<span class="nc" id="L53">	}</span>
 
 
 	public void validateQuantity(InventoryPojo inventoryPojo) throws ApiException {
-<span class="fc bfc" id="L57" title="All 2 branches covered.">		if (inventoryPojo.getQuantity() &lt;= 0) {</span>
-<span class="fc" id="L58">			throw new ApiException(&quot;Error: quantity can not be negative&quot;);</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">		if (inventoryPojo.getQuantity() &lt;= 0) {</span>
+<span class="nc" id="L58">			throw new ApiException(&quot;Error: quantity can not be negative&quot;);</span>
 		}
-<span class="fc" id="L60">	}</span>
+<span class="nc" id="L60">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

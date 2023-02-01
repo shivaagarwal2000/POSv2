@@ -137,6 +137,8 @@ function downloadErrors() {
 function displayBrandList(data) {
   var $tbody = $("#brand-table").find("tbody");
   $tbody.empty();
+  let totalAmount = 0;
+  let totalQuantity = 0;
   for (var i in data) {
     var e = data[i];
     var buttonHtml =
@@ -157,12 +159,16 @@ function displayBrandList(data) {
       "<td>" +
       e.revenue +
       "</td>" +
-      "<td>" +
-      buttonHtml +
-      "</td>" +
+//      "<td>" +
+//      buttonHtml +
+//      "</td>" +
       "</tr>";
     $tbody.append(row);
+    totalAmount += e.revenue
+    totalQuantity += e.quantity
   }
+  var row = "<tr><td></td><td>Total:</td><td>" + totalQuantity + "</td><td>" + totalAmount + "</td></tr>";
+  $tbody.append(row)
 }
 
 //controller for edit button
@@ -219,6 +225,7 @@ function displayBrand(data) {
 //INITIALIZATION CODE
 function init() {
   $("#add-brand").click(addBrand);
+  document.getElementById("add-brand").click();
   $("#update-brand").click(updateBrand);
   $("#refresh-data").click(getBrandList);
   $("#upload-data").click(displayUploadData);

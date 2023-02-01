@@ -12,6 +12,7 @@ import com.pos.service.*;
 import com.pos.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
@@ -25,7 +26,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-<span class="fc" id="L28">public class OrderDto {</span>
+<span class="fc" id="L29">public class OrderDto {</span>
 
     @Autowired
     private ProductService productService;
@@ -46,210 +47,203 @@ import java.util.Objects;
 
     public List&lt;OrderData&gt; getAll() {
         // Get list of all orders
-<span class="nc" id="L49">        List&lt;OrderPojo&gt; orderPojos = orderService.getAll();</span>
-<span class="nc" id="L50">        List&lt;OrderData&gt; orderDatas = new ArrayList&lt;OrderData&gt;();</span>
-<span class="nc bnc" id="L51" title="All 2 branches missed.">        for (OrderPojo orderPojo : orderPojos) {</span>
-<span class="nc" id="L52">            OrderData orderData = OrderDtoHelper.convert(orderPojo);</span>
-<span class="nc" id="L53">            orderDatas.add(orderData);</span>
-<span class="nc" id="L54">        }</span>
-<span class="nc" id="L55">        return orderDatas;</span>
+<span class="nc" id="L50">        List&lt;OrderPojo&gt; orderPojos = orderService.getAll();</span>
+<span class="nc" id="L51">        List&lt;OrderData&gt; orderDatas = new ArrayList&lt;OrderData&gt;();</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">        for (OrderPojo orderPojo : orderPojos) {</span>
+<span class="nc" id="L53">            OrderData orderData = OrderDtoHelper.convert(orderPojo);</span>
+<span class="nc" id="L54">            orderDatas.add(orderData);</span>
+<span class="nc" id="L55">        }</span>
+<span class="nc" id="L56">        return orderDatas;</span>
     }
 
     @Transactional(readOnly = true)
     public CommonOrderItemData getOrderItem(int itemId) throws ApiException {
-<span class="nc" id="L60">        OrderItemPojo orderItemPojo = orderItemService.select(itemId);</span>
-<span class="nc" id="L61">        ProductPojo productPojo = productService.get(orderItemPojo.getProductId());</span>
-<span class="nc" id="L62">        CommonOrderItemData orderItemData = OrderDtoHelper.convert(productPojo, orderItemPojo);</span>
-<span class="nc" id="L63">        return orderItemData;</span>
+<span class="nc" id="L61">        OrderItemPojo orderItemPojo = orderItemService.select(itemId);</span>
+<span class="nc" id="L62">        ProductPojo productPojo = productService.get(orderItemPojo.getProductId());</span>
+<span class="nc" id="L63">        CommonOrderItemData orderItemData = OrderDtoHelper.convert(productPojo, orderItemPojo);</span>
+<span class="nc" id="L64">        return orderItemData;</span>
     }
 
     //TODO: logic - edge - if multiple entries together for item -- ?
     @Transactional(rollbackFor = ApiException.class)
-    public void addOrder(List&lt;OrderItemForm&gt; forms) throws ApiException {
+    public int addOrder(List&lt;OrderItemForm&gt; forms) throws ApiException {
         // add order - create order entry, order item entries with order still in pending state
-<span class="nc" id="L70">        validateListOrderForm(forms);</span>
-<span class="nc" id="L71">        OrderPojo orderPojo = orderService.add();</span>
-//        ArrayList&lt;OrderItemPojo&gt; orderItemPojos = new ArrayList&lt;OrderItemPojo&gt;();
-//        for (OrderItemForm form : forms) {
-//            ProductPojo productPojo = productService.get(form.getBarcode());
-//            OrderItemPojo orderItemPojo = OrderDtoHelper.convert(form, productPojo, orderPojo.getId());
-//            orderItemPojos.add(orderItemPojo);
-//        }
-<span class="nc" id="L78">        orderItemService.add(convert(orderPojo.getId(), forms));</span>
-<span class="nc" id="L79">    }</span>
+<span class="nc" id="L71">        validateListOrderForm(forms);</span>
+<span class="nc" id="L72">        OrderPojo orderPojo = orderService.add();</span>
+<span class="nc" id="L73">        orderItemService.add(convert(orderPojo.getId(), forms));</span>
+<span class="nc" id="L74">        return orderPojo.getId();</span>
+    }
 
-    @Transactional(rollbackFor = ApiException.class)
-// TODO Transactional not required as there is single save call Priority: 5
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    // TODO Transactional not required as there is single save call Priority: 5
     public void editOrderItem(int orderItemId, OrderItemForm orderItemForm) throws ApiException {
-<span class="nc" id="L84">        validateOrderForm(orderItemForm);</span>
-<span class="nc" id="L85">        OrderItemPojo oldOrderItemPojo = orderItemService.select(orderItemId);</span>
-<span class="nc" id="L86">        OrderPojo orderPojo = orderService.get(oldOrderItemPojo.getOrderId());</span>
-<span class="nc" id="L87">        OrderDtoHelper.isPlaced(orderPojo);</span>
-<span class="nc" id="L88">        ProductPojo productPojo = productService.get(orderItemForm.getBarcode()); // TODO: check if validate can return productPojo</span>
-<span class="nc" id="L89">        OrderItemPojo orderItemPojo = OrderDtoHelper.convert(orderItemForm, productPojo, orderPojo.getId());</span>
-<span class="nc" id="L90">        orderItemService.update(orderItemId, orderItemPojo);</span>
-<span class="nc" id="L91">    }</span>
+<span class="nc" id="L80">        ProductPojo productPojo = validateOrderForm(orderItemForm);</span>
+<span class="nc" id="L81">        OrderItemPojo oldOrderItemPojo = orderItemService.select(orderItemId);</span>
+<span class="nc" id="L82">        OrderPojo orderPojo = orderService.get(oldOrderItemPojo.getOrderId());</span>
+<span class="nc" id="L83">        OrderDtoHelper.isPlaced(orderPojo);</span>
+//        ProductPojo productPojo = productService.get(orderItemForm.getBarcode()); // TODO: check if validate can return productPojo
+<span class="nc" id="L85">        OrderItemPojo orderItemPojo = OrderDtoHelper.convert(orderItemForm, productPojo, orderPojo.getId());</span>
+<span class="nc" id="L86">        orderItemService.update(orderItemId, orderItemPojo);</span>
+<span class="nc" id="L87">    }</span>
 
     @Transactional(rollbackFor = ApiException.class)
     public void placeOrder(int orderId) throws ApiException, IOException {
-<span class="nc" id="L95">        OrderPojo orderPojo = orderService.get(orderId);</span>
-<span class="nc" id="L96">        OrderDtoHelper.isPlaced(orderPojo);</span>
-<span class="nc" id="L97">        List&lt;OrderItemPojo&gt; orderItemPojos = orderItemService.getItemPojos(orderId);</span>
-<span class="nc bnc" id="L98" title="All 2 branches missed.">        for (OrderItemPojo orderItemPojo : orderItemPojos) {</span>
-//            ProductPojo productPojo = productService.get(orderItemPojo.getProductId());// TODO User getCheck Priority: 5
-//            InventoryPojo inventoryPojo = inventoryService.get(productPojo.getId());// TODO yes, This is being used too many times, move to a seprate function in OrderDto Priority: 5
-//            if (inventoryPojo.getQuantity() &lt; orderItemPojo.getQuantity()) {
-//                throw new ApiException(&quot;Error: not enough quantity to fulfil -&quot; + productPojo.getName());
-//            }
-<span class="nc" id="L104">            validateInventory(orderItemPojo.getQuantity(), productService.get(orderItemPojo.getProductId()));</span>
-<span class="nc" id="L105">        }</span>
-<span class="nc" id="L106">        reduceInventory(orderItemPojos);</span>
-<span class="nc" id="L107">        orderService.placeOrder(orderId);</span>
-<span class="nc" id="L108">        getInvoice(orderId);</span>
-<span class="nc" id="L109">    }</span>
+<span class="nc" id="L91">        OrderPojo orderPojo = orderService.get(orderId);</span>
+<span class="nc" id="L92">        OrderDtoHelper.isPlaced(orderPojo);</span>
+<span class="nc" id="L93">        List&lt;OrderItemPojo&gt; orderItemPojos = orderItemService.getItemPojos(orderId);</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">        for (OrderItemPojo orderItemPojo : orderItemPojos) {</span>
+<span class="nc" id="L95">            validateInventory(orderItemPojo.getQuantity(), productService.get(orderItemPojo.getProductId()));</span>
+<span class="nc" id="L96">        }</span>
+<span class="nc" id="L97">        reduceInventory(orderItemPojos);</span>
+<span class="nc" id="L98">        orderService.placeOrder(orderId);</span>
+<span class="nc" id="L99">        getInvoice(orderId);</span>
+<span class="nc" id="L100">    }</span>
 
     @Transactional(rollbackFor = ApiException.class)
     public void deleteOrder(int orderId) throws ApiException {
         //delete order and its items, given orderId, if not placed
-<span class="nc" id="L114">        OrderPojo orderPojo = orderService.get(orderId);</span>
-<span class="nc" id="L115">        OrderDtoHelper.isPlaced(orderPojo);</span>
-<span class="nc" id="L116">        orderItemService.deleteOrder(orderId);</span>
-<span class="nc" id="L117">        orderService.delete(orderId);</span>
-<span class="nc" id="L118">    }</span>
+<span class="nc" id="L105">        OrderPojo orderPojo = orderService.get(orderId);</span>
+<span class="nc" id="L106">        OrderDtoHelper.isPlaced(orderPojo);</span>
+<span class="nc" id="L107">        orderItemService.deleteOrder(orderId);</span>
+<span class="nc" id="L108">        orderService.delete(orderId);</span>
+<span class="nc" id="L109">    }</span>
 
     @Transactional(rollbackFor = ApiException.class)
     public void deleteOrderItem(int id) throws ApiException {
         //delete order item, given order item id, if order not placed
-<span class="nc" id="L123">        OrderItemPojo orderItemPojo = orderItemService.select(id);</span>
-<span class="nc" id="L124">        OrderPojo orderPojo = orderService.get(orderItemPojo.getOrderId());</span>
-<span class="nc" id="L125">        OrderDtoHelper.isPlaced(orderPojo);</span>
-<span class="nc" id="L126">        orderItemService.delete(id);</span>
-<span class="nc" id="L127">    }</span>
+<span class="nc" id="L114">        OrderItemPojo orderItemPojo = orderItemService.select(id);</span>
+<span class="nc" id="L115">        OrderPojo orderPojo = orderService.get(orderItemPojo.getOrderId());</span>
+<span class="nc" id="L116">        OrderDtoHelper.isPlaced(orderPojo);</span>
+<span class="nc" id="L117">        orderItemService.delete(id);</span>
+<span class="nc" id="L118">    }</span>
 
     @Transactional(readOnly = true)
     public List&lt;CommonOrderItemData&gt; getItemDatas(int orderId) throws ApiException {
         //retrieve order items for an order
-<span class="nc" id="L132">        List&lt;OrderItemPojo&gt; itemPojos = orderItemService.getItemPojos(orderId);</span>
-<span class="nc" id="L133">        List&lt;CommonOrderItemData&gt; itemDatas = new ArrayList&lt;CommonOrderItemData&gt;();</span>
-<span class="nc bnc" id="L134" title="All 2 branches missed.">        for (OrderItemPojo orderItemPojo : itemPojos) {</span>
-<span class="nc" id="L135">            ProductPojo productPojo = productService.get(orderItemPojo.getProductId());</span>
-<span class="nc" id="L136">            CommonOrderItemData orderItemData = OrderDtoHelper.convert(productPojo, orderItemPojo);</span>
-<span class="nc" id="L137">            itemDatas.add(orderItemData);</span>
-<span class="nc" id="L138">        }</span>
-<span class="nc" id="L139">        return itemDatas;</span>
+<span class="nc" id="L123">        List&lt;OrderItemPojo&gt; itemPojos = orderItemService.getItemPojos(orderId);</span>
+<span class="nc" id="L124">        List&lt;CommonOrderItemData&gt; itemDatas = new ArrayList&lt;CommonOrderItemData&gt;();</span>
+<span class="nc bnc" id="L125" title="All 2 branches missed.">        for (OrderItemPojo orderItemPojo : itemPojos) {</span>
+<span class="nc" id="L126">            ProductPojo productPojo = productService.get(orderItemPojo.getProductId());</span>
+<span class="nc" id="L127">            CommonOrderItemData orderItemData = OrderDtoHelper.convert(productPojo, orderItemPojo);</span>
+<span class="nc" id="L128">            itemDatas.add(orderItemData);</span>
+<span class="nc" id="L129">        }</span>
+<span class="nc" id="L130">        return itemDatas;</span>
     }
 
-    //TODO: sales report - change to get all filters.
     public List&lt;SalesReportData&gt; getSalesReportDatas(SalesReportForm salesReportForm) throws ApiException {
-<span class="nc bnc" id="L144" title="All 2 branches missed.">        if (salesReportForm.getStartDate().isEmpty()) {// TODO Move this to normalize helper Priority: 5</span>
-<span class="nc" id="L145">            salesReportForm.setStartDate(&quot;1970-01-01&quot;);</span>
+<span class="nc bnc" id="L134" title="All 2 branches missed.">        if (salesReportForm.getStartDate().isEmpty()) {// TODO Move this to normalize helper Priority: 5</span>
+<span class="nc" id="L135">            salesReportForm.setStartDate(&quot;1970-01-01&quot;);</span>
         }
-<span class="nc bnc" id="L147" title="All 2 branches missed.">        if (salesReportForm.getEndDate().isEmpty()) {</span>
-<span class="nc" id="L148">            salesReportForm.setEndDate(&quot;3000-01-01&quot;);</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">        if (salesReportForm.getEndDate().isEmpty()) {</span>
+<span class="nc" id="L138">            salesReportForm.setEndDate(&quot;3000-01-01&quot;);</span>
         }
-<span class="nc" id="L150">        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd&quot;);</span>
-<span class="nc" id="L151">        ZonedDateTime startDate = LocalDate.parse(salesReportForm.getStartDate(), dtf).atStartOfDay(ZoneId.systemDefault());</span>
-<span class="nc" id="L152">        ZonedDateTime endDate = LocalDate.parse(salesReportForm.getEndDate(), dtf).atStartOfDay(ZoneId.systemDefault()).withHour(23).withMinute(59).withSecond(59);</span>
+<span class="nc" id="L140">        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd&quot;);</span>
+<span class="nc" id="L141">        ZonedDateTime startDate = LocalDate.parse(salesReportForm.getStartDate(), dtf).atStartOfDay(ZoneId.systemDefault());</span>
+<span class="nc" id="L142">        ZonedDateTime endDate = LocalDate.parse(salesReportForm.getEndDate(), dtf).atStartOfDay(ZoneId.systemDefault()).withHour(23).withMinute(59).withSecond(59);</span>
 
-<span class="nc bnc" id="L154" title="All 2 branches missed.">        if (startDate.isAfter(endDate)) {</span>
-<span class="nc" id="L155">            throw new ApiException(&quot;Error: start date can't be after end date&quot;);</span>
+<span class="nc bnc" id="L144" title="All 2 branches missed.">        if (startDate.isAfter(endDate)) {</span>
+<span class="nc" id="L145">            throw new ApiException(&quot;Error: start date can't be after end date&quot;);</span>
         }
-<span class="nc" id="L157">        String brand = salesReportForm.getBrand();// TODO Unused variables Priority: 5</span>
-<span class="nc" id="L158">        String category = salesReportForm.getCategory();</span>
 
-<span class="nc" id="L160">        List&lt;OrderPojo&gt; orderPojos = orderService.getBetweenDates(startDate, endDate);</span>
-//        System.out.println(orderPojos);
-<span class="nc" id="L162">        List&lt;SalesReportData&gt; salesReportDatas = new ArrayList&lt;SalesReportData&gt;();</span>
-<span class="nc" id="L163">        HashMap&lt;String, SalesReportData&gt; hash_map = new HashMap&lt;String, SalesReportData&gt;();// TODO Rename variable  Priority: 5</span>
+<span class="nc" id="L148">        String requestedBrand = salesReportForm.getBrand();</span>
+<span class="nc" id="L149">        String requestedCategory = salesReportForm.getCategory();</span>
 
-<span class="nc bnc" id="L165" title="All 2 branches missed.">        for (OrderPojo orderPojo : orderPojos) {</span>
-<span class="nc" id="L166">            List&lt;OrderItemPojo&gt; orderItemPojos = orderItemService.getItemPojos(orderPojo.getId());</span>
+<span class="nc" id="L151">        List&lt;OrderPojo&gt; orderPojos = orderService.getBetweenDates(startDate, endDate);</span>
+<span class="nc" id="L152">        List&lt;SalesReportData&gt; salesReportDatas = new ArrayList&lt;SalesReportData&gt;();</span>
+<span class="nc" id="L153">        HashMap&lt;String, SalesReportData&gt; salesReportMap = new HashMap&lt;String, SalesReportData&gt;();</span>
 
-<span class="nc bnc" id="L168" title="All 2 branches missed.">            for (OrderItemPojo orderItemPojo : orderItemPojos) {</span>
-<span class="nc" id="L169">                ProductPojo productPojo = productService.get(orderItemPojo.getProductId());</span>
-<span class="nc" id="L170">                BrandPojo brandPojo = brandService.get(productPojo.getBrand_category());</span>
-                // TODO Apply filter based on brand and category Priority: 5
-<span class="nc bnc" id="L172" title="All 2 branches missed.">                if (hash_map.containsKey(brandPojo.getBrand() + brandPojo.getCategory())) {</span>
-                    // TODO Move below code to helper Priority: 5
-<span class="nc" id="L174">                    SalesReportData salesReportData = new SalesReportData();</span>
-<span class="nc" id="L175">                    salesReportData.setBrand(brandPojo.getBrand());</span>
-<span class="nc" id="L176">                    salesReportData.setCategory(brandPojo.getCategory());</span>
-<span class="nc" id="L177">                    salesReportData</span>
-<span class="nc" id="L178">                            .setQuantity(hash_map.get(brandPojo.getBrand() + brandPojo.getCategory()).getQuantity()</span>
-<span class="nc" id="L179">                                    + orderItemPojo.getQuantity());</span>
-<span class="nc" id="L180">                    salesReportData.setRevenue(hash_map.get(brandPojo.getBrand() + brandPojo.getCategory()).getRevenue()</span>
-<span class="nc" id="L181">                            + orderItemPojo.getSellingprice());</span>
-<span class="nc" id="L182">                    hash_map.put(brandPojo.getBrand() + brandPojo.getCategory(), salesReportData);</span>
-<span class="nc" id="L183">                } else {</span>
-<span class="nc" id="L184">                    SalesReportData salesReportData = new SalesReportData();</span>
-<span class="nc" id="L185">                    salesReportData.setBrand(brandPojo.getBrand());</span>
-<span class="nc" id="L186">                    salesReportData.setCategory(brandPojo.getCategory());</span>
-<span class="nc" id="L187">                    salesReportData.setQuantity(orderItemPojo.getQuantity());</span>
-<span class="nc" id="L188">                    salesReportData.setRevenue(orderItemPojo.getSellingprice());</span>
-<span class="nc" id="L189">                    hash_map.put(brandPojo.getBrand() + brandPojo.getCategory(), salesReportData);</span>
+<span class="nc bnc" id="L155" title="All 2 branches missed.">        for (OrderPojo orderPojo : orderPojos) {</span>
+<span class="nc" id="L156">            List&lt;OrderItemPojo&gt; orderItemPojos = orderItemService.getItemPojos(orderPojo.getId());</span>
+<span class="nc bnc" id="L157" title="All 2 branches missed.">            for (OrderItemPojo orderItemPojo : orderItemPojos) {</span>
+<span class="nc" id="L158">                ProductPojo productPojo = productService.get(orderItemPojo.getProductId());</span>
+<span class="nc" id="L159">                BrandPojo brandPojo = brandService.get(productPojo.getBrand_category());</span>
+<span class="nc bnc" id="L160" title="All 4 branches missed.">                if ((requestedBrand.equals(brandPojo.getBrand()) &amp;&amp; requestedCategory.equals(brandPojo.getCategory())) ||</span>
+<span class="nc bnc" id="L161" title="All 4 branches missed.">                        (requestedBrand.equals(brandPojo.getBrand()) &amp;&amp; StringUtil.isEmpty(requestedCategory)) ||</span>
+<span class="nc bnc" id="L162" title="All 4 branches missed.">                        (StringUtil.isEmpty(requestedBrand) &amp;&amp; requestedCategory.equals(brandPojo.getCategory())) ||</span>
+<span class="nc bnc" id="L163" title="All 4 branches missed.">                        (StringUtil.isEmpty(requestedBrand) &amp;&amp; StringUtil.isEmpty(requestedCategory))) {</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">                    if (salesReportMap.containsKey(brandPojo.getBrand() + &quot;+&quot; + brandPojo.getCategory())) {</span>
+                        // TODO Move below code to helper Priority: 5
+<span class="nc" id="L166">                        SalesReportData salesReportData = new SalesReportData();</span>
+<span class="nc" id="L167">                        salesReportData.setBrand(brandPojo.getBrand());</span>
+<span class="nc" id="L168">                        salesReportData.setCategory(brandPojo.getCategory());</span>
+<span class="nc" id="L169">                        salesReportData.setQuantity(salesReportMap.get(brandPojo.getBrand() + &quot;+&quot; + brandPojo.getCategory()).getQuantity()</span>
+<span class="nc" id="L170">                                + orderItemPojo.getQuantity());</span>
+<span class="nc" id="L171">                        salesReportData.setRevenue(salesReportMap.get(brandPojo.getBrand() + &quot;+&quot; + brandPojo.getCategory()).getRevenue()</span>
+<span class="nc" id="L172">                                + orderItemPojo.getSellingprice());</span>
+<span class="nc" id="L173">                        salesReportMap.put(brandPojo.getBrand() + &quot;+&quot; + brandPojo.getCategory(), salesReportData);</span>
+<span class="nc" id="L174">                    } else {</span>
+<span class="nc" id="L175">                        SalesReportData salesReportData = new SalesReportData();</span>
+<span class="nc" id="L176">                        salesReportData.setBrand(brandPojo.getBrand());</span>
+<span class="nc" id="L177">                        salesReportData.setCategory(brandPojo.getCategory());</span>
+<span class="nc" id="L178">                        salesReportData.setQuantity(orderItemPojo.getQuantity());</span>
+<span class="nc" id="L179">                        salesReportData.setRevenue(orderItemPojo.getSellingprice());</span>
+<span class="nc" id="L180">                        salesReportMap.put(brandPojo.getBrand() + &quot;+&quot; + brandPojo.getCategory(), salesReportData);</span>
+                    }
                 }
-<span class="nc" id="L191">            }</span>
+<span class="nc" id="L183">            }</span>
+<span class="nc" id="L184">        }</span>
 
-<span class="nc" id="L193">        }</span>
-
-<span class="nc bnc" id="L195" title="All 2 branches missed.">        for (String key : hash_map.keySet()) {</span>
-<span class="nc" id="L196">            salesReportDatas.add(hash_map.get(key));</span>
-<span class="nc" id="L197">        }</span>
-<span class="nc" id="L198">        return salesReportDatas;</span>
-
+<span class="nc bnc" id="L186" title="All 2 branches missed.">        for (String key : salesReportMap.keySet()) {</span>
+<span class="nc" id="L187">            salesReportDatas.add(salesReportMap.get(key));</span>
+<span class="nc" id="L188">        }</span>
+<span class="nc" id="L189">        return salesReportDatas;</span>
     }
 
     public String getInvoice(int orderId) throws ApiException, IOException {// TODO Throw only apiException Priority: 5
-<span class="nc" id="L203">        List&lt;CommonOrderItemData&gt; commonOrderItemDatas = getItemDatas(orderId);</span>
-<span class="nc" id="L204">        return invoiceClient.getInvoice(commonOrderItemDatas);</span>
+<span class="nc" id="L193">        List&lt;CommonOrderItemData&gt; commonOrderItemDatas = getItemDatas(orderId);</span>
+<span class="nc" id="L194">        return invoiceClient.getInvoice(commonOrderItemDatas);</span>
     }
 
     @Transactional(rollbackFor = ApiException.class)
     public void reduceInventory(List&lt;OrderItemPojo&gt; orderItemPojos) throws ApiException {
         //reduce inventory for order items
-<span class="nc bnc" id="L210" title="All 2 branches missed.">        for (OrderItemPojo orderItemPojo : orderItemPojos) {</span>
-<span class="nc" id="L211">            ProductPojo productPojo = productService.get(orderItemPojo.getProductId());</span>
-<span class="nc" id="L212">            InventoryPojo inventoryPojo = inventoryService.get(productPojo.getId());</span>
-<span class="nc" id="L213">            inventoryPojo.setQuantity(inventoryPojo.getQuantity() - orderItemPojo.getQuantity());</span>
-<span class="nc" id="L214">            inventoryService.update(inventoryPojo.getId(), inventoryPojo);</span>
-<span class="nc" id="L215">        }</span>
-<span class="nc" id="L216">    }</span>
+<span class="nc bnc" id="L200" title="All 2 branches missed.">        for (OrderItemPojo orderItemPojo : orderItemPojos) {</span>
+<span class="nc" id="L201">            ProductPojo productPojo = productService.get(orderItemPojo.getProductId());</span>
+<span class="nc" id="L202">            InventoryPojo inventoryPojo = inventoryService.get(productPojo.getId());</span>
+<span class="nc" id="L203">            inventoryPojo.setQuantity(inventoryPojo.getQuantity() - orderItemPojo.getQuantity());</span>
+<span class="nc" id="L204">            inventoryService.update(inventoryPojo.getId(), inventoryPojo);</span>
+<span class="nc" id="L205">        }</span>
+<span class="nc" id="L206">    }</span>
 
-    public List&lt;OrderItemPojo&gt; convert(int orderId, List&lt;OrderItemForm&gt; forms) throws ApiException {
+    private List&lt;OrderItemPojo&gt; convert(int orderId, List&lt;OrderItemForm&gt; forms) throws ApiException {
         //convert list of order item form to list of order item pojo
-<span class="nc" id="L220">        List&lt;OrderItemPojo&gt; orderItemPojos = new ArrayList&lt;OrderItemPojo&gt;();</span>
-<span class="nc bnc" id="L221" title="All 2 branches missed.">        for (OrderItemForm form : forms) {</span>
-<span class="nc" id="L222">            ProductPojo productPojo = productService.get(form.getBarcode());</span>
-<span class="nc" id="L223">            OrderItemPojo orderItemPojo = OrderDtoHelper.convert(form, productPojo, orderId);</span>
-<span class="nc" id="L224">            orderItemPojos.add(orderItemPojo);</span>
-<span class="nc" id="L225">        }</span>
-<span class="nc" id="L226">        return orderItemPojos;</span>
+<span class="nc" id="L210">        List&lt;OrderItemPojo&gt; orderItemPojos = new ArrayList&lt;OrderItemPojo&gt;();</span>
+<span class="nc bnc" id="L211" title="All 2 branches missed.">        for (OrderItemForm form : forms) {</span>
+<span class="nc" id="L212">            ProductPojo productPojo = productService.getCheck(form.getBarcode());</span>
+<span class="nc" id="L213">            OrderItemPojo orderItemPojo = OrderDtoHelper.convert(form, productPojo, orderId);</span>
+<span class="nc" id="L214">            orderItemPojos.add(orderItemPojo);</span>
+<span class="nc" id="L215">        }</span>
+<span class="nc" id="L216">        return orderItemPojos;</span>
     }
 
-    public void validateOrderForm(OrderItemForm form) throws ApiException {
-<span class="nc bnc" id="L230" title="All 4 branches missed.">        if (StringUtil.isEmpty(form.getBarcode()) || Objects.isNull(form.getQuantity())) {</span>
-<span class="nc" id="L231">            throw new ApiException(&quot;Error: barcode/quantity can not be empty&quot;);</span>
+    private ProductPojo validateOrderForm(OrderItemForm form) throws ApiException {
+<span class="nc bnc" id="L220" title="All 6 branches missed.">        if (StringUtil.isEmpty(form.getBarcode()) || Objects.isNull(form.getQuantity()) || form.getQuantity() == 0) {</span>
+<span class="nc" id="L221">            throw new ApiException(&quot;Error: barcode/quantity can not be empty&quot;);</span>
         }
-<span class="nc" id="L233">        form.setBarcode(StringUtil.toLowerCase(form.getBarcode()));</span>
-//        ProductPojo productPojo = productService.get(form.getBarcode());// TODO Use getcheck Priority: 5
-//        InventoryPojo inventoryPojo = inventoryService.get(productPojo.getId());
-//        if (inventoryPojo.getQuantity() &lt; form.getQuantity()) {
-//            throw new ApiException(&quot;Error: not enough quantity to fulfil -&quot; + productPojo.getName());
-//        }
-<span class="nc" id="L239">        validateInventory(form.getQuantity(), productService.get(form.getBarcode()));</span>
-<span class="nc" id="L240">    }</span>
+<span class="nc" id="L223">        form.setBarcode(StringUtil.toLowerCase(form.getBarcode()));</span>
+<span class="nc" id="L224">        ProductPojo productPojo = productService.getCheck(form.getBarcode());</span>
+<span class="nc" id="L225">        validateInventory(form.getQuantity(), productPojo);</span>
+<span class="nc" id="L226">        return productPojo;</span>
+    }
 
-    public void validateInventory(int orderItemQuantity, ProductPojo productPojo) throws ApiException {
-<span class="nc" id="L243">        InventoryPojo inventoryPojo = inventoryService.get(productPojo.getId());</span>
-<span class="nc bnc" id="L244" title="All 2 branches missed.">        if (inventoryPojo.getQuantity() &lt; orderItemQuantity) {</span>
-<span class="nc" id="L245">            throw new ApiException(&quot;Error: not enough quantity to fulfil -&quot; + productPojo.getName());</span>
+    private void validateInventory(int orderItemQuantity, ProductPojo productPojo) throws ApiException {
+<span class="nc" id="L230">        InventoryPojo inventoryPojo = inventoryService.get(productPojo.getId());</span>
+<span class="nc bnc" id="L231" title="All 2 branches missed.">        if (inventoryPojo.getQuantity() &lt; orderItemQuantity) {</span>
+<span class="nc" id="L232">            throw new ApiException(&quot;Error: not enough quantity to fulfil -&quot; + productPojo.getName());</span>
         }
+<span class="nc" id="L234">    }</span>
+
+    private void validateListOrderForm(List&lt;OrderItemForm&gt; forms) throws ApiException {
+<span class="nc" id="L237">        HashMap&lt;String, Boolean&gt; productCheckMap = new HashMap&lt;String, Boolean&gt;();</span>
+<span class="nc bnc" id="L238" title="All 2 branches missed.">        for (OrderItemForm form : forms) {</span>
+<span class="nc" id="L239">            ProductPojo productPojo = validateOrderForm(form);</span>
+<span class="nc bnc" id="L240" title="All 2 branches missed.">            if (productCheckMap.containsKey(productPojo.getBarcode())) {</span>
+<span class="nc" id="L241">                throw new ApiException(&quot;Error: repeated entry&quot;);</span>
+            }
+            else {
+<span class="nc" id="L244">                productCheckMap.put(productPojo.getBarcode(), true);</span>
+            }
+<span class="nc" id="L246">        }</span>
 <span class="nc" id="L247">    }</span>
-
-    public void validateListOrderForm(List&lt;OrderItemForm&gt; forms) throws ApiException {
-<span class="nc bnc" id="L250" title="All 2 branches missed.">        for (OrderItemForm form : forms) {</span>
-<span class="nc" id="L251">            validateOrderForm(form);</span>
-<span class="nc" id="L252">        }</span>
-<span class="nc" id="L253">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

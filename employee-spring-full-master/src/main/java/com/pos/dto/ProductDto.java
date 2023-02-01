@@ -26,29 +26,29 @@ public class ProductDto {
 
     //TODO: restrict mrp to 2 decimal places
     public void add(ProductForm form) throws ApiException {
-		BrandPojo brandPojo = validate(form);
+        BrandPojo brandPojo = validate(form); // TODO: VERY WEIRD LOGIC
         ProductPojo existingProductPojo = productService.get(form.getBarcode());// TODO Use getCheck Priority: 5
-        if (existingProductPojo != null) {
-            throw new ApiException("Error: Barcode already exists");
+        if (Objects.isNull(existingProductPojo) == false) {
+            throw new ApiException("Error: barcode already exists");
         }
         ProductPojo productPojo = ProductDtoHelper.convert(form, brandPojo.getId());
         productService.add(productPojo);
     }
 
     public void bulkAdd(List<ProductForm> forms) throws ApiException {
-		for (ProductForm productForm: forms) {
-			validate(productForm);
-		}
-		for (ProductForm productForm: forms) {
+        for (ProductForm productForm : forms) {
+            validate(productForm);
+        }
+        for (ProductForm productForm : forms) {
+
             ProductPojo existingProductPojo = productService.get(productForm.getBarcode());
             if (Objects.isNull(existingProductPojo) == false) {
                 BrandPojo brandPojo = validate(productForm);
                 productService.update(productForm.getBarcode(), ProductDtoHelper.convert(productForm, brandPojo.getId()));
-            }
-            else {
+            } else {
                 add(productForm);
             }
-		}
+        }
     }
 
     public ProductData get(int id) throws ApiException {
@@ -87,7 +87,7 @@ public class ProductDto {
         if (form.getMrp() <= 0) {
             throw new ApiException("Error: mrp can not be negative");
         }
-		return brandPojo;
+        return brandPojo;
     }
 
 }

@@ -20,6 +20,7 @@ function addBrand(event) {
     },
     success: function (response) {
       getBrandList();
+      resetForm("#brand-form input");
     },
     error: handleAjaxError,
   });
@@ -61,6 +62,7 @@ function getBrandList() {
     type: "GET",
     success: function (data) {
       displayBrandList(data);
+      resetForm("#brand-form input")
     },
     error: handleAjaxError,
   });

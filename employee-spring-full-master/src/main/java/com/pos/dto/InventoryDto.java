@@ -36,24 +36,38 @@ public class InventoryDto {
     @Transactional(rollbackFor = ApiException.class)
     public void add(InventoryForm form) throws ApiException {
         ProductPojo productPojo = validate(form);
-        InventoryPojo inventoryPojo = InventoryDtoHelper.convert(form, productPojo.getId());
-        inventoryService.add(inventoryPojo);
+        try {
+            InventoryPojo existingInventoryPojo = inventoryService.get(productPojo.getId());
+        }
+        catch (ApiException apiException) {
+            InventoryPojo inventoryPojo = InventoryDtoHelper.convert(form, productPojo.getId());
+            inventoryService.add(inventoryPojo);
+            return;
+        }
+        throw new ApiException("Error: barcode already exists");
     }
 
-//    @Transactional(rollbackFor = ApiException.class)
-//    public void bulkAdd(List<InventoryForm> forms) throws ApiException {
-//        for (InventoryForm inventoryForm : forms) {
-//            validate(inventoryForm);
-//        }
-//        for (InventoryForm inventoryForm : forms) {
-//            ProductPojo productPojo = productService.get(inventoryForm.getBarcode());
+    @Transactional(rollbackFor = ApiException.class)
+    public void bulkAdd(List<InventoryForm> forms) throws ApiException {
+        for (InventoryForm inventoryForm : forms) {
+            validate(inventoryForm);
+        }
+        for (InventoryForm inventoryForm : forms) {
+            ProductPojo productPojo = productService.getCheck(inventoryForm.getBarcode()); // TODO: verify this
 //            if (inventoryService.isPresent(productPojo.getId())) {
 //                update(productPojo.getId(), inventoryForm);
 //            } else {
 //				add(inventoryForm);
 //            }
-//        }
-//    }
+            try {
+                inventoryService.get(productPojo.getId());
+                update(productPojo.getId(), inventoryForm);
+            }
+            catch (ApiException apiException) {
+                add(inventoryForm);
+            }
+        }
+    }
 
     public InventoryData get(int id) throws ApiException {
         ProductPojo productPojo = productService.get(id);
@@ -77,7 +91,7 @@ public class InventoryDto {
 
         HashMap<Integer, Integer> hash_map = new HashMap<Integer, Integer>();
         for (InventoryData inventoryData : inventoryDatas) {
-            ProductPojo productPojo = productService.get(inventoryData.getBarcode());
+            ProductPojo productPojo = productService.getCheck(inventoryData.getBarcode());
             hash_map.put(productPojo.getBrand_category(),
                     hash_map.getOrDefault(productPojo.getBrand_category(), 0) + inventoryData.getQuantity());
         }
@@ -102,15 +116,12 @@ public class InventoryDto {
         inventoryService.delete(id);
     }
 
-    public ProductPojo validate(InventoryForm form) throws ApiException {
-        if (StringUtil.isEmpty(form.getBarcode()) || Objects.isNull(form.getQuantity())) {
+    private ProductPojo validate(InventoryForm form) throws ApiException {
+        if (StringUtil.isEmpty(form.getBarcode()) || Objects.isNull(form.getQuantity()) || form.getQuantity() == 0) {
             throw new ApiException("Error: barcode/quantity can not be empty");
         }
         InventoryDtoHelper.normalise(form);
-        ProductPojo productPojo = productService.get(form.getBarcode());
-        if (productPojo == null) {
-            throw new ApiException("Error: product with given barcode does not exist");
-        }
+        ProductPojo productPojo = productService.getCheck(form.getBarcode());
         return productPojo;
     }
 }

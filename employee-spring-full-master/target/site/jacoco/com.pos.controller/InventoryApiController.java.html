@@ -58,8 +58,7 @@ import io.swagger.annotations.ApiOperation;
 	@ApiOperation(value = &quot;get report&quot;)
 	@RequestMapping(path = &quot;/api/inventory/report&quot;, method = RequestMethod.GET)
 	public List&lt;InventoryReportData&gt; getReport() throws ApiException {
-<span class="nc" id="L61">		System.out.println(&quot;he&quot;);</span>
-<span class="nc" id="L62">		return inventoryDto.getReportData();</span>
+<span class="nc" id="L61">		return inventoryDto.getReportData();</span>
 	}
 
 }
