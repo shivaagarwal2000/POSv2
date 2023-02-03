@@ -26,7 +26,7 @@ public class InvoiceClient {
         HttpPost httpPost = new HttpPost(completeUrl);
         httpPost.setHeader("Accept", "application/json");
         httpPost.setHeader("Content-type", "application/json");
-        // TODO: try catch and return
+        // TODO: try catch and return -- no other exception other than ApiException
         StringEntity stringEntity = new StringEntity(new Gson().toJson(commonOrderItemDatas));
         httpPost.setEntity(stringEntity);
         System.out.println("executing request: " + httpPost.getRequestLine()); //TODO: refactor: clean up

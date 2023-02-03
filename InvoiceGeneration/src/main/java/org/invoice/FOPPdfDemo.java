@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
@@ -23,7 +25,7 @@ import org.apache.fop.apps.MimeConstants;
 public class FOPPdfDemo {// TODO Remove unused code Priority: 5
 
     public static void main(String[] args) throws FOPException, IOException, TransformerException {
-//        FOPPdfDemo fOPPdfDemo = new FOPPdfDemo();
+        FOPPdfDemo fOPPdfDemo = new FOPPdfDemo();
 //        try {
 //            fOPPdfDemo.convertToFO();
 //        } catch (FOPException e) {
@@ -36,7 +38,7 @@ public class FOPPdfDemo {// TODO Remove unused code Priority: 5
 //            // TODO Auto-generated catch block
 //            e.printStackTrace();
 //        }
-//        fOPPdfDemo.convertToPDF();
+        fOPPdfDemo.convertToPDF();
 
 //        encode the file
 //        try {
@@ -61,6 +63,8 @@ public class FOPPdfDemo {// TODO Remove unused code Priority: 5
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
+        ZonedDateTime dateTime = ZonedDateTime.now();
+        System.out.println(dateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     }
 
     public static Double round(Double d, int precise) {
@@ -77,9 +81,9 @@ public class FOPPdfDemo {// TODO Remove unused code Priority: 5
      */
     public void convertToPDF()  throws IOException, FOPException, TransformerException {
         // the XSL FO file
-        File xsltFile = new File("/mnt/444051B04051AA06/Repos/master-module/InvoiceGeneration/template.xsl");
+        File xsltFile = new File("/mnt/444051B04051AA06/Repos/master-module/InvoiceGeneration/template-test.xsl");
         // the XML file which provides the input
-        StreamSource xmlSource = new StreamSource(new File("/mnt/444051B04051AA06/Repos/master-module/InvoiceGeneration/generatedxml.xml"));
+        StreamSource xmlSource = new StreamSource(new File("/mnt/444051B04051AA06/Repos/master-module/InvoiceGeneration/order-0.xml"));
 
         // create an instance of fop factory
         FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());

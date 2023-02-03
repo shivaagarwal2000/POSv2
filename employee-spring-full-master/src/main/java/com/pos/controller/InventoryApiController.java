@@ -49,6 +49,12 @@ public class InventoryApiController {
 		inventoryDto.update(id, form);
 	}
 
+	@ApiOperation(value = "updates+add a inventory")
+	@RequestMapping(path = "/api/inventory/update/bulk", method = RequestMethod.POST)
+	public void updateBulkInventory(@RequestBody InventoryForm form) throws ApiException {
+		inventoryDto.updateBulkInventory(form);
+	}
+
 	@ApiOperation(value = "delete a inventory")
 	@RequestMapping(path = "/api/inventory/{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable int id) throws ApiException {

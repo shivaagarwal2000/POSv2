@@ -47,7 +47,7 @@ public class ProductService {
         dao.update(oldProductPojo);
     }
 
-    @Transactional(rollbackFor = ApiException.class) // TODO: normalise price to two decimal places
+    @Transactional(rollbackFor = ApiException.class)
     public void update(String barcode, ProductPojo productPojo) throws ApiException {
         if (productPojo.getMrp() <= 0) {
             throw new ApiException("Error: mrp can not be zero/negative");

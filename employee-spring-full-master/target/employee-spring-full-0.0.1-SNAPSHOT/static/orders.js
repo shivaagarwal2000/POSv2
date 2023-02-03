@@ -310,7 +310,7 @@ function displayBrand(data) {
 //INITIALIZATION CODE
 function init() {
 	$("#add-brand").click(addBrand);
-	$("#update-brand").click(updateBrand);
+//	$("#update-brand").click(updateBrand);
 	$("#refresh-data").click(getBrandList);
 //	$("#upload-data").click(displayUploadData);
 //	$("#process-data").click(processData);

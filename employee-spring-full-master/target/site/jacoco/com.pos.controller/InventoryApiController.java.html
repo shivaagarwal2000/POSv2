@@ -49,16 +49,22 @@ import io.swagger.annotations.ApiOperation;
 <span class="nc" id="L49">		inventoryDto.update(id, form);</span>
 <span class="nc" id="L50">	}</span>
 
+	@ApiOperation(value = &quot;updates+add a inventory&quot;)
+	@RequestMapping(path = &quot;/api/inventory/update/bulk&quot;, method = RequestMethod.POST)
+	public void updateBulkInventory(@RequestBody InventoryForm form) throws ApiException {
+<span class="nc" id="L55">		inventoryDto.updateBulkInventory(form);</span>
+<span class="nc" id="L56">	}</span>
+
 	@ApiOperation(value = &quot;delete a inventory&quot;)
 	@RequestMapping(path = &quot;/api/inventory/{id}&quot;, method = RequestMethod.DELETE)
 	public void delete(@PathVariable int id) throws ApiException {
-<span class="nc" id="L55">		inventoryDto.delete(id);</span>
-<span class="nc" id="L56">	}</span>
+<span class="nc" id="L61">		inventoryDto.delete(id);</span>
+<span class="nc" id="L62">	}</span>
 
 	@ApiOperation(value = &quot;get report&quot;)
 	@RequestMapping(path = &quot;/api/inventory/report&quot;, method = RequestMethod.GET)
 	public List&lt;InventoryReportData&gt; getReport() throws ApiException {
-<span class="nc" id="L61">		return inventoryDto.getReportData();</span>
+<span class="nc" id="L67">		return inventoryDto.getReportData();</span>
 	}
 
 }

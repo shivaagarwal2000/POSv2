@@ -13,7 +13,7 @@ public class DaySalesScheduler {
     @Autowired
     private DaySalesDto daySalesDto;
     @Scheduled(cron = "0 0 8 * * *") //TODO: move it to the properties file
-    public void getPreviousDaySalesEntry() throws ApiException { //TODO: run for each second with many orders
+    public void getPreviousDaySalesEntry() throws ApiException {
         System.out.println("scheduled");
         daySalesDto.add();
     }

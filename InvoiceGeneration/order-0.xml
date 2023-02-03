@@ -1,1 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?><invoice><customerName>testname</customerName><orderId>testid</orderId><companyName>Increff</companyName><building>Enzyme</building><street>5th main street</street><city>Bengaluru</city><invoiceDate>testDate</invoiceDate><invoiceTime>testTime</invoiceTime><orderItems><orderItem><sn>2</sn><id>0</id><productName>string</productName><quantity>0</quantity><sellingPrice>0.0</sellingPrice><total>0.0</total></orderItem></orderItems><totalAmount>total-xyz</totalAmount></invoice>
+<?xml version="1.0" encoding="UTF-8"?>
+<invoice>
+    <customerName>testname</customerName>
+    <orderId>testid</orderId>
+    <companyName>Increff</companyName>
+    <building>Enzyme</building>
+    <street>5th main street</street>
+    <city>Bengaluru</city>
+    <invoiceDate>testDate</invoiceDate>
+    <invoiceTime>testTime</invoiceTime>
+    <orderItems>
+        <orderItem>
+            <sn>2</sn>
+            <id>0</id>
+            <productName>string</productName>
+            <quantity>0</quantity>
+            <sellingPrice>0.0</sellingPrice>
+            <total>0.0</total>
+        </orderItem>
+    </orderItems>
+    <totalAmount>total-xyz</totalAmount>
+</invoice>

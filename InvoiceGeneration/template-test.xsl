@@ -20,16 +20,19 @@
                             <fo:table-column column-width="8.5cm"/>
                             <fo:table-column column-width="8.5cm"/>
                             <fo:table-body>
-                                <fo:table-row font-size="18pt" line-height="30px" background-color="#0e7a77" color="white">
+                                <fo:table-row font-size="18pt" line-height="30px" background-color="#FFFFFF" color="#1D2E51">
                                     <fo:table-cell padding-left="5pt">
                                         <fo:block>
-                                            Increff
-<!--                                            <fo:external-graphic-->
-<!--                                                    src="url(file:///D:/java_projects/fop/src/main/resources/images/logo.png)" content-height="scale-to-fit" height="50px"  content-width="2.00in" scaling="non-uniform"/>-->
+                                            <fo:external-graphic
+                                                    src="url(/home/shiva/Downloads/download.png)" content-height="scale-to-fit" height="70px"  content-width="3.00in" scaling="non-uniform"/>
+<!--                                            Increff-->
+<!--                                            &lt;!&ndash;                                            <fo:external-graphic&ndash;&gt;-->
+<!--                                            &lt;!&ndash;                                                    src="url(file:///D:/java_projects/fop/src/main/resources/images/logo.png)" content-height="scale-to-fit" height="50px"  content-width="2.00in" scaling="non-uniform"/>&ndash;&gt;-->
                                         </fo:block>
+
                                     </fo:table-cell>
                                     <fo:table-cell padding-top="20pt" padding-right="10pt" font-weight = "bold">
-                                        <fo:block text-align="right">
+                                        <fo:block text-align="right" font-size="30pt">
                                             INVOICE
                                         </fo:block>
                                     </fo:table-cell>
@@ -92,8 +95,8 @@
         <fo:block space-before="35pt">
             <fo:table line-height="30px">
                 <fo:table-column column-width="1.5cm"/>
-                <fo:table-column column-width="5cm"/>
-                <fo:table-column column-width="3cm"/>
+                <fo:table-column column-width="8cm"/>
+<!--                <fo:table-column column-width="3cm"/>-->
                 <fo:table-column column-width="2cm"/>
                 <fo:table-column column-width="3cm"/>
                 <fo:table-column column-width="3cm"/>
@@ -102,9 +105,9 @@
                         <fo:table-cell border="1px solid #b8b6b6">
                             <fo:block>S.No.</fo:block>
                         </fo:table-cell>
-                        <fo:table-cell border="1px solid #b8b6b6">
-                            <fo:block>ItemId</fo:block>
-                        </fo:table-cell>
+<!--                        <fo:table-cell border="1px solid #b8b6b6">-->
+<!--                            <fo:block>ItemId</fo:block>-->
+<!--                        </fo:table-cell>-->
                         <fo:table-cell border="1px solid #b8b6b6">
                             <fo:block>Product</fo:block>
                         </fo:table-cell>
@@ -113,7 +116,7 @@
                             <fo:block>Quantity</fo:block>
                         </fo:table-cell>
                         <fo:table-cell border="1px solid #b8b6b6">
-                            <fo:block>Unit Price</fo:block>
+                            <fo:block>MRP</fo:block>
                         </fo:table-cell>
                         <fo:table-cell border="1px solid #b8b6b6">
                             <fo:block>Total</fo:block>
@@ -152,11 +155,11 @@
                     <xsl:value-of select="sn"/>
                 </fo:block>
             </fo:table-cell>
-            <fo:table-cell border="1px solid #b8b6b6" text-align="center">
-                <fo:block>
-                    <xsl:value-of select="id"/>
-                </fo:block>
-            </fo:table-cell>
+<!--            <fo:table-cell border="1px solid #b8b6b6" text-align="center">-->
+<!--                <fo:block>-->
+<!--                    <xsl:value-of select="id"/>-->
+<!--                </fo:block>-->
+<!--            </fo:table-cell>-->
             <fo:table-cell border="1px solid #b8b6b6" text-align="center" padding-left="3pt">
                 <fo:block>
                     <xsl:value-of select="productName"/>

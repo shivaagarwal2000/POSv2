@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="5" failures="0" name="com.pos.dao.BrandDaoTest" time="0.561" errors="0" skipped="0">
+<testsuite tests="1" failures="0" name="com.pos.dto.OrderDtoTest" time="0.624" errors="0" skipped="0">
   <properties>
     <property name="idea.version" value="2022.3.1"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
@@ -63,9 +63,5 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="com.pos.dao.BrandDaoTest" name="testSelectAll" time="0.445"/>
-  <testcase classname="com.pos.dao.BrandDaoTest" name="testSelectByBrandCategory" time="0.058"/>
-  <testcase classname="com.pos.dao.BrandDaoTest" name="testDelete" time="0.029"/>
-  <testcase classname="com.pos.dao.BrandDaoTest" name="testInsert" time="0.014"/>
-  <testcase classname="com.pos.dao.BrandDaoTest" name="testSelectById" time="0.015"/>
+  <testcase classname="com.pos.dto.OrderDtoTest" name="testAdd" time="0.624"/>
 </testsuite>

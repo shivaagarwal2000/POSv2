@@ -111,7 +111,7 @@ function uploadRows() {
 	processCount++;
 
 	var json = JSON.stringify(row);
-	var url = getBrandUrl();
+	var url = getBrandUrl() + "/update/bulk";
 
 	//Make ajax call
 	$.ajax({

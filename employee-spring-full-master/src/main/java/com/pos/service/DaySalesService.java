@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class DaySalesService {
 
@@ -21,11 +23,11 @@ public class DaySalesService {
 //	public BrandPojo get(int id) throws ApiException {
 //		return getCheck(id);
 //	}
-//
-//	@Transactional(readOnly = true)
-//	public List<BrandPojo> getAll() {
-//		return brandDao.selectAll();
-//	}
+
+	@Transactional(readOnly = true)
+	public List<DaySalesPojo> getAll() {
+		return daySalesDao.selectAll();
+	}
 //
 //	@Transactional(rollbackFor = ApiException.class)
 //	public void update(int id, BrandPojo brandPojo) throws ApiException {

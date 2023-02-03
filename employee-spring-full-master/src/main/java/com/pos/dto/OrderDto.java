@@ -12,7 +12,6 @@ import com.pos.service.*;
 import com.pos.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
@@ -56,13 +55,6 @@ public class OrderDto {
         return orderDatas;
     }
 
-    @Transactional(readOnly = true)
-    public CommonOrderItemData getOrderItem(int itemId) throws ApiException {
-        OrderItemPojo orderItemPojo = orderItemService.select(itemId);
-        ProductPojo productPojo = productService.get(orderItemPojo.getProductId());
-        CommonOrderItemData orderItemData = OrderDtoHelper.convert(productPojo, orderItemPojo);
-        return orderItemData;
-    }
 
     //TODO: logic - edge - if multiple entries together for item -- ?
     @Transactional(rollbackFor = ApiException.class)
@@ -74,7 +66,7 @@ public class OrderDto {
         return orderPojo.getId();
     }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED)
+//    @Transactional(readOnly = true)
     // TODO Transactional not required as there is single save call Priority: 5
     public void editOrderItem(int orderItemId, OrderItemForm orderItemForm) throws ApiException {
         ProductPojo productPojo = validateOrderForm(orderItemForm);
@@ -108,7 +100,7 @@ public class OrderDto {
         orderService.delete(orderId);
     }
 
-    @Transactional(rollbackFor = ApiException.class)
+//    @Transactional(rollbackFor = ApiException.class) TODO: no need here as 1
     public void deleteOrderItem(int id) throws ApiException {
         //delete order item, given order item id, if order not placed
         OrderItemPojo orderItemPojo = orderItemService.select(id);
@@ -136,7 +128,7 @@ public class OrderDto {
         }
         if (salesReportForm.getEndDate().isEmpty()) {
             salesReportForm.setEndDate("3000-01-01");
-        }
+        } // TODO: allowing end date > today ?
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         ZonedDateTime startDate = LocalDate.parse(salesReportForm.getStartDate(), dtf).atStartOfDay(ZoneId.systemDefault());
         ZonedDateTime endDate = LocalDate.parse(salesReportForm.getEndDate(), dtf).atStartOfDay(ZoneId.systemDefault()).withHour(23).withMinute(59).withSecond(59);
@@ -189,17 +181,25 @@ public class OrderDto {
         return salesReportDatas;
     }
 
+    @Transactional(readOnly = true)
+    public CommonOrderItemData getOrderItem(int itemId) throws ApiException {
+        OrderItemPojo orderItemPojo = orderItemService.select(itemId);
+        ProductPojo productPojo = productService.get(orderItemPojo.getProductId());
+        CommonOrderItemData orderItemData = OrderDtoHelper.convert(productPojo, orderItemPojo);
+        return orderItemData;
+    }
+
     public String getInvoice(int orderId) throws ApiException, IOException {// TODO Throw only apiException Priority: 5
         List<CommonOrderItemData> commonOrderItemDatas = getItemDatas(orderId);
         return invoiceClient.getInvoice(commonOrderItemDatas);
     }
 
     @Transactional(rollbackFor = ApiException.class)
-    public void reduceInventory(List<OrderItemPojo> orderItemPojos) throws ApiException {
+    private void reduceInventory(List<OrderItemPojo> orderItemPojos) throws ApiException {
         //reduce inventory for order items
         for (OrderItemPojo orderItemPojo : orderItemPojos) {
             ProductPojo productPojo = productService.get(orderItemPojo.getProductId());
-            InventoryPojo inventoryPojo = inventoryService.get(productPojo.getId());
+            InventoryPojo inventoryPojo = inventoryService.getCheck(productPojo.getId());
             inventoryPojo.setQuantity(inventoryPojo.getQuantity() - orderItemPojo.getQuantity());
             inventoryService.update(inventoryPojo.getId(), inventoryPojo);
         }
@@ -227,7 +227,7 @@ public class OrderDto {
     }
 
     private void validateInventory(int orderItemQuantity, ProductPojo productPojo) throws ApiException {
-        InventoryPojo inventoryPojo = inventoryService.get(productPojo.getId());
+        InventoryPojo inventoryPojo = inventoryService.getCheck(productPojo.getId());
         if (inventoryPojo.getQuantity() < orderItemQuantity) {
             throw new ApiException("Error: not enough quantity to fulfil -" + productPojo.getName());
         }

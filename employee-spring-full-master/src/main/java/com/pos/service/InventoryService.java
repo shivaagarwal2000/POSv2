@@ -1,7 +1,6 @@
 package com.pos.service;
 
 import java.util.List;
-import java.util.Objects;
 
 import com.pos.dao.InventoryDao;
 import com.pos.pojo.InventoryPojo;
@@ -23,6 +22,10 @@ public class InventoryService {
 
 	@Transactional(readOnly = true)
 	public InventoryPojo get(int id) throws ApiException {
+		return dao.select(id);
+	}
+	@Transactional(readOnly = true)
+	public InventoryPojo getCheck(int id) throws ApiException {
 		InventoryPojo inventoryPojo = dao.select(id);
 		if (inventoryPojo == null) {
 			throw new ApiException("Error: Inventory with given ID does not exit, id: " + id);
@@ -43,7 +46,7 @@ public class InventoryService {
 	@Transactional(rollbackFor = ApiException.class)
 	public void update(int id, InventoryPojo inventoryPojo) throws ApiException {
 		validateQuantity(inventoryPojo);
-		InventoryPojo oldInventoryPojo = get(id);
+		InventoryPojo oldInventoryPojo = getCheck(id);
 		oldInventoryPojo.setQuantity(inventoryPojo.getQuantity());
 	}
 

@@ -26,7 +26,7 @@ function addBrand(event) {
   return false;
 }
 
-function updateBrand(event) {
+function updateOrderItem(event) {
   $("#edit-brand-modal").modal("toggle");
   //Get the ID
   var id = $("#brand-edit-form input[name=id]").val();
@@ -34,7 +34,7 @@ function updateBrand(event) {
   //Set the values to update
   var $form = $("#brand-edit-form");
   var json = toJson($form);
-
+  console.log("updateItemCallString")
   $.ajax({
     url: url,
     type: "PUT",
@@ -288,7 +288,7 @@ function displayBrand(data) {
 //INITIALIZATION CODE
 function init() {
   $("#add-brand").click(addBrand);
-  $("#update-brand").click(updateBrand);
+  $("#update-brand").click(updateOrderItem);
   $("#refresh-data").click(getBrandList);
 //  $("#upload-data").click(displayUploadData);
   $("#process-data").click(processData);

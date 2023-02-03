@@ -23,29 +23,29 @@ import java.util.Objects;
     @Transactional(readOnly = true)
     public ProductPojo get(int id) throws ApiException {
 <span class="fc" id="L25">        ProductPojo productPojo = dao.select(id);</span>
-<span class="pc bpc" id="L26" title="1 of 2 branches missed.">        if (productPojo == null) {</span>
-<span class="nc" id="L27">            throw new ApiException(&quot;Error: product with given ID does not exist, id: &quot; + id);</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        if (productPojo == null) {</span>
+<span class="fc" id="L27">            throw new ApiException(&quot;Error: product with given ID does not exist, id: &quot; + id);</span>
         }
 <span class="fc" id="L29">        return productPojo;</span>
     }
 
     @Transactional(readOnly = true)
     public List&lt;ProductPojo&gt; getAll() {
-<span class="nc" id="L34">        return dao.selectAll();</span>
+<span class="fc" id="L34">        return dao.selectAll();</span>
     }
 
     @Transactional(rollbackFor = ApiException.class)
     public void update(int id, ProductPojo productPojo) throws ApiException {
-<span class="nc bnc" id="L39" title="All 2 branches missed.">        if (productPojo.getMrp() &lt;= 0) {</span>
+<span class="pc bpc" id="L39" title="1 of 2 branches missed.">        if (productPojo.getMrp() &lt;= 0) {</span>
 <span class="nc" id="L40">            throw new ApiException(&quot;Error: mrp can not be zero/negative&quot;);</span>
         }
 //		normalize(productPojo); -- normalise the mrp
-<span class="nc" id="L43">        ProductPojo oldProductPojo = get(id);</span>
-<span class="nc" id="L44">        oldProductPojo.setBrand_category(productPojo.getBrand_category());</span>
-<span class="nc" id="L45">        oldProductPojo.setMrp(productPojo.getMrp());</span>
-<span class="nc" id="L46">        oldProductPojo.setName(productPojo.getName());</span>
-<span class="nc" id="L47">        dao.update(oldProductPojo);</span>
-<span class="nc" id="L48">    }</span>
+<span class="fc" id="L43">        ProductPojo oldProductPojo = get(id);</span>
+<span class="fc" id="L44">        oldProductPojo.setBrand_category(productPojo.getBrand_category());</span>
+<span class="fc" id="L45">        oldProductPojo.setMrp(productPojo.getMrp());</span>
+<span class="fc" id="L46">        oldProductPojo.setName(productPojo.getName());</span>
+<span class="fc" id="L47">        dao.update(oldProductPojo);</span>
+<span class="fc" id="L48">    }</span>
 
     @Transactional(rollbackFor = ApiException.class) // TODO: normalise price to two decimal places
     public void update(String barcode, ProductPojo productPojo) throws ApiException {
@@ -61,8 +61,8 @@ import java.util.Objects;
 
     @Transactional(rollbackFor = ApiException.class)
     public void delete(int id) {
-<span class="nc" id="L64">        dao.delete(id);</span>
-<span class="nc" id="L65">    }</span>
+<span class="fc" id="L64">        dao.delete(id);</span>
+<span class="fc" id="L65">    }</span>
 
     @Transactional(readOnly = true)
     public ProductPojo get(String barcode) throws ApiException {
@@ -71,11 +71,11 @@ import java.util.Objects;
 
     @Transactional(readOnly = true)
     public ProductPojo getCheck(String barcode) throws ApiException {
-<span class="nc" id="L74">        ProductPojo productPojo = dao.select(barcode);</span>
-<span class="nc bnc" id="L75" title="All 2 branches missed.">        if (Objects.isNull(productPojo)) {</span>
-<span class="nc" id="L76">            throw new ApiException(&quot;Error: product does not exists for barcode: &quot;+ barcode);</span>
+<span class="fc" id="L74">        ProductPojo productPojo = dao.select(barcode);</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        if (Objects.isNull(productPojo)) {</span>
+<span class="fc" id="L76">            throw new ApiException(&quot;Error: product does not exists for barcode: &quot;+ barcode);</span>
         }
-<span class="nc" id="L78">        return dao.select(barcode);</span>
+<span class="fc" id="L78">        return dao.select(barcode);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

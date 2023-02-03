@@ -1,5 +1,6 @@
 package com.pos.dao;
 
+import com.pos.pojo.BrandPojo;
 import com.pos.pojo.DaySalesPojo;
 import com.pos.service.ApiException;
 import org.springframework.stereotype.Repository;
@@ -7,13 +8,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 @Repository
 public class DaySalesDao extends AbstractDao {
 
 //	private static final String delete_id = "delete from BrandPojo p where id=:id";
 //	private static final String select_id = "select p from BrandPojo p where id=:id";
-//	private static final String select_all = "select p from BrandPojo p";
+	private static final String SELECT_ALL = "select p from BrandPojo p";
 //	private static final String select_brand_category = "select p from BrandPojo p where brand=:brand and category=:category";
 //TODO: clean up -- move such methods to abstract
 	@PersistenceContext
@@ -22,6 +25,12 @@ public class DaySalesDao extends AbstractDao {
 	@Transactional(rollbackFor = ApiException.class)
 	public void insert(DaySalesPojo daySalesPojo) {
 		entityManager.persist(daySalesPojo);
+	}
+
+	@Transactional(readOnly = true)
+	public List<DaySalesPojo> selectAll() {
+		TypedQuery<DaySalesPojo> query = getQuery(SELECT_ALL, DaySalesPojo.class);
+		return query.getResultList();
 	}
 
 }

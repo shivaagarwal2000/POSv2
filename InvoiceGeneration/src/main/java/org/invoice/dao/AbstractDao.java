@@ -20,5 +20,6 @@ public abstract class AbstractDao {// TODO Move this to commons Priority: 5
 	protected EntityManager em() {
 		return em;
 	}
-// TODO Add more functions here like selectById, deleteById, selectAll Priority: 5
+
+	// TODO Add more functions here like selectById, deleteById, selectAll Priority: 5
 }

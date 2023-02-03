@@ -19,6 +19,7 @@ function addBrand(event) {
 			'Content-Type': 'application/json'
 		},
 		success: function(response) {
+		    handleSuccess("Success: product added")
 			getBrandList();
 		},
 		error: handleAjaxError
@@ -48,6 +49,7 @@ function updateBrand(event) {
 			'Content-Type': 'application/json'
 		},
 		success: function(response) {
+		    handleSuccess("Success: updated product")
 			getBrandList();
 		},
 		error: handleAjaxError
@@ -63,7 +65,9 @@ function getBrandList() {
 		url: url,
 		type: 'GET',
 		success: function(data) {
+		    resetForm("#brand-form input")
 			displayBrandList(data);
+			handleSuccess("Successfully updated!")
 		},
 		error: handleAjaxError
 	});
@@ -126,7 +130,7 @@ function uploadRows() {
 			uploadRows();
 		},
 		error: function(response) {
-			row.error = response.responseText
+			row.error = response.responseJSON.message
 			errorData.push(row);
 			uploadRows();
 		}

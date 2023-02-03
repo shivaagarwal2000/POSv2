@@ -7,6 +7,7 @@ import com.pos.model.UserData;
 import com.pos.model.UserForm;
 import com.pos.service.ApiException;
 import com.pos.service.UserService;
+import com.pos.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,6 +40,12 @@ public class AdminApiController {
 		service.delete(id);
 	}
 
+	@ApiOperation(value = "edits a user")
+	@RequestMapping(path = "/api/admin/user/{id}", method = RequestMethod.PUT)
+	public void editUser(@PathVariable int id, @RequestBody UserForm userForm) throws ApiException {
+		service.update(id, convert(userForm));
+	}
+
 	@ApiOperation(value = "Gets list of all users")
 	@RequestMapping(path = "/api/admin/user", method = RequestMethod.GET)
 	public List<UserData> getAllUser() {
@@ -58,8 +65,11 @@ public class AdminApiController {
 		return d;
 	}
 
-	private static UserPojo convert(UserForm f) {
+	private static UserPojo convert(UserForm f) throws ApiException {
 		UserPojo p = new UserPojo();
+		if (StringUtil.isEmpty(f.getEmail()) || StringUtil.isEmpty(f.getPassword()) || StringUtil.isEmpty(f.getRole())) {
+			throw new ApiException("Error: email/password/role are mandatory");
+		}
 		p.setEmail(f.getEmail());
 		p.setRole(f.getRole());
 		p.setPassword(f.getPassword());

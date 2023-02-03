@@ -33,45 +33,31 @@ public class InventoryDto {
     @Autowired
     private BrandService brandService;
 
-    @Transactional(rollbackFor = ApiException.class)
     public void add(InventoryForm form) throws ApiException {
         ProductPojo productPojo = validate(form);
-        try {
-            InventoryPojo existingInventoryPojo = inventoryService.get(productPojo.getId());
-        }
-        catch (ApiException apiException) {
-            InventoryPojo inventoryPojo = InventoryDtoHelper.convert(form, productPojo.getId());
-            inventoryService.add(inventoryPojo);
-            return;
-        }
-        throw new ApiException("Error: barcode already exists");
+        InventoryPojo existingInventoryPojo = inventoryService.get(productPojo.getId());
+        if (!Objects.isNull(existingInventoryPojo)) throw new ApiException("Error: barcode already exists");
+        InventoryPojo inventoryPojo = InventoryDtoHelper.convert(form, productPojo.getId());
+        inventoryService.add(inventoryPojo);
     }
 
     @Transactional(rollbackFor = ApiException.class)
-    public void bulkAdd(List<InventoryForm> forms) throws ApiException {
-        for (InventoryForm inventoryForm : forms) {
-            validate(inventoryForm);
+    public void updateBulkInventory(InventoryForm inventoryForm) throws ApiException {
+        validate(inventoryForm);
+
+        ProductPojo productPojo = productService.getCheck(inventoryForm.getBarcode());
+        InventoryPojo existingInventoryPojo = inventoryService.get(productPojo.getId());
+        if (Objects.isNull(existingInventoryPojo)) {
+            add(inventoryForm);
+        } else {
+            update(productPojo.getId(), inventoryForm);
         }
-        for (InventoryForm inventoryForm : forms) {
-            ProductPojo productPojo = productService.getCheck(inventoryForm.getBarcode()); // TODO: verify this
-//            if (inventoryService.isPresent(productPojo.getId())) {
-//                update(productPojo.getId(), inventoryForm);
-//            } else {
-//				add(inventoryForm);
-//            }
-            try {
-                inventoryService.get(productPojo.getId());
-                update(productPojo.getId(), inventoryForm);
-            }
-            catch (ApiException apiException) {
-                add(inventoryForm);
-            }
-        }
+
     }
 
     public InventoryData get(int id) throws ApiException {
         ProductPojo productPojo = productService.get(id);
-        InventoryPojo inventoryPojo = inventoryService.get(id);
+        InventoryPojo inventoryPojo = inventoryService.getCheck(id);
         return InventoryDtoHelper.convert(inventoryPojo, productPojo.getBarcode());
     }
 

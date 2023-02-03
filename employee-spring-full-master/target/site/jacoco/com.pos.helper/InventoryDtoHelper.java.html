@@ -9,23 +9,23 @@ import com.pos.util.StringUtil;
 <span class="nc" id="L9">public class InventoryDtoHelper {</span>
 
 	public static InventoryData convert(InventoryPojo inventoryPojo, String barcode) throws ApiException {
-<span class="nc" id="L12">		InventoryData inventoryData = new InventoryData();</span>
-<span class="nc" id="L13">		inventoryData.setQuantity(inventoryPojo.getQuantity());</span>
-<span class="nc" id="L14">		inventoryData.setId(inventoryPojo.getId());</span>
-<span class="nc" id="L15">		inventoryData.setBarcode(barcode);</span>
-<span class="nc" id="L16">		return inventoryData;</span>
+<span class="fc" id="L12">		InventoryData inventoryData = new InventoryData();</span>
+<span class="fc" id="L13">		inventoryData.setQuantity(inventoryPojo.getQuantity());</span>
+<span class="fc" id="L14">		inventoryData.setId(inventoryPojo.getId());</span>
+<span class="fc" id="L15">		inventoryData.setBarcode(barcode);</span>
+<span class="fc" id="L16">		return inventoryData;</span>
 	}
 
 	public static InventoryPojo convert(InventoryForm inventoryForm, int id) throws ApiException {
-<span class="nc" id="L20">		InventoryPojo inventoryPojo = new InventoryPojo();</span>
-<span class="nc" id="L21">		inventoryPojo.setQuantity(inventoryForm.getQuantity());</span>
-<span class="nc" id="L22">		inventoryPojo.setId(id);</span>
-<span class="nc" id="L23">		return inventoryPojo;</span>
+<span class="fc" id="L20">		InventoryPojo inventoryPojo = new InventoryPojo();</span>
+<span class="fc" id="L21">		inventoryPojo.setQuantity(inventoryForm.getQuantity());</span>
+<span class="fc" id="L22">		inventoryPojo.setId(id);</span>
+<span class="fc" id="L23">		return inventoryPojo;</span>
 	}
 
 	public static void normalise(InventoryForm form) {
-<span class="nc" id="L27">		form.setBarcode(StringUtil.toLowerCase(form.getBarcode()));</span>
-<span class="nc" id="L28">	}</span>
+<span class="fc" id="L27">		form.setBarcode(StringUtil.toLowerCase(form.getBarcode()));</span>
+<span class="fc" id="L28">	}</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

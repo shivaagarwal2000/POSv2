@@ -18,7 +18,6 @@ public class CommonOrderItemData extends OrderItemForm {
         this.mrp = mrp;
     }
 
-
     public int getOrderId() {
         return orderId;
     }

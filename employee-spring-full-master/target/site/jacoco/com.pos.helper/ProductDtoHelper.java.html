@@ -8,61 +8,63 @@ import com.pos.util.StringUtil;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Objects;
 
-<span class="nc" id="L12">public class ProductDtoHelper {</span>
+<span class="nc" id="L13">public class ProductDtoHelper {</span>
 
 	public static ProductData convert(ProductPojo productPojo, String brand, String category) throws ApiException {
-<span class="fc" id="L15">		ProductData productData = new ProductData();</span>
-<span class="fc" id="L16">		productData.setBarcode(productPojo.getBarcode());</span>
-<span class="fc" id="L17">		productData.setBrand(brand);</span>
-<span class="fc" id="L18">		productData.setCategory(category);</span>
-<span class="fc" id="L19">		productData.setId(productPojo.getId());</span>
-<span class="fc" id="L20">		productData.setMrp(productPojo.getMrp());</span>
-<span class="fc" id="L21">		productData.setName(productPojo.getName());</span>
-<span class="fc" id="L22">		return productData;</span>
+<span class="fc" id="L16">		ProductData productData = new ProductData();</span>
+<span class="fc" id="L17">		productData.setBarcode(productPojo.getBarcode());</span>
+<span class="fc" id="L18">		productData.setBrand(brand);</span>
+<span class="fc" id="L19">		productData.setCategory(category);</span>
+<span class="fc" id="L20">		productData.setId(productPojo.getId());</span>
+<span class="fc" id="L21">		productData.setMrp(productPojo.getMrp());</span>
+<span class="fc" id="L22">		productData.setName(productPojo.getName());</span>
+<span class="fc" id="L23">		return productData;</span>
 	}
 
 	public static ProductPojo convert(ProductForm form, int brandCategoryId) throws ApiException {
-<span class="fc" id="L26">		ProductPojo productPojo = new ProductPojo();</span>
-<span class="fc" id="L27">		productPojo.setBarcode(form.getBarcode());</span>
-<span class="fc" id="L28">		productPojo.setBrand_category(brandCategoryId);</span>
-<span class="fc" id="L29">		productPojo.setMrp(form.getMrp());</span>
-<span class="fc" id="L30">		productPojo.setName(form.getName());</span>
-<span class="fc" id="L31">		return productPojo;</span>
+<span class="fc" id="L27">		ProductPojo productPojo = new ProductPojo();</span>
+<span class="fc" id="L28">		productPojo.setBarcode(form.getBarcode());</span>
+<span class="fc" id="L29">		productPojo.setBrand_category(brandCategoryId);</span>
+<span class="fc" id="L30">		productPojo.setMrp(form.getMrp());</span>
+<span class="fc" id="L31">		productPojo.setName(form.getName());</span>
+<span class="fc" id="L32">		return productPojo;</span>
 	}
 
 	public static void emptyCheck(ProductForm form) throws ApiException {
-<span class="pc bpc" id="L35" title="2 of 4 branches missed.">		if (StringUtil.isEmpty(form.getBarcode()) || StringUtil.isEmpty(form.getBrand())</span>
-<span class="pc bpc" id="L36" title="2 of 4 branches missed.">				|| StringUtil.isEmpty(form.getCategory()) || StringUtil.isEmpty(String.valueOf(form.getMrp()))</span>
-<span class="pc bpc" id="L37" title="1 of 2 branches missed.">				|| StringUtil.isEmpty(form.getName())) {</span>
-<span class="nc bnc" id="L38" title="All 2 branches missed.">			if (StringUtil.isEmpty(form.getBarcode())) {</span>
-<span class="nc" id="L39">				throw new ApiException(&quot;Error: barcode can not be empty&quot;);</span>
-<span class="nc bnc" id="L40" title="All 2 branches missed.">			} else if (StringUtil.isEmpty(form.getBrand())) {</span>
-<span class="nc" id="L41">				throw new ApiException(&quot;Error: brand can not be empty&quot;);</span>
-<span class="nc bnc" id="L42" title="All 2 branches missed.">			} else if (StringUtil.isEmpty(form.getCategory())) {</span>
-<span class="nc" id="L43">				throw new ApiException(&quot;Error: category can not be empty&quot;);</span>
-<span class="nc bnc" id="L44" title="All 2 branches missed.">			} else if (StringUtil.isEmpty(String.valueOf(form.getMrp()))) {</span>
-<span class="nc" id="L45">				throw new ApiException(&quot;Error: mrp can not be empty&quot;);</span>
+<span class="fc bfc" id="L36" title="All 4 branches covered.">		if (StringUtil.isEmpty(form.getBarcode()) || StringUtil.isEmpty(form.getBrand())</span>
+<span class="fc bfc" id="L37" title="All 4 branches covered.">				|| StringUtil.isEmpty(form.getCategory()) || Objects.isNull(form.getMrp())</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">				|| StringUtil.isEmpty(form.getName())) {</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">			if (StringUtil.isEmpty(form.getBarcode())) {</span>
+<span class="fc" id="L40">				throw new ApiException(&quot;Error: barcode can not be empty&quot;);</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">			} else if (StringUtil.isEmpty(form.getBrand())) {</span>
+<span class="fc" id="L42">				throw new ApiException(&quot;Error: brand can not be empty&quot;);</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">			} else if (StringUtil.isEmpty(form.getCategory())) {</span>
+<span class="fc" id="L44">				throw new ApiException(&quot;Error: category can not be empty&quot;);</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">			} else if (Objects.isNull(form.getMrp())) {</span>
+<span class="fc" id="L46">				System.out.println(Objects.isNull(form.getMrp()) + &quot;&quot; + form.getMrp());</span>
+<span class="fc" id="L47">				throw new ApiException(&quot;Error: mrp can not be empty&quot;);</span>
 			} else {
-<span class="nc" id="L47">				throw new ApiException(&quot;Error: name can not be empty&quot;);</span>
+<span class="fc" id="L49">				throw new ApiException(&quot;Error: name can not be empty&quot;);</span>
 			}
 
 		}
-<span class="fc" id="L51">	}</span>
+<span class="fc" id="L53">	}</span>
 
 	public static Double round(Double d, int precise) {
-<span class="fc" id="L54">		BigDecimal bigDecimal = new BigDecimal(d);</span>
-<span class="fc" id="L55">		bigDecimal = bigDecimal.setScale(precise, RoundingMode.HALF_UP);</span>
-<span class="fc" id="L56">		return bigDecimal.doubleValue();</span>
+<span class="fc" id="L56">		BigDecimal bigDecimal = new BigDecimal(d);</span>
+<span class="fc" id="L57">		bigDecimal = bigDecimal.setScale(precise, RoundingMode.HALF_UP);</span>
+<span class="fc" id="L58">		return bigDecimal.doubleValue();</span>
 	}
 
 	public static void normalise(ProductForm form) {
-<span class="fc" id="L60">		form.setBarcode(StringUtil.toLowerCase(form.getBarcode()));</span>
-<span class="fc" id="L61">		form.setBrand(StringUtil.toLowerCase(form.getBrand()));</span>
-<span class="fc" id="L62">		form.setCategory(StringUtil.toLowerCase(form.getCategory()));</span>
-<span class="fc" id="L63">		form.setName(StringUtil.toLowerCase(form.getName()));</span>
-<span class="fc" id="L64">		form.setMrp(round(form.getMrp(), 2));</span>
-<span class="fc" id="L65">	}</span>
+<span class="fc" id="L62">		form.setBarcode(StringUtil.toLowerCase(form.getBarcode()));</span>
+<span class="fc" id="L63">		form.setBrand(StringUtil.toLowerCase(form.getBrand()));</span>
+<span class="fc" id="L64">		form.setCategory(StringUtil.toLowerCase(form.getCategory()));</span>
+<span class="fc" id="L65">		form.setName(StringUtil.toLowerCase(form.getName()));</span>
+<span class="fc" id="L66">		form.setMrp(round(form.getMrp(), 2));</span>
+<span class="fc" id="L67">	}</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

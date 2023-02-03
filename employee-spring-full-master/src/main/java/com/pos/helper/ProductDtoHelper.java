@@ -8,6 +8,7 @@ import com.pos.util.StringUtil;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Objects;
 
 public class ProductDtoHelper {
 
@@ -33,7 +34,7 @@ public class ProductDtoHelper {
 
 	public static void emptyCheck(ProductForm form) throws ApiException {
 		if (StringUtil.isEmpty(form.getBarcode()) || StringUtil.isEmpty(form.getBrand())
-				|| StringUtil.isEmpty(form.getCategory()) || StringUtil.isEmpty(String.valueOf(form.getMrp()))
+				|| StringUtil.isEmpty(form.getCategory()) || Objects.isNull(form.getMrp())
 				|| StringUtil.isEmpty(form.getName())) {
 			if (StringUtil.isEmpty(form.getBarcode())) {
 				throw new ApiException("Error: barcode can not be empty");
@@ -41,7 +42,8 @@ public class ProductDtoHelper {
 				throw new ApiException("Error: brand can not be empty");
 			} else if (StringUtil.isEmpty(form.getCategory())) {
 				throw new ApiException("Error: category can not be empty");
-			} else if (StringUtil.isEmpty(String.valueOf(form.getMrp()))) {
+			} else if (Objects.isNull(form.getMrp())) {
+				System.out.println(Objects.isNull(form.getMrp()) + "" + form.getMrp());
 				throw new ApiException("Error: mrp can not be empty");
 			} else {
 				throw new ApiException("Error: name can not be empty");
