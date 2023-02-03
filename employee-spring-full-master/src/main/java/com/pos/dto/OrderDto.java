@@ -44,18 +44,6 @@ public class OrderDto {
     @Autowired
     private InvoiceClient invoiceClient;
 
-    public List<OrderData> getAll() {
-        // Get list of all orders
-        List<OrderPojo> orderPojos = orderService.getAll();
-        List<OrderData> orderDatas = new ArrayList<OrderData>();
-        for (OrderPojo orderPojo : orderPojos) {
-            OrderData orderData = OrderDtoHelper.convert(orderPojo);
-            orderDatas.add(orderData);
-        }
-        return orderDatas;
-    }
-
-
     //TODO: logic - edge - if multiple entries together for item -- ?
     @Transactional(rollbackFor = ApiException.class)
     public int addOrder(List<OrderItemForm> forms) throws ApiException {
@@ -66,14 +54,11 @@ public class OrderDto {
         return orderPojo.getId();
     }
 
-//    @Transactional(readOnly = true)
-    // TODO Transactional not required as there is single save call Priority: 5
     public void editOrderItem(int orderItemId, OrderItemForm orderItemForm) throws ApiException {
         ProductPojo productPojo = validateOrderForm(orderItemForm);
         OrderItemPojo oldOrderItemPojo = orderItemService.select(orderItemId);
         OrderPojo orderPojo = orderService.get(oldOrderItemPojo.getOrderId());
         OrderDtoHelper.isPlaced(orderPojo);
-//        ProductPojo productPojo = productService.get(orderItemForm.getBarcode()); // TODO: check if validate can return productPojo
         OrderItemPojo orderItemPojo = OrderDtoHelper.convert(orderItemForm, productPojo, orderPojo.getId());
         orderItemService.update(orderItemId, orderItemPojo);
     }
@@ -100,7 +85,6 @@ public class OrderDto {
         orderService.delete(orderId);
     }
 
-//    @Transactional(rollbackFor = ApiException.class) TODO: no need here as 1
     public void deleteOrderItem(int id) throws ApiException {
         //delete order item, given order item id, if order not placed
         OrderItemPojo orderItemPojo = orderItemService.select(id);
@@ -109,7 +93,7 @@ public class OrderDto {
         orderItemService.delete(id);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true) // TODO: 1 all service layers should have transactional
     public List<CommonOrderItemData> getItemDatas(int orderId) throws ApiException {
         //retrieve order items for an order
         List<OrderItemPojo> itemPojos = orderItemService.getItemPojos(orderId);
@@ -120,6 +104,17 @@ public class OrderDto {
             itemDatas.add(orderItemData);
         }
         return itemDatas;
+    }
+
+    public List<OrderData> getAll() {
+        // Get list of all orders
+        List<OrderPojo> orderPojos = orderService.getAll();
+        List<OrderData> orderDatas = new ArrayList<OrderData>();
+        for (OrderPojo orderPojo : orderPojos) {
+            OrderData orderData = OrderDtoHelper.convert(orderPojo);
+            orderDatas.add(orderData);
+        }
+        return orderDatas;
     }
 
     public List<SalesReportData> getSalesReportDatas(SalesReportForm salesReportForm) throws ApiException {

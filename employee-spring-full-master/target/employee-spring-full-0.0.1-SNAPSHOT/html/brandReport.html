@@ -8,6 +8,8 @@
 
 <nav th:replace="snippets.html :: name_app_navbar"></nav>
 
+<div th:replace="snippets.html :: name_status_popup"></div>
+
 <div class="container">
 
     <div class="container">
@@ -27,7 +29,9 @@
                 <label for="inputCategory" class="col-sm-4 col-form-label">Category: </label>
                 <input type="text" class="form-control" id="inputCategory" onkeyup="myFunction()" placeholder="Search for Category">
             </div>
+            <button type="submit" style="margin-left:40px;height:45px" class="btn btn-success" id="download-report" onclick="downloadReport()">Download Report</button>
         </div>
+
     </div>
 
 

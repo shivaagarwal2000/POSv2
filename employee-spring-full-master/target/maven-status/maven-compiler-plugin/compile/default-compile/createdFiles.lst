@@ -1,6 +1,7 @@
 com/pos/model/forms/BrandForm.class
 com/pos/dao/EmployeeInMemDao.class
 com/pos/model/data/OrderData.class
+com/pos/model/data/DaySalesData.class
 com/pos/dao/AbstractDao.class
 com/pos/spring/WebInitializer.class
 com/pos/util/StringUtil.class
@@ -76,6 +77,7 @@ com/pos/model/forms/SalesReportForm.class
 com/pos/pojo/OrderItemPojo.class
 com/pos/dto/OrderDto.class
 com/pos/pojo/AbstractDateAudit.class
+com/pos/controller/daySalesReportController.class
 com/pos/pojo/TableConstants.class
 com/pos/controller/AppRestControllerAdvice.class
 com/pos/controller/OrderApiController.class

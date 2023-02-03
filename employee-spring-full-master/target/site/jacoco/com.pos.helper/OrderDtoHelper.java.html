@@ -16,38 +16,38 @@ import static com.pos.pojo.TableConstants.PLACED_STATUS;
 <span class="nc" id="L16">public class OrderDtoHelper {</span>
 
     public static OrderData convert(OrderPojo orderPojo) {
-<span class="nc" id="L19">        OrderData orderData = new OrderData();</span>
-<span class="nc" id="L20">        orderData.setId(orderPojo.getId());</span>
-<span class="nc" id="L21">        orderData.setOrderTime(orderPojo.getTime().format(DateTimeFormatter.ofPattern(&quot;dd/MM/yyyy - HH:mm:ss z&quot;)));</span>
-<span class="nc" id="L22">        orderData.setStatus(orderPojo.getStatus());</span>
-<span class="nc" id="L23">        return orderData;</span>
+<span class="fc" id="L19">        OrderData orderData = new OrderData();</span>
+<span class="fc" id="L20">        orderData.setId(orderPojo.getId());</span>
+<span class="fc" id="L21">        orderData.setOrderTime(orderPojo.getTime().format(DateTimeFormatter.ofPattern(&quot;dd/MM/yyyy - HH:mm:ss z&quot;)));</span>
+<span class="fc" id="L22">        orderData.setStatus(orderPojo.getStatus());</span>
+<span class="fc" id="L23">        return orderData;</span>
     }
 
     public static CommonOrderItemData convert(ProductPojo productPojo, OrderItemPojo orderItemPojo) {
-<span class="nc" id="L27">        CommonOrderItemData orderItemData = new CommonOrderItemData();</span>
-<span class="nc" id="L28">        orderItemData.setId(orderItemPojo.getId());</span>
-<span class="nc" id="L29">        orderItemData.setQuantity(orderItemPojo.getQuantity());</span>
-<span class="nc" id="L30">        orderItemData.setMrp(productPojo.getMrp());</span>
-<span class="nc" id="L31">        orderItemData.setBarcode(productPojo.getBarcode());</span>
-<span class="nc" id="L32">        orderItemData.setProductName(productPojo.getName());</span>
-<span class="nc" id="L33">        orderItemData.setOrderId(orderItemPojo.getOrderId());</span>
-<span class="nc" id="L34">        orderItemData.setSellingPrice(orderItemPojo.getSellingprice());</span>
-<span class="nc" id="L35">        return orderItemData;</span>
+<span class="fc" id="L27">        CommonOrderItemData orderItemData = new CommonOrderItemData();</span>
+<span class="fc" id="L28">        orderItemData.setId(orderItemPojo.getId());</span>
+<span class="fc" id="L29">        orderItemData.setQuantity(orderItemPojo.getQuantity());</span>
+<span class="fc" id="L30">        orderItemData.setMrp(productPojo.getMrp());</span>
+<span class="fc" id="L31">        orderItemData.setBarcode(productPojo.getBarcode());</span>
+<span class="fc" id="L32">        orderItemData.setProductName(productPojo.getName());</span>
+<span class="fc" id="L33">        orderItemData.setOrderId(orderItemPojo.getOrderId());</span>
+<span class="fc" id="L34">        orderItemData.setSellingPrice(orderItemPojo.getSellingprice());</span>
+<span class="fc" id="L35">        return orderItemData;</span>
     }
 
     public static void isPlaced(OrderPojo orderPojo) throws ApiException {
-<span class="nc bnc" id="L39" title="All 2 branches missed.">        if (Objects.equals(orderPojo.getStatus(), PLACED_STATUS)) {</span>
-<span class="nc" id="L40">            throw new ApiException(&quot;Error: order is placed&quot;);</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">        if (Objects.equals(orderPojo.getStatus(), PLACED_STATUS)) {</span>
+<span class="fc" id="L40">            throw new ApiException(&quot;Error: order is placed&quot;);</span>
         }
-<span class="nc" id="L42">    }</span>
+<span class="fc" id="L42">    }</span>
 
     public static OrderItemPojo convert(OrderItemForm form, ProductPojo productPojo, int orderId) {
-<span class="nc" id="L45">        OrderItemPojo orderItemPojo = new OrderItemPojo();</span>
-<span class="nc" id="L46">        orderItemPojo.setOrderId(orderId);</span>
-<span class="nc" id="L47">        orderItemPojo.setProductId(productPojo.getId());</span>
-<span class="nc" id="L48">        orderItemPojo.setQuantity(form.getQuantity());</span>
-<span class="nc" id="L49">        orderItemPojo.setSellingprice(form.getQuantity() * productPojo.getMrp());</span>
-<span class="nc" id="L50">        return orderItemPojo;</span>
+<span class="fc" id="L45">        OrderItemPojo orderItemPojo = new OrderItemPojo();</span>
+<span class="fc" id="L46">        orderItemPojo.setOrderId(orderId);</span>
+<span class="fc" id="L47">        orderItemPojo.setProductId(productPojo.getId());</span>
+<span class="fc" id="L48">        orderItemPojo.setQuantity(form.getQuantity());</span>
+<span class="fc" id="L49">        orderItemPojo.setSellingprice(form.getQuantity() * productPojo.getMrp());</span>
+<span class="fc" id="L50">        return orderItemPojo;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -3,6 +3,8 @@ function getBrandUrl() {
   return baseUrl + "/api/inventory/report";
 }
 
+var report;
+
 //get the list of all brands
 function getBrandList() {
   var url = getBrandUrl();
@@ -10,6 +12,7 @@ function getBrandList() {
     url: url,
     type: "GET",
     success: function (data) {
+      report = data;
       displayBrandList(data);
     },
     error: handleAjaxError,
@@ -40,6 +43,10 @@ function displayBrandList(data) {
       "</tr>";
     $tbody.append(row);
   }
+}
+
+function downloadReport() {
+    writeFileData(report)
 }
 
 //run code when DOM is ready

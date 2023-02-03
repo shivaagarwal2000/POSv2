@@ -61,15 +61,19 @@ import org.springframework.web.servlet.ModelAndView;
     public ModelAndView createOrder() {
 <span class="nc" id="L62">        return mav(&quot;placeOrder.html&quot;);</span>
     }
+    @RequestMapping(value = &quot;/ui/daySalesReport&quot;)
+    public ModelAndView daySalesReport() {
+<span class="nc" id="L66">        return mav(&quot;daySalesReport.html&quot;);</span>
+    }
 
     @RequestMapping(value = &quot;/ui/placedOrderDetail/{id}&quot;)
     public ModelAndView placedOrderDetail() {
-<span class="nc" id="L67">        return mav(&quot;orderDetail.html&quot;);</span>
+<span class="nc" id="L71">        return mav(&quot;orderDetail.html&quot;);</span>
     }
 
     @RequestMapping(value = &quot;/ui/pendingOrderDetail/{id}&quot;)
     public ModelAndView orderDetail() {
-<span class="nc" id="L72">        return mav(&quot;editOrder.html&quot;);</span>
+<span class="nc" id="L76">        return mav(&quot;editOrder.html&quot;);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

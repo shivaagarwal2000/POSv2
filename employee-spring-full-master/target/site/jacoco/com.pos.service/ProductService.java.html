@@ -47,7 +47,7 @@ import java.util.Objects;
 <span class="fc" id="L47">        dao.update(oldProductPojo);</span>
 <span class="fc" id="L48">    }</span>
 
-    @Transactional(rollbackFor = ApiException.class) // TODO: normalise price to two decimal places
+    @Transactional(rollbackFor = ApiException.class)
     public void update(String barcode, ProductPojo productPojo) throws ApiException {
 <span class="nc bnc" id="L52" title="All 2 branches missed.">        if (productPojo.getMrp() &lt;= 0) {</span>
 <span class="nc" id="L53">            throw new ApiException(&quot;Error: mrp can not be zero/negative&quot;);</span>

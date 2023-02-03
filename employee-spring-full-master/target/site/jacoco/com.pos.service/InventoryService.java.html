@@ -57,8 +57,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 	public void validateQuantity(InventoryPojo inventoryPojo) throws ApiException {
-<span class="pc bpc" id="L60" title="1 of 2 branches missed.">		if (inventoryPojo.getQuantity() &lt;= 0) {</span>
-<span class="nc" id="L61">			throw new ApiException(&quot;Error: quantity can not be negative&quot;);</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">		if (inventoryPojo.getQuantity() &lt;= 0) {</span>
+<span class="fc" id="L61">			throw new ApiException(&quot;Error: quantity can not be negative&quot;);</span>
 		}
 <span class="fc" id="L63">	}</span>
 }

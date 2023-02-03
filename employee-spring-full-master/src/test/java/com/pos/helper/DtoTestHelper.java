@@ -4,6 +4,7 @@ import com.pos.model.data.InventoryData;
 import com.pos.model.data.ProductData;
 import com.pos.model.forms.BrandForm;
 import com.pos.model.forms.InventoryForm;
+import com.pos.model.forms.OrderItemForm;
 import com.pos.model.forms.ProductForm;
 import com.pos.pojo.BrandPojo;
 
@@ -51,6 +52,13 @@ public class DtoTestHelper {
         inventoryForm.setBarcode(barcode);
         inventoryForm.setQuantity(quantity);
         return inventoryForm;
+    }
+
+    public static OrderItemForm createOrderItemForm(String barcode, Integer quantity) {
+        OrderItemForm orderItemForm = new OrderItemForm();
+        orderItemForm.setBarcode(barcode);
+        orderItemForm.setQuantity(quantity);
+        return orderItemForm;
     }
 
     public static InventoryData createInventoryData(String barcode, Integer quantity, int id) {

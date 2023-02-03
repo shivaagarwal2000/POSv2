@@ -3,6 +3,8 @@ function getBrandUrl() {
   return baseUrl + "/api/brand";
 }
 
+var report;
+
 //get the brand details
 function getBrandList() {
   var url = getBrandUrl();
@@ -10,7 +12,9 @@ function getBrandList() {
     url: url,
     type: "GET",
     success: function (data) {
+      report = data;
       displayBrandList(data);
+      handleSuccess("updated Successfully!")
     },
     error: handleAjaxError,
   });
@@ -76,6 +80,10 @@ function myFunction() {
       }
     }
   }
+}
+
+function downloadReport() {
+    writeFileData(report)
 }
 
 //run code when DOM is ready

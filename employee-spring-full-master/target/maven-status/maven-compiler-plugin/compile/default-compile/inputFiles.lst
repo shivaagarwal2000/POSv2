@@ -12,6 +12,7 @@
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/model/data/ProductData.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/pojo/TableConstants.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/dto/DaySalesDto.java
+/mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/controller/daySalesReportController.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/model/EmployeeForm.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/model/InfoData.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/service/AboutAppService.java
@@ -48,6 +49,7 @@
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/spring/SpringSecurityInitializer.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/controller/SampleController.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/pojo/DaySalesPojo.java
+/mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/model/data/DaySalesData.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/controller/ProductApiController.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/model/data/CommonOrderItemData.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/model/data/InventoryReportData.java

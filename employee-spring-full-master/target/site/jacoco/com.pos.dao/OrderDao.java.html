@@ -28,43 +28,43 @@ import com.pos.pojo.OrderPojo;
 	@Transactional(rollbackFor = ApiException.class)
 	public OrderPojo insert(OrderPojo orderPojo) {
 		//add pending order in the orderPojo
-<span class="nc" id="L31">		entityManager.persist(orderPojo);</span>
-<span class="nc" id="L32">		return orderPojo;</span>
+<span class="fc" id="L31">		entityManager.persist(orderPojo);</span>
+<span class="fc" id="L32">		return orderPojo;</span>
 	}
 
 	@Transactional(readOnly = true)
 	public OrderPojo select(int orderId) {
 		//select order by id
-<span class="nc" id="L38">		TypedQuery&lt;OrderPojo&gt; query = getQuery(select_id, OrderPojo.class);</span>
-<span class="nc" id="L39">		query.setParameter(&quot;id&quot;, orderId);</span>
-<span class="nc" id="L40">		return getSingle(query);</span>
+<span class="fc" id="L38">		TypedQuery&lt;OrderPojo&gt; query = getQuery(select_id, OrderPojo.class);</span>
+<span class="fc" id="L39">		query.setParameter(&quot;id&quot;, orderId);</span>
+<span class="fc" id="L40">		return getSingle(query);</span>
 	}
 
 	@Transactional(rollbackFor = ApiException.class)
 	public int delete(int id) {
 		//delete order by id
-<span class="nc" id="L46">		Query query = entityManager.createQuery(delete_id);</span>
-<span class="nc" id="L47">		query.setParameter(&quot;id&quot;, id);</span>
-<span class="nc" id="L48">		return query.executeUpdate();</span>
+<span class="fc" id="L46">		Query query = entityManager.createQuery(delete_id);</span>
+<span class="fc" id="L47">		query.setParameter(&quot;id&quot;, id);</span>
+<span class="fc" id="L48">		return query.executeUpdate();</span>
 	}
 
 	@Transactional(rollbackFor = ApiException.class)
 	public void update(OrderPojo orderPojo){
 
-<span class="nc" id="L54">	}</span>
+<span class="fc" id="L54">	}</span>
 
 	@Transactional(readOnly = true)
 	public List&lt;OrderPojo&gt; selectAll() {
 		//retrieve all orders
-<span class="nc" id="L59">		TypedQuery&lt;OrderPojo&gt; query = getQuery(select_all, OrderPojo.class);</span>
-<span class="nc" id="L60">		return query.getResultList();</span>
+<span class="fc" id="L59">		TypedQuery&lt;OrderPojo&gt; query = getQuery(select_all, OrderPojo.class);</span>
+<span class="fc" id="L60">		return query.getResultList();</span>
 	}
 
 	@Transactional(readOnly = true)
 	public List&lt;OrderPojo&gt; selectBetweeenDates(ZonedDateTime startDate, ZonedDateTime endDate) {
 		//select orders between two dates
-<span class="nc" id="L66">		TypedQuery&lt;OrderPojo&gt; query = getQuery(select_all_orderDate, OrderPojo.class);</span>
-<span class="nc" id="L67">		return query.setParameter(&quot;startDate&quot;, startDate).setParameter(&quot;endDate&quot;, endDate).getResultList();</span>
+<span class="fc" id="L66">		TypedQuery&lt;OrderPojo&gt; query = getQuery(select_all_orderDate, OrderPojo.class);</span>
+<span class="fc" id="L67">		return query.setParameter(&quot;startDate&quot;, startDate).setParameter(&quot;endDate&quot;, endDate).getResultList();</span>
 	}
 
 }

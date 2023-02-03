@@ -21,44 +21,44 @@ import static com.pos.pojo.TableConstants.PLACED_STATUS;
 
     @Transactional(rollbackFor = ApiException.class)
     public OrderPojo add() throws ApiException {
-<span class="nc" id="L24">        OrderPojo orderPojo = new OrderPojo();</span>
-<span class="nc" id="L25">        ZonedDateTime zonedDateTime = ZonedDateTime.now();</span>
-<span class="nc" id="L26">        orderPojo.setTime(zonedDateTime);</span>
-<span class="nc" id="L27">        orderPojo.setStatus(PENDING_STATUS);</span>
-<span class="nc" id="L28">        return orderDao.insert(orderPojo);</span>
+<span class="fc" id="L24">        OrderPojo orderPojo = new OrderPojo();</span>
+<span class="fc" id="L25">        ZonedDateTime zonedDateTime = ZonedDateTime.now();</span>
+<span class="fc" id="L26">        orderPojo.setTime(zonedDateTime);</span>
+<span class="fc" id="L27">        orderPojo.setStatus(PENDING_STATUS);</span>
+<span class="fc" id="L28">        return orderDao.insert(orderPojo);</span>
     }
 
     @Transactional(readOnly = true)
     public OrderPojo get(int orderId) throws ApiException {
-<span class="nc" id="L33">        OrderPojo orderPojo = orderDao.select(orderId);</span>
-<span class="nc bnc" id="L34" title="All 2 branches missed.">        if (Objects.isNull(orderPojo)) {</span>
+<span class="fc" id="L33">        OrderPojo orderPojo = orderDao.select(orderId);</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">        if (Objects.isNull(orderPojo)) {</span>
 <span class="nc" id="L35">            throw new ApiException(&quot;Error: Order does not exist&quot;);</span>
         }
-<span class="nc" id="L37">        return orderPojo;</span>
+<span class="fc" id="L37">        return orderPojo;</span>
     }
 
     @Transactional(readOnly = true)
     public void placeOrder(int orderId) throws ApiException {
-<span class="nc" id="L42">        OrderPojo orderPojo = get(orderId);</span>
-<span class="nc" id="L43">        orderPojo.setStatus(PLACED_STATUS);</span>
-<span class="nc" id="L44">        orderPojo.setTime(ZonedDateTime.now());</span>
-<span class="nc" id="L45">        orderDao.update(orderPojo);</span>
-<span class="nc" id="L46">    }</span>
+<span class="fc" id="L42">        OrderPojo orderPojo = get(orderId);</span>
+<span class="fc" id="L43">        orderPojo.setStatus(PLACED_STATUS);</span>
+<span class="fc" id="L44">        orderPojo.setTime(ZonedDateTime.now());</span>
+<span class="fc" id="L45">        orderDao.update(orderPojo);</span>
+<span class="fc" id="L46">    }</span>
 
     @Transactional(readOnly = true)
     public List&lt;OrderPojo&gt; getAll() {
-<span class="nc" id="L50">        return orderDao.selectAll();</span>
+<span class="fc" id="L50">        return orderDao.selectAll();</span>
     }
 
     @Transactional(readOnly = true)
     public List&lt;OrderPojo&gt; getBetweenDates(ZonedDateTime startDate, ZonedDateTime endDate) {
-<span class="nc" id="L55">        return orderDao.selectBetweeenDates(startDate, endDate);</span>
+<span class="fc" id="L55">        return orderDao.selectBetweeenDates(startDate, endDate);</span>
     }
 
     @Transactional(rollbackFor = ApiException.class)
     public void delete(int id) {
-<span class="nc" id="L60">        orderDao.delete(id);</span>
-<span class="nc" id="L61">    }</span>
+<span class="fc" id="L60">        orderDao.delete(id);</span>
+<span class="fc" id="L61">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

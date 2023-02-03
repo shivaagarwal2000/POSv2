@@ -211,7 +211,7 @@ function displayOrderItemList(data) {
     $tbody.append(row);
     count += 1
   }
-  var row = '<tr><td></td><td></td><td></td><td></td><td></td><td> Total Amount: ' + total + '</td><td></td></tr>'
+  var row = '<tr><td></td><td></td><td></td><td></td><td></td><td> Total Amount(INR): ' + total + '</td><td></td></tr>'
   $tbody.append(row)
 }
 

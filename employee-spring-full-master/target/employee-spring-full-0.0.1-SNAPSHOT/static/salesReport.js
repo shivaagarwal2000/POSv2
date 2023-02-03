@@ -3,6 +3,8 @@ function getBrandUrl() {
   return baseUrl + "/api/order/report";
 }
 
+var report;
+
 //BUTTON ACTIONS
 function addBrand(event) {
   //Set the values to update
@@ -18,12 +20,17 @@ function addBrand(event) {
       "Content-Type": "application/json",
     },
     success: function (data) {
+    report = data;
       displayBrandList(data);
     },
     error: handleAjaxError,
   });
 
   return false;
+}
+
+function downloadReport(){
+    writeFileData(report)
 }
 
 function updateBrand(event) {

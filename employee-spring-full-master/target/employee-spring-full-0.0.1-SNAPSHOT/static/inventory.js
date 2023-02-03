@@ -2,7 +2,7 @@
 function getBrandUrl() {
 	var baseUrl = $("meta[name=baseUrl]").attr("content")
 	var role = $("meta[name=role]").attr("content")
-	console.log(role)
+//	console.log(role)
 	return baseUrl + "/api/inventory";
 }
 
@@ -21,6 +21,7 @@ function addBrand(event) {
 			'Content-Type': 'application/json'
 		},
 		success: function(response) {
+		handleSuccess("Success: added inventory")
 			getBrandList();
 		},
 		error: handleAjaxError
@@ -47,9 +48,10 @@ function updateBrand(event) {
 			'Content-Type': 'application/json'
 		},
 		success: function(response) {
+		    handleSuccess("Success: updated inventory")
 			getBrandList();
 		},
-		error: handleAjaxError
+		error: handleAjaxError,
 	});
 
 	return false;
@@ -63,6 +65,7 @@ function getBrandList() {
 		type: 'GET',
 		success: function(data) {
 			displayBrandList(data);
+			handleSuccess("Success: updated successfully!")
 		},
 		error: handleAjaxError
 	});
@@ -125,7 +128,7 @@ function uploadRows() {
 			uploadRows();
 		},
 		error: function(response) {
-			row.error = response.responseText
+			row.error = response.responseJSON.message
 			errorData.push(row);
 			uploadRows();
 		}

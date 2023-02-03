@@ -21,6 +21,7 @@ function addBrand(event) {
     success: function (response) {
       getBrandList();
       resetForm("#brand-form input");
+      handleSuccess("Success: brand added")
     },
     error: handleAjaxError,
   });
@@ -46,6 +47,7 @@ function updateBrand(event) {
       "Content-Type": "application/json",
     },
     success: function (response) {
+      handleSuccess("Success: updated brand")
       getBrandList();
     },
     error: handleAjaxError,
@@ -63,6 +65,7 @@ function getBrandList() {
     success: function (data) {
       displayBrandList(data);
       resetForm("#brand-form input")
+      handleSuccess("Successfully updated!")
     },
     error: handleAjaxError,
   });
@@ -102,6 +105,7 @@ function uploadRows() {
   updateUploadDialog();
   //If everything processed then return
   if (processCount == fileData.length) {
+
     return;
   }
 
@@ -124,7 +128,7 @@ function uploadRows() {
       uploadRows();
     },
     error: function (response) {
-      row.error = response.responseText;
+      row.error = response.responseJSON.message;
       errorData.push(row);
       uploadRows();
     },

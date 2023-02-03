@@ -22,17 +22,17 @@ import java.util.List;
     public String getInvoice(List&lt;CommonOrderItemData&gt; commonOrderItemDatas) throws IOException {// TODO Catch and throw ApiException Priority: 5
 
         // TODO Use rest template Priority: 5
-<span class="nc" id="L25">        CloseableHttpClient httpClient = HttpClients.createDefault();</span>
-<span class="nc" id="L26">        HttpPost httpPost = new HttpPost(completeUrl);</span>
-<span class="nc" id="L27">        httpPost.setHeader(&quot;Accept&quot;, &quot;application/json&quot;);</span>
-<span class="nc" id="L28">        httpPost.setHeader(&quot;Content-type&quot;, &quot;application/json&quot;);</span>
-        // TODO: try catch and return
-<span class="nc" id="L30">        StringEntity stringEntity = new StringEntity(new Gson().toJson(commonOrderItemDatas));</span>
-<span class="nc" id="L31">        httpPost.setEntity(stringEntity);</span>
-<span class="nc" id="L32">        System.out.println(&quot;executing request: &quot; + httpPost.getRequestLine()); //TODO: refactor: clean up</span>
+<span class="fc" id="L25">        CloseableHttpClient httpClient = HttpClients.createDefault();</span>
+<span class="fc" id="L26">        HttpPost httpPost = new HttpPost(completeUrl);</span>
+<span class="fc" id="L27">        httpPost.setHeader(&quot;Accept&quot;, &quot;application/json&quot;);</span>
+<span class="fc" id="L28">        httpPost.setHeader(&quot;Content-type&quot;, &quot;application/json&quot;);</span>
+        // TODO: try catch and return -- no other exception other than ApiException
+<span class="fc" id="L30">        StringEntity stringEntity = new StringEntity(new Gson().toJson(commonOrderItemDatas));</span>
+<span class="fc" id="L31">        httpPost.setEntity(stringEntity);</span>
+<span class="fc" id="L32">        System.out.println(&quot;executing request: &quot; + httpPost.getRequestLine()); //TODO: refactor: clean up</span>
 
-<span class="nc" id="L34">        HttpResponse httpResponse = httpClient.execute(httpPost);</span>
-<span class="nc" id="L35">        return EntityUtils.toString(httpResponse.getEntity());</span>
+<span class="fc" id="L34">        HttpResponse httpResponse = httpClient.execute(httpPost);</span>
+<span class="fc" id="L35">        return EntityUtils.toString(httpResponse.getEntity());</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

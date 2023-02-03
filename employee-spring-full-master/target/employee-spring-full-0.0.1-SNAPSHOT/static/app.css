@@ -25,3 +25,11 @@ body {
 .form-group {
     padding: 5px;
 }
+
+#status {
+  position: fixed !important;
+  top: 20px;
+  right:20px;
+  z-index: 999999;
+  overflow: visible !important;
+}

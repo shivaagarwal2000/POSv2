@@ -27,35 +27,35 @@ import com.pos.pojo.OrderItemPojo;
 
 	@Transactional(rollbackFor = ApiException.class)
 	public void insert(OrderItemPojo orderItemPojo) {
-<span class="nc" id="L30">		entityManager.persist(orderItemPojo);</span>
-<span class="nc" id="L31">	}</span>
+<span class="fc" id="L30">		entityManager.persist(orderItemPojo);</span>
+<span class="fc" id="L31">	}</span>
 
 	@Transactional(rollbackFor = ApiException.class)
 	public int delete(int id) {
-<span class="nc" id="L35">		Query query = entityManager.createQuery(delete_id);</span>
-<span class="nc" id="L36">		query.setParameter(&quot;id&quot;, id);</span>
-<span class="nc" id="L37">		return query.executeUpdate();</span>
+<span class="fc" id="L35">		Query query = entityManager.createQuery(delete_id);</span>
+<span class="fc" id="L36">		query.setParameter(&quot;id&quot;, id);</span>
+<span class="fc" id="L37">		return query.executeUpdate();</span>
 	}
 
 	@Transactional(rollbackFor = ApiException.class)
 	public int deleteOrder(int orderId) {
-<span class="nc" id="L42">		Query query = entityManager.createQuery(delete_orderId);</span>
-<span class="nc" id="L43">		query.setParameter(&quot;orderId&quot;, orderId);</span>
-<span class="nc" id="L44">		return query.executeUpdate();</span>
+<span class="fc" id="L42">		Query query = entityManager.createQuery(delete_orderId);</span>
+<span class="fc" id="L43">		query.setParameter(&quot;orderId&quot;, orderId);</span>
+<span class="fc" id="L44">		return query.executeUpdate();</span>
 	}
 
 	@Transactional(readOnly = true)
 	public OrderItemPojo select(int id) {
-<span class="nc" id="L49">		TypedQuery&lt;OrderItemPojo&gt; query = getQuery(select_id, OrderItemPojo.class);</span>
-<span class="nc" id="L50">		query.setParameter(&quot;id&quot;, id);</span>
-<span class="nc" id="L51">		return getSingle(query);</span>
+<span class="fc" id="L49">		TypedQuery&lt;OrderItemPojo&gt; query = getQuery(select_id, OrderItemPojo.class);</span>
+<span class="fc" id="L50">		query.setParameter(&quot;id&quot;, id);</span>
+<span class="fc" id="L51">		return getSingle(query);</span>
 	}
 
 	@Transactional(readOnly = true)
 	public List&lt;OrderItemPojo&gt; selectItems(int orderId) {
-<span class="nc" id="L56">		TypedQuery&lt;OrderItemPojo&gt; query = getQuery(select_orderId, OrderItemPojo.class);</span>
-<span class="nc" id="L57">		query.setParameter(&quot;orderId&quot;, orderId);</span>
-<span class="nc" id="L58">		return query.getResultList();</span>
+<span class="fc" id="L56">		TypedQuery&lt;OrderItemPojo&gt; query = getQuery(select_orderId, OrderItemPojo.class);</span>
+<span class="fc" id="L57">		query.setParameter(&quot;orderId&quot;, orderId);</span>
+<span class="fc" id="L58">		return query.getResultList();</span>
 	}
 
 	@Transactional(readOnly = true)
@@ -66,7 +66,7 @@ import com.pos.pojo.OrderItemPojo;
 
 	@Transactional(rollbackFor = ApiException.class)
 	public void update(OrderItemPojo orderItemPojo) {
-<span class="nc" id="L69">	}</span>
+<span class="fc" id="L69">	}</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
