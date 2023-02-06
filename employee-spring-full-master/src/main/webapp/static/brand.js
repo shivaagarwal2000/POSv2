@@ -34,7 +34,7 @@ function updateBrand(event) {
   //Get the ID
   var id = $("#brand-edit-form input[name=id]").val();
   var url = getBrandUrl() + "/" + id;
-  console.log(url);
+//  console.log(url);
   //Set the values to update
   var $form = $("#brand-edit-form");
   var json = toJson($form);
@@ -52,8 +52,6 @@ function updateBrand(event) {
     },
     error: handleAjaxError,
   });
-
-  return false;
 }
 
 //get the list of all brands

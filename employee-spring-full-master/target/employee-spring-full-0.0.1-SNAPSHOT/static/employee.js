@@ -85,8 +85,8 @@ var processCount = 0;
 function processData() {
   var file = $("#employeeFile")[0].files[0];
   var test = $("#employeeFile")[0];
-  console.log(test);
-  console.log(test.files[0]);
+//  console.log(test);
+//  console.log(test.files[0]);
   readFileData(file, readFileDataCallback);
 }
 

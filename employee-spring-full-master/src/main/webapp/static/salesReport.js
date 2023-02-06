@@ -11,7 +11,7 @@ function addBrand(event) {
   var $form = $("#brand-form");
   var json = toJson($form);
   var url = getBrandUrl();
-  console.log(json)
+//  console.log(json)
   $.ajax({
     url: url,
     type: "POST",
@@ -20,8 +20,9 @@ function addBrand(event) {
       "Content-Type": "application/json",
     },
     success: function (data) {
-    report = data;
+      report = data;
       displayBrandList(data);
+      resetForm("#brand-form input")
     },
     error: handleAjaxError,
   });
@@ -146,6 +147,7 @@ function displayBrandList(data) {
   $tbody.empty();
   let totalAmount = 0;
   let totalQuantity = 0;
+  let count = 1
   for (var i in data) {
     var e = data[i];
     var buttonHtml =
@@ -154,6 +156,9 @@ function displayBrandList(data) {
       ' <button onclick="displayEditBrand(' + e.id + ')">edit</button>';
     var row =
       "<tr>" +
+      "<td>" +
+       count +
+      "</td>" +
       "<td>" +
       e.brand +
       "</td>" +
@@ -171,10 +176,11 @@ function displayBrandList(data) {
 //      "</td>" +
       "</tr>";
     $tbody.append(row);
+    count += 1
     totalAmount += e.revenue
     totalQuantity += e.quantity
   }
-  var row = "<tr><td></td><td>Total:</td><td>" + totalQuantity + "</td><td>" + totalAmount + "</td></tr>";
+  var row = "<tr><td></td><td></td><td>Total:</td><td>" + totalQuantity + "</td><td>" + totalAmount + "</td></tr>";
   $tbody.append(row)
 }
 

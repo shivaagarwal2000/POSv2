@@ -51,15 +51,6 @@ public class BrandService {
         brandDao.delete(id);
     }
 
-//	@Transactional(readOnly = true)//TODO: refactor - minor - clean up if no major use
-//	public BrandPojo getCheck(int id) throws ApiException {
-//		BrandPojo brandPojo = brandDao.select(id);
-//		if (brandPojo == null) {
-//			throw new ApiException("Brand with given ID does not exit, id: " + id);
-//		}
-//		return brandPojo;
-//	}
-
     @Transactional(readOnly = true)
     public BrandPojo get(String brand, String category) {
         //fetch a brand with brand, category combination

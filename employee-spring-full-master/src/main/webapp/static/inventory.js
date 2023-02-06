@@ -21,8 +21,9 @@ function addBrand(event) {
 			'Content-Type': 'application/json'
 		},
 		success: function(response) {
-		handleSuccess("Success: added inventory")
+		    handleSuccess("Success: added inventory")
 			getBrandList();
+			resetForm("#brand-form input")
 		},
 		error: handleAjaxError
 	});
@@ -227,4 +228,4 @@ function init() {
 //run code when DOM is ready
 $(document).ready(init);
 $(document).ready(getBrandList);
-
+$(document).ready(restrictAccess);

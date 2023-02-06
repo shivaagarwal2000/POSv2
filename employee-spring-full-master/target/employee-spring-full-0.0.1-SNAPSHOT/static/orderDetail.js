@@ -265,7 +265,7 @@ for (let i = 0; i < curUrl.length; i++) {
 function getInvoice() {
     let id = orderDetailId;
     var baseUrl = getBrandUrl() + "/invoice/" + id;
-    console.log(baseUrl)
+//    console.log(baseUrl)
     $.ajax({
     		url: baseUrl,
     		type: "GET",

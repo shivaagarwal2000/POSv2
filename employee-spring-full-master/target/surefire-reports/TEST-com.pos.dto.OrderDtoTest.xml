@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="17" failures="0" name="com.pos.dto.OrderDtoTest" time="12.028" errors="0" skipped="0">
+<testsuite tests="17" failures="0" name="com.pos.dto.OrderDtoTest" time="14.431" errors="0" skipped="0">
   <properties>
     <property name="idea.version" value="2022.3.1"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
@@ -63,21 +63,21 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="com.pos.dto.OrderDtoTest" name="testGetAllOrderItems" time="0.714"/>
-  <testcase classname="com.pos.dto.OrderDtoTest" name="testDeleteOrder" time="0.675"/>
-  <testcase classname="com.pos.dto.OrderDtoTest" name="testDeletePlacedOrder" time="1.071"/>
-  <testcase classname="com.pos.dto.OrderDtoTest" name="testAdd" time="0.723"/>
-  <testcase classname="com.pos.dto.OrderDtoTest" name="testEditOrderItem" time="0.713"/>
-  <testcase classname="com.pos.dto.OrderDtoTest" name="testPlaceOrder" time="0.691"/>
-  <testcase classname="com.pos.dto.OrderDtoTest" name="testAddWithoutBarcode" time="0.673"/>
-  <testcase classname="com.pos.dto.OrderDtoTest" name="testAddWithoutProduct" time="0.662"/>
-  <testcase classname="com.pos.dto.OrderDtoTest" name="testAddWithoutSufficientInventory" time="0.669"/>
-  <testcase classname="com.pos.dto.OrderDtoTest" name="testPlaceOrderWithoutInventory" time="0.714"/>
-  <testcase classname="com.pos.dto.OrderDtoTest" name="testDeleteOrderItem" time="0.696"/>
-  <testcase classname="com.pos.dto.OrderDtoTest" name="testGetAllOrders" time="0.63"/>
-  <testcase classname="com.pos.dto.OrderDtoTest" name="testGetOrderItem" time="0.614"/>
-  <testcase classname="com.pos.dto.OrderDtoTest" name="testSalesReport" time="0.747"/>
-  <testcase classname="com.pos.dto.OrderDtoTest" name="testAddWithoutQuantity" time="0.648"/>
-  <testcase classname="com.pos.dto.OrderDtoTest" name="testPlacedEditOrderItem" time="0.682"/>
-  <testcase classname="com.pos.dto.OrderDtoTest" name="testDeletePlacedOrderItem" time="0.706"/>
+  <testcase classname="com.pos.dto.OrderDtoTest" name="testGetAllOrderItems" time="0.828"/>
+  <testcase classname="com.pos.dto.OrderDtoTest" name="testDeleteOrder" time="0.762"/>
+  <testcase classname="com.pos.dto.OrderDtoTest" name="testDeletePlacedOrder" time="1.91"/>
+  <testcase classname="com.pos.dto.OrderDtoTest" name="testAdd" time="0.765"/>
+  <testcase classname="com.pos.dto.OrderDtoTest" name="testEditOrderItem" time="0.74"/>
+  <testcase classname="com.pos.dto.OrderDtoTest" name="testPlaceOrder" time="0.828"/>
+  <testcase classname="com.pos.dto.OrderDtoTest" name="testAddWithoutBarcode" time="0.731"/>
+  <testcase classname="com.pos.dto.OrderDtoTest" name="testAddWithoutProduct" time="0.722"/>
+  <testcase classname="com.pos.dto.OrderDtoTest" name="testAddWithoutSufficientInventory" time="0.684"/>
+  <testcase classname="com.pos.dto.OrderDtoTest" name="testPlaceOrderWithoutInventory" time="0.642"/>
+  <testcase classname="com.pos.dto.OrderDtoTest" name="testDeleteOrderItem" time="0.913"/>
+  <testcase classname="com.pos.dto.OrderDtoTest" name="testGetAllOrders" time="0.784"/>
+  <testcase classname="com.pos.dto.OrderDtoTest" name="testGetOrderItem" time="0.946"/>
+  <testcase classname="com.pos.dto.OrderDtoTest" name="testSalesReport" time="1.037"/>
+  <testcase classname="com.pos.dto.OrderDtoTest" name="testAddWithoutQuantity" time="0.65"/>
+  <testcase classname="com.pos.dto.OrderDtoTest" name="testPlacedEditOrderItem" time="0.736"/>
+  <testcase classname="com.pos.dto.OrderDtoTest" name="testDeletePlacedOrderItem" time="0.753"/>
 </testsuite>

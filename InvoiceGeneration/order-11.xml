@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<invoice>
+    <customerName>testname</customerName>
+    <orderId>11</orderId>
+    <companyName>Increff,</companyName>
+    <building>2nd floor, Enzyme Tech Park,</building>
+    <street>6th Main Rd,</street>
+    <city>Bengaluru</city>
+    <invoiceDate>04/02/2023</invoiceDate>
+    <invoiceTime>06:37</invoiceTime>
+    <orderItems>
+        <orderItem>
+            <sn>1</sn>
+            <id>21</id>
+            <productName>n20</productName>
+            <quantity>15</quantity>
+            <sellingPrice>80.0</sellingPrice>
+            <total>1200.0</total>
+        </orderItem>
+    </orderItems>
+    <totalAmount>1200.0</totalAmount>
+</invoice>

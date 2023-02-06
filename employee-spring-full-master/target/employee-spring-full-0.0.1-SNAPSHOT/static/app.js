@@ -6,7 +6,7 @@ function toJson($form) {
   for (s in serialized) {
     data[serialized[s]["name"]] = serialized[s]["value"];
   }
-  console.log(data)
+//  console.log(data)
   var json = JSON.stringify(data);
   return json;
 }
@@ -43,7 +43,7 @@ function readFileData(file, callback) {
     delimiter: "\t",
     skipEmptyLines: "greedy",
     complete: function (results) {
-      console.log(results.data.length)
+//      console.log(results.data.length)
       if (results.data.length > 5000) {
         alert("Error: maximum file rows limit exceeded")
         return;
@@ -85,5 +85,22 @@ function restrictAccess(){
     for (let i = 0; i < restrictedItems.length; i++) {
       restrictedItems[i].disabled=true;
     }
-    console.log('running')
+//    console.log('running')
 }
+
+//$(document).ready(function() {
+//  $("ul.navbar-nav > li > a").click(function(e) {
+//    $("ul.navbar-nav > li > a").removeClass("active");
+//    $(this).addClass("active");
+//  });
+//});
+
+var setDefaultActive = function() {
+    var path = window.location.pathname;
+
+    var element = $(".nav-item a[href='" + path + "']");
+
+    element.addClass("active");
+}
+
+$(document).ready(setDefaultActive);

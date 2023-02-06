@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="10" failures="0" name="com.pos.dto.InventoryDtoTest" time="6.891" errors="0" skipped="0">
+<testsuite tests="10" failures="0" name="com.pos.dto.InventoryDtoTest" time="7.826" errors="0" skipped="0">
   <properties>
     <property name="idea.version" value="2022.3.1"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
@@ -63,14 +63,14 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="com.pos.dto.InventoryDtoTest" name="testAdd" time="0.731"/>
-  <testcase classname="com.pos.dto.InventoryDtoTest" name="testAddEmptyQuantity" time="0.708"/>
-  <testcase classname="com.pos.dto.InventoryDtoTest" name="testAddWithoutProduct" time="0.629"/>
-  <testcase classname="com.pos.dto.InventoryDtoTest" name="testGetById" time="0.7"/>
-  <testcase classname="com.pos.dto.InventoryDtoTest" name="testDelete" time="0.652"/>
-  <testcase classname="com.pos.dto.InventoryDtoTest" name="testGetAll" time="0.736"/>
-  <testcase classname="com.pos.dto.InventoryDtoTest" name="testGetReport" time="0.696"/>
-  <testcase classname="com.pos.dto.InventoryDtoTest" name="testAddEmptyBarcode" time="0.654"/>
-  <testcase classname="com.pos.dto.InventoryDtoTest" name="testUpdate" time="0.677"/>
-  <testcase classname="com.pos.dto.InventoryDtoTest" name="testDuplicateAdd" time="0.708"/>
+  <testcase classname="com.pos.dto.InventoryDtoTest" name="testAdd" time="0.863"/>
+  <testcase classname="com.pos.dto.InventoryDtoTest" name="testAddEmptyQuantity" time="0.766"/>
+  <testcase classname="com.pos.dto.InventoryDtoTest" name="testAddWithoutProduct" time="0.745"/>
+  <testcase classname="com.pos.dto.InventoryDtoTest" name="testGetById" time="0.79"/>
+  <testcase classname="com.pos.dto.InventoryDtoTest" name="testDelete" time="0.783"/>
+  <testcase classname="com.pos.dto.InventoryDtoTest" name="testGetAll" time="0.801"/>
+  <testcase classname="com.pos.dto.InventoryDtoTest" name="testGetReport" time="0.773"/>
+  <testcase classname="com.pos.dto.InventoryDtoTest" name="testAddEmptyBarcode" time="0.809"/>
+  <testcase classname="com.pos.dto.InventoryDtoTest" name="testUpdate" time="0.767"/>
+  <testcase classname="com.pos.dto.InventoryDtoTest" name="testDuplicateAdd" time="0.729"/>
 </testsuite>

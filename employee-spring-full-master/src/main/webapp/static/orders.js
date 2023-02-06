@@ -7,7 +7,6 @@ function getBrandUrl() {
 function addBrand(event) {
 	//Set the values to update
 	let placeOrderUrl = $("meta[name=baseUrl]").attr("content") + "/ui/placeOrder";
-	console.log(placeOrderUrl)
 	window.open(placeOrderUrl);
 //	var $form = $("#brand-form");
 //	var json = toJson($form);
@@ -33,7 +32,7 @@ function updateBrand(event) {
 	//Get the ID
 	var id = $("#brand-edit-form input[name=id]").val();
 	var url = getBrandUrl() + "/" + id;
-	console.log(url);
+//	console.log(url);
 	//Set the values to update
 	var $form = $("#brand-edit-form");
 	var json = toJson($form);

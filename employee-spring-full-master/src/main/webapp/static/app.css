@@ -33,3 +33,10 @@ body {
   z-index: 999999;
   overflow: visible !important;
 }
+
+
+.nav-item .nav-link.active {
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  font-weight: bold;
+}

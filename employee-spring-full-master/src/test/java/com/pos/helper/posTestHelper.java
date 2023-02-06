@@ -7,16 +7,34 @@ import com.pos.model.forms.InventoryForm;
 import com.pos.model.forms.OrderItemForm;
 import com.pos.model.forms.ProductForm;
 import com.pos.pojo.BrandPojo;
+import com.pos.pojo.InventoryPojo;
+import com.pos.pojo.ProductPojo;
 
 import java.util.Objects;
 
-public class DtoTestHelper {
+public class posTestHelper {
 
     public static BrandPojo createBrandPojo(String brand, String category) {
         BrandPojo brandPojo = new BrandPojo();
         brandPojo.setBrand(brand);
         brandPojo.setCategory(category);
         return brandPojo;
+    }
+
+    public static ProductPojo createProductPojo(String barcode, double mrp, int brandCategoryId, String name) {
+        ProductPojo productPojo = new ProductPojo();
+        productPojo.setBarcode(barcode);
+        productPojo.setMrp(mrp);
+        productPojo.setBrand_category(brandCategoryId);
+        productPojo.setName(name);
+        return productPojo;
+    }
+
+    public static InventoryPojo createInventoryPojo(int id, int quantity) {
+        InventoryPojo inventoryPojo = new InventoryPojo();
+        inventoryPojo.setId(id);
+        inventoryPojo.setQuantity(quantity);
+        return inventoryPojo;
     }
 
     public static BrandForm createBrandForm(String brand, String category) {

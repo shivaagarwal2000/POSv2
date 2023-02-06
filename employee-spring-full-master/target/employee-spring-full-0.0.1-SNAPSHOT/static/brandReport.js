@@ -24,6 +24,7 @@ function getBrandList() {
 function displayBrandList(data) {
   var $tbody = $("#brand-table").find("tbody");
   $tbody.empty();
+  let count = 1
   for (var i in data) {
     var e = data[i];
     var buttonHtml =
@@ -32,7 +33,7 @@ function displayBrandList(data) {
     var row =
       "<tr>" +
       "<td>" +
-      e.id +
+      count +
       "</td>" +
       "<td>" +
       e.brand +
@@ -42,6 +43,7 @@ function displayBrandList(data) {
       "</td>" +
       "</tr>";
     $tbody.append(row);
+    count += 1
   }
 }
 

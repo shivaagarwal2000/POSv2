@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	$("#add").click(function() {
 		$("#datatable").append(
-			' <tr> <div><td>Barcode</td> <td>:</td> <td colspan="2"><input type="text" class="itemBarcode"/></td> <td>Quantity</td> <td>:</td> <td><input type="number" class="itemQuantity"/></td></div> </tr>'
+			' <tr> <td> <input type="text" class="itemBarcode" style="width:60%"/></td> <td> <input type="number" class="itemQuantity" style="width:60%"/></td> </tr>'
 		);
 	});
 });
@@ -19,10 +19,11 @@ function addOrder() {
 	// JSONObj
 
 	for (let i = 0; i < itemBarcodes.length; i++) {
-		var orderItem = {
-			barcode: itemBarcodes[i].value,
-			quantity: parseInt(itemQuantities[i].value),
-		};
+//	    if (!itemBarcodes[i].value && !itemQuantities[i].value) continue;
+//		var orderItem = {
+//			barcode: itemBarcodes[i].value,
+//			quantity: parseInt(itemQuantities[i].value),
+//		};
 		// var jsonOrderItem = JSON.stringify(orderItem);
 		let jsonOrderItem = new Object();
 		jsonOrderItem = {
@@ -60,4 +61,8 @@ function addOrder() {
 	});
 
 	return false;
+}
+
+function myDeleteFunction() {
+  document.getElementById("datatable").deleteRow(-1);
 }

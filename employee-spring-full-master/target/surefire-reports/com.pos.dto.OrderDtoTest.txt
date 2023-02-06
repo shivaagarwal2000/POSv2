@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.pos.dto.OrderDtoTest
 -------------------------------------------------------------------------------
-Tests run: 17, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.053 sec
+Tests run: 17, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 14.462 sec

@@ -2,6 +2,9 @@ com/pos/dto/ProductDtoTest.class
 com/pos/dto/OrderDtoTest.class
 com/pos/service/SampleTest.class
 com/pos/dao/ProductDaoTest.class
+com/pos/helper/posTestHelper.class
+com/pos/service/BrandServiceTest.class
+com/pos/service/ProductServiceTest.class
 com/pos/service/EmployeeServiceTest.class
 com/pos/service/QaConfig.class
 com/pos/dao/InventoryDaoTest.class
@@ -11,4 +14,3 @@ com/pos/dto/InventoryDtoTest.class
 com/pos/service/AbstractUnitTest.class
 com/pos/dao/BrandDaoTest.class
 com/pos/dao/OrderDaoTest.class
-com/pos/helper/DtoTestHelper.class

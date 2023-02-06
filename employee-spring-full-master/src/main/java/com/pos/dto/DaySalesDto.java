@@ -43,7 +43,7 @@ public class DaySalesDto {
             prevDayOrderCount += 1;
             List<OrderItemPojo> orderItemPojos = orderItemService.getItemPojos(orderPojo.getId());
             for (OrderItemPojo orderItemPojo : orderItemPojos) {
-                prevDayOrderItemsCount += 1;
+                prevDayOrderItemsCount += orderItemPojo.getQuantity();
                 totalRevenue += orderItemPojo.getSellingprice();
             }
         }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 
+import com.pos.model.UserData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,52 +13,64 @@ import com.pos.pojo.UserPojo;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-<span class="fc" id="L15">public class UserService {</span>
+<span class="fc" id="L16">public class UserService {</span>
 
 	@Autowired
 	private UserDao dao;
 
 	@Transactional(rollbackFor = ApiException.class)
 	public void add(UserPojo p) throws ApiException {
-<span class="nc" id="L22">		normalize(p);</span>
-<span class="nc" id="L23">		UserPojo existing = dao.select(p.getEmail());</span>
-<span class="nc bnc" id="L24" title="All 2 branches missed.">		if (existing != null) {</span>
-<span class="nc" id="L25">			throw new ApiException(&quot;User with given email already exists&quot;);</span>
+<span class="nc" id="L23">		normalize(p);</span>
+<span class="nc" id="L24">		UserPojo existing = dao.select(p.getEmail());</span>
+<span class="nc bnc" id="L25" title="All 2 branches missed.">		if (existing != null) {</span>
+<span class="nc" id="L26">			throw new ApiException(&quot;User with given email already exists&quot;);</span>
 		}
-<span class="nc" id="L27">		dao.insert(p);</span>
-<span class="nc" id="L28">	}</span>
+<span class="nc" id="L28">		dao.insert(p);</span>
+<span class="nc" id="L29">	}</span>
 
 	@Transactional(rollbackFor = ApiException.class)
 	public UserPojo get(String email) throws ApiException {
-<span class="nc" id="L32">		return dao.select(email);</span>
+<span class="nc" id="L33">		return dao.select(email);</span>
+	}
+
+	@Transactional(readOnly = true)
+	public UserPojo get(int id) throws ApiException {
+<span class="nc" id="L38">		UserPojo userPojo = dao.select(id);</span>
+<span class="nc bnc" id="L39" title="All 2 branches missed.">		if (Objects.isNull(userPojo)) {</span>
+<span class="nc" id="L40">			throw new ApiException(&quot;Error: user with id doesn't exist&quot;);</span>
+		}
+<span class="nc" id="L42">		return  userPojo;</span>
 	}
 
 	@Transactional(readOnly = true)
 	public List&lt;UserPojo&gt; getAll() {
-<span class="nc" id="L37">		return dao.selectAll();</span>
+<span class="nc" id="L47">		return dao.selectAll();</span>
 	}
 
 	@Transactional(rollbackFor = ApiException.class)
 	public void delete(int id) {
-<span class="nc" id="L42">		dao.delete(id);</span>
-<span class="nc" id="L43">	}</span>
+<span class="nc" id="L52">		dao.delete(id);</span>
+<span class="nc" id="L53">	}</span>
 
 	@Transactional(rollbackFor = ApiException.class)
 	public void update(int id, UserPojo userPojo) throws ApiException {
-<span class="nc" id="L47">		UserPojo existingUserPojo = get(userPojo.getEmail());</span>
-<span class="nc bnc" id="L48" title="All 2 branches missed.">		if (!Objects.isNull(existingUserPojo)) {</span>
-<span class="nc" id="L49">			throw new ApiException(&quot;Error: user with this email already exists&quot;);</span>
+<span class="nc" id="L57">		UserPojo existingUserPojo = get(userPojo.getEmail());</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">		if (!Objects.isNull(existingUserPojo)) {</span>
+<span class="nc" id="L59">			throw new ApiException(&quot;Error: user with this email already exists&quot;);</span>
 		}
-<span class="nc" id="L51">		existingUserPojo = dao.select(id);</span>
-<span class="nc bnc" id="L52" title="All 2 branches missed.">		if (Objects.isNull(existingUserPojo)) {</span>
-<span class="nc" id="L53">			throw new ApiException(&quot;Error: user doesn't exists&quot;);</span>
+<span class="nc" id="L61">		existingUserPojo = dao.select(id);</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">		if (Objects.isNull(existingUserPojo)) {</span>
+<span class="nc" id="L63">			throw new ApiException(&quot;Error: user doesn't exists&quot;);</span>
 		}
-<span class="nc" id="L55">		existingUserPojo.setEmail(userPojo.getEmail());</span>
-<span class="nc" id="L56">	}</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">		if (!userPojo.getRole().equals(existingUserPojo.getRole())) {</span>
+<span class="nc" id="L66">			throw new ApiException(&quot;Error: can't modify fields other than email&quot;);</span>
+		}
+<span class="nc" id="L68">		existingUserPojo.setEmail(userPojo.getEmail());</span>
+<span class="nc" id="L69">	}</span>
 
 	protected static void normalize(UserPojo p) {
-<span class="nc" id="L59">		p.setEmail(p.getEmail().toLowerCase().trim());</span>
-<span class="nc" id="L60">		p.setRole(p.getRole().toLowerCase().trim());</span>
-<span class="nc" id="L61">	}</span>
+<span class="nc" id="L72">		p.setEmail(p.getEmail().toLowerCase().trim());</span>
+<span class="nc" id="L73">		p.setRole(p.getRole().toLowerCase().trim());</span>
+<span class="nc" id="L74">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

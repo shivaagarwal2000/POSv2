@@ -10,18 +10,81 @@
 
 <div class="container">
 
-    <h3>Home</h3>
+    <h3 style="padding:10px">Home</h3>
 
     <!-- Top row with form-->
-    <div class="row">
-        <div class="col-2">
-            <a th:href="@{/ui/employee}" title="Employees"> <i
-                    class="fas fa-users"></i>
-            </a>
+    <div class="row" style="width:125%">
+        <div class="card" style="width: 18rem;margin-right:20px">
+            <img th:src="@{/static/Indian-Local-Brands.jpg}" style="height:200px" class="card-img-top" alt="brands">
+            <div class="card-body">
+                <h5 class="card-title">Brands</h5>
+                <p class="card-text">add, edit, view brands</p>
+                <a th:href="@{/ui/brand}" class="btn btn-primary stretched-link">View</a>
+            </div>
         </div>
-        <div class="col-2">
-            <a th:href="@{/ui/admin}" title="Admin"> <i class="fas fa-cog"></i>
-            </a>
+        <div class="card" style="width: 18rem; margin-right:20px">
+            <img th:src="@{/static/products.jpg}" style="height:200px" class="card-img-top" alt="brands">
+            <div class="card-body">
+                <h5 class="card-title">Products</h5>
+                <p class="card-text">add, edit, view products</p>
+                <a th:href="@{/ui/product}" class="btn btn-primary stretched-link">View</a>
+            </div>
+        </div>
+        <div class="card" style="width: 18rem; margin-right:20px">
+            <img th:src="@{/static/inventory.png}" style="height:200px" class="card-img-top" alt="brands">
+            <div class="card-body">
+                <h5 class="card-title">Inventory</h5>
+                <p class="card-text">add, edit, view inventory</p>
+                <a th:href="@{/ui/inventory}" class="btn btn-primary stretched-link">View</a>
+            </div>
+        </div>
+        <div class="card" style="width: 18rem; margin-right:20px">
+            <img th:src="@{/static/orders.jpg}" style="height:200px" class="card-img-top" alt="brands">
+            <div class="card-body">
+                <h5 class="card-title">Orders</h5>
+                <p class="card-text">add, edit, view orders</p>
+                <a th:href="@{/ui/orders}" class="btn btn-primary stretched-link">View</a>
+            </div>
+        </div>
+        <div class="card" style="width: 18rem; margin-right:20px; margin-top: 20px">
+            <img th:src="@{/static/report.jpg}" style="height:200px" class="card-img-top" alt="brands">
+            <div class="card-body">
+                <h5 class="card-title">Brand Report</h5>
+                <p class="card-text">view report of brand, category</p>
+                <a th:href="@{/ui/brandreport}" class="btn btn-primary stretched-link">View</a>
+            </div>
+        </div>
+        <div class="card" style="width: 18rem; margin-right:20px; margin-top: 20px">
+            <img th:src="@{/static/report.jpg}" style="height:200px" class="card-img-top" alt="brands">
+            <div class="card-body">
+                <h5 class="card-title">Inventory Report</h5>
+                <p class="card-text">view report of product quantities</p>
+                <a th:href="@{/ui/inventoryreport}" class="btn btn-primary stretched-link">View</a>
+            </div>
+        </div>
+        <div class="card" style="width: 18rem; margin-right:20px; margin-top: 20px">
+            <img th:src="@{/static/report.jpg}" style="height:200px" class="card-img-top" alt="brands">
+            <div class="card-body">
+                <h5 class="card-title">Sales Report</h5>
+                <p class="card-text">view report of sale between dates</p>
+                <a th:href="@{/ui/salesreport}" class="btn btn-primary stretched-link">View</a>
+            </div>
+        </div>
+        <div class="card" style="width: 18rem; margin-right:20px; margin-top: 20px">
+            <img th:src="@{/static/report.jpg}" style="height:200px" class="card-img-top" alt="brands">
+            <div class="card-body">
+                <h5 class="card-title">Day Sales Report</h5>
+                <p class="card-text">view report of per day sales</p>
+                <a th:href="@{/ui/daySalesReport}" class="btn btn-primary stretched-link">View</a>
+            </div>
+        </div>
+        <div class="card" style="width: 18rem; margin-right:20px; margin-top: 20px">
+            <img th:src="@{/static/users.jpeg}" style="height:200px" class="card-img-top" alt="brands">
+            <div class="card-body">
+                <h5 class="card-title">Users</h5>
+                <p class="card-text">add, edit, view users</p>
+                <a th:href="@{/ui/admin}" class="btn btn-primary stretched-link">View</a>
+            </div>
         </div>
     </div>
 

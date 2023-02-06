@@ -14,10 +14,7 @@ import java.util.List;
 @Repository
 public class DaySalesDao extends AbstractDao {
 
-//	private static final String delete_id = "delete from BrandPojo p where id=:id";
-//	private static final String select_id = "select p from BrandPojo p where id=:id";
-	private static final String SELECT_ALL = "select p from BrandPojo p";
-//	private static final String select_brand_category = "select p from BrandPojo p where brand=:brand and category=:category";
+	private static final String SELECT_ALL = "select p from DaySalesPojo p";
 //TODO: clean up -- move such methods to abstract
 	@PersistenceContext
 	private EntityManager entityManager;

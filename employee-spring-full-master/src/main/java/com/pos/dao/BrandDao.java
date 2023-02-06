@@ -17,7 +17,6 @@ import com.pos.service.ApiException;
 public class BrandDao extends AbstractDao {
 //	Dao deals with executing the jpql queries, here for the BrandPojo Entity
 	//TODO: refactor - major - clean up the code duplication and send class general query to abstractdao
-	//TODO: uppercase for final
 	private static final String DELETE_ID = "delete from BrandPojo p where id=:id";
 	private static final String SELECT_ID = "select p from BrandPojo p where id=:id";
 	private static final String SELECT_ALL = "select p from BrandPojo p";

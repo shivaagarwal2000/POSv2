@@ -126,7 +126,7 @@
                 <fo:table-body>
                     <xsl:apply-templates select="orderItems/orderItem"></xsl:apply-templates>
                     <fo:table-row font-weight="bold">
-                        <fo:table-cell number-columns-spanned="5" text-align="right" padding-right="3pt">
+                        <fo:table-cell number-columns-spanned="4" text-align="right" padding-right="3pt">
                             <fo:block>Total</fo:block>
                         </fo:table-cell>
                         <fo:table-cell  text-align="right" padding-right="3pt" background-color="#f5f5f5" border="1px solid #b8b6b6" >

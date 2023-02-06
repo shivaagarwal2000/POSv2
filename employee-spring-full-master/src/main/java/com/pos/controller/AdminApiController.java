@@ -43,6 +43,7 @@ public class AdminApiController {
 	@ApiOperation(value = "edits a user")
 	@RequestMapping(path = "/api/admin/user/{id}", method = RequestMethod.PUT)
 	public void editUser(@PathVariable int id, @RequestBody UserForm userForm) throws ApiException {
+		userForm.setPassword("strongPassword");
 		service.update(id, convert(userForm));
 	}
 
@@ -55,6 +56,12 @@ public class AdminApiController {
 			list2.add(convert(p));
 		}
 		return list2;
+	}
+
+	@ApiOperation(value = "Gets user data")
+	@RequestMapping(path = "/api/admin/user/{id}", method = RequestMethod.GET)
+	public UserData getUser(@PathVariable int id) throws ApiException {
+		return convert(service.get(id));
 	}
 
 	private static UserData convert(UserPojo p) {

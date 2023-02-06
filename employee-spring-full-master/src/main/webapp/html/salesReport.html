@@ -49,7 +49,7 @@
 						</div>
 					</div>
 
-					<button type="button" class="btn btn-success" id="add-brand">Get Report</button>
+					<button type="button" class="btn btn-success" id="add-brand">Fetch Report</button>
 					&nbsp;
 					<button type="submit" style="margin-left:20px;" class="btn btn-success" id="download-report" onclick="downloadReport()">Download Report</button>
 
@@ -67,9 +67,10 @@
 
 			<!-- Table -->
 			<div class="col-12">
-				<table class="table table-striped" id="brand-table">
-					<thead>
+				<table class="table table-hover table-bordered" id="brand-table">
+					<thead class="thead-light">
 						<tr>
+							<th scope="col">S.No.</th>
 							<th scope="col">Brand</th>
 							<th scope="col">Category</th>
 							<th scope="col">Quantity</th>

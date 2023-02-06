@@ -8,6 +8,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -18,7 +19,7 @@ import java.util.List;
 public class InvoiceClient {
 
     //TODO: move the url to properties file
-    public static final String completeUrl = "http://localhost:9500/invoice/api/invoice";// TODO final variables should be uppercase Priority: 5
+    private String completeUrl = "http://localhost:9500/invoice/api/invoice";
     public String getInvoice(List<CommonOrderItemData> commonOrderItemDatas) throws IOException {// TODO Catch and throw ApiException Priority: 5
 
         // TODO Use rest template Priority: 5

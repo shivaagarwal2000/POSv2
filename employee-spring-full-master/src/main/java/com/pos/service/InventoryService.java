@@ -33,17 +33,12 @@ public class InventoryService {
 		return inventoryPojo;
 	}
 
-//	public boolean isPresent(int id) {
-//		InventoryPojo inventoryPojo = dao.select(id);
-//		return Objects.isNull(inventoryPojo) == false;
-//	}
-
 	@Transactional(readOnly = true)
 	public List<InventoryPojo> getAll() {
 		return dao.selectAll();
 	}
 
-	@Transactional(rollbackFor = ApiException.class)
+	@Transactional(rollbackFor = ApiException.class) // TODO: 1 all service should have transactional
 	public void update(int id, InventoryPojo inventoryPojo) throws ApiException {
 		validateQuantity(inventoryPojo);
 		InventoryPojo oldInventoryPojo = getCheck(id);
@@ -56,7 +51,7 @@ public class InventoryService {
 	}
 
 
-	public void validateQuantity(InventoryPojo inventoryPojo) throws ApiException {
+	private void validateQuantity(InventoryPojo inventoryPojo) throws ApiException {
 		if (inventoryPojo.getQuantity() <= 0) {
 			throw new ApiException("Error: quantity can not be negative");
 		}

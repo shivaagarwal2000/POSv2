@@ -30,11 +30,11 @@ import java.util.List;
     @Autowired
     private OrderItemService orderItemService;
     public void add() throws ApiException { // TODO: move to helper
-<span class="nc" id="L33">        ZonedDateTime prevDateStart = LocalDate.now().minusDays(1).atStartOfDay(ZoneId.systemDefault());</span>
-<span class="nc" id="L34">        ZonedDateTime prevDateEnd = LocalDate.now().minusDays(1).atStartOfDay(ZoneId.systemDefault()).withHour(23).withMinute(59).withSecond(59);</span>
-<span class="nc" id="L35">        List&lt;OrderPojo&gt; orderPojos = orderService.getBetweenDates(prevDateStart, prevDateEnd);</span>
-<span class="nc bnc" id="L36" title="All 2 branches missed.">        if (orderPojos.size() == 0) {</span>
-<span class="nc" id="L37">            return;</span>
+<span class="fc" id="L33">        ZonedDateTime prevDateStart = LocalDate.now().minusDays(1).atStartOfDay(ZoneId.systemDefault());</span>
+<span class="fc" id="L34">        ZonedDateTime prevDateEnd = LocalDate.now().minusDays(1).atStartOfDay(ZoneId.systemDefault()).withHour(23).withMinute(59).withSecond(59);</span>
+<span class="fc" id="L35">        List&lt;OrderPojo&gt; orderPojos = orderService.getBetweenDates(prevDateStart, prevDateEnd);</span>
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">        if (orderPojos.size() == 0) {</span>
+<span class="fc" id="L37">            return;</span>
         }
 <span class="nc" id="L39">        int prevDayOrderCount = 0;</span>
 <span class="nc" id="L40">        int prevDayOrderItemsCount = 0;</span>
@@ -43,7 +43,7 @@ import java.util.List;
 <span class="nc" id="L43">            prevDayOrderCount += 1;</span>
 <span class="nc" id="L44">            List&lt;OrderItemPojo&gt; orderItemPojos = orderItemService.getItemPojos(orderPojo.getId());</span>
 <span class="nc bnc" id="L45" title="All 2 branches missed.">            for (OrderItemPojo orderItemPojo : orderItemPojos) {</span>
-<span class="nc" id="L46">                prevDayOrderItemsCount += 1;</span>
+<span class="nc" id="L46">                prevDayOrderItemsCount += orderItemPojo.getQuantity();</span>
 <span class="nc" id="L47">                totalRevenue += orderItemPojo.getSellingprice();</span>
 <span class="nc" id="L48">            }</span>
 <span class="nc" id="L49">        }</span>

@@ -7,34 +7,35 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.pos.util.IOUtil;
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-<span class="fc" id="L16">public class SampleController {</span>
+<span class="fc" id="L17">public class SampleController {</span>
 
 	//Spring ignores . (dot) in the path. So we need fileName:.+
 	//See https://stackoverflow.com/questions/16332092/spring-mvc-pathvariable-with-dot-is-getting-truncated
 	@RequestMapping(value = &quot;/sample/{fileName:.+}&quot;, method = RequestMethod.GET)
 	public void getFile(@PathVariable(&quot;fileName&quot;) String fileName, HttpServletResponse response) throws IOException {
 		// get your file as InputStream
-<span class="nc" id="L23">		response.setContentType(&quot;text/csv&quot;);</span>
-<span class="nc" id="L24">		response.addHeader(&quot;Content-disposition:&quot;, &quot;attachment; filename=&quot; + fileName);</span>
-<span class="nc" id="L25">		String fileClasspath = &quot;/com/pos/&quot; + fileName;</span>
-<span class="nc" id="L26">		InputStream is = SampleController.class.getResourceAsStream(fileClasspath);</span>
+<span class="nc" id="L24">		response.setContentType(&quot;text/csv&quot;);</span>
+<span class="nc" id="L25">		response.addHeader(&quot;Content-disposition:&quot;, &quot;attachment; filename=&quot; + fileName);</span>
+<span class="nc" id="L26">		String fileClasspath = &quot;/com/pos/&quot; + fileName;</span>
+<span class="nc" id="L27">		InputStream is = SampleController.class.getResourceAsStream(fileClasspath);</span>
 		// copy it to response's OutputStream
 		try {
-<span class="nc" id="L29">			IOUtils.copy(is, response.getOutputStream());</span>
-<span class="nc" id="L30">			response.flushBuffer();</span>
-<span class="nc" id="L31">		} catch (IOException e) {</span>
-<span class="nc" id="L32">			throw e;</span>
+<span class="nc" id="L30">			IOUtils.copy(is, response.getOutputStream());</span>
+<span class="nc" id="L31">			response.flushBuffer();</span>
+<span class="nc" id="L32">		} catch (IOException e) {</span>
+<span class="nc" id="L33">			throw e;</span>
 		} finally {
-<span class="nc" id="L34">			IOUtil.closeQuietly(is);</span>
+<span class="nc" id="L35">			IOUtil.closeQuietly(is);</span>
 		}
 
-<span class="nc" id="L37">	}</span>
+<span class="nc" id="L38">	}</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

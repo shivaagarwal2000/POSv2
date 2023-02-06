@@ -6,42 +6,46 @@
 
 <body>
 
-	<nav th:replace="snippets.html :: name_app_navbar"></nav>
+<nav th:replace="snippets.html :: name_app_navbar"></nav>
 
-	<div class="container">
+<div class="container">
 
-		<h3>Inventory Report</h3>
+    <h3>Inventory Report</h3>
 
-		<!-- Blank Row -->
-		<div class="row">&nbsp;</div>
-		<div class="row">
+    <!-- Blank Row -->
+    <div class="row">
+        <button type="submit" style="margin:10px 0 20px 20px;height:45px" class="btn btn-success" id="download-report"
+                onclick="downloadReport()">Download Report
+        </button>
+    </div>
+    <div class="row">
+        <!-- Table -->
+        <div class="col-12">
+            <table class="table table-hover table-bordered" id="brand-table">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">S.No.</th>
+                    <th scope="col">Brand</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Quantity</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                </tr>
+                </tbody>
+            </table>
 
-			<button type="submit" style="margin-left:40px;height:45px" class="btn btn-success" id="download-report" onclick="downloadReport()">Download Report</button>
-			<!-- Table -->
-			<div class="col-12">
-				<table class="table table-striped" id="brand-table">
-					<thead>
-						<tr>
-							<th scope="col">Brand</th>
-							<th scope="col">Category</th>
-							<th scope="col">Quantity</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-						</tr>
-					</tbody>
-				</table>
+        </div>
+    </div>
 
-			</div>
-		</div>
+</div>
+<!-- Container end-->
 
-	</div>
-	<!-- Container end-->
+<footer th:replace="snippets.html :: name_footer"></footer>
 
-	<footer th:replace="snippets.html :: name_footer"></footer>
-
-	<script th:src="@{/static/inventoryReport.js}" /></script>
+<script th:src="@{/static/inventoryReport.js}"/>
+</script>
 
 </body>
 

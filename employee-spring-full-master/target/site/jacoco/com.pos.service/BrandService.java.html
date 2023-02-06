@@ -51,19 +51,10 @@ import java.util.List;
 <span class="fc" id="L51">        brandDao.delete(id);</span>
 <span class="fc" id="L52">    }</span>
 
-//	@Transactional(readOnly = true)//TODO: refactor - minor - clean up if no major use
-//	public BrandPojo getCheck(int id) throws ApiException {
-//		BrandPojo brandPojo = brandDao.select(id);
-//		if (brandPojo == null) {
-//			throw new ApiException(&quot;Brand with given ID does not exit, id: &quot; + id);
-//		}
-//		return brandPojo;
-//	}
-
     @Transactional(readOnly = true)
     public BrandPojo get(String brand, String category) {
         //fetch a brand with brand, category combination
-<span class="fc" id="L66">        return brandDao.select(brand, category);</span>
+<span class="fc" id="L57">        return brandDao.select(brand, category);</span>
     }
 
 }

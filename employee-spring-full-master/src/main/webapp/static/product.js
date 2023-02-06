@@ -21,6 +21,7 @@ function addBrand(event) {
 		success: function(response) {
 		    handleSuccess("Success: product added")
 			getBrandList();
+			resetForm("#brand-form input")
 		},
 		error: handleAjaxError
 	});
@@ -33,12 +34,11 @@ function updateBrand(event) {
 	//Get the ID
 	var id = $("#brand-edit-form input[name=id]").val();
 	var url = getBrandUrl() + "/" + id;
-	console.log(url)
-	console.log(id)
+//	console.log(url)
+//	console.log(id)
 
 	//Set the values to update
 	var $form = $("#brand-edit-form");
-	console.log($form)
 	var json = toJson($form);
 
 	$.ajax({

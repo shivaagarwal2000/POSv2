@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 
+import com.pos.model.UserData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,15 @@ public class UserService {
 	}
 
 	@Transactional(readOnly = true)
+	public UserPojo get(int id) throws ApiException {
+		UserPojo userPojo = dao.select(id);
+		if (Objects.isNull(userPojo)) {
+			throw new ApiException("Error: user with id doesn't exist");
+		}
+		return  userPojo;
+	}
+
+	@Transactional(readOnly = true)
 	public List<UserPojo> getAll() {
 		return dao.selectAll();
 	}
@@ -51,6 +61,9 @@ public class UserService {
 		existingUserPojo = dao.select(id);
 		if (Objects.isNull(existingUserPojo)) {
 			throw new ApiException("Error: user doesn't exists");
+		}
+		if (!userPojo.getRole().equals(existingUserPojo.getRole())) {
+			throw new ApiException("Error: can't modify fields other than email");
 		}
 		existingUserPojo.setEmail(userPojo.getEmail());
 	}

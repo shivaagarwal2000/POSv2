@@ -14,23 +14,20 @@ import java.util.List;
 @Repository
 <span class="fc" id="L15">public class DaySalesDao extends AbstractDao {</span>
 
-//	private static final String delete_id = &quot;delete from BrandPojo p where id=:id&quot;;
-//	private static final String select_id = &quot;select p from BrandPojo p where id=:id&quot;;
-	private static final String SELECT_ALL = &quot;select p from BrandPojo p&quot;;
-//	private static final String select_brand_category = &quot;select p from BrandPojo p where brand=:brand and category=:category&quot;;
+	private static final String SELECT_ALL = &quot;select p from DaySalesPojo p&quot;;
 //TODO: clean up -- move such methods to abstract
 	@PersistenceContext
 	private EntityManager entityManager;
 
 	@Transactional(rollbackFor = ApiException.class)
 	public void insert(DaySalesPojo daySalesPojo) {
-<span class="nc" id="L27">		entityManager.persist(daySalesPojo);</span>
-<span class="nc" id="L28">	}</span>
+<span class="nc" id="L24">		entityManager.persist(daySalesPojo);</span>
+<span class="nc" id="L25">	}</span>
 
 	@Transactional(readOnly = true)
 	public List&lt;DaySalesPojo&gt; selectAll() {
-<span class="nc" id="L32">		TypedQuery&lt;DaySalesPojo&gt; query = getQuery(SELECT_ALL, DaySalesPojo.class);</span>
-<span class="nc" id="L33">		return query.getResultList();</span>
+<span class="nc" id="L29">		TypedQuery&lt;DaySalesPojo&gt; query = getQuery(SELECT_ALL, DaySalesPojo.class);</span>
+<span class="nc" id="L30">		return query.getResultList();</span>
 	}
 
 }

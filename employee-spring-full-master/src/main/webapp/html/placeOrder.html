@@ -7,6 +7,7 @@
 <body>
 
 	<nav th:replace="snippets.html :: name_app_navbar"></nav>
+	<div th:replace="snippets.html :: name_status_popup"></div>
 
 	<div class="container">
 
@@ -70,19 +71,30 @@
 
 			</div>
 		</div> -->
-		<table id="datatable">
-			<tr> <div>
-				<td>Barcode</td> <td>:</td> <td colspan="2"><input type="text" class="itemBarcode" /></td> <td> Quantity</td> <td>:</td> <td><input type="number" class="itemQuantity"/></td> 
-			</div> 
-			</tr>
-		</table>
+		<div class="col-12">
+			<table class="table table-bordered" id="datatable" style="text-align:center">
+				<thead class="thead-light">
+				<tr>
+					<th scope="col">Barcode</th>
+					<th scope="col">Quantity</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr> <div>
+					<td> <input type="text" class="itemBarcode" style="width:60%"/></td> <td> <input type="number" class="itemQuantity" style="width:60%"/></td>
+				</div>
+				</tr>
+				</tbody>
+			</table>
+		</div>
 
-		<button type="button" id="add">
-			<b>Add</b>
+		<button type="button" class="btn btn-primary" id="add">
+			<b>Add row</b>
 		</button>
+		<button type="button" class="btn btn-danger" onclick="myDeleteFunction()">Delete row</button>
 
-		<button type="button" id="submit" onclick="addOrder()">
-			<b>Save</b>
+		<button type="button" class="btn btn-success" id="submit" onclick="addOrder()">
+			<b>Save Order</b>
 		</button>
 
 		<!-- Employee Edit Modal through overlay -->

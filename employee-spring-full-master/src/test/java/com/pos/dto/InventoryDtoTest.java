@@ -1,7 +1,7 @@
 package com.pos.dto;
 
 import com.pos.dao.ProductDao;
-import com.pos.helper.DtoTestHelper;
+import com.pos.helper.posTestHelper;
 import com.pos.model.data.InventoryData;
 import com.pos.model.data.InventoryReportData;
 import com.pos.model.forms.BrandForm;
@@ -32,11 +32,11 @@ public class InventoryDtoTest extends AbstractUnitTest {
 
     @Test
     public void testAdd() throws ApiException {
-        BrandForm brandForm = DtoTestHelper.createBrandForm("brand", "category");
+        BrandForm brandForm = posTestHelper.createBrandForm("brand", "category");
         brandDto.add(brandForm);
-        ProductForm productForm = DtoTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "barcode", 5.00);
+        ProductForm productForm = posTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "barcode", 5.00);
         productDto.add(productForm);
-        InventoryForm inventoryForm = DtoTestHelper.createInventoryForm("  Barcode", 5);
+        InventoryForm inventoryForm = posTestHelper.createInventoryForm("  Barcode", 5);
         inventoryDto.add(inventoryForm);
         InventoryData inventoryData = inventoryDto.get(1);
         assertEquals(productForm.getBarcode(), inventoryData.getBarcode());
@@ -46,11 +46,11 @@ public class InventoryDtoTest extends AbstractUnitTest {
     @Test(expected = ApiException.class)
     public void testAddEmptyBarcode() throws ApiException {
         try {
-            BrandForm brandForm = DtoTestHelper.createBrandForm("brand", "category");
+            BrandForm brandForm = posTestHelper.createBrandForm("brand", "category");
             brandDto.add(brandForm);
-            ProductForm productForm = DtoTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "barcode", 5.00);
+            ProductForm productForm = posTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "barcode", 5.00);
             productDto.add(productForm);
-            InventoryForm inventoryForm = DtoTestHelper.createInventoryForm("", 5);
+            InventoryForm inventoryForm = posTestHelper.createInventoryForm("", 5);
             inventoryDto.add(inventoryForm);
             fail("inventory dto adding entry without barcode");
         } catch (ApiException apiException) {
@@ -63,11 +63,11 @@ public class InventoryDtoTest extends AbstractUnitTest {
     @Test(expected = ApiException.class)
     public void testAddEmptyQuantity() throws ApiException {
         try {
-            BrandForm brandForm = DtoTestHelper.createBrandForm("brand", "category");
+            BrandForm brandForm = posTestHelper.createBrandForm("brand", "category");
             brandDto.add(brandForm);
-            ProductForm productForm = DtoTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "barcode", 5.00);
+            ProductForm productForm = posTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "barcode", 5.00);
             productDto.add(productForm);
-            InventoryForm inventoryForm = DtoTestHelper.createInventoryForm("barcode", null);
+            InventoryForm inventoryForm = posTestHelper.createInventoryForm("barcode", null);
             inventoryDto.add(inventoryForm);
             fail("inventory dto adding entry without quantity");
         } catch (ApiException apiException) {
@@ -80,9 +80,9 @@ public class InventoryDtoTest extends AbstractUnitTest {
     @Test(expected = ApiException.class)
     public void testAddWithoutProduct() throws ApiException {
         try {
-            BrandForm brandForm = DtoTestHelper.createBrandForm("brand", "category");
+            BrandForm brandForm = posTestHelper.createBrandForm("brand", "category");
             brandDto.add(brandForm);
-            InventoryForm inventoryForm = DtoTestHelper.createInventoryForm("barcode", 5);
+            InventoryForm inventoryForm = posTestHelper.createInventoryForm("barcode", 5);
             inventoryDto.add(inventoryForm);
             fail("inventory dto adding entry without product");
         } catch (ApiException apiException) {
@@ -95,11 +95,11 @@ public class InventoryDtoTest extends AbstractUnitTest {
     @Test(expected = ApiException.class)
     public void testDuplicateAdd() throws ApiException {
         try {
-            BrandForm brandForm = DtoTestHelper.createBrandForm("brand", "category");
+            BrandForm brandForm = posTestHelper.createBrandForm("brand", "category");
             brandDto.add(brandForm);
-            ProductForm productForm = DtoTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "barcode", 5.00);
+            ProductForm productForm = posTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "barcode", 5.00);
             productDto.add(productForm);
-            InventoryForm inventoryForm = DtoTestHelper.createInventoryForm("barcode", 5);
+            InventoryForm inventoryForm = posTestHelper.createInventoryForm("barcode", 5);
             inventoryDto.add(inventoryForm);
             inventoryForm.setQuantity(10);
             inventoryDto.add(inventoryForm);
@@ -113,11 +113,11 @@ public class InventoryDtoTest extends AbstractUnitTest {
 
     @Test
     public void testGetById() throws ApiException {
-        BrandForm brandForm = DtoTestHelper.createBrandForm("brand", "category");
+        BrandForm brandForm = posTestHelper.createBrandForm("brand", "category");
         brandDto.add(brandForm);
-        ProductForm productForm = DtoTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "barcode", 5.00);
+        ProductForm productForm = posTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "barcode", 5.00);
         productDto.add(productForm);
-        InventoryForm inventoryForm = DtoTestHelper.createInventoryForm("barcode", 5);
+        InventoryForm inventoryForm = posTestHelper.createInventoryForm("barcode", 5);
         inventoryDto.add(inventoryForm);
         InventoryData inventoryData = inventoryDto.get(1);
         assertEquals(inventoryForm.getBarcode(), inventoryData.getBarcode());
@@ -127,14 +127,14 @@ public class InventoryDtoTest extends AbstractUnitTest {
     @Test
     public void testGetAll() throws ApiException { // TODO: write test
         List<InventoryData> inventoryDataList = new ArrayList<InventoryData>();
-        BrandForm brandForm = DtoTestHelper.createBrandForm("brand", "category");
+        BrandForm brandForm = posTestHelper.createBrandForm("brand", "category");
         brandDto.add(brandForm);
         for (int i = 1; i <= 3; i++) {
-            ProductForm productForm = DtoTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name" + i, "barcode" + i, 5.5);
+            ProductForm productForm = posTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name" + i, "barcode" + i, 5.5);
             productDto.add(productForm);
-            InventoryForm inventoryForm = DtoTestHelper.createInventoryForm("barcode" + i, i);
+            InventoryForm inventoryForm = posTestHelper.createInventoryForm("barcode" + i, i);
             inventoryDto.add(inventoryForm);
-            InventoryData inventoryData = DtoTestHelper.createInventoryData(inventoryForm.getBarcode(), inventoryForm.getQuantity(), i);
+            InventoryData inventoryData = posTestHelper.createInventoryData(inventoryForm.getBarcode(), inventoryForm.getQuantity(), i);
             inventoryDataList.add(inventoryData);
         }
         List<InventoryData> insertedInventoryDatas = inventoryDto.getAll();
@@ -147,7 +147,7 @@ public class InventoryDtoTest extends AbstractUnitTest {
 
     @Test
     public void testGetReport() throws ApiException {
-        BrandForm brandForm = DtoTestHelper.createBrandForm("brand", "category");
+        BrandForm brandForm = posTestHelper.createBrandForm("brand", "category");
         brandDto.add(brandForm);
         InventoryReportData inventoryReportData = new InventoryReportData();
         inventoryReportData.setBrand(brandForm.getBrand());
@@ -155,9 +155,9 @@ public class InventoryDtoTest extends AbstractUnitTest {
         inventoryReportData.setQuantity(0);
         List<InventoryReportData> inventoryReportDataList = new ArrayList<>();
         for (int i = 1; i <= 2; i++) {
-            ProductForm productForm = DtoTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name" + i, "barcode" + i, 5.5);
+            ProductForm productForm = posTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name" + i, "barcode" + i, 5.5);
             productDto.add(productForm);
-            InventoryForm inventoryForm = DtoTestHelper.createInventoryForm(productForm.getBarcode(), i);
+            InventoryForm inventoryForm = posTestHelper.createInventoryForm(productForm.getBarcode(), i);
             inventoryDto.add(inventoryForm);
             inventoryReportData.setQuantity(inventoryReportData.getQuantity() + inventoryForm.getQuantity());
         }
@@ -168,11 +168,11 @@ public class InventoryDtoTest extends AbstractUnitTest {
 
     @Test
     public void testUpdate() throws ApiException {
-        BrandForm brandForm = DtoTestHelper.createBrandForm("brand", "category");
+        BrandForm brandForm = posTestHelper.createBrandForm("brand", "category");
         brandDto.add(brandForm);
-        ProductForm productForm = DtoTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "barcode", 5.00);
+        ProductForm productForm = posTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "barcode", 5.00);
         productDto.add(productForm);
-        InventoryForm inventoryForm = DtoTestHelper.createInventoryForm("barcode", 5);
+        InventoryForm inventoryForm = posTestHelper.createInventoryForm("barcode", 5);
         inventoryDto.add(inventoryForm);
         inventoryForm.setQuantity(5);
         inventoryDto.update(1, inventoryForm);
@@ -184,11 +184,11 @@ public class InventoryDtoTest extends AbstractUnitTest {
     @Test(expected = ApiException.class)
     public void testDelete() throws ApiException {
         try {
-            BrandForm brandForm = DtoTestHelper.createBrandForm("brand", "category");
+            BrandForm brandForm = posTestHelper.createBrandForm("brand", "category");
             brandDto.add(brandForm);
-            ProductForm productForm = DtoTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "barcode", 5.00);
+            ProductForm productForm = posTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "barcode", 5.00);
             productDto.add(productForm);
-            InventoryForm inventoryForm = DtoTestHelper.createInventoryForm(productForm.getBarcode(), 5);
+            InventoryForm inventoryForm = posTestHelper.createInventoryForm(productForm.getBarcode(), 5);
             inventoryDto.add(inventoryForm);
             inventoryDto.delete(1);
             InventoryData inventoryData = inventoryDto.get(1);

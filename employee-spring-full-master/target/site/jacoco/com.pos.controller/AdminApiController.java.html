@@ -43,37 +43,44 @@ import io.swagger.annotations.ApiOperation;
 	@ApiOperation(value = &quot;edits a user&quot;)
 	@RequestMapping(path = &quot;/api/admin/user/{id}&quot;, method = RequestMethod.PUT)
 	public void editUser(@PathVariable int id, @RequestBody UserForm userForm) throws ApiException {
-<span class="nc" id="L46">		service.update(id, convert(userForm));</span>
-<span class="nc" id="L47">	}</span>
+<span class="nc" id="L46">		userForm.setPassword(&quot;strongPassword&quot;);</span>
+<span class="nc" id="L47">		service.update(id, convert(userForm));</span>
+<span class="nc" id="L48">	}</span>
 
 	@ApiOperation(value = &quot;Gets list of all users&quot;)
 	@RequestMapping(path = &quot;/api/admin/user&quot;, method = RequestMethod.GET)
 	public List&lt;UserData&gt; getAllUser() {
-<span class="nc" id="L52">		List&lt;UserPojo&gt; list = service.getAll();</span>
-<span class="nc" id="L53">		List&lt;UserData&gt; list2 = new ArrayList&lt;UserData&gt;();</span>
-<span class="nc bnc" id="L54" title="All 2 branches missed.">		for (UserPojo p : list) {</span>
-<span class="nc" id="L55">			list2.add(convert(p));</span>
-<span class="nc" id="L56">		}</span>
-<span class="nc" id="L57">		return list2;</span>
+<span class="nc" id="L53">		List&lt;UserPojo&gt; list = service.getAll();</span>
+<span class="nc" id="L54">		List&lt;UserData&gt; list2 = new ArrayList&lt;UserData&gt;();</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">		for (UserPojo p : list) {</span>
+<span class="nc" id="L56">			list2.add(convert(p));</span>
+<span class="nc" id="L57">		}</span>
+<span class="nc" id="L58">		return list2;</span>
+	}
+
+	@ApiOperation(value = &quot;Gets user data&quot;)
+	@RequestMapping(path = &quot;/api/admin/user/{id}&quot;, method = RequestMethod.GET)
+	public UserData getUser(@PathVariable int id) throws ApiException {
+<span class="nc" id="L64">		return convert(service.get(id));</span>
 	}
 
 	private static UserData convert(UserPojo p) {
-<span class="nc" id="L61">		UserData d = new UserData();</span>
-<span class="nc" id="L62">		d.setEmail(p.getEmail());</span>
-<span class="nc" id="L63">		d.setRole(p.getRole());</span>
-<span class="nc" id="L64">		d.setId(p.getId());</span>
-<span class="nc" id="L65">		return d;</span>
+<span class="nc" id="L68">		UserData d = new UserData();</span>
+<span class="nc" id="L69">		d.setEmail(p.getEmail());</span>
+<span class="nc" id="L70">		d.setRole(p.getRole());</span>
+<span class="nc" id="L71">		d.setId(p.getId());</span>
+<span class="nc" id="L72">		return d;</span>
 	}
 
 	private static UserPojo convert(UserForm f) throws ApiException {
-<span class="nc" id="L69">		UserPojo p = new UserPojo();</span>
-<span class="nc bnc" id="L70" title="All 6 branches missed.">		if (StringUtil.isEmpty(f.getEmail()) || StringUtil.isEmpty(f.getPassword()) || StringUtil.isEmpty(f.getRole())) {</span>
-<span class="nc" id="L71">			throw new ApiException(&quot;Error: email/password/role are mandatory&quot;);</span>
+<span class="nc" id="L76">		UserPojo p = new UserPojo();</span>
+<span class="nc bnc" id="L77" title="All 6 branches missed.">		if (StringUtil.isEmpty(f.getEmail()) || StringUtil.isEmpty(f.getPassword()) || StringUtil.isEmpty(f.getRole())) {</span>
+<span class="nc" id="L78">			throw new ApiException(&quot;Error: email/password/role are mandatory&quot;);</span>
 		}
-<span class="nc" id="L73">		p.setEmail(f.getEmail());</span>
-<span class="nc" id="L74">		p.setRole(f.getRole());</span>
-<span class="nc" id="L75">		p.setPassword(f.getPassword());</span>
-<span class="nc" id="L76">		return p;</span>
+<span class="nc" id="L80">		p.setEmail(f.getEmail());</span>
+<span class="nc" id="L81">		p.setRole(f.getRole());</span>
+<span class="nc" id="L82">		p.setPassword(f.getPassword());</span>
+<span class="nc" id="L83">		return p;</span>
 	}
 
 }

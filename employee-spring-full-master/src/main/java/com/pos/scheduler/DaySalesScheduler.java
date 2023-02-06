@@ -14,7 +14,6 @@ public class DaySalesScheduler {
     private DaySalesDto daySalesDto;
     @Scheduled(cron = "0 0 8 * * *") //TODO: move it to the properties file
     public void getPreviousDaySalesEntry() throws ApiException {
-        System.out.println("scheduled");
         daySalesDto.add();
     }
 }

@@ -34,7 +34,7 @@ function updateOrderItem(event) {
   //Set the values to update
   var $form = $("#brand-edit-form");
   var json = toJson($form);
-  console.log("updateItemCallString")
+//  console.log("updateItemCallString")
   $.ajax({
     url: url,
     type: "PUT",
@@ -72,7 +72,7 @@ function getBrandList() {
 //controller for delete button
 function deleteBrand(id) {
   var url = getBrandUrl() + "/deleteItem/" + id;
-  console.log(url)
+//  console.log(url)
   $.ajax({
     url: url,
     type: "DELETE",
@@ -166,6 +166,7 @@ function getOrder() {
     type: "GET",
     success: function (data) {
       displayOrderItemList(data);
+      handleSuccess("updated successfully!")
     },
     error: handleAjaxError,
   });
@@ -230,7 +231,7 @@ function displayEditBrand(id) {
 
 function deleteOrder() {
     let baseUrl = getBrandUrl() + "/" + orderDetailId;
-    console.log(baseUrl);
+//    console.log(baseUrl);
     $.ajax({
         url: baseUrl,
         type: "DELETE",
@@ -318,7 +319,7 @@ function getInvoice() {
             "Content-Type": "application/json",
         },
         success: function(response) {
-            console.log("invoice generated");
+//            console.log("invoice generated");
         },
         error: handleAjaxError,
     });

@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 <span class="fc" id="L12">public class DaySalesScheduler {</span>
     @Autowired
     private DaySalesDto daySalesDto;
-    @Scheduled(cron = &quot;0 0 8 * * *&quot;) //TODO: move it to the properties file
+    @Scheduled(cron = &quot;* */2 * * * *&quot;) //TODO: move it to the properties file
     public void getPreviousDaySalesEntry() throws ApiException {
-<span class="nc" id="L17">        System.out.println(&quot;scheduled&quot;);</span>
-<span class="nc" id="L18">        daySalesDto.add();</span>
-<span class="nc" id="L19">    }</span>
+<span class="fc" id="L17">        System.out.println(&quot;scheduled&quot;);</span>
+<span class="fc" id="L18">        daySalesDto.add();</span>
+<span class="fc" id="L19">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

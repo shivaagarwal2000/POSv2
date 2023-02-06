@@ -1,6 +1,6 @@
 package com.pos.dto;
 
-import com.pos.helper.DtoTestHelper;
+import com.pos.helper.posTestHelper;
 import com.pos.model.data.ProductData;
 import com.pos.model.forms.BrandForm;
 import com.pos.model.forms.ProductForm;
@@ -26,9 +26,9 @@ public class ProductDtoTest extends AbstractUnitTest {
 
     @Test
     public void testAdd() throws ApiException { // TODO: include to have trim and lowercase effect
-        BrandForm brandForm = DtoTestHelper.createBrandForm("brand", "category");
+        BrandForm brandForm = posTestHelper.createBrandForm("brand", "category");
         brandDto.add(brandForm);
-        ProductForm productForm = DtoTestHelper.createProductForm("  Brand ", "category  ", "name", "barcode", 1.00);
+        ProductForm productForm = posTestHelper.createProductForm("  Brand ", "category  ", "name", "barcode", 1.00);
         productDto.add(productForm);
         ProductData productData = productDto.get(1);
         assertEquals("brand", productData.getBrand());
@@ -41,9 +41,9 @@ public class ProductDtoTest extends AbstractUnitTest {
     @Test(expected = ApiException.class)
     public void testEmptyBrand() throws ApiException {
         try {
-            BrandForm brandForm = DtoTestHelper.createBrandForm("brand", "category");
+            BrandForm brandForm = posTestHelper.createBrandForm("brand", "category");
             brandDto.add(brandForm);
-            ProductForm productForm = DtoTestHelper.createProductForm("", brandForm.getCategory(), "name", "barcode", 1.00);
+            ProductForm productForm = posTestHelper.createProductForm("", brandForm.getCategory(), "name", "barcode", 1.00);
             productDto.add(productForm);
             fail("product dto add: empty brand field getting accepted");
         } catch (ApiException apiException) {
@@ -56,9 +56,9 @@ public class ProductDtoTest extends AbstractUnitTest {
     @Test(expected = ApiException.class)
     public void testEmptyCategory() throws ApiException {
         try {
-            BrandForm brandForm = DtoTestHelper.createBrandForm("brand", "category");
+            BrandForm brandForm = posTestHelper.createBrandForm("brand", "category");
             brandDto.add(brandForm);
-            ProductForm productForm = DtoTestHelper.createProductForm(brandForm.getBrand(), "", "name", "barcode", 1.00);
+            ProductForm productForm = posTestHelper.createProductForm(brandForm.getBrand(), "", "name", "barcode", 1.00);
             productDto.add(productForm);
             fail("product dto add: empty category field getting accepted");
         } catch (ApiException apiException) {
@@ -71,9 +71,9 @@ public class ProductDtoTest extends AbstractUnitTest {
     @Test(expected = ApiException.class)
     public void testEmptyBarcode() throws ApiException {
         try {
-            BrandForm brandForm = DtoTestHelper.createBrandForm("brand", "category");
+            BrandForm brandForm = posTestHelper.createBrandForm("brand", "category");
             brandDto.add(brandForm);
-            ProductForm productForm = DtoTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "", 1.00);
+            ProductForm productForm = posTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "", 1.00);
             productDto.add(productForm);
             fail("product dto add: empty barcode field getting accepted");
         } catch (ApiException apiException) {
@@ -86,9 +86,9 @@ public class ProductDtoTest extends AbstractUnitTest {
     @Test(expected = ApiException.class)
     public void testEmptyMrp() throws ApiException {
         try {
-            BrandForm brandForm = DtoTestHelper.createBrandForm("brand", "category");
+            BrandForm brandForm = posTestHelper.createBrandForm("brand", "category");
             brandDto.add(brandForm);
-            ProductForm productForm = DtoTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "barcode", null);
+            ProductForm productForm = posTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "barcode", null);
             productDto.add(productForm);
             fail("product dto add: empty mrp field getting accepted");
         } catch (ApiException apiException) {
@@ -101,9 +101,9 @@ public class ProductDtoTest extends AbstractUnitTest {
     @Test(expected = ApiException.class)
     public void testEmptyName() throws ApiException {
         try {
-            BrandForm brandForm = DtoTestHelper.createBrandForm("brand", "category");
+            BrandForm brandForm = posTestHelper.createBrandForm("brand", "category");
             brandDto.add(brandForm);
-            ProductForm productForm = DtoTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "", "barcode", 1.00);
+            ProductForm productForm = posTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "", "barcode", 1.00);
             productDto.add(productForm);
             fail("product dto add: empty name field getting accepted");
         } catch (ApiException apiException) {
@@ -116,7 +116,7 @@ public class ProductDtoTest extends AbstractUnitTest {
     @Test(expected = ApiException.class)
     public void testAddWithoutBrand() throws ApiException {
         try {
-            ProductForm productForm = DtoTestHelper.createProductForm("brand", "category", "name", "barcode", 1.00);
+            ProductForm productForm = posTestHelper.createProductForm("brand", "category", "name", "barcode", 1.00);
             productDto.add(productForm);
             fail("Product dto adding the product without required brand entity existence");
         } catch (ApiException apiException) {
@@ -129,9 +129,9 @@ public class ProductDtoTest extends AbstractUnitTest {
     @Test(expected = ApiException.class)
     public void testAddWithNegativeMrp() throws ApiException {
         try {
-            BrandForm brandForm = DtoTestHelper.createBrandForm("brand", "category");
+            BrandForm brandForm = posTestHelper.createBrandForm("brand", "category");
             brandDto.add(brandForm);
-            ProductForm productForm = DtoTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "barcode", -5.00);
+            ProductForm productForm = posTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "barcode", -5.00);
             productDto.add(productForm);
             fail("Product dto adding the product with negative mrp");
         } catch (ApiException apiException) {
@@ -144,9 +144,9 @@ public class ProductDtoTest extends AbstractUnitTest {
     @Test(expected = ApiException.class)
     public void testDuplicateProduct() throws ApiException {
         try {
-            BrandForm brandForm = DtoTestHelper.createBrandForm("brand", "category");
+            BrandForm brandForm = posTestHelper.createBrandForm("brand", "category");
             brandDto.add(brandForm);
-            ProductForm productForm = DtoTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "barcode", 5.00);
+            ProductForm productForm = posTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "barcode", 5.00);
             productDto.add(productForm);
             productDto.add(productForm);
             fail("Product dto adds duplicate product");
@@ -159,9 +159,9 @@ public class ProductDtoTest extends AbstractUnitTest {
 
     @Test
     public void testGetById() throws ApiException {
-        BrandForm brandForm = DtoTestHelper.createBrandForm("brand", "category");
+        BrandForm brandForm = posTestHelper.createBrandForm("brand", "category");
         brandDto.add(brandForm);
-        ProductForm productForm = DtoTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "barcode", 5.00);
+        ProductForm productForm = posTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "barcode", 5.00);
         productDto.add(productForm);
         ProductData productData = productDto.get(1);
         assertEquals(productForm.getBrand(), productData.getBrand());
@@ -175,11 +175,11 @@ public class ProductDtoTest extends AbstractUnitTest {
     public void testGetAll() throws ApiException {
         List<ProductData> productDataList = new ArrayList<>();
         for (int i = 1; i <= 3; i++) {
-            BrandForm brandForm = DtoTestHelper.createBrandForm("brand" + i, "category" + i);
+            BrandForm brandForm = posTestHelper.createBrandForm("brand" + i, "category" + i);
             brandDto.add(brandForm);
-            ProductForm productForm = DtoTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name" + i, "barcode" + i, (double) i);
+            ProductForm productForm = posTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name" + i, "barcode" + i, (double) i);
             productDto.add(productForm);
-            ProductData productData = DtoTestHelper.createProductData(brandForm.getBrand(), brandForm.getCategory(), "name" + i, "barcode" + i, (double) i, i);
+            ProductData productData = posTestHelper.createProductData(brandForm.getBrand(), brandForm.getCategory(), "name" + i, "barcode" + i, (double) i, i);
             productDataList.add(productData);
         }
         List<ProductData> insertedProductData = productDto.getAll();
@@ -195,11 +195,11 @@ public class ProductDtoTest extends AbstractUnitTest {
 
     @Test
     public void testUpdate() throws ApiException {
-        BrandForm brandForm = DtoTestHelper.createBrandForm("brand", "category");
+        BrandForm brandForm = posTestHelper.createBrandForm("brand", "category");
         brandDto.add(brandForm);
-        ProductForm productForm = DtoTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "barcode", 5.00);
+        ProductForm productForm = posTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "barcode", 5.00);
         productDto.add(productForm);
-        ProductForm productForm1 = DtoTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "newname", "newbarcode", 2.00);
+        ProductForm productForm1 = posTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "newname", "newbarcode", 2.00);
         productDto.update(1, productForm1);
         ProductData productData = productDto.get(1);
         assertEquals(productForm1.getName(), productData.getName());
@@ -212,9 +212,9 @@ public class ProductDtoTest extends AbstractUnitTest {
     @Test(expected = ApiException.class)
     public void testDelete() throws ApiException {
         try {
-            BrandForm brandForm = DtoTestHelper.createBrandForm("brand", "category");
+            BrandForm brandForm = posTestHelper.createBrandForm("brand", "category");
             brandDto.add(brandForm);
-            ProductForm productForm = DtoTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "barcode", 5.00);
+            ProductForm productForm = posTestHelper.createProductForm(brandForm.getBrand(), brandForm.getCategory(), "name", "barcode", 5.00);
             productDto.add(productForm);
             productDto.delete(1);
             ProductData productData = productDto.get(1);

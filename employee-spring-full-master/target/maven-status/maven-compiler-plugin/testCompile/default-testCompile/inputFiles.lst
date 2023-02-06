@@ -7,12 +7,12 @@
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/pos/dao/BrandDaoTest.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/pos/dto/ProductDtoTest.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/pos/service/ProductServiceTest.java
-/mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/pos/helper/DtoTestHelper.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/pos/service/AboutAppServiceTest.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/pos/dto/BrandDtoTest.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/pos/dao/InventoryDaoTest.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/pos/service/BrandServiceTest.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/pos/service/SampleTest.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/pos/service/OrderServiceTest.java
+/mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/pos/helper/posTestHelper.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/pos/service/EmployeeServiceTest.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/pos/service/QaConfig.java
