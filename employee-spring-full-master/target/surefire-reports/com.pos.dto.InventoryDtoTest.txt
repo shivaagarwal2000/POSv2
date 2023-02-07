@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.pos.dto.InventoryDtoTest
 -------------------------------------------------------------------------------
-Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.851 sec
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.109 sec

@@ -8,7 +8,7 @@ public class CommonOrderItemData {
     private double mrp;
     private String productName;
     private String barcode;
-    private int quantity;
+    private Integer quantity;
 
     public int getId() {
         return id;
@@ -58,11 +58,11 @@ public class CommonOrderItemData {
         this.barcode = barcode;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 

@@ -2,6 +2,7 @@
 
 import com.pos.dao.BrandDao;
 import com.pos.pojo.BrandPojo;
+import org.commons.util.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-<span class="fc" id="L12">public class BrandService {</span>
+<span class="fc" id="L13">public class BrandService {</span>
 
     @Autowired
     private BrandDao brandDao;
@@ -17,44 +18,44 @@ import java.util.List;
     @Transactional(rollbackFor = ApiException.class)
     public void add(BrandPojo brandPojo) throws ApiException {
         //add a new brand
-<span class="fc" id="L20">        brandDao.insert(brandPojo);</span>
-<span class="fc" id="L21">    }</span>
+<span class="fc" id="L21">        brandDao.insert(brandPojo);</span>
+<span class="fc" id="L22">    }</span>
 
     @Transactional(readOnly = true)
     public BrandPojo get(int id) throws ApiException {
         //fetch a brand with brandId
-<span class="fc" id="L26">        BrandPojo brandPojo = brandDao.select(id);</span>
-<span class="fc bfc" id="L27" title="All 2 branches covered.">        if (brandPojo == null) {</span>
-<span class="fc" id="L28">            throw new ApiException(&quot;Brand with given ID does not exit, id: &quot; + id);</span>
+<span class="fc" id="L27">        BrandPojo brandPojo = brandDao.select(id);</span>
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        if (brandPojo == null) {</span>
+<span class="fc" id="L29">            throw new ApiException(&quot;Brand with given ID does not exit, id: &quot; + id);</span>
         }
-<span class="fc" id="L30">        return brandPojo;</span>
+<span class="fc" id="L31">        return brandPojo;</span>
     }
 
     @Transactional(readOnly = true)
     public List&lt;BrandPojo&gt; getAll() {
         //fetch all the brands
-<span class="fc" id="L36">        return brandDao.selectAll();</span>
+<span class="fc" id="L37">        return brandDao.selectAll();</span>
     }
 
     @Transactional(rollbackFor = ApiException.class)
     public void update(int id, BrandPojo brandPojo) throws ApiException {
         //update an old brand
-<span class="fc" id="L42">        BrandPojo oldBrandPojo = get(id);</span>
-<span class="fc" id="L43">        oldBrandPojo.setBrand(brandPojo.getBrand());</span>
-<span class="fc" id="L44">        oldBrandPojo.setCategory(brandPojo.getCategory());</span>
-<span class="fc" id="L45">        brandDao.update(oldBrandPojo);</span>
-<span class="fc" id="L46">    }</span>
+<span class="fc" id="L43">        BrandPojo oldBrandPojo = get(id);</span>
+<span class="fc" id="L44">        oldBrandPojo.setBrand(brandPojo.getBrand());</span>
+<span class="fc" id="L45">        oldBrandPojo.setCategory(brandPojo.getCategory());</span>
+<span class="fc" id="L46">        brandDao.update(oldBrandPojo);</span>
+<span class="fc" id="L47">    }</span>
 
     @Transactional(rollbackFor = ApiException.class)
     public void delete(int id) {
         //delete an existing brand
-<span class="fc" id="L51">        brandDao.delete(id);</span>
-<span class="fc" id="L52">    }</span>
+<span class="fc" id="L52">        brandDao.delete(id);</span>
+<span class="fc" id="L53">    }</span>
 
     @Transactional(readOnly = true)
     public BrandPojo get(String brand, String category) {
         //fetch a brand with brand, category combination
-<span class="fc" id="L57">        return brandDao.select(brand, category);</span>
+<span class="fc" id="L58">        return brandDao.select(brand, category);</span>
     }
 
 }

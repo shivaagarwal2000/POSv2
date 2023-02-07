@@ -1,13 +1,14 @@
 package com.pos.dto;
 
 import com.pos.helper.posTestHelper;
-import com.pos.model.data.CommonOrderItemData;
+//import com.pos.model.data.CommonOrderItemData;
+import org.commons.CommonOrderItemData;
 import com.pos.model.data.InventoryData;
 import com.pos.model.data.OrderData;
 import com.pos.model.data.SalesReportData;
 import com.pos.model.forms.*;
 import com.pos.service.AbstractUnitTest;
-import com.pos.service.ApiException;
+import org.commons.util.ApiException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;

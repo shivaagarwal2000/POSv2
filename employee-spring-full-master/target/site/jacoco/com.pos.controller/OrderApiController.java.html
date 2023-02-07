@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderApiController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">employee-spring</a> &gt; <a href="index.source.html" class="el_package">com.pos.controller</a> &gt; <span class="el_source">OrderApiController.java</span></div><h1>OrderApiController.java</h1><pre class="source lang-java linenums">package com.pos.controller;
 
 import com.pos.dto.OrderDto;
-import com.pos.model.data.CommonOrderItemData;
+//import com.pos.model.data.CommonOrderItemData;
+import org.commons.CommonOrderItemData;
 import com.pos.model.data.OrderData;
 import com.pos.model.data.SalesReportData;
 import com.pos.model.forms.OrderItemForm;
 import com.pos.model.forms.SalesReportForm;
-import com.pos.service.ApiException;
+import org.commons.util.ApiException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import java.util.List;
 
 @Api
 @RestController
-<span class="fc" id="L21">public class OrderApiController {</span>
+<span class="fc" id="L22">public class OrderApiController {</span>
 
     @Autowired
     private OrderDto orderDto;
@@ -26,63 +27,63 @@ import java.util.List;
     @ApiOperation(value = &quot;Adds an order&quot;)
     @RequestMapping(path = &quot;/api/order&quot;, method = RequestMethod.POST)
     public int addOrder(@RequestBody List&lt;OrderItemForm&gt; forms) throws ApiException {
-<span class="nc" id="L29">        return orderDto.addOrder(forms);</span>
+<span class="nc" id="L30">        return orderDto.addOrder(forms);</span>
     }
 
     @ApiOperation(value = &quot;Edit an order item&quot;)
     @RequestMapping(path = &quot;/api/order/editItem/{id}&quot;, method = RequestMethod.PUT)
     public void editOrderItem(@PathVariable int id, @RequestBody OrderItemForm orderItemForm) throws ApiException {
-<span class="nc" id="L35">        orderDto.editOrderItem(id, orderItemForm);</span>
-<span class="nc" id="L36">    }</span>
+<span class="nc" id="L36">        orderDto.editOrderItem(id, orderItemForm);</span>
+<span class="nc" id="L37">    }</span>
 
     @ApiOperation(value = &quot;delete an order item&quot;)
     @RequestMapping(path = &quot;/api/order/deleteItem/{id}&quot;, method = RequestMethod.DELETE)
     public void deleteOrderItem(@PathVariable int id) throws ApiException {
-<span class="nc" id="L41">        orderDto.deleteOrderItem(id);</span>
-<span class="nc" id="L42">    }</span>
+<span class="nc" id="L42">        orderDto.deleteOrderItem(id);</span>
+<span class="nc" id="L43">    }</span>
 
     @ApiOperation(value = &quot;Place order&quot;)
     @RequestMapping(path = &quot;/api/order/place/{id}&quot;, method = RequestMethod.PUT)
     public void placeOrder(@PathVariable int id) throws ApiException, IOException {
-<span class="nc" id="L47">        orderDto.placeOrder(id);</span>
-<span class="nc" id="L48">    }</span>
+<span class="nc" id="L48">        orderDto.placeOrder(id);</span>
+<span class="nc" id="L49">    }</span>
 
     @ApiOperation(value = &quot;Gets all orders&quot;)
     @RequestMapping(path = &quot;/api/order&quot;, method = RequestMethod.GET)
     public List&lt;OrderData&gt; getAllOrders() throws ApiException {
-<span class="nc" id="L53">        return orderDto.getAll();</span>
+<span class="nc" id="L54">        return orderDto.getAll();</span>
     }
 
     @ApiOperation(value = &quot;Gets item detail&quot;)
     @RequestMapping(path = &quot;/api/order/item/{id}&quot;, method = RequestMethod.GET)
     public CommonOrderItemData getOrderItemData(@PathVariable int id) throws ApiException {
         //get detail for an order item given id -- helps while editing
-<span class="nc" id="L60">        return orderDto.getOrderItem(id);</span>
+<span class="nc" id="L61">        return orderDto.getOrderItem(id);</span>
     }
 
     @ApiOperation(value = &quot;gets items for order&quot;)
     @RequestMapping(path = &quot;/api/order/{id}&quot;, method = RequestMethod.GET)
     public List&lt;CommonOrderItemData&gt; get(@PathVariable int id) throws ApiException {
-<span class="nc" id="L66">        return orderDto.getItemDatas(id);</span>
+<span class="nc" id="L67">        return orderDto.getItemDatas(id);</span>
     }
 
     @ApiOperation(value = &quot;delete a order&quot;)
     @RequestMapping(path = &quot;/api/order/{id}&quot;, method = RequestMethod.DELETE)
     public void delete(@PathVariable int id) throws ApiException {
-<span class="nc" id="L72">        orderDto.deleteOrder(id);</span>
-<span class="nc" id="L73">    }</span>
+<span class="nc" id="L73">        orderDto.deleteOrder(id);</span>
+<span class="nc" id="L74">    }</span>
 
     @ApiOperation(value = &quot;get order report&quot;)
     @RequestMapping(path = &quot;/api/order/report&quot;, method = RequestMethod.POST)
     public List&lt;SalesReportData&gt; getSalesReport(@RequestBody SalesReportForm salesReportForm) throws ApiException {
-<span class="nc" id="L78">        List&lt;SalesReportData&gt; salesReportDatas = orderDto.getSalesReportDatas(salesReportForm);</span>
-<span class="nc" id="L79">        return salesReportDatas;</span>
+<span class="nc" id="L79">        List&lt;SalesReportData&gt; salesReportDatas = orderDto.getSalesReportDatas(salesReportForm);</span>
+<span class="nc" id="L80">        return salesReportDatas;</span>
     }
 
     @ApiOperation(value = &quot;get order invoice&quot;)
     @RequestMapping(path = &quot;/api/order/invoice/{id}&quot;, method = RequestMethod.GET)
     public String getInvoice(@PathVariable int id) throws ApiException, IOException {
-<span class="nc" id="L85">        return orderDto.getInvoice(id);</span>
+<span class="nc" id="L86">        return orderDto.getInvoice(id);</span>
     }
 
 }

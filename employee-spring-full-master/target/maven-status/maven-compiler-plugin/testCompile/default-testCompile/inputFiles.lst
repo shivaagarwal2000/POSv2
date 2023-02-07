@@ -10,6 +10,7 @@
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/pos/service/AboutAppServiceTest.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/pos/dto/BrandDtoTest.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/pos/dao/InventoryDaoTest.java
+/mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/pos/helper/posTest.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/pos/service/BrandServiceTest.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/pos/service/SampleTest.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/test/java/com/pos/service/OrderServiceTest.java

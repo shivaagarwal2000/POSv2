@@ -4,7 +4,7 @@ import com.pos.model.data.DaySalesData;
 import com.pos.pojo.DaySalesPojo;
 import com.pos.pojo.OrderItemPojo;
 import com.pos.pojo.OrderPojo;
-import com.pos.service.ApiException;
+import org.commons.util.ApiException;
 import com.pos.service.DaySalesService;
 import com.pos.service.OrderItemService;
 import com.pos.service.OrderService;
@@ -29,9 +29,9 @@ public class DaySalesDto {
     private OrderService orderService;
     @Autowired
     private OrderItemService orderItemService;
-    public void add() throws ApiException { // TODO: move to helper
-        ZonedDateTime prevDateStart = LocalDate.now().minusDays(1).atStartOfDay(ZoneId.systemDefault());
-        ZonedDateTime prevDateEnd = LocalDate.now().minusDays(1).atStartOfDay(ZoneId.systemDefault()).withHour(23).withMinute(59).withSecond(59);
+    public void add() throws ApiException {
+        ZonedDateTime prevDateStart = getPrevStartEnd(true);
+        ZonedDateTime prevDateEnd = getPrevStartEnd(false);
         List<OrderPojo> orderPojos = orderService.getBetweenDates(prevDateStart, prevDateEnd);
         if (orderPojos.size() == 0) {
             return;
@@ -58,6 +58,15 @@ public class DaySalesDto {
             daySalesDataList.add(convert(daySalesPojo));
         }
         return daySalesDataList;
+    }
+
+    private ZonedDateTime getPrevStartEnd(boolean flag) {
+        if (flag) {
+            return LocalDate.now().minusDays(1).atStartOfDay(ZoneId.systemDefault());
+        }
+        else {
+            return LocalDate.now().minusDays(1).atStartOfDay(ZoneId.systemDefault()).withHour(23).withMinute(59).withSecond(59);
+        }
     }
 
     private DaySalesData convert(DaySalesPojo daySalesPojo) {

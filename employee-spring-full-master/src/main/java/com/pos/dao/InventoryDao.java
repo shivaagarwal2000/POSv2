@@ -1,7 +1,7 @@
 package com.pos.dao;
 
 import com.pos.pojo.InventoryPojo;
-import com.pos.service.ApiException;
+import org.commons.util.ApiException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

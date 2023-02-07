@@ -1,7 +1,7 @@
 package org.invoice.dto;
 
 import org.invoice.helper.InvoiceDtoHelper;
-import org.invoice.model.CommonOrderItemData;
+import org.commons.CommonOrderItemData;
 import org.invoice.pojo.InvoicePojo;
 import org.invoice.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;

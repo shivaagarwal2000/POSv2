@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="4" failures="0" name="com.pos.service.BrandServiceTest" time="2.603" errors="0" skipped="0">
+<testsuite tests="7" failures="0" name="com.pos.service.BrandServiceTest" time="3.995" errors="0" skipped="0">
   <properties>
     <property name="idea.version" value="2022.3.1"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
@@ -63,8 +63,11 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="com.pos.service.BrandServiceTest" name="testAdd" time="0.64"/>
-  <testcase classname="com.pos.service.BrandServiceTest" name="testGetId" time="0.607"/>
-  <testcase classname="com.pos.service.BrandServiceTest" name="testGetFalseId" time="0.654"/>
-  <testcase classname="com.pos.service.BrandServiceTest" name="testGetAll" time="0.702"/>
+  <testcase classname="com.pos.service.BrandServiceTest" name="testGetBrandCategory" time="0.595"/>
+  <testcase classname="com.pos.service.BrandServiceTest" name="testAdd" time="0.571"/>
+  <testcase classname="com.pos.service.BrandServiceTest" name="testGetId" time="0.595"/>
+  <testcase classname="com.pos.service.BrandServiceTest" name="testGetFalseId" time="0.53"/>
+  <testcase classname="com.pos.service.BrandServiceTest" name="testDelete" time="0.558"/>
+  <testcase classname="com.pos.service.BrandServiceTest" name="testGetAll" time="0.599"/>
+  <testcase classname="com.pos.service.BrandServiceTest" name="testUpdate" time="0.547"/>
 </testsuite>

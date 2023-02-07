@@ -2,6 +2,7 @@ package com.pos.service;
 
 import com.pos.helper.posTestHelper;
 import com.pos.pojo.InventoryPojo;
+import org.commons.util.ApiException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;

@@ -1,7 +1,7 @@
 package com.pos.scheduler;
 
 import com.pos.dto.DaySalesDto;
-import com.pos.service.ApiException;
+import org.commons.util.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;

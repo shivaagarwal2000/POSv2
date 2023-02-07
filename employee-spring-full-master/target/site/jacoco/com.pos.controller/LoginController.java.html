@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import com.pos.model.InfoData;
 import com.pos.model.LoginForm;
-import com.pos.service.ApiException;
+import org.commons.util.ApiException;
 import com.pos.service.UserService;
 import com.pos.util.SecurityUtil;
 import com.pos.util.UserPrincipal;

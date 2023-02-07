@@ -2,6 +2,7 @@ package com.pos.service;
 
 import com.pos.dao.ProductDao;
 import com.pos.pojo.ProductPojo;
+import org.commons.util.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,7 +74,7 @@ public class ProductService {
     public ProductPojo getCheck(String barcode) throws ApiException {
         ProductPojo productPojo = dao.select(barcode);
         if (Objects.isNull(productPojo)) {
-            throw new ApiException("Error: product does not exists for barcode: "+ barcode);
+            throw new ApiException("Error: product does not exists for barcode: " + barcode);
         }
         return dao.select(barcode);
     }

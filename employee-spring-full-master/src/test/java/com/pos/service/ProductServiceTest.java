@@ -2,6 +2,7 @@ package com.pos.service;
 
 import com.pos.helper.posTestHelper;
 import com.pos.pojo.ProductPojo;
+import org.commons.util.ApiException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
@@ -125,8 +126,7 @@ public class ProductServiceTest extends AbstractUnitTest {
             productService.add(productPojo);
             ProductPojo productPojo1 = productService.getCheck("wrongBarcode");
             fail("product service getcheckbarcode not working");
-        }
-        catch (ApiException apiException) {
+        } catch (ApiException apiException) {
             final String ERROR_MSG = "Error: product does not exists for barcode: wrongBarcode";
             assertEquals(ERROR_MSG, apiException.getMessage());
             throw apiException;

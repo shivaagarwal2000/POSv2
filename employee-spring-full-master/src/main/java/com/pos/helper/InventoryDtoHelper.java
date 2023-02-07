@@ -3,7 +3,7 @@ package com.pos.helper;
 import com.pos.model.data.InventoryData;
 import com.pos.model.forms.InventoryForm;
 import com.pos.pojo.InventoryPojo;
-import com.pos.service.ApiException;
+import org.commons.util.ApiException;
 import com.pos.util.StringUtil;
 
 public class InventoryDtoHelper {

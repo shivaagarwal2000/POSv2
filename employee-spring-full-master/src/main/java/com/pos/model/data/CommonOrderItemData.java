@@ -2,7 +2,7 @@ package com.pos.model.data;
 
 import com.pos.model.forms.OrderItemForm;
 
-public class CommonOrderItemData extends OrderItemForm {
+public class CommonOrderItemData extends OrderItemForm { // TODO: redundant class
 
     private int id;
     private int orderId;

@@ -2,7 +2,6 @@ package com.pos.dto;
 
 import com.pos.client.InvoiceClient;
 import com.pos.helper.OrderDtoHelper;
-import com.pos.model.data.CommonOrderItemData;
 import com.pos.model.data.OrderData;
 import com.pos.model.data.SalesReportData;
 import com.pos.model.forms.OrderItemForm;
@@ -10,6 +9,8 @@ import com.pos.model.forms.SalesReportForm;
 import com.pos.pojo.*;
 import com.pos.service.*;
 import com.pos.util.StringUtil;
+import org.commons.CommonOrderItemData;
+import org.commons.util.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,7 +45,6 @@ public class OrderDto {
     @Autowired
     private InvoiceClient invoiceClient;
 
-    //TODO: logic - edge - if multiple entries together for item -- ?
     @Transactional(rollbackFor = ApiException.class)
     public int addOrder(List<OrderItemForm> forms) throws ApiException {
         // add order - create order entry, order item entries with order still in pending state
@@ -118,12 +118,7 @@ public class OrderDto {
     }
 
     public List<SalesReportData> getSalesReportDatas(SalesReportForm salesReportForm) throws ApiException {
-        if (salesReportForm.getStartDate().isEmpty()) {// TODO Move this to normalize helper Priority: 5
-            salesReportForm.setStartDate("1970-01-01");
-        }
-        if (salesReportForm.getEndDate().isEmpty()) {
-            salesReportForm.setEndDate("3000-01-01");
-        } // TODO: allowing end date > today ?
+        validateDates(salesReportForm);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         ZonedDateTime startDate = LocalDate.parse(salesReportForm.getStartDate(), dtf).atStartOfDay(ZoneId.systemDefault());
         ZonedDateTime endDate = LocalDate.parse(salesReportForm.getEndDate(), dtf).atStartOfDay(ZoneId.systemDefault()).withHour(23).withMinute(59).withSecond(59);
@@ -189,6 +184,15 @@ public class OrderDto {
         return invoiceClient.getInvoice(commonOrderItemDatas);
     }
 
+    private void validateDates(SalesReportForm salesReportForm) {
+        if (salesReportForm.getStartDate().isEmpty()) {
+            salesReportForm.setStartDate("1970-01-01");
+        }
+        if (salesReportForm.getEndDate().isEmpty()) {
+            salesReportForm.setEndDate("3000-01-01");
+        }
+    }
+
     @Transactional(rollbackFor = ApiException.class)
     private void reduceInventory(List<OrderItemPojo> orderItemPojos) throws ApiException {
         //reduce inventory for order items
@@ -234,8 +238,7 @@ public class OrderDto {
             ProductPojo productPojo = validateOrderForm(form);
             if (productCheckMap.containsKey(productPojo.getBarcode())) {
                 throw new ApiException("Error: repeated entry");
-            }
-            else {
+            } else {
                 productCheckMap.put(productPojo.getBarcode(), true);
             }
         }

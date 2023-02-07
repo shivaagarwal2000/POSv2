@@ -34,7 +34,6 @@
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/dto/OrderDto.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/model/EmployeeData.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/dao/AbstractDao.java
-/mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/service/ApiException.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/service/OrderItemService.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/dao/EmployeeInMemDao.java
 /mnt/444051B04051AA06/Repos/master-module/employee-spring-full-master/src/main/java/com/pos/helper/BrandDtoHelper.java

@@ -5,7 +5,7 @@ import java.util.List;
 import com.pos.dto.ProductDto;
 import com.pos.model.data.ProductData;
 import com.pos.model.forms.ProductForm;
-import com.pos.service.ApiException;
+import org.commons.util.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;

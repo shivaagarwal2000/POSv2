@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pos.pojo.BrandPojo;
-import com.pos.service.ApiException;
+import org.commons.util.ApiException;
 
 @Repository
 public class BrandDao extends AbstractDao {

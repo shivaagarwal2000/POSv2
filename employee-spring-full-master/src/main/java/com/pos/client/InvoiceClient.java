@@ -1,7 +1,8 @@
 package com.pos.client;
 
 import com.google.gson.Gson;
-import com.pos.model.data.CommonOrderItemData;
+//import com.pos.model.data.CommonOrderItemData;
+import org.commons.CommonOrderItemData;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -30,7 +31,7 @@ public class InvoiceClient {
         // TODO: try catch and return -- no other exception other than ApiException
         StringEntity stringEntity = new StringEntity(new Gson().toJson(commonOrderItemDatas));
         httpPost.setEntity(stringEntity);
-        System.out.println("executing request: " + httpPost.getRequestLine()); //TODO: refactor: clean up
+        System.out.println("executing request: " + httpPost.getRequestLine());
 
         HttpResponse httpResponse = httpClient.execute(httpPost);
         return EntityUtils.toString(httpResponse.getEntity());

@@ -1,7 +1,7 @@
 package com.pos.controller;
 
 import com.pos.pojo.UserPojo;
-import com.pos.service.ApiException;
+import org.commons.util.ApiException;
 import com.pos.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

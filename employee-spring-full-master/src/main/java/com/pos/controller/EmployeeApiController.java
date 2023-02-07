@@ -6,7 +6,7 @@ import java.util.List;
 import com.pos.model.EmployeeData;
 import com.pos.model.EmployeeForm;
 import com.pos.pojo.EmployeePojo;
-import com.pos.service.ApiException;
+import org.commons.util.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;

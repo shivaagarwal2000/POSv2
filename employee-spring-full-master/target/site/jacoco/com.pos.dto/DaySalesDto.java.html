@@ -4,7 +4,7 @@ import com.pos.model.data.DaySalesData;
 import com.pos.pojo.DaySalesPojo;
 import com.pos.pojo.OrderItemPojo;
 import com.pos.pojo.OrderPojo;
-import com.pos.service.ApiException;
+import org.commons.util.ApiException;
 import com.pos.service.DaySalesService;
 import com.pos.service.OrderItemService;
 import com.pos.service.OrderService;
@@ -29,12 +29,12 @@ import java.util.List;
     private OrderService orderService;
     @Autowired
     private OrderItemService orderItemService;
-    public void add() throws ApiException { // TODO: move to helper
-<span class="fc" id="L33">        ZonedDateTime prevDateStart = LocalDate.now().minusDays(1).atStartOfDay(ZoneId.systemDefault());</span>
-<span class="fc" id="L34">        ZonedDateTime prevDateEnd = LocalDate.now().minusDays(1).atStartOfDay(ZoneId.systemDefault()).withHour(23).withMinute(59).withSecond(59);</span>
-<span class="fc" id="L35">        List&lt;OrderPojo&gt; orderPojos = orderService.getBetweenDates(prevDateStart, prevDateEnd);</span>
-<span class="pc bpc" id="L36" title="1 of 2 branches missed.">        if (orderPojos.size() == 0) {</span>
-<span class="fc" id="L37">            return;</span>
+    public void add() throws ApiException {
+<span class="nc" id="L33">        ZonedDateTime prevDateStart = getPrevStartEnd(true);</span>
+<span class="nc" id="L34">        ZonedDateTime prevDateEnd = getPrevStartEnd(false);</span>
+<span class="nc" id="L35">        List&lt;OrderPojo&gt; orderPojos = orderService.getBetweenDates(prevDateStart, prevDateEnd);</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        if (orderPojos.size() == 0) {</span>
+<span class="nc" id="L37">            return;</span>
         }
 <span class="nc" id="L39">        int prevDayOrderCount = 0;</span>
 <span class="nc" id="L40">        int prevDayOrderItemsCount = 0;</span>
@@ -60,21 +60,30 @@ import java.util.List;
 <span class="nc" id="L60">        return daySalesDataList;</span>
     }
 
+    private ZonedDateTime getPrevStartEnd(boolean flag) {
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        if (flag) {</span>
+<span class="nc" id="L65">            return LocalDate.now().minusDays(1).atStartOfDay(ZoneId.systemDefault());</span>
+        }
+        else {
+<span class="nc" id="L68">            return LocalDate.now().minusDays(1).atStartOfDay(ZoneId.systemDefault()).withHour(23).withMinute(59).withSecond(59);</span>
+        }
+    }
+
     private DaySalesData convert(DaySalesPojo daySalesPojo) {
-<span class="nc" id="L64">        DaySalesData daySalesData = new DaySalesData();</span>
-<span class="nc" id="L65">        daySalesData.setDate(daySalesPojo.getDate().format(DateTimeFormatter.ofPattern(&quot;dd/MM/yyyy&quot;)));</span>
-<span class="nc" id="L66">        daySalesData.setOrderCount(daySalesPojo.getInvoiced_orders_count());</span>
-<span class="nc" id="L67">        daySalesData.setOrderItemCount(daySalesPojo.getInvoiced_items_count());</span>
-<span class="nc" id="L68">        daySalesData.setTotalRevenue(daySalesPojo.getTotal_revenue());</span>
-<span class="nc" id="L69">        return daySalesData;</span>
+<span class="nc" id="L73">        DaySalesData daySalesData = new DaySalesData();</span>
+<span class="nc" id="L74">        daySalesData.setDate(daySalesPojo.getDate().format(DateTimeFormatter.ofPattern(&quot;dd/MM/yyyy&quot;)));</span>
+<span class="nc" id="L75">        daySalesData.setOrderCount(daySalesPojo.getInvoiced_orders_count());</span>
+<span class="nc" id="L76">        daySalesData.setOrderItemCount(daySalesPojo.getInvoiced_items_count());</span>
+<span class="nc" id="L77">        daySalesData.setTotalRevenue(daySalesPojo.getTotal_revenue());</span>
+<span class="nc" id="L78">        return daySalesData;</span>
     }
     private DaySalesPojo convert(ZonedDateTime entryDate, int dayOrderCount, int dayOrderItemCount, double revenue) {
-<span class="nc" id="L72">        DaySalesPojo daySalesPojo = new DaySalesPojo();</span>
-<span class="nc" id="L73">        daySalesPojo.setDate(entryDate);</span>
-<span class="nc" id="L74">        daySalesPojo.setInvoiced_orders_count(dayOrderCount);</span>
-<span class="nc" id="L75">        daySalesPojo.setInvoiced_items_count(dayOrderItemCount);</span>
-<span class="nc" id="L76">        daySalesPojo.setTotal_revenue(revenue);</span>
-<span class="nc" id="L77">        return daySalesPojo;</span>
+<span class="nc" id="L81">        DaySalesPojo daySalesPojo = new DaySalesPojo();</span>
+<span class="nc" id="L82">        daySalesPojo.setDate(entryDate);</span>
+<span class="nc" id="L83">        daySalesPojo.setInvoiced_orders_count(dayOrderCount);</span>
+<span class="nc" id="L84">        daySalesPojo.setInvoiced_items_count(dayOrderItemCount);</span>
+<span class="nc" id="L85">        daySalesPojo.setTotal_revenue(revenue);</span>
+<span class="nc" id="L86">        return daySalesPojo;</span>
     }
 
 }

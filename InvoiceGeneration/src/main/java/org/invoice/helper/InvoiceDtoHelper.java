@@ -2,7 +2,8 @@ package org.invoice.helper;
 
 import org.apache.fop.apps.*;
 import org.commons.util.ApiException;
-import org.invoice.model.CommonOrderItemData;
+//import org.invoice.model.CommonOrderItemData;
+import org.commons.CommonOrderItemData;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

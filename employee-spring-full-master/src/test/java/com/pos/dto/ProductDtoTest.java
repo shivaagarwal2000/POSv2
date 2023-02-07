@@ -5,7 +5,7 @@ import com.pos.model.data.ProductData;
 import com.pos.model.forms.BrandForm;
 import com.pos.model.forms.ProductForm;
 import com.pos.service.AbstractUnitTest;
-import com.pos.service.ApiException;
+import org.commons.util.ApiException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
@@ -25,7 +25,7 @@ public class ProductDtoTest extends AbstractUnitTest {
     private BrandDto brandDto;
 
     @Test
-    public void testAdd() throws ApiException { // TODO: include to have trim and lowercase effect
+    public void testAdd() throws ApiException {
         BrandForm brandForm = posTestHelper.createBrandForm("brand", "category");
         brandDto.add(brandForm);
         ProductForm productForm = posTestHelper.createProductForm("  Brand ", "category  ", "name", "barcode", 1.00);

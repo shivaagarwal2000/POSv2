@@ -4,7 +4,7 @@ import com.pos.helper.posTestHelper;
 import com.pos.model.data.BrandData;
 import com.pos.model.forms.BrandForm;
 import com.pos.service.AbstractUnitTest;
-import com.pos.service.ApiException;
+import org.commons.util.ApiException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
@@ -31,7 +31,7 @@ public class BrandDtoTest extends AbstractUnitTest {
         assertEquals(brandData.getCategory(), brandForm.getCategory());
     }
 
-    @Test(expected = ApiException.class)// TODO add expected in other cases also Priority: 5
+    @Test(expected = ApiException.class)
     public void testEmptyBrandAdd() throws ApiException {
         //test whether empty brand showing error
         try {

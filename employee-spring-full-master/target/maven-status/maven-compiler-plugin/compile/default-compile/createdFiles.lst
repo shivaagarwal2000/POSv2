@@ -64,7 +64,6 @@ com/pos/controller/AdminApiController.class
 com/pos/spring/SpringSecurityInitializer.class
 com/pos/pojo/DaySalesPojo.class
 com/pos/model/EmployeeForm.class
-com/pos/service/ApiException.class
 com/pos/model/InfoData.class
 com/pos/dao/DaySalesDao.class
 com/pos/util/CookieUtil.class

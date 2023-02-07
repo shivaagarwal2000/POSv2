@@ -1,13 +1,13 @@
 package org.invoice.model;
 
-public class CommonOrderItemData {// TODO Use commons class Priority: 5
+public class CommonOrderItemData {
     private int id;
     private int orderId;
     private double sellingPrice;
     private double mrp;
     private String productName;
     private String barcode;
-    private int quantity;
+    private Integer quantity;
 
     public int getId() {
         return id;
@@ -57,11 +57,11 @@ public class CommonOrderItemData {// TODO Use commons class Priority: 5
         this.barcode = barcode;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 

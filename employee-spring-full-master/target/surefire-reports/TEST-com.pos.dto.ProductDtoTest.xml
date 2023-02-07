@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="13" failures="0" name="com.pos.dto.ProductDtoTest" time="0.191" errors="0" skipped="0">
+<testsuite tests="13" failures="0" name="com.pos.dto.ProductDtoTest" time="0.158" errors="0" skipped="0">
   <properties>
     <property name="idea.version" value="2022.3.1"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
@@ -63,17 +63,17 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="com.pos.dto.ProductDtoTest" name="testAddWithNegativeMrp" time="0.009"/>
-  <testcase classname="com.pos.dto.ProductDtoTest" name="testEmptyBrand" time="0.01"/>
-  <testcase classname="com.pos.dto.ProductDtoTest" name="testAdd" time="0.022"/>
+  <testcase classname="com.pos.dto.ProductDtoTest" name="testAddWithNegativeMrp" time="0.005"/>
+  <testcase classname="com.pos.dto.ProductDtoTest" name="testEmptyBrand" time="0.008"/>
+  <testcase classname="com.pos.dto.ProductDtoTest" name="testAdd" time="0.017"/>
   <testcase classname="com.pos.dto.ProductDtoTest" name="testEmptyCategory" time="0.007"/>
-  <testcase classname="com.pos.dto.ProductDtoTest" name="testEmptyName" time="0.008"/>
-  <testcase classname="com.pos.dto.ProductDtoTest" name="testGetById" time="0.034"/>
-  <testcase classname="com.pos.dto.ProductDtoTest" name="testAddWithoutBrand" time="0.008"/>
-  <testcase classname="com.pos.dto.ProductDtoTest" name="testEmptyBarcode" time="0.009"/>
-  <testcase classname="com.pos.dto.ProductDtoTest" name="testDuplicateProduct" time="0.014"/>
-  <testcase classname="com.pos.dto.ProductDtoTest" name="testDelete" time="0.017"/>
-  <testcase classname="com.pos.dto.ProductDtoTest" name="testGetAll" time="0.026"/>
-  <testcase classname="com.pos.dto.ProductDtoTest" name="testUpdate" time="0.02"/>
-  <testcase classname="com.pos.dto.ProductDtoTest" name="testEmptyMrp" time="0.007"/>
+  <testcase classname="com.pos.dto.ProductDtoTest" name="testEmptyName" time="0.009"/>
+  <testcase classname="com.pos.dto.ProductDtoTest" name="testGetById" time="0.016"/>
+  <testcase classname="com.pos.dto.ProductDtoTest" name="testAddWithoutBrand" time="0.006"/>
+  <testcase classname="com.pos.dto.ProductDtoTest" name="testEmptyBarcode" time="0.008"/>
+  <testcase classname="com.pos.dto.ProductDtoTest" name="testDuplicateProduct" time="0.012"/>
+  <testcase classname="com.pos.dto.ProductDtoTest" name="testDelete" time="0.016"/>
+  <testcase classname="com.pos.dto.ProductDtoTest" name="testGetAll" time="0.027"/>
+  <testcase classname="com.pos.dto.ProductDtoTest" name="testUpdate" time="0.018"/>
+  <testcase classname="com.pos.dto.ProductDtoTest" name="testEmptyMrp" time="0.009"/>
 </testsuite>

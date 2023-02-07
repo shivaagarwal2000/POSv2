@@ -3,7 +3,7 @@ package com.pos.helper;
 import com.pos.model.data.ProductData;
 import com.pos.model.forms.ProductForm;
 import com.pos.pojo.ProductPojo;
-import com.pos.service.ApiException;
+import org.commons.util.ApiException;
 import com.pos.util.StringUtil;
 
 import java.math.BigDecimal;

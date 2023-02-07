@@ -4,7 +4,7 @@ import com.pos.helper.BrandDtoHelper;
 import com.pos.model.data.BrandData;
 import com.pos.model.forms.BrandForm;
 import com.pos.pojo.BrandPojo;
-import com.pos.service.ApiException;
+import org.commons.util.ApiException;
 import com.pos.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +18,9 @@ public class BrandDto {
     @Autowired
     private BrandService brandService;
 
-    public void add(BrandForm form) throws ApiException {//TODO: make small func helper
+    public void add(BrandForm form) throws ApiException {
         BrandDtoHelper.emptyCheck(form);
-        BrandDtoHelper.normalise(form); //TODO: logic - test is yet to check this
+        BrandDtoHelper.normalise(form);
         BrandPojo brandPojo = validate(form);
         if (brandPojo != null) {
             throw new ApiException("Error: given brand, category combination already exists");

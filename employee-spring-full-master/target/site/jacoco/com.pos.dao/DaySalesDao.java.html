@@ -2,7 +2,7 @@
 
 import com.pos.pojo.BrandPojo;
 import com.pos.pojo.DaySalesPojo;
-import com.pos.service.ApiException;
+import org.commons.util.ApiException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +15,7 @@ import java.util.List;
 <span class="fc" id="L15">public class DaySalesDao extends AbstractDao {</span>
 
 	private static final String SELECT_ALL = &quot;select p from DaySalesPojo p&quot;;
-//TODO: clean up -- move such methods to abstract
+
 	@PersistenceContext
 	private EntityManager entityManager;
 

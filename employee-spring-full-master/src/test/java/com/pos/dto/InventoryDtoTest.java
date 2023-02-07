@@ -8,7 +8,7 @@ import com.pos.model.forms.BrandForm;
 import com.pos.model.forms.InventoryForm;
 import com.pos.model.forms.ProductForm;
 import com.pos.service.AbstractUnitTest;
-import com.pos.service.ApiException;
+import org.commons.util.ApiException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
@@ -125,7 +125,7 @@ public class InventoryDtoTest extends AbstractUnitTest {
     }
 
     @Test
-    public void testGetAll() throws ApiException { // TODO: write test
+    public void testGetAll() throws ApiException {
         List<InventoryData> inventoryDataList = new ArrayList<InventoryData>();
         BrandForm brandForm = posTestHelper.createBrandForm("brand", "category");
         brandDto.add(brandForm);

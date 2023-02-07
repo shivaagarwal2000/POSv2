@@ -2,6 +2,7 @@ package com.pos.service;
 
 import com.pos.helper.posTestHelper;
 import com.pos.pojo.BrandPojo;
+import org.commons.util.ApiException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
@@ -47,8 +48,7 @@ public class BrandServiceTest extends AbstractUnitTest {
             brandService.add(brandPojo);
             BrandPojo brandPojo1 = brandService.get(2);
             fail("get not throwing exception on no match");
-        }
-        catch (ApiException apiException) {
+        } catch (ApiException apiException) {
             final String ERROR_MSG = "Brand with given ID does not exit, id: 2";
             assertEquals(ERROR_MSG, apiException.getMessage());
             throw apiException;
@@ -89,7 +89,7 @@ public class BrandServiceTest extends AbstractUnitTest {
         brandService.add(brandPojo);
         brandService.delete(1);
         BrandPojo brandPojo1 = brandService.get(brandPojo.getBrand(), brandPojo.getCategory());
-        if (Objects.isNull(brandPojo1) == false){
+        if (Objects.isNull(brandPojo1) == false) {
             fail("Delete service method not able to delete the entry");
         }
     }

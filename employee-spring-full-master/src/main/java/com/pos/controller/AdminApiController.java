@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.pos.model.UserData;
 import com.pos.model.UserForm;
-import com.pos.service.ApiException;
+import org.commons.util.ApiException;
 import com.pos.service.UserService;
 import com.pos.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;

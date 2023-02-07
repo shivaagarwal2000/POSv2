@@ -7,7 +7,7 @@ import com.pos.model.forms.InventoryForm;
 import com.pos.pojo.BrandPojo;
 import com.pos.pojo.InventoryPojo;
 import com.pos.pojo.ProductPojo;
-import com.pos.service.ApiException;
+import org.commons.util.ApiException;
 import com.pos.service.BrandService;
 import com.pos.service.InventoryService;
 import com.pos.service.ProductService;

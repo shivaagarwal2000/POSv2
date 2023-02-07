@@ -2,11 +2,11 @@ package com.pos.service;
 
 import com.pos.dao.OrderItemDao;
 import com.pos.pojo.OrderItemPojo;
+import org.commons.util.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -43,7 +43,7 @@ public class OrderItemService {
         orderItemDao.delete(id);
     }
 
-	@Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     public OrderItemPojo select(int orderItemId) throws ApiException { // TODO: logic : check all get, select to see if proper exception on no selection
         OrderItemPojo orderItemPojo = orderItemDao.select(orderItemId);
         if (Objects.isNull(orderItemPojo)) {

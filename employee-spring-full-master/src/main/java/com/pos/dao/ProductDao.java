@@ -7,7 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-import com.pos.service.ApiException;
+import org.commons.util.ApiException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,7 +56,6 @@ public class ProductDao extends AbstractDao {
 		return query.getResultList();
 	}
 
-	@Transactional(rollbackFor = ApiException.class) // TODO: refactor - mini: remove
 	public void update(ProductPojo productPojo) {
 	}
 

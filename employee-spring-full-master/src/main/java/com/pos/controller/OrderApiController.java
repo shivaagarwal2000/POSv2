@@ -1,12 +1,13 @@
 package com.pos.controller;
 
 import com.pos.dto.OrderDto;
-import com.pos.model.data.CommonOrderItemData;
+//import com.pos.model.data.CommonOrderItemData;
+import org.commons.CommonOrderItemData;
 import com.pos.model.data.OrderData;
 import com.pos.model.data.SalesReportData;
 import com.pos.model.forms.OrderItemForm;
 import com.pos.model.forms.SalesReportForm;
-import com.pos.service.ApiException;
+import org.commons.util.ApiException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

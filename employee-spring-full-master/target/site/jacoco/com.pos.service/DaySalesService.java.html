@@ -2,6 +2,7 @@
 
 import com.pos.dao.DaySalesDao;
 import com.pos.pojo.DaySalesPojo;
+import org.commons.util.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,25 +10,25 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-<span class="fc" id="L12">public class DaySalesService {</span>
+<span class="fc" id="L13">public class DaySalesService {</span>
 
-	@Autowired
-	private DaySalesDao daySalesDao;
+    @Autowired
+    private DaySalesDao daySalesDao;
 
-	@Transactional(rollbackFor = ApiException.class)
-	public void add(DaySalesPojo daySalesPojo) throws ApiException {
-<span class="nc" id="L19">		daySalesDao.insert(daySalesPojo);</span>
-<span class="nc" id="L20">	}</span>
+    @Transactional(rollbackFor = ApiException.class)
+    public void add(DaySalesPojo daySalesPojo) throws ApiException {
+<span class="nc" id="L20">        daySalesDao.insert(daySalesPojo);</span>
+<span class="nc" id="L21">    }</span>
 
 //	@Transactional(readOnly = true)
 //	public BrandPojo get(int id) throws ApiException {
 //		return getCheck(id);
 //	}
 
-	@Transactional(readOnly = true)
-	public List&lt;DaySalesPojo&gt; getAll() {
-<span class="nc" id="L29">		return daySalesDao.selectAll();</span>
-	}
+    @Transactional(readOnly = true)
+    public List&lt;DaySalesPojo&gt; getAll() {
+<span class="nc" id="L30">        return daySalesDao.selectAll();</span>
+    }
 //
 //	@Transactional(rollbackFor = ApiException.class)
 //	public void update(int id, BrandPojo brandPojo) throws ApiException {

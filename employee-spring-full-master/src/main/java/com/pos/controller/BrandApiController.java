@@ -5,7 +5,7 @@ import com.pos.dto.BrandDto;
 import com.pos.model.MessageData;
 import com.pos.model.data.BrandData;
 import com.pos.model.forms.BrandForm;
-import com.pos.service.ApiException;
+import org.commons.util.ApiException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
